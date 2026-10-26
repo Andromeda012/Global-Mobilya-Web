@@ -1,0 +1,25 @@
+# Windows sistem dosyaları
+desktop.ini
+Thumbs.db
+ehthumbs.db
+
+# macOS
+.DS_Store
+
+# Node.js (eğer ileride kullanılırsa)
+node_modules/
+npm-debug.log*
+
+# Python (eğer ileride kullanılırsa)
+.venv/
+__pycache__/
+*.pyc
+
+# IDE / editör
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel yerel çıktıları
+.vercel/
