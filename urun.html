@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr" data-page="urun">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Global Kapak Mobilya ürün detayı">
+<title>Ürün Detayı | Global Kapak Mobilya</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--navy:#0B1F4B;--navy2:#1A3A7A;--navy3:#2453A8;--gold:#C8A96E;--white:#fff;--gray:#f7f7f7;--border:#e5e5e5;--text:#333;--muted:#777;}
+body{font-family:'Open Sans',sans-serif;color:var(--text);}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;height:auto;display:block;}
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:65px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.06);gap:8px;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.nav-logo img{height:48px;width:auto;}
+.nav-menu{display:flex;gap:0;align-items:center;flex:1;justify-content:center;}
+.nav-menu a{font-size:11.5px;font-weight:600;color:var(--navy);padding:6px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;}
+.nav-menu a:hover,.nav-menu a.active{background:var(--navy) !important;color:#fff !important;}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:4px;font-family:'Montserrat',sans-serif;white-space:nowrap;}
+.hamburger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--navy);}
+.breadcrumb{background:var(--gray);border-bottom:1px solid var(--border);padding:12px 40px;font-size:12px;color:var(--muted);}
+.breadcrumb a{color:var(--navy3);font-weight:600;}
+.breadcrumb span{margin:0 6px;color:var(--border);}
+.loading{text-align:center;padding:80px 40px;color:var(--muted);}
+.pd-wrapper{max-width:1100px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.pd-gallery{position:sticky;top:80px;align-self:start;}
+.pd-main-img{width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--border);overflow:hidden;cursor:zoom-in;position:relative;background:#f5f8fc;}
+.pd-main-img img{width:100%;height:100%;transition:transform .3s ease;}
+.pd-main-img:hover img{transform:scale(1.03);}
+.pd-zoom-badge{position:absolute;top:12px;right:12px;width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:16px;pointer-events:none;}
+.pd-thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.pd-thumb{width:72px;height:72px;border-radius:5px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .2s;background:#f5f8fc;flex-shrink:0;}
+.pd-thumb img{width:100%;height:100%;object-fit:cover;}
+.pd-thumb:hover,.pd-thumb.active{border-color:var(--gold);}
+.img-mode-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-family:'Montserrat',sans-serif;}
+.pd-cat{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-family:'Montserrat',sans-serif;}
+.pd-info h1{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.25;}
+.pd-sku{font-size:12px;color:var(--muted);margin-bottom:16px;font-family:'Montserrat',sans-serif;}
+.pd-sku strong{color:var(--navy);}
+.pd-rating{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:13px;color:var(--muted);}
+.pd-rating .stars{color:var(--gold);font-size:15px;}
+.pd-desc{font-size:14px;line-height:1.9;color:var(--text);margin-bottom:22px;}
+.pd-features{background:var(--gray);padding:18px 22px;border-radius:6px;margin-bottom:22px;}
+.pd-features h4{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;}
+.pd-features ul{list-style:none;padding:0;}
+.pd-features li{font-size:13px;padding:5px 0;color:var(--text);}
+.pd-features li::before{content:"✓ ";color:var(--gold);font-weight:700;}
+.pd-section-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;display:block;}
+.pd-colors,.pd-sizes{margin-bottom:22px;}
+.color-list,.size-list{display:flex;gap:8px;flex-wrap:wrap;}
+.color-chip{padding:7px 14px;background:var(--gray);border:2px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.color-chip:hover,.color-chip.active{border-color:var(--gold);background:var(--white);}
+.size-chip{padding:7px 16px;background:var(--gray);border:2px solid var(--border);border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all .15s;}
+.size-chip:hover,.size-chip.active{border-color:var(--navy);background:var(--navy);color:var(--white);}
+.size-chip.disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
+.pd-meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.pd-meta-tag{background:var(--gray);border:1px solid var(--border);border-radius:3px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--muted);font-family:'Montserrat',sans-serif;}
+.pd-actions{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:var(--navy);padding:14px 24px;font-size:13px;font-weight:700;border-radius:4px;font-family:'Montserrat',sans-serif;border:none;cursor:pointer;flex:1;text-align:center;display:block;}
+.btn-primary:hover{background:#b8943c;}
+.btn-secondary{background:transparent;color:var(--navy);padding:14px 24px;font-size:13px;font-weight:600;border-radius:4px;font-family:'Montserrat',sans-serif;border:1.5px solid var(--navy);cursor:pointer;text-align:center;display:block;}
+.btn-secondary:hover{background:var(--navy);color:var(--white);}
+.pd-body{border-top:1px solid var(--border);margin-top:40px;padding:40px;max-width:1100px;margin-left:auto;margin-right:auto;line-height:1.9;font-size:14px;color:var(--text);}
+.pd-body h2,.pd-body h3{font-family:'Montserrat',sans-serif;color:var(--navy);margin:24px 0 12px;}
+.pd-body p{margin-bottom:14px;}
+.pd-body ul,.pd-body ol{padding-left:24px;margin-bottom:14px;}
+.pd-body li{margin-bottom:6px;}
+.pd-body strong{color:var(--navy);}
+/* LIGHTBOX */
+.lb-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;}
+.lb-overlay.open{display:flex;}
+.lb-img-wrap{position:relative;max-width:90vw;max-height:90vh;display:flex;align-items:center;justify-content:center;}
+.lb-img-wrap img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px;}
+.lb-close{position:fixed;top:20px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lb-close:hover{background:var(--gold);color:var(--navy);}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.lb-prev{left:16px;}.lb-next{right:16px;}
+.lb-prev:hover,.lb-next:hover{background:var(--gold);color:var(--navy);}
+.lb-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px;font-family:'Montserrat',sans-serif;}
+.error{text-align:center;padding:80px 40px;}
+.error h2{color:var(--navy);font-family:'Montserrat',sans-serif;margin-bottom:14px;}
+@media(max-width:1024px){.pd-wrapper{grid-template-columns:1fr;padding:24px;gap:30px;}.pd-gallery{position:static;}.pd-body{padding:24px;}}
+@media(max-width:768px){nav{padding:0 16px;}.nav-menu{display:none;position:absolute;top:65px;left:0;right:0;background:var(--white);flex-direction:column;padding:14px 16px;border-bottom:1px solid var(--border);}.nav-menu.open{display:flex;}.hamburger{display:block;}.nav-cta{display:none;}.pd-info h1{font-size:24px;}.lb-prev{left:6px;}.lb-next{right:6px;}}
+
+/* NAVBAR AKTİF/HOVER KESİN DÜZELTMESİ */
+.nav-menu a:hover,
+.nav-menu a.active {
+  background: var(--navy) !important;
+  color: #ffffff !important;
+}
+.nav-menu a {
+  transition: background .2s, color .2s;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><img src="resim/logo.png" alt="Global Kapak Mobilya"></a>
+  <div class="nav-menu" id="nm">
+    <a href="index.html">Anasayfa</a>
+    <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
+    <a href="urunler.html" class="active">Ürünlerimiz</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="blog.html">Blog</a>
+    <a href="iletisim.html">İletişim</a>
+  </div>
+  <a href="iletisim.html" class="nav-cta">Teklif Al</a>
+  <button class="hamburger" onclick="document.getElementById('nm').classList.toggle('open')">☰</button>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Anasayfa</a><span>›</span>
+  <a href="urunler.html">Ürünler</a><span>›</span>
+  <strong style="color:var(--navy);" id="bc-product">Yükleniyor...</strong>
+</div>
+
+<div id="product-container">
+  <div class="loading">⏳ Ürün yükleniyor...</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+  <button class="lb-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const productId = (params.get('id') || params.get('slug') || '').trim();
+let galleryImages = [];
+let lbIndex = 0;
+
+function applyImageMode(mode) {
+  const img = document.getElementById('main-product-img');
+  if (!img) return;
+  img.style.objectFit = ['contain','cover','fill'].includes(mode) ? mode : 'contain';
+  const badge = document.getElementById('img-mode-badge');
+  if (badge) {
+    const labels = {contain:'📐 Tam boyut', cover:'✂️ Kırpılmış', fill:'↔️ Uzatılmış'};
+    badge.textContent = labels[mode] || '';
+  }
+}
+
+function selectThumb(index) {
+  const mainImg = document.getElementById('main-product-img');
+  if (mainImg) mainImg.src = galleryImages[index];
+  document.querySelectorAll('.pd-thumb').forEach((t,i) => t.classList.toggle('active', i===index));
+}
+
+function openLightbox(index) {
+  lbIndex = index;
+  updateLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + galleryImages.length) % galleryImages.length;
+  updateLb();
+}
+function updateLb() {
+  document.getElementById('lb-img').src = galleryImages[lbIndex];
+  document.getElementById('lb-counter').textContent = (lbIndex+1) + ' / ' + galleryImages.length;
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key==='ArrowRight') lbNav(1);
+  if (e.key==='ArrowLeft') lbNav(-1);
+  if (e.key==='Escape') closeLightbox();
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target===document.getElementById('lightbox')) closeLightbox();
+});
+
+function selectChip(el, cls) {
+  if (el.classList.contains('disabled')) return;
+  el.closest('.color-list,.size-list').querySelectorAll('.'+cls).forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function loadProduct() {
+  const container = document.getElementById('product-container');
+  if (!productId) {
+    container.innerHTML = '<div class="error"><h2>Ürün Belirtilmedi</h2><p><a href="urunler.html">← Ürünler Kataloğuna Dön</a></p></div>';
+    return;
+  }
+  const cacheBuster = '?t=' + Date.now();
+  let p = null;
+
+  // 1. Yerel dosya /_data/urunler/{slug}.json
+  try {
+    const r = await fetch(`/_data/urunler/${productId}.json${cacheBuster}`);
+    if (r.ok) p = await r.json();
+  } catch(e) {}
+
+  // 2. Fastly CDN (GitHub Raw yedeği)
+  if (!p) {
+    try {
+      const cdnRes = await fetch(`https://fastly.jsdelivr.net/gh/emrecanaksoy/global-mobilya@main/_data/urunler/${productId}.json${cacheBuster}`);
+      if (cdnRes.ok) p = await cdnRes.json();
+    } catch(e) {}
+  }
+
+  // 3. Ürünler İndeks Fihristinden Arama
+  if (!p) {
+    try {
+      const idxRes = await fetch(`/_data/urunler-index.json${cacheBuster}`);
+      if (idxRes.ok) {
+        const list = await idxRes.json();
+        p = list.find(item => (item.slug === productId || item.id === productId || (item.baslik && item.baslik.toLowerCase() === productId.toLowerCase())));
+      }
+    } catch(e) {}
+  }
+
+  // 4. GitHub API (Son çare)
+  if (!p) {
+    try {
+      const ghRes = await fetch(`https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/urunler/${productId}.json${cacheBuster}`);
+      if (ghRes.ok) {
+        const d = await ghRes.json();
+        p = JSON.parse(decodeURIComponent(escape(atob(d.content))));
+      }
+    } catch(e) {}
+  }
+
+  if (!p) {
+    container.innerHTML = '<div class="error"><h2>Ürün Bulunamadı</h2><p>Aradığınız ürün kaldırılmış veya güncelleniyor olabilir.</p><p><a href="urunler.html" style="color:var(--navy3); font-weight:700; text-decoration:underline;">← Tüm Ürünlere Dön</a></p></div>';
+    return;
+  }
+
+  const pTitle = p.baslik || p.title || 'Membran Kapak Modeli';
+  const pDesc = p.aciklama || p.kisa_aciklama || p.body || 'Modern CNC teknolojisi ve yüksek kaliteli membran kaplama standartlarıyla üretilmiş özel ölçü kapak modeli.';
+  const pCat = p.kategori || p.category || 'Membran Kapak';
+
+  document.title = pTitle + ' | Global Kapak Mobilya';
+  const bcEl = document.getElementById('bc-product');
+  if (bcEl) bcEl.textContent = pTitle;
+
+  // Galeri görselleri (Tüm formatlarla uyumlu)
+  let imgs = [];
+  if (Array.isArray(p.gorseller) && p.gorseller.length) imgs = imgs.concat(p.gorseller);
+  if (Array.isArray(p.galeri) && p.galeri.length) imgs = imgs.concat(p.galeri);
+  if (p.resim && !imgs.includes(p.resim)) imgs.unshift(p.resim);
+  if (p.ana_resim && !imgs.includes(p.ana_resim)) imgs.unshift(p.ana_resim);
+  if (imgs.length === 0) imgs = ['/resim/logo.png'];
+
+  galleryImages = imgs;
+
+  const thumbHtml = galleryImages.length > 1
+    ? '<div class="pd-thumbs">' + galleryImages.map((src,i) =>
+        '<div class="pd-thumb' + (i===0?' active':'') + '" onclick="selectThumb('+i+')">' +
+        '<img src="'+src+'" alt="Görsel '+(i+1)+'" loading="lazy"></div>'
+      ).join('') + '</div>'
+    : '';
+
+  const renkler = p.renkler || ['Beyaz Mat', 'Antrasit Mat', 'Ceviz', 'Krem Soft', 'Kaşmir'];
+  const renkHtml = renkler.length
+    ? '<div class="pd-colors"><span class="pd-section-label">Renk Seçenekleri</span><div class="color-list">' +
+      renkler.map((r,i) => '<div class="color-chip'+(i===0?' active':'')+'" onclick="selectChip(this,\'color-chip\')">'+r+'</div>').join('') +
+      '</div></div>' : '';
+
+  const bedenler = p.bedenler || ['Özel Ölçü Üretim', 'Standart Dolap Ebatları', 'Mutfak & Banyo'];
+  const bedenHtml = bedenler.length
+    ? '<div class="pd-sizes"><span class="pd-section-label">Ölçü / Boyut</span><div class="size-list">' +
+      bedenler.map((b,i) => {
+        const label = b.label || b;
+        const disabled = b.stok===false ? ' disabled':'';
+        return '<div class="size-chip'+(i===0?' active':'')+disabled+'" onclick="selectChip(this,\'size-chip\')">'+label+'</div>';
+      }).join('') +
+      '</div></div>' : '';
+
+  const ozellikler = (Array.isArray(p.ozellikler) && p.ozellikler.length) ? p.ozellikler : ['Yüksek kalite 18mm MDF gövde','Çizilmeye & neme dayanıklı 1. sınıf PVC folyo','Özel ölçüye göre CNC işleme','5 yıl üretici garantisi','5 iş gününde hızlı teslimat'];
+  const metaTags = p.etiketler || [pCat, 'Özel Ölçü', 'CNC Kapak'];
+  const metaHtml = metaTags.length ? '<div class="pd-meta-row">'+metaTags.map(t=>'<span class="pd-meta-tag">'+t+'</span>').join('')+'</div>' : '';
+
+  const bodyHtml = p.body ? simpleMarkdown(p.body) : '';
+  const waMsg = encodeURIComponent('Merhaba Global Kapak Mobilya, "' + pTitle + '" ürünü hakkında fiyat teklifi ve detaylı bilgi almak istiyorum.');
+
+  container.innerHTML =
+    '<div class="pd-wrapper">' +
+      '<div class="pd-gallery">' +
+        '<div class="pd-main-img" onclick="openLightbox(0)">' +
+          '<img id="main-product-img" src="'+galleryImages[0]+'" alt="'+pTitle+'">' +
+          '<div class="pd-zoom-badge">🔍</div>' +
+        '</div>' +
+        thumbHtml +
+        '<span class="img-mode-badge" id="img-mode-badge"></span>' +
+      '</div>' +
+      '<div class="pd-info">' +
+        '<div class="pd-cat">'+pCat+'</div>' +
+        '<h1>'+pTitle+'</h1>' +
+        (p.sku ? '<div class="pd-sku">Ürün Kodu: <strong>'+p.sku+'</strong></div>' : '') +
+        '<div class="pd-rating"><span class="stars">★★★★★</span><span>5 Yıl Garanti • 5 Günde Teslimat</span></div>' +
+        '<p class="pd-desc">'+pDesc+'</p>' +
+        '<div class="pd-features"><h4>Öne Çıkan Özellikler</h4><ul>' +
+          ozellikler.map(o=>'<li>'+o+'</li>').join('') +
+        '</ul></div>' +
+        renkHtml + bedenHtml + metaHtml +
+        '<div class="pd-actions">' +
+          '<a href="https://wa.me/905050151035?text='+waMsg+'" target="_blank" class="btn-primary">💬 WhatsApp ile Sipariş / Teklif Al</a>' +
+          '<a href="iletisim.html" class="btn-secondary">İletişime Geç</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    (bodyHtml ? '<div class="pd-body">'+bodyHtml+'</div>' : '');
+
+  applyImageMode(p.gorsel_mod || 'contain');
+}
+
+function simpleMarkdown(md) {
+  if (!md) return '';
+  let h = md;
+  h = h.replace(/^### (.*$)/gim,'<h3>$1</h3>');
+  h = h.replace(/^## (.*$)/gim,'<h2>$1</h2>');
+  h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  h = h.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  h = h.replace(/^\s*-\s+(.+)$/gim,'<li>$1</li>');
+  h = h.replace(/(<li>[\s\S]*?<\/li>)/g,m=>'<ul>'+m+'</ul>');
+  return h.split(/\n\n+/).map(b=>{b=b.trim();if(!b)return '';if(b.startsWith('<h')||b.startsWith('<ul'))return b;return '<p>'+b.replace(/\n/g,'<br>')+'</p>';}).join('\n');
+}
+
+loadProduct();
+</script>
+<script src="js/genel.js"></script>
+<script src="js/tema.js"></script>
+<script src="js/swipe.js"></script>
+<script src="js/footer.js"></script>
+</body>
+</html>

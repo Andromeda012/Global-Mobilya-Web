@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hay Mobilya - Özel İmalat & Sipariş Takip Portalı | Global Kapak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0b1f4b;
+      --navy-light: #162e66;
+      --gold: #c8a96e;
+      --gold-light: #f7eacc;
+      --gold-dark: #a08044;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(11,31,75,0.08);
+      --shadow-lg: 0 10px 25px rgba(11,31,75,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP BAR */
+    .top-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #06112a 100%);
+      color: #fff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo-badge {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(200,169,110,0.3);
+    }
+    .brand-titles h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+    .brand-titles p {
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #b89552 100%);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(200,169,110,0.3);
+    }
+    .btn-gold:hover {
+      box-shadow: 0 4px 12px rgba(200,169,110,0.45);
+    }
+    .btn-navy {
+      background: var(--navy-light);
+      color: #fff;
+    }
+    .btn-success {
+      background: #059669;
+      color: #fff;
+    }
+    .btn-white {
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid var(--border);
+    }
+    .btn-white:hover {
+      background: #f1f5f9;
+    }
+
+    /* STATUS PILL */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stat-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* CONTROLS BAR */
+    .controls-bar {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      padding: 8px 12px 8px 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      background: #f8fafc url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="%2364748b" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 10px center;
+      min-width: 240px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background-color: #fff;
+    }
+    .tab-btn {
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    /* KANBAN BOARD */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+    @media (max-width: 1200px) {
+      .kanban-board {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kanban-col {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .kanban-col-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 6px 10px 6px;
+      border-bottom: 2px solid var(--navy);
+      margin-bottom: 10px;
+    }
+    .col-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .col-count {
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    /* ORDER CARD */
+    .order-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .order-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .track-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: var(--navy);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.4px;
+    }
+    .priority-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .priority-acil { background: #fee2e2; color: #991b1b; }
+    .priority-kritik { background: #fef2f2; color: #b91c1c; border: 1px solid #ef4444; }
+    .priority-normal { background: #f1f5f9; color: var(--text-muted); }
+
+    .card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+    .pill-color {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+    .pill-img {
+      background: #e0e7ff;
+      border-color: #c7d2fe;
+      color: #3730a3;
+      cursor: pointer;
+    }
+
+    .timeline-bar {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 8px 0 6px 0;
+    }
+    .timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--success) 100%);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border);
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+
+    /* MODALS */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11,31,75,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #f8fafc;
+    }
+
+    /* FORMS */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      font-family: inherit;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.15);
+    }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* TOAST */
+    #toastContainer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .toast {
+      padding: 10px 16px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s;
+    }
+
+    /* FOOTER */
+    .main-footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="brand-section">
+      <div class="brand-logo-badge">HAY</div>
+      <div class="brand-titles">
+        <h1>
+          Hay Mobilya & Global Kapak
+          <span class="status-pill">🟢 Canlı İmalat Hattı Bağlı</span>
+        </h1>
+        <p>Özel Membran Kapak İmalat Takip & B2B Sipariş Portalı</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-gold" onclick="openNewOrderModal()">
+        <span>➕</span> Yeni Sipariş Talebi Gönder
+      </button>
+      <a href="https://wa.me/905333672634?text=Merhaba,%20Hay%20Mobilya%20adına%20siparişlerimiz%20hakkında%20yazıyorum." target="_blank" class="btn btn-success">
+        <span>💬</span> Fabrika WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- STATS BAR -->
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card">
+        <span class="stat-icon">📦</span>
+        <div>
+          <div class="stat-num" id="statActive">0</div>
+          <div class="stat-label">İmalattaki Siparişler</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📐</span>
+        <div>
+          <div class="stat-num" id="statM2">0.0 m²</div>
+          <div class="stat-label">Toplam İmalat Alanı</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🪵</span>
+        <div>
+          <div class="stat-num" id="statParts">0</div>
+          <div class="stat-label">Kapak / Parça Adedi</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">⚡</span>
+        <div>
+          <div class="stat-num" id="statUrgent" style="color:var(--danger);">0</div>
+          <div class="stat-label">Acil / Kritik İşler</div>
+        </div>
+      </div>
+      <div class="stat-card" style="cursor:pointer;" onclick="setTab('archive')">
+        <span class="stat-icon">✅</span>
+        <div>
+          <div class="stat-num" id="statDone" style="color:var(--success);">0</div>
+          <div class="stat-label">Teslim Edilenler ➔</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS BAR -->
+    <div class="controls-bar">
+      <div class="controls-left">
+        <input type="text" id="searchInput" class="search-input" placeholder="Proje, takip kodu, renk veya model ara..." oninput="renderView()" />
+        <select id="stageFilter" class="form-select" style="width:auto; padding:6px 10px; font-size:0.82rem;" onchange="renderView()">
+          <option value="active">İmalatta Olanlar (Aktif)</option>
+          <option value="all">Tüm Siparişler</option>
+          <option value="cizim">📐 Çizim</option>
+          <option value="cnc">🪚 CNC Kesim</option>
+          <option value="zimpara">🪵 Zımpara</option>
+          <option value="tutkal">🧴 Tutkal</option>
+          <option value="membran">🗜️ Membran Pres</option>
+          <option value="sevkiyat">🚚 Sevkiyat</option>
+          <option value="tamamlandi">✅ Teslim Edildi</option>
+        </select>
+      </div>
+      <div class="controls-right">
+        <button class="tab-btn active" id="tabKanban" onclick="setTab('kanban')">📋 İmalat Akış Panosu</button>
+        <button class="tab-btn" id="tabTable" onclick="setTab('table')">📑 Liste Görünümü</button>
+        <button class="tab-btn" id="tabArchive" onclick="setTab('archive')">📁 Teslim Edilenler Arşivi</button>
+      </div>
+    </div>
+
+    <!-- VIEW CONTAINER -->
+    <div id="viewContainer">
+      <!-- Dynamic Kanban / Table / Archive rendered here -->
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    Global Kapak Mobilya San. ve Tic. Ltd. Şti. & Hay Mobilya Çözüm Ortaklığı • Canlı İmalat Veritabanı
+  </footer>
+
+  <!-- MODAL: YENİ SİPARİŞ TALEBİ -->
+  <div id="newOrderModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>➕ Hay Mobilya - Yeni Sipariş Talebi Gönder</h3>
+        <button class="btn btn-navy" style="padding:2px 8px;" onclick="closeModal('newOrderModal')">✕</button>
+      </div>
+      <form id="newOrderForm" onsubmit="submitNewOrder(event)">
+        <div class="modal-body">
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
+            Fabrikaya iletmek istediğiniz kapak ölçülerini, renk ve model detaylarını aşağıya girip CAD çizimini ekleyebilirsiniz.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">Proje / Oda / İş Tanımı *</label>
+            <input type="text" id="no_title" class="form-input" placeholder="Örn: Ahmet Bey Villa Mutfak, Daire 4 Gardırop..." required />
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Membran Rengi / Folyosu *</label>
+              <input type="text" id="no_color" class="form-input" placeholder="Örn: Parlak Aytaşı, Mat Beyaz, Antrasit..." required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">MDF Kalınlığı *</label>
+              <select id="no_thickness" class="form-select">
+                <option value="18mm">18 mm (Standart)</option>
+                <option value="22mm">22 mm (Kalın Gövde)</option>
+                <option value="25mm">25 mm</option>
+                <option value="8mm">8 mm (ArkArk / Çekmece)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Model / Desen</label>
+              <input type="text" id="no_model" class="form-input" placeholder="Örn: Düz Çift Yuvarlatılmış, Fugalı, Country..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Freze / Kenar Profili</label>
+              <input type="text" id="no_milling" class="form-input" placeholder="Örn: R3 Kenar, J-Kulp, Gizli Kulp..." />
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Kapak / Parça Adedi *</label>
+              <input type="number" id="no_partCount" class="form-input" min="1" placeholder="Adet giriniz" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Toplam Alan (m²)</label>
+              <input type="number" step="0.01" id="no_area" class="form-input" placeholder="Örn: 5.40" />
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">İstenen Termin Tarihi</label>
+              <input type="date" id="no_delivery" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Öncelik Durumu</label>
+              <select id="no_priority" class="form-select">
+                <option value="normal">Normal İmalat</option>
+                <option value="acil">⚡ Acil İş</option>
+                <option value="kritik">🚨 Çok Acil / Kritik</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">İmalat ve Ölçü Notları</label>
+            <textarea id="no_notes" class="form-textarea" rows="2" placeholder="Camlı kapak adetleri, menteşe yerleri, kulp yönleri veya özel istekler..."></textarea>
+          </div>
+
+          <!-- GÖRSEL / ÇİZİM SEÇİMİ -->
+          <div class="form-group">
+            <label class="form-label">CAD Çizimi / Kesim Listesi / Numune Fotoğrafı</label>
+            <div style="border:2px dashed var(--border); border-radius:8px; padding:12px; text-align:center; background:#f8fafc; cursor:pointer;" onclick="document.getElementById('no_imageInput').click()">
+              <input type="file" id="no_imageInput" accept="image/*" style="display:none;" onchange="handleNewImageSelect(event)" />
+              <div id="no_imgPlaceholder">
+                <div style="font-size:1.8rem; margin-bottom:2px;">📷</div>
+                <div style="font-size:0.82rem; font-weight:700; color:var(--navy);">Fotoğraf veya Çizim Seçmek İçin Tıklayın</div>
+                <div style="font-size:0.72rem; color:var(--text-muted);">JPG, PNG veya WEBP</div>
+              </div>
+              <div id="no_imgPreviewBox" style="display:none; margin-top:6px;">
+                <img id="no_imgPreview" src="" alt="Önizleme" style="max-height:120px; max-width:100%; border-radius:6px; border:1px solid var(--border); object-fit:contain;" />
+                <div style="margin-top:6px;">
+                  <button type="button" class="btn btn-white" style="font-size:0.75rem; color:var(--danger); border:1px solid var(--danger); padding:2px 8px;" onclick="clearNewImage(event)">✕ Görseli Kaldır</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-white" onclick="closeModal('newOrderModal')">İptal</button>
+          <button type="submit" class="btn btn-gold" id="newOrderSubmitBtn">🚀 Siparişi Fabrikaya Gönder</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: SİPARİŞ DETAY -->
+  <div id="detailsModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="dmTitle">Sipariş Detayı</h3>
+        <button class="btn btn-navy" style="padding:2px 8px;" onclick="closeModal('detailsModal')">✕</button>
+      </div>
+      <div class="modal-body" id="dmBody">
+        <!-- Content loaded dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-white" onclick="closeModal('detailsModal')">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GÖRSEL BÜYÜTÜCÜ -->
+  <div id="imageViewerModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card" style="max-width:850px; background:#0b1f4b; color:#fff;">
+      <div class="modal-header" style="background:#0b1f4b; border-bottom:1px solid rgba(255,255,255,0.15);">
+        <h3 id="ivTitle" style="color:#fff;">📷 Sipariş Görseli & CAD Çizim</h3>
+        <button class="btn btn-white" style="padding:2px 8px;" onclick="closeModal('imageViewerModal')">✕</button>
+      </div>
+      <div class="modal-body" style="text-align:center; padding:16px; background:#07122b; max-height:75vh; overflow:auto;">
+        <img id="ivImg" src="" alt="Görsel Yükleniyor..." style="max-width:100%; max-height:70vh; object-fit:contain; border-radius:6px; box-shadow:0 4px 20px rgba(0,0,0,0.5);" />
+      </div>
+      <div class="modal-footer" style="background:#0b1f4b; border-top:1px solid rgba(255,255,255,0.15); display:flex; justify-content:space-between;">
+        <a id="ivDownload" href="#" download="hay-mobilya-cizim.jpg" class="btn btn-white" style="font-size:0.8rem;">💾 Görseli İndir</a>
+        <button class="btn btn-gold" onclick="closeModal('imageViewerModal')">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer"></div>
+
+  <script>
+    const FIREBASE_BASE = 'https://global-kapak-default-rtdb.firebaseio.com';
+    const FIREBASE_URL = `${FIREBASE_BASE}/siparisler.json`;
+    const IMAGES_URL = `${FIREBASE_BASE}/siparis_gorseller`;
+
+    const STAGES = [
+      { id: 'cizim', name: 'Çizim', icon: '📐' },
+      { id: 'cnc', name: 'CNC Kesim', icon: '🪚' },
+      { id: 'zimpara', name: 'Zımpara', icon: '🪵' },
+      { id: 'tutkal', name: 'Tutkal', icon: '🧴' },
+      { id: 'membran', name: 'Membran Pres', icon: '🗜️' },
+      { id: 'sevkiyat', name: 'Sevkiyata Hazır', icon: '🚚' },
+      { id: 'tamamlandi', name: 'Teslim Edildi', icon: '✅' }
+    ];
+
+    let allOrders = [];
+    let currentTab = 'kanban';
+    let newOrderUploadedImage = '';
+
+    // Hay Mobilya'ya ait siparişleri filtrele
+    function isHayMobilya(o) {
+      if (!o) return false;
+      const cust = String(o.customerName || '').toLowerCase().replace(/İ/g, 'i').replace(/I/g, 'ı').trim();
+      const title = String(o.productTitle || '').toLowerCase().replace(/İ/g, 'i').replace(/I/g, 'ı').trim();
+      return cust.includes('hay mob') || cust.includes('haymob') || title.includes('hay mob');
+    }
+
+    function getHayOrders() {
+      return allOrders.filter(isHayMobilya);
+    }
+
+    function getFilteredOrders() {
+      const q = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+      const stage = document.getElementById('stageFilter')?.value || 'active';
+      const hayOrders = getHayOrders();
+
+      return hayOrders.filter(o => {
+        const matchesQ = !q ||
+          (o.customerName && o.customerName.toLowerCase().includes(q)) ||
+          (o.productTitle && o.productTitle.toLowerCase().includes(q)) ||
+          (o.trackingCode && o.trackingCode.toLowerCase().includes(q)) ||
+          (o.membraneColor && o.membraneColor.toLowerCase().includes(q)) ||
+          (o.modelPattern && o.modelPattern.toLowerCase().includes(q));
+
+        let matchesStage = true;
+        if (stage === 'active') {
+          matchesStage = (o.currentStage !== 'tamamlandi');
+        } else if (stage !== 'all') {
+          matchesStage = (o.currentStage === stage);
+        }
+
+        return matchesQ && matchesStage;
+      });
+    }
+
+    // RENDER STATS
+    function renderStats() {
+      const hayOrders = getHayOrders();
+      const active = hayOrders.filter(o => o.currentStage !== 'tamamlandi');
+      const done = hayOrders.filter(o => o.currentStage === 'tamamlandi');
+      const totalM2 = active.reduce((acc, o) => acc + (parseFloat(o.totalAreaM2) || 0), 0);
+      const totalParts = active.reduce((acc, o) => acc + (parseInt(o.partCount) || 0), 0);
+      const urgent = active.filter(o => o.priority === 'acil' || o.priority === 'kritik').length;
+
+      document.getElementById('statActive').innerText = active.length;
+      document.getElementById('statM2').innerText = totalM2.toFixed(1) + ' m²';
+      document.getElementById('statParts').innerText = totalParts;
+      document.getElementById('statUrgent').innerText = urgent;
+      document.getElementById('statDone').innerText = done.length;
+    }
+
+    // RENDER VIEW
+    function renderView() {
+      renderStats();
+      const container = document.getElementById('viewContainer');
+      if (currentTab === 'kanban') renderKanban(container);
+      else if (currentTab === 'table') renderTable(container);
+      else if (currentTab === 'archive') renderArchive(container);
+    }
+
+    function setTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (tab === 'kanban') document.getElementById('tabKanban')?.classList.add('active');
+      else if (tab === 'table') document.getElementById('tabTable')?.classList.add('active');
+      else if (tab === 'archive') document.getElementById('tabArchive')?.classList.add('active');
+      renderView();
+    }
+
+    // RENDER KANBAN
+    function renderKanban(container) {
+      const list = getFilteredOrders();
+      const activeStages = STAGES.filter(s => s.id !== 'tamamlandi');
+
+      let html = `<div class="kanban-board">`;
+      activeStages.forEach(stage => {
+        const stageOrders = list.filter(o => o.currentStage === stage.id);
+        html += `
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="col-title">${stage.icon} ${stage.name}</span>
+              <span class="col-count">${stageOrders.length}</span>
+            </div>
+            <div class="kanban-cards-area">
+        `;
+        if (stageOrders.length === 0) {
+          html += `<div style="text-align:center; padding:30px 10px; color:var(--text-muted); font-size:0.75rem;">Sipariş yok</div>`;
+        } else {
+          stageOrders.forEach(o => {
+            html += renderCard(o);
+          });
+        }
+        html += `</div></div>`;
+      });
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    // RENDER CARD
+    function renderCard(o) {
+      const curIdx = STAGES.findIndex(s => s.id === o.currentStage);
+      const progressPercent = Math.min(100, Math.max(10, Math.round(((curIdx + 1) / STAGES.length) * 100)));
+
+      const hasFire = (o.stageHistory || []).some(h => (h.stageName || '').includes('FİRE') || (h.note || '').includes('FİRE'));
+      const hasImg = o.hasReceiptImage || Boolean(o.receiptImage);
+
+      return `
+        <div class="order-card" onclick="openDetailsModal('${o.id}')">
+          <div class="card-top">
+            <span class="track-badge">${o.trackingCode || 'SIP'}</span>
+            <span class="priority-badge priority-${o.priority || 'normal'}">${o.priority || 'Normal'}</span>
+          </div>
+
+          <div class="card-title">${o.productTitle || o.customerName || 'Membran İmalat'}</div>
+
+          <div class="card-tags">
+            ${o.membraneColor ? `<span class="pill pill-color">🎨 ${o.membraneColor}</span>` : ''}
+            ${o.modelPattern ? `<span class="pill">📐 ${o.modelPattern}</span>` : ''}
+            ${o.mdfThickness ? `<span class="pill">🪵 ${o.mdfThickness}</span>` : ''}
+            ${o.partCount ? `<span class="pill">🔢 ${o.partCount} Adet</span>` : ''}
+            ${o.totalAreaM2 ? `<span class="pill">📏 ${o.totalAreaM2} m²</span>` : ''}
+            ${hasImg ? `
+              <span class="pill pill-img" onclick="event.stopPropagation(); openImageViewer('${o.id}', '${o.productTitle}')" title="Çizimi / Görseli İncele">📷 Çizim</span>
+            ` : ''}
+          </div>
+
+          ${hasFire ? `
+            <div style="background:#fee2e2; border:1px solid #ef4444; border-radius:6px; padding:3px 8px; font-size:0.72rem; color:#991b1b; font-weight:700; margin-bottom:6px;">
+              ⚠️ Parça Yenileniyor (Fire İşlemi)
+            </div>
+          ` : ''}
+
+          <div class="timeline-bar" title="İmalat İlerlemesi: %${progressPercent}">
+            <div class="timeline-fill" style="width:${progressPercent}%"></div>
+          </div>
+
+          <div class="card-footer">
+            <span>🕒 ${o.estimatedDelivery ? 'Termin: ' + o.estimatedDelivery : (o.orderDate || '')}</span>
+            <span style="font-weight:700; color:var(--navy);">${(STAGES.find(s=>s.id===o.currentStage)?.name || o.currentStage).toUpperCase()}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // RENDER TABLE
+    function renderTable(container) {
+      const list = getFilteredOrders();
+      let html = `
+        <div style="background:#fff; border-radius:10px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:left;">
+              <thead>
+                <tr style="background:var(--navy); color:#fff; font-family:'Montserrat',sans-serif;">
+                  <th style="padding:10px 14px;">Takip Kodu</th>
+                  <th style="padding:10px 14px;">Proje / Dolap Tanımı</th>
+                  <th style="padding:10px 14px;">Renk & Model</th>
+                  <th style="padding:10px 14px;">Adet & m²</th>
+                  <th style="padding:10px 14px;">Aşama</th>
+                  <th style="padding:10px 14px;">Termin</th>
+                  <th style="padding:10px 14px; text-align:right;">İşlem</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      if (list.length === 0) {
+        html += `<tr><td colspan="7" style="padding:30px; text-align:center; color:var(--text-muted);">Sipariş bulunamadı.</td></tr>`;
+      } else {
+        list.forEach(o => {
+          const stObj = STAGES.find(s => s.id === o.currentStage) || { name: o.currentStage, icon: '' };
+          const hasImg = o.hasReceiptImage || Boolean(o.receiptImage);
+          html += `
+            <tr style="border-bottom:1px solid var(--border);" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='#fff'">
+              <td style="padding:10px 14px;"><span class="track-badge">${o.trackingCode}</span></td>
+              <td style="padding:10px 14px; font-weight:700; color:var(--navy);">${o.productTitle || o.customerName}</td>
+              <td style="padding:10px 14px;">
+                ${o.membraneColor ? `<span class="pill pill-color" style="margin-right:4px;">${o.membraneColor}</span>` : ''}
+                <span class="pill">${o.modelPattern || o.mdfThickness || 'Standart'}</span>
+              </td>
+              <td style="padding:10px 14px; font-weight:600;">${o.partCount || 0} Adet (${o.totalAreaM2 || 0} m²)</td>
+              <td style="padding:10px 14px;">
+                <span style="font-weight:700; color:var(--navy);">${stObj.icon} ${stObj.name}</span>
+              </td>
+              <td style="padding:10px 14px; color:var(--text-muted);">${o.estimatedDelivery || o.orderDate || '-'}</td>
+              <td style="padding:10px 14px; text-align:right;">
+                ${hasImg ? `
+                  <button class="btn btn-white" style="padding:3px 7px; font-size:0.75rem; margin-right:4px;" onclick="openImageViewer('${o.id}', '${o.productTitle}')">📷</button>
+                ` : ''}
+                <button class="btn btn-navy" style="padding:3px 8px; font-size:0.75rem;" onclick="openDetailsModal('${o.id}')">Detay</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+      html += `</tbody></table></div></div>`;
+      container.innerHTML = html;
+    }
+
+    // RENDER ARCHIVE
+    function renderArchive(container) {
+      const hayOrders = getHayOrders();
+      const doneList = hayOrders.filter(o => o.currentStage === 'tamamlandi');
+
+      let html = `
+        <div style="background:#fff; border-radius:10px; border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-sm);">
+          <div style="padding:16px 20px; background:#f8fafc; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h3 style="font-size:1rem; font-weight:800; color:var(--navy); font-family:'Montserrat',sans-serif;">📁 Tamamlanan & Teslim Edilen Siparişler</h3>
+              <p style="font-size:0.78rem; color:var(--text-muted);">Hay Mobilya adına imalatı bitirilip teslim edilmiş tüm geçmiş işler.</p>
+            </div>
+            <span class="status-pill" style="background:#d1fae5; color:#065f46; border-color:#10b981;">Toplam: ${doneList.length} İş</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:left;">
+              <thead>
+                <tr style="background:var(--navy); color:#fff; font-family:'Montserrat',sans-serif;">
+                  <th style="padding:10px 14px;">Takip Kodu</th>
+                  <th style="padding:10px 14px;">Proje Tanımı</th>
+                  <th style="padding:10px 14px;">Renk & Kalınlık</th>
+                  <th style="padding:10px 14px;">Adet & m²</th>
+                  <th style="padding:10px 14px;">Tamamlanma Tarihi</th>
+                  <th style="padding:10px 14px; text-align:right;">Detay</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      if (doneList.length === 0) {
+        html += `<tr><td colspan="6" style="padding:30px; text-align:center; color:var(--text-muted);">Henüz arşivlenmiş sipariş yok.</td></tr>`;
+      } else {
+        doneList.forEach(o => {
+          const lastHist = (o.stageHistory && o.stageHistory.length > 0) ? o.stageHistory[o.stageHistory.length - 1] : null;
+          const doneDate = lastHist && lastHist.timestamp ? new Date(lastHist.timestamp).toLocaleString('tr-TR') : (o.orderDate || '-');
+          html += `
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;"><span class="track-badge">${o.trackingCode}</span></td>
+              <td style="padding:10px 14px; font-weight:700;">${o.productTitle || o.customerName}</td>
+              <td style="padding:10px 14px;">${o.membraneColor || '-'} (${o.mdfThickness || '18mm'})</td>
+              <td style="padding:10px 14px;">${o.partCount || 0} Adet (${o.totalAreaM2 || 0} m²)</td>
+              <td style="padding:10px 14px; color:var(--success); font-weight:600;">✅ ${doneDate}</td>
+              <td style="padding:10px 14px; text-align:right;">
+                <button class="btn btn-white" style="padding:3px 8px; font-size:0.75rem;" onclick="openDetailsModal('${o.id}')">İncele</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+      html += `</tbody></table></div></div>`;
+      container.innerHTML = html;
+    }
+
+    // MODAL FUNCTIONS
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'flex';
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+
+    // DETAILS MODAL
+    function openDetailsModal(orderId) {
+      const o = allOrders.find(x => x.id === orderId);
+      if (!o) return;
+
+      document.getElementById('dmTitle').innerText = `${o.productTitle || o.customerName} (${o.trackingCode})`;
+      const curStageObj = STAGES.find(s => s.id === o.currentStage) || { name: o.currentStage, icon: '📦' };
+
+      const historyHtml = (o.stageHistory || []).map(h => `
+        <div style="display:flex; gap:10px; font-size:0.8rem; border-left:2px solid var(--gold); padding-left:10px; margin-bottom:10px;">
+          <div>
+            <strong>${h.stageName}</strong>
+            <div style="font-size:0.72rem; color:var(--text-muted);">${new Date(h.timestamp).toLocaleString('tr-TR')}</div>
+            <div style="color:var(--text-main); margin-top:2px;">${h.note || ''}</div>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('dmBody').innerHTML = `
+        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="track-badge" style="font-size:0.85rem;">${o.trackingCode}</span>
+            <span style="font-weight:700; color:var(--navy); font-size:0.9rem;">${curStageObj.icon} ${curStageObj.name}</span>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; font-size:0.82rem;">
+            <div>Membran Rengi: <strong>${o.membraneColor || '-'}</strong></div>
+            <div>MDF Kalınlığı: <strong>${o.mdfThickness || '18mm'}</strong></div>
+            <div>Model / Desen: <strong>${o.modelPattern || '-'}</strong></div>
+            <div>Freze Profili: <strong>${o.millingProfile || '-'}</strong></div>
+            <div>Parça Adedi: <strong>${o.partCount || 0} Adet</strong></div>
+            <div>Toplam Alan: <strong>${o.totalAreaM2 || 0} m²</strong></div>
+            <div>Termin Tarihi: <strong style="color:var(--gold-dark);">${o.estimatedDelivery || o.orderDate || '-'}</strong></div>
+            <div>Öncelik: <strong>${(o.priority || 'Normal').toUpperCase()}</strong></div>
+          </div>
+        </div>
+
+        ${o.productDetails ? `
+          <div style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:14px; font-size:0.82rem;">
+            <strong style="display:block; margin-bottom:4px; color:var(--navy);">İmalat Notları:</strong>
+            ${o.productDetails.replace(/\n/g, '<br>')}
+          </div>
+        ` : ''}
+
+        ${(o.hasReceiptImage || o.receiptImage) ? `
+          <div style="text-align:center; margin-bottom:14px;">
+            <button type="button" class="btn btn-navy" style="width:100%; justify-content:center;" onclick="openImageViewer('${o.id}', '${o.productTitle}')">
+              📷 CAD Çizimi / Sipariş Görselini Büyüt
+            </button>
+          </div>
+        ` : ''}
+
+        <div style="margin-top:14px;">
+          <h4 style="font-size:0.85rem; font-weight:700; color:var(--navy); margin-bottom:10px;">📋 Fabrika İmalat Geçmişi</h4>
+          ${historyHtml || '<div style="font-size:0.8rem; color:var(--text-muted);">Geçmiş kaydı bulunmuyor.</div>'}
+        </div>
+      `;
+
+      openModal('detailsModal');
+    }
+
+    // IMAGE VIEWER
+    async function openImageViewer(orderIdOrSrc, title) {
+      const imgEl = document.getElementById('ivImg');
+      const titleEl = document.getElementById('ivTitle');
+      const dlBtn = document.getElementById('ivDownload');
+
+      if (titleEl) titleEl.innerText = title ? `📷 ${title}` : '📷 Sipariş Görseli';
+      openModal('imageViewerModal');
+
+      if (typeof orderIdOrSrc === 'string' && (orderIdOrSrc.startsWith('data:') || orderIdOrSrc.startsWith('http'))) {
+        if (imgEl) imgEl.src = orderIdOrSrc;
+        if (dlBtn) dlBtn.href = orderIdOrSrc;
+        return;
+      }
+
+      if (imgEl) {
+        imgEl.src = '';
+        imgEl.alt = 'Görsel buluttan yükleniyor... Lütfen bekleyiniz.';
+      }
+
+      const orderId = orderIdOrSrc;
+      try {
+        const res = await fetch(`${IMAGES_URL}/${orderId}.json`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.image) {
+            if (imgEl) {
+              imgEl.src = data.image;
+              imgEl.alt = 'Sipariş Görseli';
+            }
+            if (dlBtn) dlBtn.href = data.image;
+            return;
+          }
+        }
+      } catch(e) {}
+
+      if (imgEl) imgEl.alt = 'Görsel yüklenemedi veya bulunamadı.';
+    }
+
+    // IMAGE COMPRESSION (Canvas)
+    function compressImageFile(file, maxWidth = 1200, quality = 0.75) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > maxWidth) {
+              h = Math.round((h * maxWidth) / w);
+              w = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function handleNewImageSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      compressImageFile(file).then(dataUrl => {
+        newOrderUploadedImage = dataUrl;
+        document.getElementById('no_imgPreview').src = dataUrl;
+        document.getElementById('no_imgPreviewBox').style.display = 'block';
+        document.getElementById('no_imgPlaceholder').style.display = 'none';
+      }).catch(err => {
+        showToast('Görsel işlenemedi!', '#EF4444');
+      });
+    }
+
+    function clearNewImage(e) {
+      if (e) e.stopPropagation();
+      newOrderUploadedImage = '';
+      document.getElementById('no_imageInput').value = '';
+      document.getElementById('no_imgPreview').src = '';
+      document.getElementById('no_imgPreviewBox').style.display = 'none';
+      document.getElementById('no_imgPlaceholder').style.display = 'block';
+    }
+
+    function openNewOrderModal() {
+      document.getElementById('newOrderForm').reset();
+      clearNewImage();
+      openModal('newOrderModal');
+    }
+
+    // SUBMIT NEW ORDER
+    async function submitNewOrder(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('newOrderSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Gönderiliyor...';
+
+      const orderId = 'ord_' + Date.now();
+      const code = 'SIP-2026-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      const title = document.getElementById('no_title').value.trim();
+      const color = document.getElementById('no_color').value.trim();
+      const thickness = document.getElementById('no_thickness').value;
+      const model = document.getElementById('no_model').value.trim();
+      const milling = document.getElementById('no_milling').value.trim();
+      const partCount = parseInt(document.getElementById('no_partCount').value) || 0;
+      const area = parseFloat(document.getElementById('no_area').value) || 0;
+      const delivery = document.getElementById('no_delivery').value;
+      const priority = document.getElementById('no_priority').value;
+      const notes = document.getElementById('no_notes').value.trim();
+      const hasImg = Boolean(newOrderUploadedImage);
+
+      // 1. Varsa görseli buluta yükle
+      if (hasImg) {
+        try {
+          await fetch(`${IMAGES_URL}/${orderId}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: newOrderUploadedImage })
+          });
+        } catch(err) {
+          console.warn('Görsel bulut kayıt hatası:', err);
+        }
+      }
+
+      const newOrder = {
+        id: orderId,
+        trackingCode: code,
+        orderNumber: code,
+        customerName: 'Hay Mobilya',
+        productTitle: title || 'Hay Mobilya Membran Siparişi',
+        membraneColor: color,
+        mdfThickness: thickness,
+        modelPattern: model,
+        millingProfile: milling,
+        partCount: partCount,
+        totalAreaM2: area,
+        estimatedDelivery: delivery,
+        priority: priority,
+        currentStage: 'cizim',
+        totalPrice: 0,
+        deposit: 0,
+        remainingBalance: 0,
+        paymentStatus: 'bekliyor',
+        whatsappEnabled: true,
+        productDetails: notes,
+        orderDate: new Date().toISOString().split('T')[0],
+        hasReceiptImage: hasImg,
+        receiptImage: '',
+        updatedAt: new Date().toISOString(),
+        stageHistory: [
+          { stageName: 'Çizim', timestamp: new Date().toISOString(), note: 'Hay Mobilya tarafından portal üzerinden sipariş iletildi.' }
+        ]
+      };
+
+      try {
+        // 2. Siparişi ana bulut listesine ekle
+        allOrders.unshift(newOrder);
+
+        await fetch(`${FIREBASE_BASE}/siparisler/${orderId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newOrder)
+        });
+
+        closeModal('newOrderModal');
+        renderView();
+        showToast(`✅ Sipariş talebiniz fabrikaya iletildi! Takip Kodu: ${code}`, '#10B981');
+      } catch(err) {
+        showToast('Sipariş kaydedilirken hata oluştu: ' + err.message, '#EF4444');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = '🚀 Siparişi Fabrikaya Gönder';
+      }
+    }
+
+    // TOAST NOTIFICATION
+    function showToast(msg, bg = 'var(--navy)') {
+      const container = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.style.background = bg;
+      t.innerText = msg;
+      container.appendChild(t);
+      setTimeout(() => {
+        t.style.opacity = '0';
+        setTimeout(() => t.remove(), 300);
+      }, 3500);
+    }
+
+    function normalizeOrdersData(data) {
+      if (!data) return [];
+      let list = [];
+      if (Array.isArray(data)) {
+        list = data.filter(Boolean);
+      } else if (typeof data === 'object') {
+        list = Object.entries(data).map(([key, val]) => {
+          if (val && typeof val === 'object') {
+            return { id: val.id || key, ...val };
+          }
+          return null;
+        }).filter(Boolean);
+      }
+      const byId = new Map();
+      list.forEach(item => {
+        if (!item || !item.id) return;
+        const existing = byId.get(item.id);
+        if (!existing) {
+          byId.set(item.id, { ...item });
+        } else {
+          const merged = { ...existing, ...item };
+          if (!merged.customerName) merged.customerName = existing.customerName || item.customerName;
+          if (!merged.orderNumber) merged.orderNumber = existing.orderNumber || item.orderNumber;
+          byId.set(item.id, merged);
+        }
+      });
+      return Array.from(byId.values());
+    }
+
+    // CLOUD SYNC & STREAM
+    async function syncOrdersFromCloud() {
+      try {
+        const res = await fetch(FIREBASE_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            allOrders = normalizeOrdersData(data);
+            renderView();
+          }
+        }
+      } catch(e) {
+        console.warn('Bulut senkronizasyon hatası:', e);
+      }
+    }
+
+    function setupStream() {
+      try {
+        const es = new EventSource(FIREBASE_URL);
+
+        const handleUpdate = (e) => {
+          try {
+            const parsed = JSON.parse(e.data);
+            if (!parsed) return;
+            const path = parsed.path || '/';
+            const data = parsed.data;
+
+            if (path === '/') {
+              if (data) {
+                allOrders = normalizeOrdersData(data);
+                renderView();
+              }
+            } else {
+              const parts = path.replace(/^\//, '').split('/');
+              const key = parts[0];
+              if (!key) return;
+
+              if (parts.length === 1) {
+                if (data === null) {
+                  allOrders = allOrders.filter(o => o.id !== key);
+                } else if (typeof data === 'object') {
+                  const idx = allOrders.findIndex(o => o.id === key);
+                  if (idx !== -1) {
+                    allOrders[idx] = { ...allOrders[idx], ...data, id: key };
+                  } else if (data.customerName || data.orderNumber) {
+                    allOrders.unshift({ id: key, ...data });
+                  }
+                }
+              } else if (parts.length === 2) {
+                const field = parts[1];
+                const o = allOrders.find(x => x.id === key);
+                if (o) o[field] = data;
+              }
+              renderView();
+            }
+          } catch(err) {}
+        };
+
+        es.addEventListener('put', handleUpdate);
+        es.addEventListener('patch', handleUpdate);
+      } catch(err) {}
+    }
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', async () => {
+      await syncOrdersFromCloud();
+      setupStream();
+      setInterval(syncOrdersFromCloud, 15000);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') syncOrdersFromCloud();
+      });
+    });
+  </script>
+</body>
+</html>
