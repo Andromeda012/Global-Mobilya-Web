@@ -1,108 +1,108 @@
 {
   "renkler": {
-    "ana_renk": "#0B1F4B",
-    "ana_renk_2": "#1A3A7A",
-    "ana_renk_3": "#2453A8",
-    "vurgu_renk": "#C8A96E",
-    "arkaplan": "#f7f7f7",
-    "metin": "#333333",
-    "soluk_metin": "#777777",
-    "sinir": "#e5e5e5",
-    "footer_bg": "#060E22"
+    "ana_renk": "#2A1810",
+    "ana_renk_2": "#46281B",
+    "ana_renk_3": "#B85D3B",
+    "vurgu_renk": "#D49546",
+    "arkaplan": "#FBF7F2",
+    "metin": "#2B1E17",
+    "soluk_metin": "#7A6558",
+    "sinir": "#E8DDD1",
+    "footer_bg": "#1C100B"
   },
   "tipografi": {
-    "baslik_font": "Montserrat",
-    "govde_font": "Open Sans",
-    "govde_boyut": "14px"
+    "baslik_font": "Plus Jakarta Sans",
+    "govde_font": "Plus Jakarta Sans",
+    "govde_boyut": "15px"
   },
   "nav": {
-    "arkaplan": "#ffffff",
-    "yukseklik": "65px",
+    "arkaplan": "rgba(255, 253, 251, 0.92)",
+    "yukseklik": "78px",
     "golge": true,
-    "logo_yukseklik": "48px",
-    "link_renk": "#0B1F4B",
-    "link_boyut": "11.5px",
-    "cta_arkaplan": "#C8A96E",
-    "cta_renk": "#0B1F4B"
+    "logo_yukseklik": "50px",
+    "link_renk": "#2A1810",
+    "link_boyut": "12px",
+    "cta_arkaplan": "linear-gradient(135deg, #C86D3B 0%, #D49546 100%)",
+    "cta_renk": "#FFFDFB"
   },
   "topbar": {
-    "arkaplan": "#0B1F4B",
-    "renk": "rgba(255,255,255,0.75)",
+    "arkaplan": "#1C100B",
+    "renk": "rgba(255, 248, 240, 0.85)",
     "boyut": "12px",
     "goster": true
   },
   "hero": {
-    "min_yukseklik": "520px",
-    "overlay_opakligi": "0.92",
-    "baslik_boyut": "42px",
-    "altyazi_boyut": "15px",
-    "tag_arkaplan": "#C8A96E",
-    "tag_renk": "#0B1F4B",
-    "buton_birincil_arkaplan": "#C8A96E",
-    "buton_birincil_renk": "#0B1F4B"
+    "min_yukseklik": "88vh",
+    "overlay_opakligi": "0.88",
+    "baslik_boyut": "54px",
+    "altyazi_boyut": "16px",
+    "tag_arkaplan": "rgba(212, 149, 70, 0.2)",
+    "tag_renk": "#F3C68F",
+    "buton_birincil_arkaplan": "linear-gradient(135deg, #C86D3B 0%, #D49546 100%)",
+    "buton_birincil_renk": "#ffffff"
   },
   "stats_bar": {
-    "arkaplan": "#0B1F4B",
-    "sayi_renk": "#C8A96E",
-    "etiket_renk": "rgba(255,255,255,0.5)",
-    "sayi_boyut": "30px"
+    "arkaplan": "#23140D",
+    "sayi_renk": "#E5A95C",
+    "etiket_renk": "rgba(255, 245, 235, 0.68)",
+    "sayi_boyut": "36px"
   },
   "bolum_basligi": {
-    "baslik_renk": "#0B1F4B",
-    "baslik_boyut": "30px",
-    "tag_renk": "#C8A96E",
-    "cizgi_renk": "#C8A96E",
-    "cizgi_genislik": "50px"
+    "baslik_renk": "#2A1810",
+    "baslik_boyut": "36px",
+    "tag_renk": "#B85D3B",
+    "cizgi_renk": "#D49546",
+    "cizgi_genislik": "64px"
   },
   "urun_karti": {
-    "arkaplan": "#ffffff",
-    "sinir_renk": "#e5e5e5",
-    "sinir_radius": "0px",
-    "baslik_renk": "#0B1F4B",
-    "baslik_boyut": "14px",
-    "aciklama_renk": "#777777",
-    "resim_yukseklik": "210px",
-    "badge_arkaplan": "#C8A96E",
-    "badge_renk": "#0B1F4B"
+    "arkaplan": "#FFFDFB",
+    "sinir_renk": "#E8DDD1",
+    "sinir_radius": "16px",
+    "baslik_renk": "#2A1810",
+    "baslik_boyut": "16px",
+    "aciklama_renk": "#7A6558",
+    "resim_yukseklik": "250px",
+    "badge_arkaplan": "linear-gradient(135deg, #C86D3B, #D49546)",
+    "badge_renk": "#ffffff"
   },
   "ozellikler_bolumu": {
-    "arkaplan": "#0B1F4B",
-    "ikon_arkaplan": "rgba(200,169,110,0.15)",
-    "ikon_renk": "#C8A96E",
-    "baslik_renk": "#ffffff",
-    "metin_renk": "rgba(255,255,255,0.5)"
+    "arkaplan": "#23140D",
+    "ikon_arkaplan": "rgba(212, 149, 70, 0.16)",
+    "ikon_renk": "#E5A95C",
+    "baslik_renk": "#FFFDFB",
+    "metin_renk": "rgba(255, 245, 235, 0.68)"
   },
   "galeri": {
-    "arkaplan": "#f7f7f7",
-    "item_yukseklik": "220px"
+    "arkaplan": "#FBF7F2",
+    "item_yukseklik": "280px"
   },
   "blog": {
-    "arkaplan": "#ffffff",
-    "sinir_radius": "4px",
-    "baslik_renk": "#0B1F4B",
-    "baslik_boyut": "14px",
-    "resim_yukseklik": "170px"
+    "arkaplan": "#FFFDFB",
+    "sinir_radius": "16px",
+    "baslik_renk": "#2A1810",
+    "baslik_boyut": "16px",
+    "resim_yukseklik": "200px"
   },
   "butonlar": {
-    "birincil_arkaplan": "#C8A96E",
-    "birincil_renk": "#0B1F4B",
-    "radius": "4px",
-    "boyut": "13px"
+    "birincil_arkaplan": "linear-gradient(135deg, #C86D3B 0%, #D49546 100%)",
+    "birincil_renk": "#ffffff",
+    "radius": "10px",
+    "boyut": "13.5px"
   },
   "footer": {
-    "arkaplan": "#060E22",
-    "metin_renk": "rgba(255,255,255,0.5)",
-    "baslik_renk": "#C8A96E",
-    "link_renk": "rgba(255,255,255,0.45)",
-    "alt_cizgi_renk": "rgba(255,255,255,0.06)"
+    "arkaplan": "#180E09",
+    "metin_renk": "rgba(255, 245, 235, 0.6)",
+    "baslik_renk": "#E5A95C",
+    "link_renk": "rgba(255, 245, 235, 0.65)",
+    "alt_cizgi_renk": "rgba(212, 149, 70, 0.15)"
   },
   "form": {
-    "sinir_renk": "#e5e5e5",
-    "arkaplan": "#ffffff",
-    "metin_renk": "#333333",
-    "radius": "4px"
+    "sinir_renk": "#E2D4C4",
+    "arkaplan": "#FFFDFB",
+    "metin_renk": "#2B1E17",
+    "radius": "10px"
   },
   "bosluklar": {
-    "bolum_ust_alt": "70px"
+    "bolum_ust_alt": "90px"
   }
 }

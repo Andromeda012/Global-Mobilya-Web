@@ -1,29 +1,49 @@
 /**
- * Global Kapak Mobilya — Genel İçerik Yükleyici
+ * Global Kapak Mobilya — Genel İçerik Yükleyici & Warm Luxury Header
  * _data/ayarlar/genel.json dosyasından navbar, topbar,
  * hakkımızda resmi ve diğer sabit içerikleri dinamik yükler.
  */
 (async function () {
 
-  // ── CSS: Navbar aktif/hover link rengi garantili düzelt ─────────────────
-  // tema.js inline style eklediği için !important gerekiyor
+  // ── 1. Eğer sayfada .topbar yoksa, nav öncesine sıcak lüks topbar ekle ──
+  const navEl = document.querySelector('nav');
+  if (navEl && !document.querySelector('.topbar')) {
+    const tb = document.createElement('div');
+    tb.className = 'topbar';
+    tb.innerHTML = `
+      <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🚛 Türkiye Geneli Güvenli Sevkiyat</span>
+      <div class="topbar-right">
+        <a href="tel:05050151035">📞 0 (505) 015 1035</a>
+        <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
+      </div>
+    `;
+    navEl.parentNode.insertBefore(tb, navEl);
+  }
+
+  // ── 2. CSS: Navbar aktif/hover link rengi (Sıcak Lüks Palet) ───────────
   const fixCSS = document.createElement('style');
   fixCSS.id = 'navbar-fix-css';
   fixCSS.textContent = `
-    .nav-menu a:hover,
-    .nav-menu a.active {
-      background: var(--navy) !important;
-      color: #ffffff !important;
-    }
     .nav-menu a {
-      color: var(--navy) !important;
+      color: var(--navy, #2A1810) !important;
+      border-radius: 8px !important;
+      padding: 8px 14px !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .nav-menu a:hover {
+      background: rgba(212, 149, 70, 0.14) !important;
+      color: #B85D3B !important;
+    }
+    .nav-menu a.active {
+      background: linear-gradient(135deg, #2A1810 0%, #46281B 100%) !important;
+      color: #F3C68F !important;
+      box-shadow: 0 4px 14px rgba(42, 24, 16, 0.18) !important;
     }
   `;
   document.head.appendChild(fixCSS);
 
-  // ── genel.json yükle ───────────────────────────────────────────────────
+  // ── 3. genel.json yükle ────────────────────────────────────────────────
   let genel = {};
-  // Netlify'da _data klasörü public değil, GitHub API ile okuyoruz
   const REPO = 'emrecanaksoyea34-a11y/global-kapak-mobilyaa';
   const paths = [
     '_data/ayarlar/genel.json',
@@ -35,7 +55,6 @@
       if (res.ok) { genel = await res.json(); break; }
     } catch(e) {}
   }
-  // Hiç çalışmazsa GitHub raw API ile dene
   if (!genel.firma) {
     try {
       const raw = await fetch(`https://raw.githubusercontent.com/${REPO}/main/_data/ayarlar/genel.json`);
@@ -55,17 +74,14 @@
     if (topbarD.aktif === false) {
       topbar.style.display = 'none';
     } else {
-      // Sol metin
       const leftSpan = topbar.querySelector('.topbar-left') || topbar.firstElementChild;
       if (leftSpan && topbarD.metin) {
         leftSpan.textContent = topbarD.metin;
       }
-      // Sağ iletişim linkleri
       const tel   = iletisim.telefon  || '';
       const email = iletisim.email    || '';
-      const wa    = iletisim.whatsapp || '';
       const rightEl = topbar.querySelector('.topbar-right');
-      if (rightEl) {
+      if (rightEl && (tel || email)) {
         rightEl.innerHTML =
           (tel   ? `<a href="tel:${tel.replace(/\s/g,'')}">📞 ${tel}</a>` : '') +
           (email ? `<a href="mailto:${email}">✉️ ${email}</a>` : '');
@@ -89,11 +105,16 @@
   });
 
   // ── ANASAYFADAKİ HAKKIMIZDA RESMİ ────────────────────────────────────
-  // index.html about-img bölümü - id ile bul, class ile fallback
   const aboutImg = document.getElementById('about-main-img') || document.querySelector('.about-img');
   const aboutData = genel.anasayfa_hakkimizda || {};
   if (aboutImg && aboutData.resim) {
-    aboutImg.style.backgroundImage = `url('${aboutData.resim}')`;
+    const imgUrl = aboutData.resim.includes('anasayfa-hakkimizda')
+      ? 'resim/yonetilen/atelier-craft.jpg'
+      : aboutData.resim;
+    aboutImg.style.backgroundImage = `url('${imgUrl}')`;
+    if (imgUrl.includes('atelier-craft')) {
+      aboutImg.style.backgroundSize = 'cover';
+    }
   }
   if (aboutData.etiket) {
     const tag = document.querySelector('.about-text .sec-tag');
@@ -135,21 +156,17 @@
   // ── HAKKIMIZDA SAYFASI RESMİ ──────────────────────────────────────────
   const aboutBig = document.querySelector('.about-img-big');
   const hakkiData = genel.hakkimizda_resim || {};
-  if (aboutBig && hakkiData.resim) {
-    aboutBig.style.backgroundImage = `url('${hakkiData.resim}')`;
-    aboutBig.style.backgroundSize  = hakkiData.mod || 'contain';
+  if (aboutBig) {
+    const useImg = (hakkiData.resim && !hakkiData.resim.includes('logo.png'))
+      ? hakkiData.resim
+      : 'resim/yonetilen/atelier-craft.jpg';
+    aboutBig.style.backgroundImage = `url('${useImg}')`;
+    aboutBig.style.backgroundSize  = 'cover';
     aboutBig.style.backgroundRepeat = 'no-repeat';
     aboutBig.style.backgroundPosition = 'center';
-    aboutBig.style.backgroundColor = '#fff';
   }
 
-  // ── PAGE HERO BAŞLIKLARI ─────────────────────────────────────────────
-  // Her sayfanın kendi page-hero başlığı ilgili ayarlar JSON'undan
-  // (zaten dinamik yükleniyor, buraya ekstra hook yok)
-
-  // ── FOOTER: footer.js ile çakışmasın, sadece brand metnini güncelle ──
-  // footer.js zaten çalışıyor, genel.json'daki tanitim_metni oraya geçiyor
-  // Ama footer.js statik metin kullanıyor — onu da güncelle
+  // ── FOOTER SENKRONİZASYONU ────────────────────────────────────────────
   setTimeout(() => {
     const footerBrandP = document.querySelector('footer .footer-brand p');
     if (footerBrandP && footerD.tanitim_metni) {
@@ -159,7 +176,6 @@
     if (footerBrandName && firma.ad) {
       footerBrandName.textContent = firma.ad;
     }
-    // Footer iletişim linklerini güncelle
     const footerLinks = document.querySelectorAll('footer .footer-col a');
     footerLinks.forEach(link => {
       const href = link.getAttribute('href') || '';
@@ -173,36 +189,11 @@
       }
     });
 
-    // Sosyal medya linkleri
     const socials = document.querySelectorAll('footer .f-socials a');
-    const sosyalMap = {instagram: sosyal.instagram, facebook: sosyal.facebook, whatsapp: wa ? 'https://wa.me/'+wa : null};
     const wa2 = iletisim.whatsapp;
     if (socials[2] && wa2) socials[2].href = 'https://wa.me/' + wa2;
     if (socials[0] && sosyal.instagram) socials[0].href = sosyal.instagram;
     if (socials[1] && sosyal.facebook)  socials[1].href = sosyal.facebook;
-
-  }, 500); // footer.js'in render etmesini bekle
-
-  // ── NAVBAR AKTİF CSS'İ GÜÇLENDIR ────────────────────────────────────
-  // tema.js renk değiştirince CSS variable güncellenir ama
-  // !important ile üstüne yazılan stil bunu da yakalar
-  document.querySelectorAll('.nav-menu a').forEach(a => {
-    a.addEventListener('mouseenter', function() {
-      this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--navy').trim();
-      this.style.color = '#ffffff';
-    });
-    a.addEventListener('mouseleave', function() {
-      if (!this.classList.contains('active')) {
-        this.style.backgroundColor = '';
-        this.style.color = getComputedStyle(document.documentElement).getPropertyValue('--navy').trim();
-      }
-    });
-  });
-
-  // Aktif linki de düzelt
-  document.querySelectorAll('.nav-menu a.active').forEach(a => {
-    a.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--navy').trim();
-    a.style.color = '#ffffff';
-  });
+  }, 500);
 
 })();

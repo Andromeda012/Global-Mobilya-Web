@@ -1,234 +1,305 @@
 /**
- * Global Kapak Mobilya — Tema Motoru
- * _data/ayarlar/tema.json dosyasını okur ve tüm siteye uygular.
- * Her sayfada footer.js ile birlikte yüklenir.
+ * Global Kapak Mobilya — Warm Architectural Luxury Tema Motoru
+ * Tüm sayfalarda sıcak lüks renk paletini, tipografiyi, cam efektli navigasyonu,
+ * kart animasyonlarını ve _data/ayarlar/tema.json yapılandırmasını uygular.
  */
 (async function () {
+
+  // ── 1. Google Fonts (Cormorant Garamond + Plus Jakarta Sans) Yükle ───────
+  if (!document.getElementById('warm-luxury-fonts')) {
+    const fontLink = document.createElement('link');
+    fontLink.id = 'warm-luxury-fonts';
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+    document.head.appendChild(fontLink);
+  }
+
+  // ── 2. Global Warm Architectural Luxury Tasarım Sistemi CSS ─────────────
+  if (!document.getElementById('warm-luxury-global-css')) {
+    const style = document.createElement('style');
+    style.id = 'warm-luxury-global-css';
+    style.textContent = `
+      :root {
+        --navy: #2A1810 !important;
+        --navy2: #46281B !important;
+        --navy3: #B85D3B !important;
+        --gold: #D49546 !important;
+        --gold-light: #E8B872 !important;
+        --terracotta: #C46238 !important;
+        --cream: #FBF7F2 !important;
+        --sand: #F3EAE0 !important;
+        --white: #FFFDFB !important;
+        --gray: #FBF7F2 !important;
+        --border: #E8DDD1 !important;
+        --text: #2B1E17 !important;
+        --muted: #7A6558 !important;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', 'Open Sans', sans-serif !important;
+        background-color: #FFFDFB;
+        color: #2B1E17 !important;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── TOPBAR ── */
+      .topbar {
+        background: linear-gradient(90deg, #1A0E09 0%, #2E1A11 50%, #1A0E09 100%) !important;
+        color: rgba(255, 246, 236, 0.85) !important;
+        font-size: 12px !important;
+        padding: 9px 40px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-bottom: 1px solid rgba(212, 149, 70, 0.22);
+        letter-spacing: 0.3px;
+      }
+      .topbar a {
+        color: #F3C68F !important;
+        margin-left: 18px;
+        font-size: 12px;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+      .topbar a:hover {
+        color: #FFFDFB !important;
+      }
+
+      /* ── GLASSMORPHIC NAVBAR ── */
+      nav {
+        background: rgba(255, 253, 251, 0.90) !important;
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        border-bottom: 1px solid rgba(212, 149, 70, 0.22) !important;
+        padding: 0 36px !important;
+        height: 76px !important;
+        box-shadow: 0 10px 34px rgba(42, 24, 16, 0.06) !important;
+        transition: all 0.3s ease;
+      }
+      nav.scrolled {
+        background: rgba(255, 253, 251, 0.96) !important;
+        box-shadow: 0 12px 38px rgba(42, 24, 16, 0.11) !important;
+      }
+      .nav-logo img {
+        height: 50px !important;
+        width: auto;
+        transition: transform 0.25s ease;
+      }
+      .nav-logo:hover img {
+        transform: scale(1.03);
+      }
+      .nav-menu {
+        gap: 4px !important;
+      }
+      .nav-menu a {
+        font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        padding: 9px 14px !important;
+        border-radius: 9px !important;
+      }
+      .nav-cta {
+        background: linear-gradient(135deg, #C46238 0%, #D49546 100%) !important;
+        color: #FFFDFB !important;
+        font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif !important;
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        padding: 11px 22px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 8px 20px rgba(196, 98, 56, 0.28) !important;
+        transition: all 0.25s ease !important;
+      }
+      .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px rgba(196, 98, 56, 0.42) !important;
+      }
+
+      /* ── BREADCRUMB ── */
+      .breadcrumb {
+        background: linear-gradient(90deg, #F8F1E8 0%, #FBF7F2 100%) !important;
+        border-bottom: 1px solid #E8DDD1 !important;
+        padding: 13px 40px !important;
+        font-size: 12.5px !important;
+        color: #7A6558 !important;
+      }
+      .breadcrumb a {
+        color: #B85D3B !important;
+        font-weight: 700 !important;
+      }
+      .breadcrumb strong {
+        color: #2A1810 !important;
+      }
+
+      /* ── ALT SAYFA HERO BANNER (.page-hero) ── */
+      .page-hero {
+        background:
+          radial-gradient(circle at 20% 20%, rgba(212, 149, 70, 0.26) 0%, transparent 48%),
+          radial-gradient(circle at 82% 80%, rgba(196, 98, 56, 0.24) 0%, transparent 50%),
+          linear-gradient(135deg, #21120B 0%, #3A2014 52%, #522D1C 100%) !important;
+        padding: 72px 40px !important;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(212, 149, 70, 0.28);
+      }
+      .page-hero::before {
+        content: '✦ GLOBAL KAPAK ATELIER ✦';
+        display: inline-block;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        color: #E8B872;
+        background: rgba(212, 149, 70, 0.14);
+        border: 1px solid rgba(212, 149, 70, 0.3);
+        padding: 5px 14px;
+        border-radius: 30px;
+        margin-bottom: 14px;
+      }
+      .page-hero h1 {
+        font-family: 'Cormorant Garamond', Georgia, serif !important;
+        font-size: clamp(34px, 4.5vw, 50px) !important;
+        font-weight: 700 !important;
+        color: #FFFDFB !important;
+        letter-spacing: 0.3px;
+        margin-bottom: 12px !important;
+      }
+      .page-hero p {
+        color: rgba(255, 246, 236, 0.8) !important;
+        font-size: 15.5px !important;
+        max-width: 620px;
+        margin: 0 auto;
+        line-height: 1.75;
+      }
+
+      /* ── KARTLAR & FİLTRELER (Tüm Sayfalar) ── */
+      .filter-btn {
+        border-radius: 30px !important;
+        padding: 9px 22px !important;
+        border: 1.5px solid #E2D4C4 !important;
+        background: #FFFDFB !important;
+        color: #5C4438 !important;
+        font-weight: 700 !important;
+        transition: all 0.25s ease !important;
+      }
+      .filter-btn:hover, .filter-btn.active {
+        background: linear-gradient(135deg, #2A1810 0%, #4A2A1B 100%) !important;
+        color: #F3C68F !important;
+        border-color: #2A1810 !important;
+        box-shadow: 0 6px 18px rgba(42, 24, 16, 0.18);
+      }
+
+      .prod-card, .blog-card, .value-card, .sup-card, .cat-item, .qc-card, .cm-form, .content-box, .faq-item {
+        background: #FFFDFB !important;
+        border: 1px solid #E8DDD1 !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 28px rgba(42, 24, 16, 0.05);
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      .prod-card:hover, .blog-card:hover, .value-card:hover, .sup-card:hover, .qc-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 20px 44px rgba(42, 24, 16, 0.13) !important;
+        border-color: rgba(212, 149, 70, 0.55) !important;
+      }
+
+      .mv-card, .cta-bar, .partner-cta, .numbers {
+        background: linear-gradient(135deg, #23140D 0%, #3D2216 100%) !important;
+      }
+
+      .btn-g, .btn-primary, .form-submit, .about-btn, .cta-section a, .cta-bar a, .partner-cta a {
+        background: linear-gradient(135deg, #C46238 0%, #D49546 100%) !important;
+        color: #FFFDFB !important;
+        border-radius: 10px !important;
+        box-shadow: 0 8px 22px rgba(196, 98, 56, 0.28);
+        transition: all 0.28s ease !important;
+      }
+      .btn-g:hover, .btn-primary:hover, .form-submit:hover, .about-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(196, 98, 56, 0.42);
+      }
+
+      /* ── SCROLL REVEAL ANİMASYONU ── */
+      .lux-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .lux-reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media(max-width: 768px) {
+        .topbar { padding: 8px 16px !important; font-size: 11px !important; justify-content: center; text-align: center; }
+        .topbar-right { display: none; }
+        nav { padding: 0 18px !important; height: 68px !important; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ── 3. Navbar Scroll Efekti & IntersectionObserver Scroll Reveal ────────
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const targets = document.querySelectorAll('.sec-head, .about, .feat, .csr-inner, .value-card, .mv-card, .qc-card, .cat-item, .swatch-card, .craft-pillar');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    targets.forEach((el, idx) => {
+      el.classList.add('lux-reveal');
+      el.style.transitionDelay = `${(idx % 4) * 70}ms`;
+      obs.observe(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollReveal);
+  } else {
+    initScrollReveal();
+  }
+
+  // ── 4. _data/ayarlar/tema.json Okuma (Sıcak Palet Korumalı) ─────────────
   try {
     const res = await fetch('/_data/ayarlar/tema.json');
     if (!res.ok) return;
     const t = await res.json();
     const r = document.documentElement.style;
 
-    // ── RENKLER ──────────────────────────────────────────────────────────
+    // Eski lacivert (#0B1F4B / #060E22) kalıntılarını sıcak espressoya çevir
+    const warmSafe = (val, fallback) => {
+      if (!val) return fallback;
+      const v = String(val).toUpperCase();
+      if (v.includes('0B1F4B') || v.includes('1A3A7A') || v.includes('060E22')) return fallback;
+      return val;
+    };
+
     if (t.renkler) {
       const c = t.renkler;
-      if (c.ana_renk)       r.setProperty('--navy',  c.ana_renk);
-      if (c.ana_renk_2)     r.setProperty('--navy2', c.ana_renk_2);
-      if (c.ana_renk_3)     r.setProperty('--navy3', c.ana_renk_3);
-      if (c.vurgu_renk)     r.setProperty('--gold',  c.vurgu_renk);
-      if (c.arkaplan)       r.setProperty('--gray',  c.arkaplan);
-      if (c.metin)          r.setProperty('--text',  c.metin);
-      if (c.soluk_metin)    r.setProperty('--muted', c.soluk_metin);
-      if (c.sinir)          r.setProperty('--border',c.sinir);
-      if (c.footer_bg) {
-        document.querySelectorAll('footer').forEach(f => f.style.background = c.footer_bg);
-      }
+      r.setProperty('--navy',   warmSafe(c.ana_renk,   '#2A1810'));
+      r.setProperty('--navy2',  warmSafe(c.ana_renk_2, '#46281B'));
+      r.setProperty('--navy3',  warmSafe(c.ana_renk_3, '#B85D3B'));
+      r.setProperty('--gold',   warmSafe(c.vurgu_renk, '#D49546'));
+      r.setProperty('--gray',   warmSafe(c.arkaplan,   '#FBF7F2'));
+      r.setProperty('--text',   warmSafe(c.metin,      '#2B1E17'));
+      r.setProperty('--muted',  warmSafe(c.soluk_metin,'#7A6558'));
+      r.setProperty('--border', warmSafe(c.sinir,      '#E8DDD1'));
     }
-
-    // ── TIPOGRAFI ─────────────────────────────────────────────────────────
-    if (t.tipografi) {
-      const tp = t.tipografi;
-      if (tp.baslik_font) {
-        // Google Fonts yükle
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(tp.baslik_font)}:wght@400;600;700;800&display=swap`;
-        document.head.appendChild(link);
-        r.setProperty('--font-baslik', `'${tp.baslik_font}', sans-serif`);
-        document.querySelectorAll('.nav-logo .logo-text, h1, h2, h3, .sec-head h2, .hero h1, .feat h3, .prod-body h3, .blog-body h3, .footer-col h4, .hero-tag, .sec-tag, .nav-cta, .btn-g, .about-btn, .form-submit').forEach(el => {
-          el.style.fontFamily = `'${tp.baslik_font}', sans-serif`;
-        });
-      }
-      if (tp.govde_font) {
-        const link2 = document.createElement('link');
-        link2.rel = 'stylesheet';
-        link2.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(tp.govde_font)}:wght@300;400;600&display=swap`;
-        document.head.appendChild(link2);
-        document.body.style.fontFamily = `'${tp.govde_font}', sans-serif`;
-      }
-      if (tp.govde_boyut)  document.body.style.fontSize = tp.govde_boyut;
-    }
-
-    // ── NAV ───────────────────────────────────────────────────────────────
-    if (t.nav) {
-      const nav = document.querySelector('nav');
-      const n = t.nav;
-      if (nav) {
-        if (n.arkaplan)   nav.style.background = n.arkaplan;
-        if (n.yukseklik)  nav.style.height = n.yukseklik;
-        if (n.golge === false) nav.style.boxShadow = 'none';
-      }
-      if (n.logo_yukseklik) {
-        document.querySelectorAll('.nav-logo img').forEach(img => img.style.height = n.logo_yukseklik);
-      }
-      if (n.link_renk) {
-        document.querySelectorAll('.nav-menu a').forEach(a => a.style.color = n.link_renk);
-      }
-      if (n.link_boyut) {
-        document.querySelectorAll('.nav-menu a').forEach(a => a.style.fontSize = n.link_boyut);
-      }
-      if (n.cta_arkaplan) {
-        document.querySelectorAll('.nav-cta').forEach(b => b.style.background = n.cta_arkaplan);
-      }
-      if (n.cta_renk) {
-        document.querySelectorAll('.nav-cta').forEach(b => b.style.color = n.cta_renk);
-      }
-    }
-
-    // ── TOPBAR ────────────────────────────────────────────────────────────
-    if (t.topbar) {
-      const tb = document.querySelector('.topbar');
-      const tp = t.topbar;
-      if (tb) {
-        if (tp.arkaplan) tb.style.background = tp.arkaplan;
-        if (tp.renk)     tb.style.color = tp.renk;
-        if (tp.boyut)    tb.style.fontSize = tp.boyut;
-        if (tp.goster === false) tb.style.display = 'none';
-      }
-    }
-
-    // ── HERO ──────────────────────────────────────────────────────────────
-    if (t.hero) {
-      const h = t.hero;
-      if (h.min_yukseklik) {
-        document.querySelectorAll('.hero').forEach(el => el.style.minHeight = h.min_yukseklik);
-      }
-      if (h.overlay_opakligi) {
-        document.querySelectorAll('.hero-overlay').forEach(el => el.style.background = `linear-gradient(90deg,rgba(11,31,75,${h.overlay_opakligi}) 0%,rgba(11,31,75,${parseFloat(h.overlay_opakligi)-0.17}) 50%,rgba(11,31,75,.15) 100%)`);
-      }
-      if (h.baslik_boyut) {
-        document.querySelectorAll('.hero h1').forEach(el => el.style.fontSize = h.baslik_boyut);
-      }
-      if (h.altyazi_boyut) {
-        document.querySelectorAll('.hero p').forEach(el => el.style.fontSize = h.altyazi_boyut);
-      }
-      if (h.tag_arkaplan) {
-        document.querySelectorAll('.hero-tag').forEach(el => el.style.background = h.tag_arkaplan);
-      }
-      if (h.tag_renk) {
-        document.querySelectorAll('.hero-tag').forEach(el => el.style.color = h.tag_renk);
-      }
-      if (h.buton_birincil_arkaplan) {
-        document.querySelectorAll('.btn-g').forEach(el => el.style.background = h.buton_birincil_arkaplan);
-      }
-      if (h.buton_birincil_renk) {
-        document.querySelectorAll('.btn-g').forEach(el => el.style.color = h.buton_birincil_renk);
-      }
-    }
-
-    // ── İSTATİSTİK BARI ───────────────────────────────────────────────────
-    if (t.stats_bar) {
-      const sb = document.querySelector('.stats-bar');
-      const s = t.stats_bar;
-      if (sb) {
-        if (s.arkaplan)   sb.style.background = s.arkaplan;
-        if (s.sayi_renk)  document.querySelectorAll('.stat-n').forEach(el => el.style.color = s.sayi_renk);
-        if (s.etiket_renk) document.querySelectorAll('.stat-l').forEach(el => el.style.color = s.etiket_renk);
-        if (s.sayi_boyut) document.querySelectorAll('.stat-n').forEach(el => el.style.fontSize = s.sayi_boyut);
-      }
-    }
-
-    // ── BÖLÜM BAŞLIKLARI ──────────────────────────────────────────────────
-    if (t.bolum_basligi) {
-      const bb = t.bolum_basligi;
-      if (bb.baslik_renk)  document.querySelectorAll('.sec-head h2').forEach(el => el.style.color = bb.baslik_renk);
-      if (bb.baslik_boyut) document.querySelectorAll('.sec-head h2').forEach(el => el.style.fontSize = bb.baslik_boyut);
-      if (bb.tag_renk)     document.querySelectorAll('.sec-tag').forEach(el => el.style.color = bb.tag_renk);
-      if (bb.cizgi_renk)   document.querySelectorAll('.sec-line').forEach(el => el.style.background = bb.cizgi_renk);
-      if (bb.cizgi_genislik) document.querySelectorAll('.sec-line').forEach(el => el.style.width = bb.cizgi_genislik);
-    }
-
-    // ── ÜRÜN KARTI ────────────────────────────────────────────────────────
-    if (t.urun_karti) {
-      const uk = t.urun_karti;
-      document.querySelectorAll('.prod-card').forEach(el => {
-        if (uk.sinir_radius) el.style.borderRadius = uk.sinir_radius;
-        if (uk.sinir_renk)   el.style.borderColor = uk.sinir_renk;
-        if (uk.arkaplan)     el.style.background = uk.arkaplan;
-      });
-      if (uk.baslik_renk)  document.querySelectorAll('.prod-body h3').forEach(el => el.style.color = uk.baslik_renk);
-      if (uk.baslik_boyut) document.querySelectorAll('.prod-body h3').forEach(el => el.style.fontSize = uk.baslik_boyut);
-      if (uk.aciklama_renk) document.querySelectorAll('.prod-body p').forEach(el => el.style.color = uk.aciklama_renk);
-      if (uk.resim_yukseklik) document.querySelectorAll('.prod-img').forEach(el => el.style.height = uk.resim_yukseklik);
-      if (uk.badge_arkaplan) document.querySelectorAll('.prod-badge').forEach(el => el.style.background = uk.badge_arkaplan);
-      if (uk.badge_renk)    document.querySelectorAll('.prod-badge').forEach(el => el.style.color = uk.badge_renk);
-    }
-
-    // ── ÖZELLİKLER BÖLÜMÜ (features) ─────────────────────────────────────
-    if (t.ozellikler_bolumu) {
-      const ob = t.ozellikler_bolumu;
-      const featSection = document.querySelector('.features');
-      if (featSection && ob.arkaplan) featSection.style.background = ob.arkaplan;
-      if (ob.ikon_arkaplan) document.querySelectorAll('.feat-ico').forEach(el => el.style.background = ob.ikon_arkaplan);
-      if (ob.ikon_renk)     document.querySelectorAll('.feat-ico svg').forEach(el => el.style.stroke = ob.ikon_renk);
-      if (ob.baslik_renk)   document.querySelectorAll('.feat h3').forEach(el => el.style.color = ob.baslik_renk);
-      if (ob.metin_renk)    document.querySelectorAll('.feat p').forEach(el => el.style.color = ob.metin_renk);
-    }
-
-    // ── GALERİ ────────────────────────────────────────────────────────────
-    if (t.galeri) {
-      const g = t.galeri;
-      if (g.item_yukseklik) document.querySelectorAll('.gallery-item').forEach(el => el.style.height = g.item_yukseklik);
-      if (g.arkaplan)       document.querySelectorAll('.gallery-section').forEach(el => el.style.background = g.arkaplan);
-    }
-
-    // ── BLOG ──────────────────────────────────────────────────────────────
-    if (t.blog) {
-      const b = t.blog;
-      document.querySelectorAll('.blog-card').forEach(el => {
-        if (b.sinir_radius) el.style.borderRadius = b.sinir_radius;
-        if (b.arkaplan)     el.style.background = b.arkaplan;
-      });
-      if (b.baslik_renk)  document.querySelectorAll('.blog-body h3').forEach(el => el.style.color = b.baslik_renk);
-      if (b.baslik_boyut) document.querySelectorAll('.blog-body h3').forEach(el => el.style.fontSize = b.baslik_boyut);
-      if (b.resim_yukseklik) document.querySelectorAll('.blog-img').forEach(el => el.style.height = b.resim_yukseklik);
-    }
-
-    // ── BUTONLAR ──────────────────────────────────────────────────────────
-    if (t.butonlar) {
-      const btn = t.butonlar;
-      if (btn.birincil_arkaplan) document.querySelectorAll('.btn-g, .form-submit, .about-btn').forEach(el => el.style.background = btn.birincil_arkaplan);
-      if (btn.birincil_renk)     document.querySelectorAll('.btn-g, .form-submit, .about-btn').forEach(el => el.style.color = btn.birincil_renk);
-      if (btn.radius)            document.querySelectorAll('.btn-g, .btn-w, .form-submit, .about-btn, .nav-cta').forEach(el => el.style.borderRadius = btn.radius);
-      if (btn.boyut)             document.querySelectorAll('.btn-g, .btn-w, .form-submit').forEach(el => el.style.fontSize = btn.boyut);
-    }
-
-    // ── FOOTER ────────────────────────────────────────────────────────────
-    if (t.footer) {
-      const ft = t.footer;
-      const footer = document.querySelector('footer');
-      if (footer) {
-        if (ft.arkaplan)   footer.style.background = ft.arkaplan;
-        if (ft.metin_renk) footer.style.color = ft.metin_renk;
-      }
-      if (ft.baslik_renk) document.querySelectorAll('.footer-col h4').forEach(el => el.style.color = ft.baslik_renk);
-      if (ft.link_renk)   document.querySelectorAll('.footer-col a').forEach(el => el.style.color = ft.link_renk);
-      if (ft.alt_cizgi_renk) document.querySelectorAll('.footer-bottom').forEach(el => el.style.borderTopColor = ft.alt_cizgi_renk);
-    }
-
-    // ── FORM ──────────────────────────────────────────────────────────────
-    if (t.form) {
-      const fm = t.form;
-      document.querySelectorAll('.form-field input, .form-field textarea, .form-field select').forEach(el => {
-        if (fm.sinir_renk)  el.style.borderColor = fm.sinir_renk;
-        if (fm.arkaplan)    el.style.background = fm.arkaplan;
-        if (fm.metin_renk)  el.style.color = fm.metin_renk;
-        if (fm.radius)      el.style.borderRadius = fm.radius;
-      });
-    }
-
-    // ── GENEL BOŞLUKLAR ───────────────────────────────────────────────────
-    if (t.bosluklar) {
-      const bs = t.bosluklar;
-      if (bs.bolum_ust_alt) {
-        document.querySelectorAll('.products-section, .about-section, .features, .gallery-section, .blog-section, .contact-section').forEach(el => {
-          el.style.paddingTop = bs.bolum_ust_alt;
-          el.style.paddingBottom = bs.bolum_ust_alt;
-        });
-      }
-    }
-
   } catch (e) {
     // tema.json yoksa sessizce geç
   }

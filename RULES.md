@@ -4,13 +4,14 @@ Bu belge, **Global Kapak Mobilya** (`https://globalkapakmobilya.com`) projesinin
 
 ---
 
-## 🎨 1. Kurumsal Tasarım & Renk Standartları
-* **Birincil Renk (Navy / Lacivert):** `#0B1F4B` (`--navy`), `#1A3A7A` (`--navy2`), `#2453A8` (`--navy3`)
-* **Vurgu Rengi (Gold / Altın):** `#C8A96E` (`--gold`)
-* **Arka Plan & Nötrler:** `#ffffff` (`--white`), `#f7f7f7` (`--gray`), `#e5e5e5` (`--border`)
+## 🎨 1. Kurumsal Tasarım & Renk Standartları (Warm Architectural Luxury)
+* **Birincil Renk (Espresso Ceviz & Kestane):** `#2A1810` (`--navy`), `#46281B` (`--navy2`), `#B85D3B` (`--navy3` / Terracotta Sienna)
+* **Vurgu Rengi (Şampanya Kehribar & Terracotta):** `#D49546` (`--gold`), `#E8B872` (`--gold-light`), `#C46238` (`--terracotta`)
+* **Arka Plan & Sıcak Nötrler:** `#FFFDFB` (`--white` / Fildişi), `#FBF7F2` (`--gray` / Kaşmir Krem), `#F3EAE0` (`--sand` / Traverten), `#E8DDD1` (`--border`)
 * **Yazı Tipleri:**
-  - Başlıklar, butonlar, etiketler, fiyat/istatistikler: `'Montserrat', sans-serif`
-  - Paragraflar, açıklamalar, gövde metinleri: `'Open Sans', sans-serif`
+  - Sergileme ve Ana Başlıklar: `'Cormorant Garamond', Georgia, serif`
+  - Alt Başlıklar, Butonlar ve UI: `'Plus Jakarta Sans', 'Montserrat', sans-serif`
+  - Gövde Metinleri: `'Plus Jakarta Sans', 'Open Sans', sans-serif`
 
 ---
 
