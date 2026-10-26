@@ -4,10 +4,10 @@ Bu belge, **Global Kapak Mobilya** (`https://globalkapakmobilya.com`) projesinin
 
 ---
 
-## 🎨 1. Kurumsal Tasarım & Renk Standartları (Warm Architectural Luxury)
-* **Birincil Renk (Espresso Ceviz & Kestane):** `#2A1810` (`--navy`), `#46281B` (`--navy2`), `#B85D3B` (`--navy3` / Terracotta Sienna)
-* **Vurgu Rengi (Şampanya Kehribar & Terracotta):** `#D49546` (`--gold`), `#E8B872` (`--gold-light`), `#C46238` (`--terracotta`)
-* **Arka Plan & Sıcak Nötrler:** `#FFFDFB` (`--white` / Fildişi), `#FBF7F2` (`--gray` / Kaşmir Krem), `#F3EAE0` (`--sand` / Traverten), `#E8DDD1` (`--border`)
+## 🎨 1. Kurumsal Tasarım & Renk Standartları (Nordic Blue, Slate Grey & Botanical Sage)
+* **Birincil Renk (Derin Fjord Mavi & Okyanus Laciverti):** `#0F253E` (`--navy`), `#1E3F66` (`--navy2`), `#2E6F9E` (`--navy3`)
+* **Vurgu Rengi (Buzul Mavi & Doğal Adaçayı Yeşili):** `#3B82A6` (`--gold`), `#7CC2E6` (`--gold-light`), `#4A7862` (`--sage` / Okaliptüs & Adaçayı Yeşili)
+* **Arka Plan & Mimari Gri Nötrler:** `#FFFFFF` (`--white` / Kutup Beyazı), `#F4F7F9` (`--gray` / Mimari Bulut Gri), `#E9EFF4` (`--sand` / Kuvars Gri), `#DCE5ED` (`--border`)
 * **Yazı Tipleri:**
   - Sergileme ve Ana Başlıklar: `'Cormorant Garamond', Georgia, serif`
   - Alt Başlıklar, Butonlar ve UI: `'Plus Jakarta Sans', 'Montserrat', sans-serif`

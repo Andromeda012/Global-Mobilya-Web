@@ -1,17 +1,17 @@
 /**
- * Global Kapak Mobilya — Genel İçerik Yükleyici & Warm Luxury Header
+ * Global Kapak Mobilya — Genel İçerik Yükleyici & Nordic Blue-Slate-Sage Header
  * _data/ayarlar/genel.json dosyasından navbar, topbar,
  * hakkımızda resmi ve diğer sabit içerikleri dinamik yükler.
  */
 (async function () {
 
-  // ── 1. Eğer sayfada .topbar yoksa, nav öncesine sıcak lüks topbar ekle ──
+  // ── 1. Eğer sayfada .topbar yoksa, nav öncesine kurumsal topbar ekle ──
   const navEl = document.querySelector('nav');
   if (navEl && !document.querySelector('.topbar')) {
     const tb = document.createElement('div');
     tb.className = 'topbar';
     tb.innerHTML = `
-      <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🚛 Türkiye Geneli Güvenli Sevkiyat</span>
+      <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🌿 Doğa Dostu Üretim & Türkiye Geneli Sevkiyat</span>
       <div class="topbar-right">
         <a href="tel:05050151035">📞 0 (505) 015 1035</a>
         <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
@@ -20,24 +20,24 @@
     navEl.parentNode.insertBefore(tb, navEl);
   }
 
-  // ── 2. CSS: Navbar aktif/hover link rengi (Sıcak Lüks Palet) ───────────
+  // ── 2. CSS: Navbar aktif/hover link rengi (Mavi, Gri & Doğal Yeşil Palet) ──
   const fixCSS = document.createElement('style');
   fixCSS.id = 'navbar-fix-css';
   fixCSS.textContent = `
     .nav-menu a {
-      color: var(--navy, #2A1810) !important;
+      color: var(--navy, #0F253E) !important;
       border-radius: 8px !important;
       padding: 8px 14px !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .nav-menu a:hover {
-      background: rgba(212, 149, 70, 0.14) !important;
-      color: #B85D3B !important;
+      background: rgba(59, 130, 166, 0.12) !important;
+      color: #1E5680 !important;
     }
     .nav-menu a.active {
-      background: linear-gradient(135deg, #2A1810 0%, #46281B 100%) !important;
-      color: #F3C68F !important;
-      box-shadow: 0 4px 14px rgba(42, 24, 16, 0.18) !important;
+      background: linear-gradient(135deg, #0F253E 0%, #1E4976 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(15, 37, 62, 0.20) !important;
     }
   `;
   document.head.appendChild(fixCSS);

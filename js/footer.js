@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Dinamik Warm Luxury Footer & Floating Concierge
+ * Global Kapak Mobilya — Dinamik Nordic Blue, Slate & Sage Luxury Footer
  * Tüm sayfalarda bu dosya include edilir, footer ve sabit iletişim araçları otomatik eklenir.
  */
 
@@ -22,12 +22,13 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="f-logo-wrap">
-        <img src="resim/logo.png" alt="Global Kapak Mobilya" style="height:76px;width:auto;background:#FFFDFB;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+        <img src="resim/logo.png" alt="Global Kapak Mobilya" style="height:76px;width:auto;background:#FFFFFF;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
       </div>
       <div class="f-brand-name">Global Kapak Mobilya</div>
-      <p>Membran kapak üretiminde uzman kadromuz ve modern CNC parkurumuzla mekanlarınıza sıcaklık, kalite ve zamansız estetik katıyoruz.</p>
+      <p>Membran kapak üretiminde uzman kadromuz ve modern CNC parkurumuzla mekanlarınıza modern mimari, doğallık ve zamansız estetik katıyoruz.</p>
       <div class="f-badges">
         <span>🛡️ 5 Yıl Garanti</span>
+        <span>🌿 Doğa Dostu Üretim</span>
         <span>⚡ 5 İş Günü Teslimat</span>
       </div>
       <div class="f-socials">
@@ -69,8 +70,8 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Global Kapak Mobilya — Tüm hakları saklıdır. | <a href="kvkk.html" style="color:#E5A95C;text-decoration:none;">KVKK Aydınlatma Metni</a></p>
-    <div class="f-craft-note">İstanbul Fabrika İmalatı • %100 Yerli & Kaliteli Üretim</div>
+    <p>© 2026 Global Kapak Mobilya — Tüm hakları saklıdır. | <a href="kvkk.html" style="color:#7CC2E6;text-decoration:none;">KVKK Aydınlatma Metni</a></p>
+    <div class="f-craft-note">İstanbul Fabrika İmalatı • %100 Yerli & Doğa Dostu Üretim</div>
     <div class="socials" style="display:none"></div>
   </div>
 </footer>
@@ -79,14 +80,14 @@
   const FOOTER_CSS = `
 <style id="footer-dynamic-css">
 footer {
-  background: radial-gradient(circle at 20% 0%, rgba(196, 98, 56, 0.16) 0%, transparent 50%),
-              radial-gradient(circle at 85% 100%, rgba(212, 149, 70, 0.12) 0%, transparent 50%),
-              linear-gradient(180deg, #1E110B 0%, #140B07 100%) !important;
+  background: radial-gradient(circle at 18% 0%, rgba(59, 130, 166, 0.18) 0%, transparent 50%),
+              radial-gradient(circle at 85% 100%, rgba(74, 120, 98, 0.15) 0%, transparent 50%),
+              linear-gradient(180deg, #0B192C 0%, #07111E 100%) !important;
   padding: 0 40px 32px !important;
-  color: rgba(255, 246, 238, 0.7);
+  color: rgba(226, 236, 245, 0.72);
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(212, 149, 70, 0.22);
+  border-top: 1px solid rgba(124, 194, 230, 0.20);
 }
 .footer-cta-banner {
   max-width: 1180px;
@@ -94,8 +95,8 @@ footer {
   padding-top: 52px;
 }
 .footer-cta-inner {
-  background: linear-gradient(135deg, rgba(184, 93, 59, 0.24) 0%, rgba(212, 149, 70, 0.14) 100%);
-  border: 1px solid rgba(229, 169, 92, 0.28);
+  background: linear-gradient(135deg, rgba(30, 63, 102, 0.55) 0%, rgba(59, 130, 166, 0.25) 55%, rgba(74, 120, 98, 0.28) 100%);
+  border: 1px solid rgba(124, 194, 230, 0.28);
   border-radius: 20px;
   padding: 36px 42px;
   display: flex;
@@ -111,7 +112,7 @@ footer {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: #E5A95C;
+  color: #84D2F6;
   margin-bottom: 8px;
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
 }
@@ -119,13 +120,13 @@ footer {
   font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 32px !important;
   font-weight: 700 !important;
-  color: #FFFDFB !important;
+  color: #FFFFFF !important;
   margin-bottom: 6px;
   line-height: 1.2;
 }
 .footer-cta-text p {
   font-size: 14px;
-  color: rgba(255, 246, 238, 0.72);
+  color: rgba(226, 236, 245, 0.76);
   max-width: 580px;
   line-height: 1.65;
 }
@@ -135,25 +136,25 @@ footer {
   flex-wrap: wrap;
 }
 .f-btn-primary {
-  background: linear-gradient(135deg, #C86D3B 0%, #D49546 100%);
-  color: #FFFDFB !important;
+  background: linear-gradient(135deg, #2B6CB0 0%, #3B82A6 55%, #4A7862 100%);
+  color: #FFFFFF !important;
   padding: 14px 26px;
   border-radius: 12px;
   font-size: 13px;
   font-weight: 700;
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(200, 109, 59, 0.35);
+  box-shadow: 0 10px 24px rgba(43, 108, 176, 0.35);
   transition: all 0.3s ease;
 }
 .f-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(212, 149, 70, 0.5);
+  box-shadow: 0 14px 30px rgba(59, 130, 166, 0.5);
 }
 .f-btn-wa {
-  background: rgba(255, 253, 251, 0.08);
-  color: #FFFDFB !important;
-  border: 1px solid rgba(229, 169, 92, 0.35);
+  background: rgba(255, 255, 255, 0.07);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(124, 194, 230, 0.35);
   padding: 14px 22px;
   border-radius: 12px;
   font-size: 13px;
@@ -162,8 +163,8 @@ footer {
   transition: all 0.3s ease;
 }
 .f-btn-wa:hover {
-  background: rgba(229, 169, 92, 0.2);
-  border-color: #E5A95C;
+  background: rgba(74, 120, 98, 0.32);
+  border-color: #84A98C;
 }
 .footer-grid {
   display: grid;
@@ -177,7 +178,7 @@ footer {
 }
 .f-brand-name {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  color: #FFFDFB;
+  color: #FFFFFF;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -185,7 +186,7 @@ footer {
 }
 .footer-brand p {
   font-size: 13.5px;
-  color: rgba(255, 245, 235, 0.62);
+  color: rgba(226, 236, 245, 0.64);
   line-height: 1.8;
   margin-bottom: 16px;
 }
@@ -198,9 +199,9 @@ footer {
 .f-badges span {
   font-size: 11px;
   font-weight: 600;
-  color: #F3C68F;
-  background: rgba(212, 149, 70, 0.12);
-  border: 1px solid rgba(212, 149, 70, 0.25);
+  color: #A5D8F3;
+  background: rgba(59, 130, 166, 0.14);
+  border: 1px solid rgba(124, 194, 230, 0.24);
   padding: 5px 11px;
   border-radius: 30px;
 }
@@ -213,17 +214,17 @@ footer {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(229, 169, 92, 0.25);
+  border: 1px solid rgba(124, 194, 230, 0.25);
   background: rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 245, 235, 0.7);
+  color: rgba(226, 236, 245, 0.72);
   transition: all 0.25s ease;
 }
 .f-socials a:hover {
-  border-color: #E5A95C;
-  background: linear-gradient(135deg, #C86D3B, #D49546);
+  border-color: #7CC2E6;
+  background: linear-gradient(135deg, #2B6CB0, #4A7862);
   color: #fff;
   transform: translateY(-3px);
 }
@@ -238,7 +239,7 @@ footer {
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
   font-size: 11.5px;
   font-weight: 700;
-  color: #E5A95C !important;
+  color: #7CC2E6 !important;
   letter-spacing: 2.2px;
   text-transform: uppercase;
   margin-bottom: 18px;
@@ -252,32 +253,33 @@ footer {
   left: 0;
   width: 28px;
   height: 2px;
-  background: linear-gradient(90deg, #C86D3B, #E5A95C);
+  background: linear-gradient(90deg, #3B82A6, #6B9080);
   border-radius: 2px;
 }
 .footer-col a {
   display: block;
   font-size: 13.5px;
-  color: rgba(255, 245, 235, 0.65) !important;
+  color: rgba(226, 236, 245, 0.66) !important;
   margin-bottom: 11px;
   transition: all 0.22s ease;
   text-decoration: none;
 }
 .footer-col a:hover {
-  color: #F3C68F !important;
+  color: #84D2F6 !important;
   transform: translateX(4px);
 }
 .f-hours {
   margin-top: 12px;
   font-size: 12px;
-  color: #E5A95C;
-  background: rgba(212, 149, 70, 0.1);
+  color: #98D4B8;
+  background: rgba(74, 120, 98, 0.18);
+  border: 1px solid rgba(132, 169, 140, 0.25);
   padding: 8px 12px;
   border-radius: 8px;
   display: inline-block;
 }
 .footer-bottom {
-  border-top: 1px solid rgba(229, 169, 92, 0.14);
+  border-top: 1px solid rgba(124, 194, 230, 0.14);
   padding-top: 24px;
   display: flex;
   justify-content: space-between;
@@ -289,7 +291,7 @@ footer {
 }
 .footer-bottom p, .f-craft-note {
   font-size: 12.5px;
-  color: rgba(255, 245, 235, 0.45);
+  color: rgba(226, 236, 245, 0.45);
 }
 /* Sabit WhatsApp & Yukarı Çık Butonları */
 .wa-concierge-float {
@@ -300,11 +302,11 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #1E7E48 0%, #25D366 100%);
+  background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
   color: #fff !important;
   padding: 13px 20px;
   border-radius: 50px;
-  box-shadow: 0 12px 32px rgba(37, 211, 102, 0.36);
+  box-shadow: 0 12px 32px rgba(45, 106, 79, 0.38);
   text-decoration: none;
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
   font-size: 13px;
@@ -314,7 +316,7 @@ footer {
 }
 .wa-concierge-float:hover {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 18px 40px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 18px 40px rgba(64, 145, 108, 0.52);
 }
 .wa-concierge-float svg {
   width: 20px;
@@ -330,14 +332,14 @@ footer {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2A1810, #46281B);
-  color: #E5A95C;
-  border: 1px solid rgba(212, 149, 70, 0.4);
+  background: linear-gradient(135deg, #0F253E, #1E3F66);
+  color: #7CC2E6;
+  border: 1px solid rgba(124, 194, 230, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(42, 24, 16, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 37, 62, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
@@ -349,7 +351,7 @@ footer {
   transform: translateY(0);
 }
 .scroll-top-lux:hover {
-  background: linear-gradient(135deg, #C86D3B, #D49546);
+  background: linear-gradient(135deg, #2E6F9E, #4A7862);
   color: #fff;
   transform: translateY(-3px);
 }
@@ -379,7 +381,6 @@ footer {
     document.body.insertAdjacentHTML('beforeend', FOOTER_HTML);
   }
 
-  // Floating WhatsApp & Scroll-to-Top ekle (eğer sayfada yoksa)
   if (!document.querySelector('.wa-concierge-float') && !document.querySelector('.whatsapp-float')) {
     const floatHTML = `
       <a href="https://wa.me/905050151035" class="wa-concierge-float" target="_blank" aria-label="WhatsApp ile Hızlı Teklif">
@@ -397,11 +398,10 @@ footer {
     }, { passive: true });
   }
 
-  // Aktif sayfayı footer linklerinde işaretle
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('footer .footer-col a').forEach(link => {
     if (link.getAttribute('href') === currentPage) {
-      link.style.color = '#E5A95C';
+      link.style.color = '#7CC2E6';
       link.style.fontWeight = '700';
     }
   });
