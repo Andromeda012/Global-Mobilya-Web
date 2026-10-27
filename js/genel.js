@@ -17,6 +17,15 @@
     });
   }
 
+  const normalizeMedia = (url, fallback) => {
+    if (window.GKM_SUPABASE && typeof window.GKM_SUPABASE.normalizeMediaUrl === 'function') {
+      return window.GKM_SUPABASE.normalizeMediaUrl(url, fallback);
+    }
+    if (!url) return fallback;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+    return url.replace(/^\/+/, '');
+  };
+
   // ── 1. Eğer sayfada .topbar yoksa, nav öncesine kurumsal topbar ekle ──
   const navEl = document.querySelector('nav');
   if (navEl && !document.querySelector('.topbar')) {
@@ -115,8 +124,9 @@
 
   // ── NAVBAR: Logo ──────────────────────────────────────────────────────
   if (firma.logo) {
+    const logoUrl = normalizeMedia(firma.logo, 'resim/logo.png');
     document.querySelectorAll('.nav-logo img').forEach(img => {
-      img.src = firma.logo;
+      img.src = logoUrl;
       img.alt = firma.ad || 'Global Kapak Mobilya';
     });
   }
@@ -130,33 +140,33 @@
 
   // ── ANASAYFA HERO VE HAKKIMIZDA (Supabase 'anasayfa' veya 'genel') ────
   if (anasayfaAyar) {
+    const heroObj = anasayfaAyar.hero || anasayfaAyar;
     const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
+    if (heroContent && heroObj) {
       const tagEl = heroContent.querySelector('.hero-tag');
       const h1El  = heroContent.querySelector('h1');
       const pEl   = heroContent.querySelector('p');
-      if (tagEl && anasayfaAyar.hero_etiket) tagEl.textContent = anasayfaAyar.hero_etiket;
-      if (h1El && (anasayfaAyar.hero_baslik_1 || anasayfaAyar.hero_baslik_2)) {
-        h1El.innerHTML = `${anasayfaAyar.hero_baslik_1 || ''}<br><span>${anasayfaAyar.hero_baslik_2 || ''}</span>`;
+      const tagText = heroObj.tag || heroObj.hero_etiket;
+      const b1 = heroObj.baslik_1 || heroObj.hero_baslik_1;
+      const b2 = heroObj.baslik_2 || heroObj.hero_baslik_2;
+      const altYazi = heroObj.alt_yazi || heroObj.hero_aciklama;
+
+      if (tagEl && tagText) tagEl.textContent = tagText;
+      if (h1El && (b1 || b2)) {
+        h1El.innerHTML = `${b1 || ''}<br><span>${b2 || ''}</span>`;
       }
-      if (pEl && anasayfaAyar.hero_aciklama) pEl.textContent = anasayfaAyar.hero_aciklama;
-      const btns = heroContent.querySelectorAll('.hero-btns button');
-      if (btns[0] && anasayfaAyar.hero_buton_1) btns[0].textContent = anasayfaAyar.hero_buton_1 + ' →';
-      if (btns[1] && anasayfaAyar.hero_buton_2) btns[1].textContent = anasayfaAyar.hero_buton_2;
+      if (pEl && altYazi) pEl.textContent = altYazi;
     }
   }
 
   const aboutImg = document.getElementById('about-main-img') || document.querySelector('.about-img');
   const aboutData = Object.assign({}, genel.anasayfa_hakkimizda || {}, (anasayfaAyar && anasayfaAyar.anasayfa_hakkimizda) || {});
-  if (anasayfaAyar && anasayfaAyar.hakkimizda_baslik_1) aboutData.baslik_1 = anasayfaAyar.hakkimizda_baslik_1;
-  if (anasayfaAyar && anasayfaAyar.hakkimizda_baslik_2) aboutData.baslik_2 = anasayfaAyar.hakkimizda_baslik_2;
-  if (anasayfaAyar && anasayfaAyar.hakkimizda_p1) aboutData.paragraf_1 = anasayfaAyar.hakkimizda_p1;
-  if (anasayfaAyar && anasayfaAyar.hakkimizda_p2) aboutData.paragraf_2 = anasayfaAyar.hakkimizda_p2;
 
   if (aboutImg && aboutData.resim) {
-    const imgUrl = aboutData.resim.includes('anasayfa-hakkimizda')
+    const rawImg = aboutData.resim.includes('anasayfa-hakkimizda')
       ? 'resim/yonetilen/atelier-craft.jpg'
       : aboutData.resim;
+    const imgUrl = normalizeMedia(rawImg, 'resim/yonetilen/atelier-craft.jpg');
     aboutImg.style.backgroundImage = `url('${imgUrl}')`;
     aboutImg.style.backgroundSize = 'cover';
   }
@@ -184,17 +194,18 @@
   }
 
   // ── KURUMSAL TANITIM VİDEOSU (Supabase Storage & site_settings) ───────
-  const videoCfg = (anasayfaAyar && anasayfaAyar.kurumsal_video) || genel.kurumsal_video;
+  const videoCfg = (anasayfaAyar && (anasayfaAyar.video || anasayfaAyar.kurumsal_video)) || genel.anasayfa_video || genel.kurumsal_video;
   const videoSec = document.getElementById('corporateVideoSection');
-  if (videoSec && videoCfg && videoCfg.aktif !== false && videoCfg.url) {
+  const videoUrlRaw = videoCfg ? (videoCfg.video_url || videoCfg.harici_url || videoCfg.url || '') : '';
+  if (videoSec && videoCfg && videoCfg.aktif !== false && videoUrlRaw) {
     videoSec.style.display = 'block';
     const vTitle = document.getElementById('corpVideoTitle');
     const vSub   = document.getElementById('corpVideoSub');
     const vWrap  = document.getElementById('corpVideoPlayerWrap');
     if (vTitle && videoCfg.baslik) vTitle.textContent = videoCfg.baslik;
-    if (vSub && videoCfg.alt_baslik) vSub.textContent = videoCfg.alt_baslik;
+    if (vSub && (videoCfg.aciklama || videoCfg.alt_baslik)) vSub.textContent = videoCfg.aciklama || videoCfg.alt_baslik;
     if (vWrap) {
-      const url = videoCfg.url.trim();
+      const url = normalizeMedia(videoUrlRaw.trim(), '');
       if (url.includes('youtube.com') || url.includes('youtu.be')) {
         let vidId = '';
         if (url.includes('youtu.be/')) vidId = url.split('youtu.be/')[1].split(/[?&]/)[0];
@@ -203,7 +214,7 @@
         if (vidId) {
           vWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${vidId}?rel=0" style="width:100%;aspect-ratio:16/9;border:0;border-radius:20px;box-shadow:0 24px 60px rgba(15,37,62,0.28);" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
-      } else {
+      } else if (url) {
         const autoAttr = videoCfg.otomatik_oynat ? 'autoplay' : '';
         const muteAttr = (videoCfg.sessiz !== false) ? 'muted' : '';
         const loopAttr = (videoCfg.dongu !== false) ? 'loop' : '';
@@ -231,7 +242,7 @@
   const hakkiData = genel.hakkimizda_resim || {};
   if (aboutBig) {
     const useImg = (hakkiData.resim && !hakkiData.resim.includes('logo.png'))
-      ? hakkiData.resim
+      ? normalizeMedia(hakkiData.resim, 'resim/yonetilen/atelier-craft.jpg')
       : 'resim/yonetilen/atelier-craft.jpg';
     aboutBig.style.backgroundImage = `url('${useImg}')`;
     aboutBig.style.backgroundSize  = 'cover';
