@@ -1,7 +1,7 @@
 /**
  * Global Kapak Mobilya — Supabase Cloud Database & Storage İstemcisi
  * Ürünler, tedarikçiler, galeri, blog, firma ayarları ve kurumsal videoları
- * doğrudan Supabase PostgreSQL veritabanı ve Supabase Storage'dan yükler.
+ * doğrudan Supabase PostgreSQL REST API (no-store, sıfır önbellek) ve Supabase Storage'dan yükler.
  */
 (function () {
   const DEFAULT_SUPABASE_URL = 'https://vrfujrpsjzqjthaqdalx.supabase.co';
@@ -23,7 +23,7 @@
     }
   } catch (e) {}
 
-  // Varsayılan Supabase bağlantısını garantile
+  // Varsayılan Supabase bağlantısını her tarayıcıda garantile
   try {
     const storedUrl = (localStorage.getItem('gkm_supabase_url') || '').trim();
     const storedKey = (localStorage.getItem('gkm_supabase_key') || '').trim();
@@ -33,7 +33,19 @@
     }
   } catch (e) {}
 
-  let clientPromise = null;
+  function getCredentials() {
+    let url = DEFAULT_SUPABASE_URL;
+    let key = DEFAULT_SUPABASE_ANON_KEY;
+    try {
+      const u = (localStorage.getItem('gkm_supabase_url') || '').trim();
+      const k = (localStorage.getItem('gkm_supabase_key') || '').trim();
+      if (u && k && !u.includes('gfxcnmpfksxghbmtvows')) {
+        url = u.replace(/\/+$/, '');
+        key = k;
+      }
+    } catch (e) {}
+    return { url, key };
+  }
 
   function normalizeMediaUrl(url, fallback = 'resim/logo.png') {
     if (!url || typeof url !== 'string') return fallback;
@@ -45,56 +57,38 @@
     return trimmed.replace(/^\/+/, '');
   }
 
-  function ensureSupabaseLibrary() {
-    if (window.supabase && typeof window.supabase.createClient === 'function') {
-      return Promise.resolve(window.supabase);
-    }
-    return new Promise((resolve, reject) => {
-      const existing = document.querySelector('script[data-gkm-supabase]');
-      if (existing) {
-        existing.addEventListener('load', () => resolve(window.supabase));
-        existing.addEventListener('error', reject);
-        return;
-      }
-      const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-      s.setAttribute('data-gkm-supabase', 'true');
-      s.onload = () => resolve(window.supabase);
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
-  }
-
-  async function getClient() {
-    const url = (localStorage.getItem('gkm_supabase_url') || DEFAULT_SUPABASE_URL || '').trim();
-    const key = (localStorage.getItem('gkm_supabase_key') || DEFAULT_SUPABASE_ANON_KEY || '').trim();
+  async function restSelect(tableAndQuery) {
+    const { url, key } = getCredentials();
     if (!url || !key) return null;
-
-    if (!clientPromise) {
-      clientPromise = ensureSupabaseLibrary()
-        .then((sb) => sb.createClient(url, key))
-        .catch(() => null);
+    try {
+      const res = await fetch(`${url}/rest/v1/${tableAndQuery}`, {
+        method: 'GET',
+        cache: 'no-store',
+        headers: {
+          'apikey': key,
+          'Authorization': `Bearer ${key}`,
+          'Accept': 'application/json'
+        }
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (err) {
+      console.error('Supabase REST hatası:', err);
+      return null;
     }
-    return clientPromise;
   }
 
   window.GKM_SUPABASE = {
     normalizeMediaUrl,
 
     isConfigured() {
-      const url = (localStorage.getItem('gkm_supabase_url') || DEFAULT_SUPABASE_URL || '').trim();
-      const key = (localStorage.getItem('gkm_supabase_key') || DEFAULT_SUPABASE_ANON_KEY || '').trim();
+      const { url, key } = getCredentials();
       return !!(url && key);
     },
 
     async getProducts() {
-      const client = await getClient();
-      if (!client) return null;
-      const { data, error } = await client
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error || !Array.isArray(data)) return null;
+      const data = await restSelect('products?select=*&order=created_at.desc');
+      if (!Array.isArray(data)) return null;
       return data.map(p => ({
         ...p,
         id: p.slug,
@@ -104,30 +98,21 @@
     },
 
     async getProductBySlug(slug) {
-      const client = await getClient();
-      if (!client || !slug) return null;
-      const { data, error } = await client
-        .from('products')
-        .select('*')
-        .eq('slug', slug)
-        .maybeSingle();
-      if (error || !data) return null;
+      if (!slug) return null;
+      const data = await restSelect(`products?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`);
+      if (!Array.isArray(data) || data.length === 0) return null;
+      const item = data[0];
       return {
-        ...data,
-        id: data.slug,
-        title: data.title || data.baslik || data.slug,
-        ana_resim: normalizeMediaUrl(data.ana_resim, 'resim/logo.png')
+        ...item,
+        id: item.slug,
+        title: item.title || item.baslik || item.slug,
+        ana_resim: normalizeMediaUrl(item.ana_resim, 'resim/logo.png')
       };
     },
 
     async getSuppliers() {
-      const client = await getClient();
-      if (!client) return null;
-      const { data, error } = await client
-        .from('suppliers')
-        .select('*')
-        .order('siralama', { ascending: true });
-      if (error || !Array.isArray(data)) return null;
+      const data = await restSelect('suppliers?select=*&order=siralama.asc');
+      if (!Array.isArray(data)) return null;
       return data.map(s => ({
         ...s,
         logo: normalizeMediaUrl(s.logo, 'resim/logo.png')
@@ -135,13 +120,8 @@
     },
 
     async getGallery() {
-      const client = await getClient();
-      if (!client) return null;
-      const { data, error } = await client
-        .from('gallery')
-        .select('*')
-        .order('siralama', { ascending: false });
-      if (error || !Array.isArray(data)) return null;
+      const data = await restSelect('gallery?select=*&order=siralama.desc');
+      if (!Array.isArray(data)) return null;
       return data.map(g => ({
         ...g,
         id: g.slug,
@@ -150,13 +130,8 @@
     },
 
     async getBlogs() {
-      const client = await getClient();
-      if (!client) return null;
-      const { data, error } = await client
-        .from('blogs')
-        .select('*')
-        .order('tarih', { ascending: false });
-      if (error || !Array.isArray(data)) return null;
+      const data = await restSelect('blogs?select=*&order=tarih.desc');
+      if (!Array.isArray(data)) return null;
       return data.map(b => ({
         ...b,
         id: b.slug,
@@ -165,31 +140,22 @@
     },
 
     async getBlogBySlug(slug) {
-      const client = await getClient();
-      if (!client || !slug) return null;
-      const { data, error } = await client
-        .from('blogs')
-        .select('*')
-        .eq('slug', slug)
-        .maybeSingle();
-      if (error || !data) return null;
+      if (!slug) return null;
+      const data = await restSelect(`blogs?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`);
+      if (!Array.isArray(data) || data.length === 0) return null;
+      const item = data[0];
       return {
-        ...data,
-        id: data.slug,
-        kapak_resim: normalizeMediaUrl(data.kapak_resim, 'resim/logo.png')
+        ...item,
+        id: item.slug,
+        kapak_resim: normalizeMediaUrl(item.kapak_resim, 'resim/logo.png')
       };
     },
 
     async getSiteSetting(key) {
-      const client = await getClient();
-      if (!client || !key) return null;
-      const { data, error } = await client
-        .from('site_settings')
-        .select('data')
-        .eq('key', key)
-        .maybeSingle();
-      if (error || !data || !data.data) return null;
-      return data.data;
+      if (!key) return null;
+      const data = await restSelect(`site_settings?select=data&key=eq.${encodeURIComponent(key)}&limit=1`);
+      if (!Array.isArray(data) || data.length === 0 || !data[0].data) return null;
+      return data[0].data;
     }
   };
 })();
