@@ -1443,32 +1443,33 @@ nav {
 </head>
 <body>
 
-<!-- NORDIC BLUE & NATURE TOPBAR -->
-<div class="topbar">
-  <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🌿 Doğa Dostu Üretim &amp; Türkiye Geneli Sevkiyat</span>
-  <div class="topbar-right">
-    <a href="tel:05050151035">📞 0 (505) 015 1035</a>
-    <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
+<!-- SABİT ÜST PANEL (TOPBAR + GLASSMORPHIC NAV BİRLİKTE HAREKET EDER) -->
+<div class="site-sticky-header" style="position:sticky;top:0;z-index:1000;width:100%;">
+  <div class="topbar">
+    <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🌿 Doğa Dostu Üretim &amp; Türkiye Geneli Sevkiyat</span>
+    <div class="topbar-right">
+      <a href="tel:05050151035">📞 0 (505) 015 1035</a>
+      <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
+    </div>
   </div>
-</div>
 
-<!-- GLASSMORPHIC NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="resim/logo.png" alt="Global Kapak Mobilya">
-  </a>
-  <div class="nav-menu" id="nm">
-    <a href="index.html" class="active">Anasayfa</a>
-    <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
-    <a href="urunler.html">Ürünlerimiz</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="galeri.html">Galeri</a>
-    <a href="blog.html">Blog</a>
-    <a href="iletisim.html">İletişim</a>
-  </div>
-  <a href="iletisim.html" class="nav-cta">Teklif Al →</a>
-  <button class="hamburger" onclick="document.getElementById('nm').classList.toggle('open')">☰</button>
-</nav>
+  <nav style="position:relative;top:0;">
+    <a class="nav-logo" href="index.html">
+      <img src="resim/logo.png" alt="Global Kapak Mobilya">
+    </a>
+    <div class="nav-menu" id="nm">
+      <a href="index.html" class="active">Anasayfa</a>
+      <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
+      <a href="urunler.html">Ürünlerimiz</a>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="galeri.html">Galeri</a>
+      <a href="blog.html">Blog</a>
+      <a href="iletisim.html">İletişim</a>
+    </div>
+    <a href="iletisim.html" class="nav-cta">Teklif Al →</a>
+    <button class="hamburger" onclick="document.getElementById('nm').classList.toggle('open')">☰</button>
+  </nav>
+</div>
 
 <!-- CINEMATIC HERO SLIDER -->
 <section class="hero" id="anasayfa">
@@ -1596,29 +1597,14 @@ nav {
     </button>
 
     <div class="prod-track" id="prodTrack">
-      <div class="prod-slide">
-        <a href="urunler.html" class="prod-card">
-          <div class="prod-img" style="background-image:url('resim/anasayfa-resimleri/anasayfa1.png');"><div class="prod-badge">Popüler</div></div>
-          <div class="prod-body"><div class="prod-cat">Geometrik CNC Serisi</div><h3>Fjord Mavi Diyagonal Kapak</h3><p>Modern mutfaklara derinlik katan arduvaz mavi CNC derz işlemeli membran model.</p><span class="prod-link">Modeli İncele →</span></div>
-        </a>
-      </div>
-      <div class="prod-slide">
-        <a href="urunler.html" class="prod-card">
-          <div class="prod-img" style="background-image:url('resim/anasayfa-resimleri/anasayfa2.png');"><div class="prod-badge">Yeni</div></div>
-          <div class="prod-body"><div class="prod-cat">Organik CNC Serisi</div><h3>Kuvars Gri Dalga Model</h3><p>Mimari taş grisi yüzey üzerinde akıcı organik CNC dalga formlu kapak.</p><span class="prod-link">Modeli İncele →</span></div>
-        </a>
-      </div>
-      <div class="prod-slide">
-        <a href="urunler.html" class="prod-card">
-          <div class="prod-img" style="background-image:url('resim/anasayfa-resimleri/anasayfa3.png');"></div>
-          <div class="prod-body"><div class="prod-cat">Çerçeveli Doğal Seri</div><h3>Adaçayı Yeşili Country Kapak</h3><p>Doğanın dinginliğini mutfaklara taşıyan derin çerçeve profilli membran kapak.</p><span class="prod-link">Modeli İncele →</span></div>
-        </a>
+      <div class="prod-slide" style="width:100%;">
+        <div style="min-height:360px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;font-weight:600;background:rgba(255,255,255,0.65);border:1px dashed var(--border);border-radius:18px;">
+          ⏳ Koleksiyon modelleri yükleniyor...
+        </div>
       </div>
     </div>
 
-    <div class="prod-dots">
-      <button class="pdot active" onclick="goToProdSlide(0)"></button>
-    </div>
+    <div class="prod-dots"></div>
   </div>
 
   <div style="text-align:center;margin-top:42px;">
@@ -1980,6 +1966,35 @@ window.addEventListener('resize', () => initProdSlider());
 
 <script src="js/supabase-config.js"></script>
 <script>
+function renderShowcaseSlides(showcase) {
+  const prodTrack = document.getElementById('prodTrack');
+  if (!prodTrack || !showcase || showcase.length === 0) return;
+  prodTrack.innerHTML = showcase.map(p => `
+    <div class="prod-slide">
+      <a href="urun.html?id=${p.id || p.slug}" class="prod-card">
+        <div class="prod-img" style="background-image:url('${p.ana_resim || 'resim/logo.png'}');background-size:cover;background-repeat:no-repeat;background-color:#EFF4F8;background-position:center;">
+          ${p.populer ? '<div class="prod-badge">Popüler</div>' : (p.yeni ? '<div class="prod-badge">Yeni</div>' : '')}
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">${p.kategori || 'Membran Kapak'}</div>
+          <h3>${p.title || p.baslik || ''}</h3>
+          <p>${p.kisa_aciklama || ''}</p>
+          <span class="prod-link">Modeli İncele & Tasarla →</span>
+        </div>
+      </a>
+    </div>
+  `).join('');
+  initProdSlider();
+}
+
+// Sayfa yenilendiğinde 1 saniyelik eski ürün yanıp sönmesini önlemek için önbellekten anında çiz
+try {
+  const cachedShowcase = JSON.parse(sessionStorage.getItem('gkm_home_showcase_cache') || 'null');
+  if (Array.isArray(cachedShowcase) && cachedShowcase.length > 0) {
+    renderShowcaseSlides(cachedShowcase);
+  }
+} catch(e) {}
+
 // Anasayfa için ürün, galeri ve blog yükleyici (Önce Supabase Cloud DB, sonra yerel JSON fallback)
 async function loadHomePage() {
   const cacheBuster = '?t=' + Date.now();
@@ -2019,25 +2034,10 @@ async function loadHomePage() {
       showcase = loadedProducts.filter(p => p.anasayfada_goster !== false);
     }
 
-    const prodTrack = document.getElementById('prodTrack');
-    if (prodTrack && showcase.length > 0) {
-      prodTrack.innerHTML = showcase.map(p => `
-        <div class="prod-slide">
-          <a href="urun.html?id=${p.id || p.slug}" class="prod-card">
-            <div class="prod-img" style="background-image:url('${p.ana_resim || 'resim/logo.png'}');background-size:cover;background-repeat:no-repeat;background-color:#EFF4F8;background-position:center;">
-              ${p.populer ? '<div class="prod-badge">Popüler</div>' : ''}
-            </div>
-            <div class="prod-body">
-              <div class="prod-cat">${p.kategori || 'Membran Kapak'}</div>
-              <h3>${p.title || p.baslik || ''}</h3>
-              <p>${p.kisa_aciklama || ''}</p>
-              <span class="prod-link">Modeli İncele →</span>
-            </div>
-          </a>
-        </div>
-      `).join('');
+    if (showcase.length > 0) {
+      try { sessionStorage.setItem('gkm_home_showcase_cache', JSON.stringify(showcase)); } catch(e) {}
+      renderShowcaseSlides(showcase);
     }
-    initProdSlider();
   } catch(err) {
     console.log('Ürün yükleme hatası:', err);
   }

@@ -41,10 +41,35 @@
     navEl.parentNode.insertBefore(tb, navEl);
   }
 
-  // ── 2. CSS: Navbar aktif/hover link rengi (Mavi, Gri & Doğal Yeşil Palet) ──
+  // ── 1b. Topbar ve Nav'ı tek bir sabit (sticky) üst panel içinde birleştir ──
+  const topbarEl = document.querySelector('.topbar');
+  if (navEl && topbarEl && !navEl.closest('.site-sticky-header')) {
+    const stickyWrap = document.createElement('div');
+    stickyWrap.className = 'site-sticky-header';
+    topbarEl.parentNode.insertBefore(stickyWrap, topbarEl);
+    stickyWrap.appendChild(topbarEl);
+    stickyWrap.appendChild(navEl);
+  }
+
+  // ── 2. CSS: Sabit Üst Panel & Navbar aktif/hover link rengi ──
   const fixCSS = document.createElement('style');
   fixCSS.id = 'navbar-fix-css';
   fixCSS.textContent = `
+    .site-sticky-header {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+      width: 100%;
+    }
+    .site-sticky-header .topbar {
+      position: relative !important;
+      z-index: 1001 !important;
+    }
+    .site-sticky-header nav {
+      position: relative !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+    }
     .nav-menu a {
       color: var(--navy, #0F253E) !important;
       border-radius: 8px !important;

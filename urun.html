@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Global Kapak Mobilya ürün detayı">
-<title>Ürün Detayı | Global Kapak Mobilya</title>
+<meta name="description" content="Global Kapak Mobilya ürün detayı ve canlı kapak tasarım & ölçü önizleme stüdyosu">
+<title>Ürün Detayı & Canlı Tasarım Modu | Global Kapak Mobilya</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
@@ -12,8 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--navy:#0F253E;--navy2:#1E3F66;--navy3:#2E6F9E;--gold:#3B82A6;--white:#FFFFFF;--gray:#F4F7F9;--border:#DCE5ED;--text:#1E293B;--muted:#5B6B7C;}
-body{font-family:'Open Sans',sans-serif;color:var(--text);}
+:root{--navy:#0F253E;--navy2:#1E3F66;--navy3:#2E6F9E;--gold:#3B82A6;--sage:#4A7862;--white:#FFFFFF;--gray:#F4F7F9;--border:#DCE5ED;--text:#1E293B;--muted:#5B6B7C;}
+body{font-family:'Open Sans',sans-serif;color:var(--text);background:#FAFBFD;}
 a{text-decoration:none;color:inherit;}
 img{max-width:100%;height:auto;display:block;}
 nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:65px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.06);gap:8px;}
@@ -28,75 +28,575 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px
 .breadcrumb a{color:var(--navy3);font-weight:600;}
 .breadcrumb span{margin:0 6px;color:var(--border);}
 .loading{text-align:center;padding:80px 40px;color:var(--muted);}
-.pd-wrapper{max-width:1100px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:50px;}
-.pd-gallery{position:sticky;top:80px;align-self:start;}
-.pd-main-img{width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--border);overflow:hidden;cursor:zoom-in;position:relative;background:#f5f8fc;}
-.pd-main-img img{width:100%;height:100%;transition:transform .3s ease;}
-.pd-main-img:hover img{transform:scale(1.03);}
-.pd-zoom-badge{position:absolute;top:12px;right:12px;width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:16px;pointer-events:none;}
-.pd-thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
-.pd-thumb{width:72px;height:72px;border-radius:5px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .2s;background:#f5f8fc;flex-shrink:0;}
+.pd-wrapper{max-width:1220px;margin:0 auto;padding:36px 40px 60px;display:grid;grid-template-columns:1.05fr 1fr;gap:46px;align-items:start;}
+.pd-gallery{position:sticky;top:118px;align-self:start;}
+
+/* ── CANLI TASARIM & ÖNİZLEME SAHNESİ (SOL KOLON) ── */
+.preview-stage-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 18px 46px rgba(15,37,62,0.08);
+}
+.preview-stage-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px 16px;
+  background:linear-gradient(90deg,#0F253E 0%,#1E3F66 60%,#1F443A 100%);
+  color:#fff;
+  flex-wrap:wrap;
+}
+.pst-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+}
+.pst-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#4ADE80;
+  box-shadow:0 0 0 4px rgba(74,222,128,0.22);
+}
+.pst-mode-switch{
+  display:flex;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:30px;
+  padding:3px;
+  gap:4px;
+}
+.pst-mode-btn{
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,0.8);
+  font-size:11px;
+  font-weight:700;
+  padding:5px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.pst-mode-btn.active{
+  background:#FFFFFF;
+  color:var(--navy);
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.pd-main-img{
+  width:100%;
+  aspect-ratio:1/1;
+  position:relative;
+  background:radial-gradient(circle at 50% 35%, #F8FAFC 0%, #E6EEF5 100%);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.pd-photo-layer{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:38px;
+  transition:all .35s ease;
+}
+.pd-photo-frame{
+  position:relative;
+  width:82%;
+  height:82%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  overflow:hidden;
+  background:#FFFFFF;
+  box-shadow:0 16px 38px rgba(15,37,62,0.14);
+  border:1px solid rgba(15,37,62,0.08);
+  transition:width .35s cubic-bezier(0.16,1,0.3,1), height .35s cubic-bezier(0.16,1,0.3,1);
+}
+.pd-photo-frame img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transition:transform .35s ease, filter .35s ease;
+}
+.pd-color-tint-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  mix-blend-mode:color;
+  transition:background .35s ease, opacity .35s ease;
+}
+.pd-color-multiply-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  mix-blend-mode:multiply;
+  transition:background .35s ease, opacity .35s ease;
+}
+
+/* MİMARİ ÖLÇÜ CETVELLERİ (CANLI EN x BOY GÖSTERGESİ) */
+.dim-ruler-top{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(15,37,62,0.88);
+  color:#fff;
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(124,194,230,0.35);
+  z-index:4;
+  box-shadow:0 6px 16px rgba(15,37,62,0.2);
+}
+.dim-ruler-top span{color:#7CC2E6;}
+
+.dim-ruler-side{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%) rotate(-90deg);
+  transform-origin:center;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(15,37,62,0.88);
+  color:#fff;
+  padding:5px 14px;
+  border-radius:20px;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(124,194,230,0.35);
+  z-index:4;
+  white-space:nowrap;
+  box-shadow:0 6px 16px rgba(15,37,62,0.2);
+}
+.dim-ruler-side span{color:#84A98C;}
+
+/* SAĞ ALT MİNİ 3D KAPAK MAKETİ (FOTOĞRAF MODUNDA) */
+.mini-door-pip{
+  position:absolute;
+  bottom:14px;
+  left:14px;
+  background:rgba(15,37,62,0.90);
+  border:1px solid rgba(124,194,230,0.40);
+  border-radius:14px;
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#fff;
+  z-index:5;
+  backdrop-filter:blur(10px);
+  box-shadow:0 12px 28px rgba(11,25,44,0.32);
+  cursor:pointer;
+  transition:transform .25s ease;
+}
+.mini-door-pip:hover{
+  transform:translateY(-2px);
+}
+.mini-door-visual-wrap{
+  width:46px;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.08);
+  border-radius:8px;
+  padding:4px;
+}
+.mini-door-slab{
+  width:34px;
+  height:48px;
+  border-radius:4px;
+  background:linear-gradient(135deg,#527596,#243F5C);
+  border:1.5px solid rgba(255,255,255,0.45);
+  position:relative;
+  box-shadow:inset 0 0 0 4px rgba(0,0,0,0.14), 0 4px 10px rgba(0,0,0,0.35);
+  transition:all .3s ease;
+}
+.mini-door-slab::after{
+  content:'';
+  position:absolute;
+  right:4px;
+  top:50%;
+  transform:translateY(-50%);
+  width:2.5px;
+  height:12px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.85);
+}
+.mini-door-meta small{
+  display:block;
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#7CC2E6;
+  font-weight:700;
+}
+.mini-door-meta strong{
+  display:block;
+  font-size:12px;
+  color:#fff;
+  margin-top:1px;
+}
+.mini-door-meta span{
+  display:block;
+  font-size:10.5px;
+  color:rgba(226,236,245,0.78);
+}
+
+/* 3D CNC KAPAK SİMÜLASYON SAHNESİ (TAM EKRAN 3D MODU) */
+.pd-cad-layer{
+  display:none;
+  width:100%;
+  height:100%;
+  padding:46px;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(124,194,230,0.18), transparent 55%),
+    linear-gradient(145deg, #0D2035 0%, #162F48 60%, #16302B 100%);
+  position:relative;
+}
+.cad-door-slab{
+  width:190px;
+  height:270px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#527596,#243F5C);
+  position:relative;
+  box-shadow:
+    0 28px 60px rgba(0,0,0,0.55),
+    inset 0 1px 2px rgba(255,255,255,0.45),
+    inset 0 -2px 6px rgba(0,0,0,0.35);
+  transition:all .35s cubic-bezier(0.16,1,0.3,1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+/* CNC Grooves inside 3D door */
+.cad-door-groove{
+  position:absolute;
+  inset:16%;
+  border:2.5px solid rgba(0,0,0,0.24);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.25), 0 1px 1px rgba(255,255,255,0.22);
+  border-radius:4px;
+  pointer-events:none;
+  transition:all .3s ease;
+}
+.cad-door-slab[data-profile="duz"] .cad-door-groove{
+  inset:6%;
+  border-width:1px;
+  border-color:rgba(255,255,255,0.18);
+}
+.cad-door-slab[data-profile="diyagonal"] .cad-door-groove{
+  background:repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 14px,
+    rgba(0,0,0,0.16) 14px,
+    rgba(0,0,0,0.16) 16px
+  );
+}
+.cad-door-slab[data-profile="citali"] .cad-door-groove{
+  inset:8%;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    rgba(0,0,0,0.18) 10px,
+    rgba(0,0,0,0.18) 12.5px
+  );
+}
+.cad-door-handle{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:5px;
+  height:48px;
+  border-radius:4px;
+  background:linear-gradient(180deg,#E2E8F0,#94A3B8);
+  box-shadow:0 4px 10px rgba(0,0,0,0.45);
+}
+
+.pd-zoom-badge{
+  position:absolute;
+  bottom:14px;
+  right:14px;
+  width:38px;
+  height:38px;
+  background:rgba(15,37,62,0.85);
+  border:1px solid rgba(124,194,230,0.35);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--white);
+  font-size:15px;
+  cursor:pointer;
+  z-index:5;
+  transition:transform .2s;
+}
+.pd-zoom-badge:hover{transform:scale(1.08);}
+
+/* ALT DURUM ÇUBUĞU */
+.preview-stage-footer{
+  padding:12px 18px;
+  background:#F1F6FA;
+  border-top:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  font-size:12px;
+}
+.psf-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:700;
+  color:var(--navy);
+}
+.psf-swatch-dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  border:2px solid #fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  display:inline-block;
+}
+
+.pd-thumbs{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.pd-thumb{width:72px;height:72px;border-radius:10px;border:2px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .2s;background:#f5f8fc;flex-shrink:0;}
 .pd-thumb img{width:100%;height:100%;object-fit:cover;}
 .pd-thumb:hover,.pd-thumb.active{border-color:var(--gold);}
 .img-mode-badge{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-family:'Montserrat',sans-serif;}
+
+/* ── SAĞ KOLON: ÜRÜN BİLGİLERİ & TASARIM STÜDYOSU ── */
 .pd-cat{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-family:'Montserrat',sans-serif;}
-.pd-info h1{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.25;}
-.pd-sku{font-size:12px;color:var(--muted);margin-bottom:16px;font-family:'Montserrat',sans-serif;}
+.pd-info h1{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.25;}
+.pd-sku{font-size:12px;color:var(--muted);margin-bottom:14px;font-family:'Montserrat',sans-serif;}
 .pd-sku strong{color:var(--navy);}
-.pd-rating{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:13px;color:var(--muted);}
+.pd-rating{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:13px;color:var(--muted);}
 .pd-rating .stars{color:var(--gold);font-size:15px;}
-.pd-desc{font-size:14px;line-height:1.9;color:var(--text);margin-bottom:22px;}
-.pd-features{background:var(--gray);padding:18px 22px;border-radius:6px;margin-bottom:22px;}
+.pd-desc{font-size:14px;line-height:1.85;color:var(--text);margin-bottom:20px;}
+
+/* ── CANLI TASARIM & ÖLÇÜ STÜDYOSU KARTI ── */
+.design-studio-box{
+  background:linear-gradient(145deg,#FFFFFF 0%,#F2F7FB 100%);
+  border:1.5px solid #C8D9E8;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+  box-shadow:0 12px 32px rgba(15,37,62,0.06);
+}
+.ds-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px solid #DCE7F1;
+}
+.ds-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Montserrat',sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--navy);
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+}
+.ds-badge{
+  font-size:10.5px;
+  font-weight:700;
+  background:rgba(46,111,158,0.12);
+  color:var(--navy3);
+  border:1px solid rgba(46,111,158,0.25);
+  padding:4px 10px;
+  border-radius:20px;
+}
+.pd-section-label{
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--navy);
+  margin-bottom:10px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.pd-section-label span{
+  color:var(--navy3);
+  font-weight:800;
+  text-transform:none;
+  letter-spacing:0;
+}
+.pd-colors,.pd-sizes,.pd-profiles{margin-bottom:18px;}
+.color-list,.size-list,.profile-list{display:flex;gap:8px;flex-wrap:wrap;}
+
+.color-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 13px;
+  background:var(--white);
+  border:2px solid var(--border);
+  border-radius:30px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--navy);
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.color-chip:hover,.color-chip.active{
+  border-color:var(--navy3);
+  background:#EFF6FC;
+  box-shadow:0 4px 12px rgba(46,111,158,0.16);
+  transform:translateY(-1px);
+}
+.color-chip-dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(0,0,0,0.25);
+  flex-shrink:0;
+}
+
+.size-chip,.profile-chip{
+  padding:8px 13px;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--navy);
+  cursor:pointer;
+  font-family:'Montserrat',sans-serif;
+  transition:all .2s ease;
+}
+.size-chip small{
+  display:block;
+  font-size:9.5px;
+  font-weight:600;
+  color:var(--muted);
+  margin-top:2px;
+}
+.size-chip:hover,.size-chip.active,.profile-chip:hover,.profile-chip.active{
+  border-color:var(--navy);
+  background:linear-gradient(135deg,#0F253E 0%,#1E4976 100%);
+  color:var(--white);
+  box-shadow:0 6px 16px rgba(15,37,62,0.18);
+}
+.size-chip:hover small,.size-chip.active small{
+  color:rgba(255,255,255,0.78);
+}
+
+/* ÖZEL ÖLÇÜ SÜRGÜLERİ */
+.custom-dim-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 96px;
+  gap:12px;
+  background:var(--white);
+  border:1px solid #D5E2EE;
+  border-radius:12px;
+  padding:14px;
+  margin-top:10px;
+}
+.dim-control label{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  font-weight:700;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.dim-control input[type="range"]{
+  width:100%;
+  accent-color:var(--navy3);
+  cursor:pointer;
+}
+.dim-num-input{
+  width:100%;
+  padding:7px 8px;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  font-weight:700;
+  color:var(--navy);
+  font-size:13px;
+  text-align:center;
+}
+.ds-live-summary{
+  margin-top:14px;
+  background:rgba(15,37,62,0.05);
+  border:1px dashed #B9CEDF;
+  border-radius:10px;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:12px;
+  color:var(--navy);
+}
+
+.pd-features{background:var(--gray);padding:18px 22px;border-radius:12px;margin-bottom:20px;border:1px solid var(--border);}
 .pd-features h4{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;}
 .pd-features ul{list-style:none;padding:0;}
 .pd-features li{font-size:13px;padding:5px 0;color:var(--text);}
 .pd-features li::before{content:"✓ ";color:var(--gold);font-weight:700;}
-.pd-section-label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;display:block;}
-.pd-colors,.pd-sizes{margin-bottom:22px;}
-.color-list,.size-list{display:flex;gap:8px;flex-wrap:wrap;}
-.color-chip{padding:7px 14px;background:var(--gray);border:2px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
-.color-chip:hover,.color-chip.active{border-color:var(--gold);background:var(--white);}
-.size-chip{padding:7px 16px;background:var(--gray);border:2px solid var(--border);border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all .15s;}
-.size-chip:hover,.size-chip.active{border-color:var(--navy);background:var(--navy);color:var(--white);}
-.size-chip.disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
-.pd-meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.pd-meta-tag{background:var(--gray);border:1px solid var(--border);border-radius:3px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--muted);font-family:'Montserrat',sans-serif;}
+.pd-meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.pd-meta-tag{background:var(--gray);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--muted);font-family:'Montserrat',sans-serif;}
 .pd-actions{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
-.btn-primary{background:var(--gold);color:var(--navy);padding:14px 24px;font-size:13px;font-weight:700;border-radius:4px;font-family:'Montserrat',sans-serif;border:none;cursor:pointer;flex:1;text-align:center;display:block;}
-.btn-primary:hover{background:#b8943c;}
-.btn-secondary{background:transparent;color:var(--navy);padding:14px 24px;font-size:13px;font-weight:600;border-radius:4px;font-family:'Montserrat',sans-serif;border:1.5px solid var(--navy);cursor:pointer;text-align:center;display:block;}
+.btn-primary{background:var(--gold);color:var(--white);padding:15px 24px;font-size:13.5px;font-weight:700;border-radius:10px;font-family:'Montserrat',sans-serif;border:none;cursor:pointer;flex:1.4;text-align:center;display:block;}
+.btn-secondary{background:transparent;color:var(--navy);padding:15px 20px;font-size:13px;font-weight:700;border-radius:10px;font-family:'Montserrat',sans-serif;border:1.5px solid var(--navy);cursor:pointer;text-align:center;display:block;flex:0.6;}
 .btn-secondary:hover{background:var(--navy);color:var(--white);}
-.pd-body{border-top:1px solid var(--border);margin-top:40px;padding:40px;max-width:1100px;margin-left:auto;margin-right:auto;line-height:1.9;font-size:14px;color:var(--text);}
-.pd-body h2,.pd-body h3{font-family:'Montserrat',sans-serif;color:var(--navy);margin:24px 0 12px;}
-.pd-body p{margin-bottom:14px;}
-.pd-body ul,.pd-body ol{padding-left:24px;margin-bottom:14px;}
-.pd-body li{margin-bottom:6px;}
-.pd-body strong{color:var(--navy);}
+.pd-body{border-top:1px solid var(--border);margin-top:20px;padding:40px;max-width:1220px;margin-left:auto;margin-right:auto;line-height:1.9;font-size:14px;color:var(--text);}
+
 /* LIGHTBOX */
 .lb-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;}
 .lb-overlay.open{display:flex;}
 .lb-img-wrap{position:relative;max-width:90vw;max-height:90vh;display:flex;align-items:center;justify-content:center;}
 .lb-img-wrap img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px;}
 .lb-close{position:fixed;top:20px;right:24px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.lb-close:hover{background:var(--gold);color:var(--navy);}
-.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .lb-prev{left:16px;}.lb-next{right:16px;}
-.lb-prev:hover,.lb-next:hover{background:var(--gold);color:var(--navy);}
 .lb-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px;font-family:'Montserrat',sans-serif;}
 .error{text-align:center;padding:80px 40px;}
 .error h2{color:var(--navy);font-family:'Montserrat',sans-serif;margin-bottom:14px;}
-@media(max-width:1024px){.pd-wrapper{grid-template-columns:1fr;padding:24px;gap:30px;}.pd-gallery{position:static;}.pd-body{padding:24px;}}
-@media(max-width:768px){nav{padding:0 16px;}.nav-menu{display:none;position:absolute;top:65px;left:0;right:0;background:var(--white);flex-direction:column;padding:14px 16px;border-bottom:1px solid var(--border);}.nav-menu.open{display:flex;}.hamburger{display:block;}.nav-cta{display:none;}.pd-info h1{font-size:24px;}.lb-prev{left:6px;}.lb-next{right:6px;}}
-
-/* NAVBAR AKTİF/HOVER KESİN DÜZELTMESİ */
-.nav-menu a:hover,
-.nav-menu a.active {
-  background: var(--navy) !important;
-  color: #ffffff !important;
-}
-.nav-menu a {
-  transition: background .2s, color .2s;
-}
+@media(max-width:1024px){.pd-wrapper{grid-template-columns:1fr;padding:24px;gap:30px;}.pd-gallery{position:static;}.pd-body{padding:24px;}.custom-dim-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){nav{padding:0 16px;}.nav-menu{display:none;position:absolute;top:65px;left:0;right:0;background:var(--white);flex-direction:column;padding:14px 16px;border-bottom:1px solid var(--border);}.nav-menu.open{display:flex;}.hamburger{display:block;}.nav-cta{display:none;}.pd-info h1{font-size:24px;}.custom-dim-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -123,7 +623,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px
 </div>
 
 <div id="product-container">
-  <div class="loading">⏳ Ürün yükleniyor...</div>
+  <div class="loading">⏳ Ürün ve tasarım stüdyosu yükleniyor...</div>
 </div>
 
 <!-- LIGHTBOX -->
@@ -141,16 +641,284 @@ const params = new URLSearchParams(window.location.search);
 const productId = (params.get('id') || params.get('slug') || '').trim();
 let galleryImages = [];
 let lbIndex = 0;
+let currentProductTitle = 'Membran Kapak Modeli';
+
+// ── CANLI KAPAK TASARIM PALETLERİ ──
+const COLOR_LIBRARY = {
+  'Orijinal Görsel': {
+    swatch: 'linear-gradient(135deg,#E2E8F0,#94A3B8)',
+    slab: 'linear-gradient(145deg,#64829E 0%,#2E4C6B 100%)',
+    tint: 'transparent',
+    tintOpacity: 0,
+    multOpacity: 0,
+    doku: 'Fabrika Standart Yüzey'
+  },
+  'Fjord Mavi Mat': {
+    swatch: 'linear-gradient(135deg,#527596,#243F5C)',
+    slab: 'linear-gradient(145deg,#527596 0%,#243F5C 100%)',
+    tint: '#3B6E96',
+    tintOpacity: 0.42,
+    multOpacity: 0.14,
+    doku: 'İskandinav İpek Mat Membran'
+  },
+  'Kuvars Gri': {
+    swatch: 'linear-gradient(135deg,#94A3B8,#475569)',
+    slab: 'linear-gradient(145deg,#94A3B8 0%,#475569 100%)',
+    tint: '#64748B',
+    tintOpacity: 0.36,
+    multOpacity: 0.12,
+    doku: 'Mimari Taş Doku Mat'
+  },
+  'Adaçayı Yeşili': {
+    swatch: 'linear-gradient(135deg,#5A8770,#2F5441)',
+    slab: 'linear-gradient(145deg,#5A8770 0%,#2F5441 100%)',
+    tint: '#4A7862',
+    tintOpacity: 0.42,
+    multOpacity: 0.14,
+    doku: 'Botanik Doğal Soft Mat'
+  },
+  'Kutup Beyazı': {
+    swatch: 'linear-gradient(135deg,#FFFFFF,#CBD5E1)',
+    slab: 'linear-gradient(145deg,#F8FAFC 0%,#CBD5E1 100%)',
+    tint: '#F8FAFC',
+    tintOpacity: 0.25,
+    multOpacity: 0,
+    doku: 'Anti-Fingerprint Saf Beyaz'
+  },
+  'Antrasit Mat': {
+    swatch: 'linear-gradient(135deg,#334155,#0F172A)',
+    slab: 'linear-gradient(145deg,#334155 0%,#1E293B 100%)',
+    tint: '#1E293B',
+    tintOpacity: 0.48,
+    multOpacity: 0.24,
+    doku: 'Derin Karbon İpek Mat'
+  },
+  'Doğal Meşe': {
+    swatch: 'linear-gradient(135deg,#C19A6B,#8B5A2B)',
+    slab: 'linear-gradient(145deg,#B68D5E 0%,#7C522B 100%)',
+    tint: '#A67B5B',
+    tintOpacity: 0.40,
+    multOpacity: 0.14,
+    doku: 'Doğal Ahşap Damarlı Membran'
+  },
+  'Krem Soft': {
+    swatch: 'linear-gradient(135deg,#F5EFE6,#D8CBB8)',
+    slab: 'linear-gradient(145deg,#F3ECE1 0%,#D2C2AC 100%)',
+    tint: '#E6D7C3',
+    tintOpacity: 0.34,
+    multOpacity: 0.08,
+    doku: 'Sıcak İpek Krem Mat'
+  }
+};
+
+function resolveColorSpec(name) {
+  if (COLOR_LIBRARY[name]) return COLOR_LIBRARY[name];
+  const lower = (name || '').toLowerCase();
+  if (lower.includes('mavi') || lower.includes('fjord')) return COLOR_LIBRARY['Fjord Mavi Mat'];
+  if (lower.includes('yeşil') || lower.includes('yesil') || lower.includes('adaçayı')) return COLOR_LIBRARY['Adaçayı Yeşili'];
+  if (lower.includes('antrasit') || lower.includes('siyah') || lower.includes('koyu')) return COLOR_LIBRARY['Antrasit Mat'];
+  if (lower.includes('gri') || lower.includes('kuvars') || lower.includes('taş')) return COLOR_LIBRARY['Kuvars Gri'];
+  if (lower.includes('ceviz') || lower.includes('meşe') || lower.includes('ahşap')) return COLOR_LIBRARY['Doğal Meşe'];
+  if (lower.includes('krem') || lower.includes('kaşmir') || lower.includes('bej')) return COLOR_LIBRARY['Krem Soft'];
+  if (lower.includes('beyaz')) return COLOR_LIBRARY['Kutup Beyazı'];
+  return COLOR_LIBRARY['Fjord Mavi Mat'];
+}
+
+const SIZE_PRESETS = [
+  { label: '40 × 72 cm', desc: 'Standart Kapak', w: 40, h: 72 },
+  { label: '45 × 72 cm', desc: 'Orta Modül', w: 45, h: 72 },
+  { label: '60 × 72 cm', desc: 'Geniş Modül', w: 60, h: 72 },
+  { label: '45 × 90 cm', desc: 'Yüksek Üst Dolap', w: 45, h: 90 },
+  { label: '60 × 140 cm', desc: 'Banyo / Yarım Boy', w: 60, h: 140 },
+  { label: '60 × 210 cm', desc: 'Kiler / Boy Kapak', w: 60, h: 210 }
+];
+
+let designState = {
+  mode: 'photo', // 'photo' | 'cad'
+  colorName: 'Orijinal Görsel',
+  widthCm: 45,
+  heightCm: 72,
+  qty: 1,
+  profile: 'cerceveli'
+};
+
+function setPreviewMode(mode) {
+  designState.mode = mode;
+  const photoLayer = document.getElementById('pdPhotoLayer');
+  const cadLayer = document.getElementById('pdCadLayer');
+  const btnPhoto = document.getElementById('modeBtnPhoto');
+  const btnCad = document.getElementById('modeBtnCad');
+
+  if (photoLayer && cadLayer) {
+    photoLayer.style.display = mode === 'photo' ? 'flex' : 'none';
+    cadLayer.style.display = mode === 'cad' ? 'flex' : 'none';
+  }
+  if (btnPhoto && btnCad) {
+    btnPhoto.classList.toggle('active', mode === 'photo');
+    btnCad.classList.toggle('active', mode === 'cad');
+  }
+}
+
+function selectDesignColor(colorName, el) {
+  designState.colorName = colorName;
+  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  updateLiveDesignPreview();
+}
+
+function selectSizePreset(w, h, el) {
+  designState.widthCm = w;
+  designState.heightCm = h;
+  document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  const wRange = document.getElementById('dsWidthRange');
+  const hRange = document.getElementById('dsHeightRange');
+  if (wRange) wRange.value = w;
+  if (hRange) hRange.value = h;
+  updateLiveDesignPreview();
+}
+
+function onCustomDimensionInput() {
+  const wRange = document.getElementById('dsWidthRange');
+  const hRange = document.getElementById('dsHeightRange');
+  const qtyInput = document.getElementById('dsQtyInput');
+  if (wRange) designState.widthCm = Math.max(20, Math.min(120, parseInt(wRange.value, 10) || 45));
+  if (hRange) designState.heightCm = Math.max(15, Math.min(240, parseInt(hRange.value, 10) || 72));
+  if (qtyInput) designState.qty = Math.max(1, Math.min(500, parseInt(qtyInput.value, 10) || 1));
+
+  // Eşleşen hazır ölçü varsa aktif yap
+  document.querySelectorAll('.size-chip').forEach(c => {
+    const cw = parseInt(c.getAttribute('data-w'), 10);
+    const ch = parseInt(c.getAttribute('data-h'), 10);
+    c.classList.toggle('active', cw === designState.widthCm && ch === designState.heightCm);
+  });
+
+  updateLiveDesignPreview();
+}
+
+function selectDoorProfile(profileKey, el) {
+  designState.profile = profileKey;
+  document.querySelectorAll('.profile-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  updateLiveDesignPreview();
+}
+
+function updateLiveDesignPreview() {
+  const spec = resolveColorSpec(designState.colorName);
+  const w = designState.widthCm;
+  const h = designState.heightCm;
+  const qty = designState.qty;
+  const areaM2 = ((w * h) / 10000 * qty).toFixed(2);
+
+  // Sağdaki etiketleri güncelle
+  const lblColor = document.getElementById('lblSelectedColor');
+  const lblSize = document.getElementById('lblSelectedSize');
+  const lblW = document.getElementById('lblRangeW');
+  const lblH = document.getElementById('lblRangeH');
+  if (lblColor) lblColor.textContent = `${designState.colorName} (${spec.doku})`;
+  if (lblSize) lblSize.textContent = `${w} × ${h} cm • ${areaM2} m²`;
+  if (lblW) lblW.textContent = `${w} cm`;
+  if (lblH) lblH.textContent = `${h} cm`;
+
+  // Soldaki cetvelleri güncelle
+  const rulerTop = document.getElementById('rulerTopVal');
+  const rulerSide = document.getElementById('rulerSideVal');
+  if (rulerTop) rulerTop.textContent = `${w} cm`;
+  if (rulerSide) rulerSide.textContent = `${h} cm`;
+
+  // Fotoğraf üzerindeki renk katmanını güncelle
+  const tintEl = document.getElementById('pdColorTintOverlay');
+  const multEl = document.getElementById('pdColorMultOverlay');
+  if (tintEl && multEl) {
+    if (designState.colorName === 'Orijinal Görsel') {
+      tintEl.style.opacity = '0';
+      multEl.style.opacity = '0';
+    } else {
+      tintEl.style.background = spec.tint;
+      tintEl.style.opacity = String(spec.tintOpacity);
+      multEl.style.background = spec.tint;
+      multEl.style.opacity = String(spec.multOpacity);
+    }
+  }
+
+  // Orana göre fotoğraf çerçevesini ve 3D kapak maketini ölçekle
+  const ratio = w / h; // örn 45/72 = 0.625, 60/210 = 0.285, 60/72 = 0.833
+  const photoFrame = document.getElementById('pdPhotoFrame');
+  if (photoFrame) {
+    let fw = 82;
+    let fh = 82;
+    if (ratio < 0.85) {
+      fh = 84;
+      fw = Math.max(46, Math.min(86, Math.round(84 * Math.pow(ratio, 0.45))));
+    } else {
+      fw = 84;
+      fh = Math.max(48, Math.min(86, Math.round(84 / Math.pow(ratio, 0.45))));
+    }
+    photoFrame.style.width = fw + '%';
+    photoFrame.style.height = fh + '%';
+  }
+
+  // Mini 3D Kapak ve Tam Ekran 3D Kapak boyut/renk güncellemesi
+  const miniSlab = document.getElementById('miniDoorSlab');
+  if (miniSlab) {
+    miniSlab.style.background = spec.slab;
+    const mw = Math.max(20, Math.min(44, Math.round(44 * Math.min(1, ratio * 1.1))));
+    const mh = Math.max(24, Math.min(52, Math.round(48 * Math.min(1.1, (1 / Math.max(0.35, ratio)) * 0.7))));
+    miniSlab.style.width = mw + 'px';
+    miniSlab.style.height = mh + 'px';
+  }
+  const miniColorTitle = document.getElementById('miniDoorColorTitle');
+  const miniDimSub = document.getElementById('miniDoorDimSub');
+  if (miniColorTitle) miniColorTitle.textContent = designState.colorName;
+  if (miniDimSub) miniDimSub.textContent = `${w} × ${h} cm (${areaM2} m²)`;
+
+  const cadSlab = document.getElementById('cadDoorSlab');
+  if (cadSlab) {
+    cadSlab.style.background = spec.slab;
+    cadSlab.setAttribute('data-profile', designState.profile);
+    const maxDim = 280;
+    let cw, ch;
+    if (w >= h) {
+      cw = maxDim;
+      ch = Math.max(95, Math.round(maxDim * (h / w)));
+    } else {
+      ch = maxDim;
+      cw = Math.max(95, Math.round(maxDim * (w / h)));
+    }
+    cadSlab.style.width = cw + 'px';
+    cadSlab.style.height = ch + 'px';
+  }
+
+  // Alt özet çubuğu ve sağ özet kutusu
+  const psfSwatch = document.getElementById('psfSwatchDot');
+  const psfColorText = document.getElementById('psfColorText');
+  const psfDimText = document.getElementById('psfDimText');
+  if (psfSwatch) psfSwatch.style.background = spec.swatch;
+  if (psfColorText) psfColorText.textContent = designState.colorName;
+  if (psfDimText) psfDimText.textContent = `${w} × ${h} cm • ${qty} Adet (${areaM2} m²)`;
+
+  const summaryText = document.getElementById('dsSummaryText');
+  if (summaryText) {
+    summaryText.innerHTML = `Seçilen Tasarım: <strong>${designState.colorName}</strong> • Ölçü: <strong>${w}×${h} cm</strong> • <strong>${qty} Adet (${areaM2} m²)</strong>`;
+  }
+
+  // WhatsApp Sipariş Linkini Anlık Güncelle
+  const waBtn = document.getElementById('pdWhatsappOrderBtn');
+  if (waBtn) {
+    const msg = `Merhaba Global Kapak Mobilya, "${currentProductTitle}" modeli için canlı tasarım modunda oluşturduğum sipariş/teklif detayları:\n` +
+      `• Renk/Yüzey: ${designState.colorName}\n` +
+      `• Ölçü (En × Boy): ${w} × ${h} cm\n` +
+      `• Adet: ${qty} Adet (Toplam ${areaM2} m²)\n` +
+      `Fiyat teklifi ve termin bilgisi rica ederim.`;
+    waBtn.href = `https://wa.me/905050151035?text=${encodeURIComponent(msg)}`;
+  }
+}
 
 function applyImageMode(mode) {
   const img = document.getElementById('main-product-img');
   if (!img) return;
   img.style.objectFit = ['contain','cover','fill'].includes(mode) ? mode : 'contain';
-  const badge = document.getElementById('img-mode-badge');
-  if (badge) {
-    const labels = {contain:'📐 Tam boyut', cover:'✂️ Kırpılmış', fill:'↔️ Uzatılmış'};
-    badge.textContent = labels[mode] || '';
-  }
 }
 
 function selectThumb(index) {
@@ -187,12 +955,6 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target===document.getElementById('lightbox')) closeLightbox();
 });
 
-function selectChip(el, cls) {
-  if (el.classList.contains('disabled')) return;
-  el.closest('.color-list,.size-list').querySelectorAll('.'+cls).forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-}
-
 async function loadProduct() {
   const container = document.getElementById('product-container');
   if (!productId) {
@@ -218,23 +980,13 @@ async function loadProduct() {
     } catch(e) {}
   }
 
-  // 3. FALLBACK: Ürünler İndeks Fihristinden Arama
-  if (!p) {
-    try {
-      const idxRes = await fetch(`_data/urunler-index.json${cacheBuster}`);
-      if (idxRes.ok) {
-        const list = await idxRes.json();
-        p = list.find(item => (item.slug === productId || item.id === productId || (item.baslik && item.baslik.toLowerCase() === productId.toLowerCase())));
-      }
-    } catch(e) {}
-  }
-
   if (!p) {
     container.innerHTML = '<div class="error"><h2>Ürün Bulunamadı</h2><p>Aradığınız ürün kaldırılmış veya güncelleniyor olabilir.</p><p><a href="urunler.html" style="color:var(--navy3); font-weight:700; text-decoration:underline;">← Tüm Ürünlere Dön</a></p></div>';
     return;
   }
 
   const pTitle = p.baslik || p.title || 'Membran Kapak Modeli';
+  currentProductTitle = pTitle;
   const pDesc = p.aciklama || p.kisa_aciklama || p.body || 'Modern CNC teknolojisi ve yüksek kaliteli membran kaplama standartlarıyla üretilmiş özel ölçü kapak modeli.';
   const pCat = p.kategori || p.category || 'Membran Kapak';
 
@@ -242,15 +994,13 @@ async function loadProduct() {
   const bcEl = document.getElementById('bc-product');
   if (bcEl) bcEl.textContent = pTitle;
 
-  // Galeri görselleri (Tüm formatlarla uyumlu)
   let imgs = [];
   if (Array.isArray(p.gorseller) && p.gorseller.length) imgs = imgs.concat(p.gorseller);
   if (Array.isArray(p.galeri) && p.galeri.length) imgs = imgs.concat(p.galeri);
   if (p.resim && !imgs.includes(p.resim)) imgs.unshift(p.resim);
   if (p.ana_resim && !imgs.includes(p.ana_resim)) imgs.unshift(p.ana_resim);
-  if (imgs.length === 0) imgs = ['/resim/logo.png'];
-
-  galleryImages = imgs;
+  if (imgs.length === 0) imgs = ['resim/logo.png'];
+  galleryImages = imgs.map(u => (window.GKM_SUPABASE ? window.GKM_SUPABASE.normalizeMediaUrl(u, 'resim/logo.png') : u));
 
   const thumbHtml = galleryImages.length > 1
     ? '<div class="pd-thumbs">' + galleryImages.map((src,i) =>
@@ -259,58 +1009,182 @@ async function loadProduct() {
       ).join('') + '</div>'
     : '';
 
-  const renkler = p.renkler || ['Beyaz Mat', 'Antrasit Mat', 'Ceviz', 'Krem Soft', 'Kaşmir'];
-  const renkHtml = renkler.length
-    ? '<div class="pd-colors"><span class="pd-section-label">Renk Seçenekleri</span><div class="color-list">' +
-      renkler.map((r,i) => '<div class="color-chip'+(i===0?' active':'')+'" onclick="selectChip(this,\'color-chip\')">'+r+'</div>').join('') +
-      '</div></div>' : '';
+  // Renk listesini hazırla (Orijinal + ürün renkleri veya varsayılan Nordic koleksiyonu)
+  const baseColors = (Array.isArray(p.renkler) && p.renkler.length > 0)
+    ? ['Orijinal Görsel', ...p.renkler]
+    : ['Orijinal Görsel', 'Fjord Mavi Mat', 'Kuvars Gri', 'Adaçayı Yeşili', 'Kutup Beyazı', 'Antrasit Mat', 'Doğal Meşe', 'Krem Soft'];
 
-  const bedenler = p.bedenler || ['Özel Ölçü Üretim', 'Standart Dolap Ebatları', 'Mutfak & Banyo'];
-  const bedenHtml = bedenler.length
-    ? '<div class="pd-sizes"><span class="pd-section-label">Ölçü / Boyut</span><div class="size-list">' +
-      bedenler.map((b,i) => {
-        const label = b.label || b;
-        const disabled = b.stok===false ? ' disabled':'';
-        return '<div class="size-chip'+(i===0?' active':'')+disabled+'" onclick="selectChip(this,\'size-chip\')">'+label+'</div>';
-      }).join('') +
-      '</div></div>' : '';
+  const renkHtml = baseColors.map((r, i) => {
+    const spec = resolveColorSpec(r);
+    return `
+      <button type="button" class="color-chip${i===0?' active':''}" onclick="selectDesignColor('${r.replace(/'/g, "\\'")}', this)">
+        <span class="color-chip-dot" style="background:${spec.swatch};"></span>
+        <span>${r}</span>
+      </button>
+    `;
+  }).join('');
 
-  const ozellikler = (Array.isArray(p.ozellikler) && p.ozellikler.length) ? p.ozellikler : ['Yüksek kalite 18mm MDF gövde','Çizilmeye & neme dayanıklı 1. sınıf PVC folyo','Özel ölçüye göre CNC işleme','5 yıl üretici garantisi','5 iş gününde hızlı teslimat'];
-  const metaTags = p.etiketler || [pCat, 'Özel Ölçü', 'CNC Kapak'];
-  const metaHtml = metaTags.length ? '<div class="pd-meta-row">'+metaTags.map(t=>'<span class="pd-meta-tag">'+t+'</span>').join('')+'</div>' : '';
+  const sizePresetsHtml = SIZE_PRESETS.map((s, i) => `
+    <button type="button" class="size-chip${i===1?' active':''}" data-w="${s.w}" data-h="${s.h}" onclick="selectSizePreset(${s.w}, ${s.h}, this)">
+      ${s.label}
+      <small>${s.desc}</small>
+    </button>
+  `).join('');
+
+  const ozellikler = (Array.isArray(p.ozellikler) && p.ozellikler.length)
+    ? p.ozellikler
+    : ['Yüksek kalite 18mm E1 MDF gövde','Çizilmeye & neme dayanıklı 1. sınıf PVC membran','Özel ölçüye göre 5-eksen CNC işleme','5 yıl üretici garantisi','5 iş gününde hızlı teslimat'];
 
   const bodyHtml = p.body ? simpleMarkdown(p.body) : '';
-  const waMsg = encodeURIComponent('Merhaba Global Kapak Mobilya, "' + pTitle + '" ürünü hakkında fiyat teklifi ve detaylı bilgi almak istiyorum.');
 
-  container.innerHTML =
-    '<div class="pd-wrapper">' +
-      '<div class="pd-gallery">' +
-        '<div class="pd-main-img" onclick="openLightbox(0)">' +
-          '<img id="main-product-img" src="'+galleryImages[0]+'" alt="'+pTitle+'">' +
-          '<div class="pd-zoom-badge">🔍</div>' +
-        '</div>' +
-        thumbHtml +
-        '<span class="img-mode-badge" id="img-mode-badge"></span>' +
-      '</div>' +
-      '<div class="pd-info">' +
-        '<div class="pd-cat">'+pCat+'</div>' +
-        '<h1>'+pTitle+'</h1>' +
-        (p.sku ? '<div class="pd-sku">Ürün Kodu: <strong>'+p.sku+'</strong></div>' : '') +
-        '<div class="pd-rating"><span class="stars">★★★★★</span><span>5 Yıl Garanti • 5 Günde Teslimat</span></div>' +
-        '<p class="pd-desc">'+pDesc+'</p>' +
-        '<div class="pd-features"><h4>Öne Çıkan Özellikler</h4><ul>' +
-          ozellikler.map(o=>'<li>'+o+'</li>').join('') +
-        '</ul></div>' +
-        renkHtml + bedenHtml + metaHtml +
-        '<div class="pd-actions">' +
-          '<a href="https://wa.me/905050151035?text='+waMsg+'" target="_blank" class="btn-primary">💬 WhatsApp ile Sipariş / Teklif Al</a>' +
-          '<a href="iletisim.html" class="btn-secondary">İletişime Geç</a>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    (bodyHtml ? '<div class="pd-body">'+bodyHtml+'</div>' : '');
+  container.innerHTML = `
+    <div class="pd-wrapper">
+      <!-- SOL: CANLI ÖNİZLEME & FOTOĞRAF SAHNESİ -->
+      <div class="pd-gallery">
+        <div class="preview-stage-card">
+          <div class="preview-stage-topbar">
+            <div class="pst-left">
+              <span class="pst-dot"></span>
+              <span>Canlı Kapak Tasarım Önizlemesi</span>
+            </div>
+            <div class="pst-mode-switch">
+              <button type="button" class="pst-mode-btn active" id="modeBtnPhoto" onclick="setPreviewMode('photo')">🖼️ Fotoğraf & Simülasyon</button>
+              <button type="button" class="pst-mode-btn" id="modeBtnCad" onclick="setPreviewMode('cad')">🚪 3D CNC Kapak</button>
+            </div>
+          </div>
+
+          <div class="pd-main-img">
+            <!-- ÜST VE YAN CANLI ÖLÇÜ CETVELLERİ -->
+            <div class="dim-ruler-top">↔ Genişlik (En): <span id="rulerTopVal">45 cm</span></div>
+            <div class="dim-ruler-side">↕ Yükseklik (Boy): <span id="rulerSideVal">72 cm</span></div>
+
+            <!-- KATMAN 1: ÜRÜN FOTOĞRAFI + CANLI RENK & EBAT SİMÜLASYONU -->
+            <div class="pd-photo-layer" id="pdPhotoLayer">
+              <div class="pd-photo-frame" id="pdPhotoFrame" onclick="openLightbox(0)" title="Büyütmek için tıklayın">
+                <img id="main-product-img" src="${galleryImages[0]}" alt="${pTitle}">
+                <div class="pd-color-tint-overlay" id="pdColorTintOverlay"></div>
+                <div class="pd-color-multiply-overlay" id="pdColorMultOverlay"></div>
+              </div>
+            </div>
+
+            <!-- KATMAN 2: 3D CNC KAPAK & ÖLÇÜ MODELİ -->
+            <div class="pd-cad-layer" id="pdCadLayer">
+              <div class="cad-door-slab" id="cadDoorSlab" data-profile="cerceveli">
+                <div class="cad-door-groove"></div>
+                <div class="cad-door-handle"></div>
+              </div>
+              <div style="margin-top:16px;font-size:12px;color:rgba(226,236,245,0.8);font-weight:600;">
+                ✨ Seçtiğiniz renk, CNC profil ve En × Boy oranına göre ölçeklendirilmiş kapak kesiti
+              </div>
+            </div>
+
+            <!-- SOL ALT: MİNİ 3D KAPAK ÖNİZLEME KARTI -->
+            <div class="mini-door-pip" onclick="setPreviewMode(designState.mode === 'photo' ? 'cad' : 'photo')" title="3D CNC Kapak Görünümüne Geç">
+              <div class="mini-door-visual-wrap">
+                <div class="mini-door-slab" id="miniDoorSlab"></div>
+              </div>
+              <div class="mini-door-meta">
+                <small>Canlı Kapak Kesiti</small>
+                <strong id="miniDoorColorTitle">Orijinal Görsel</strong>
+                <span id="miniDoorDimSub">45 × 72 cm (0.32 m²)</span>
+              </div>
+            </div>
+
+            <div class="pd-zoom-badge" onclick="openLightbox(0)" title="Tam Ekran Büyüt">🔍</div>
+          </div>
+
+          <div class="preview-stage-footer">
+            <div class="psf-pill">
+              <span class="psf-swatch-dot" id="psfSwatchDot" style="background:linear-gradient(135deg,#E2E8F0,#94A3B8);"></span>
+              <span id="psfColorText">Orijinal Görsel</span>
+            </div>
+            <div style="font-weight:700;color:var(--navy3);" id="psfDimText">45 × 72 cm • 1 Adet (0.32 m²)</div>
+          </div>
+        </div>
+        ${thumbHtml}
+      </div>
+
+      <!-- SAĞ: ÜRÜN BİLGİLERİ & İNTERAKTİF TASARIM STÜDYOSU -->
+      <div class="pd-info">
+        <div class="pd-cat">${pCat}</div>
+        <h1>${pTitle}</h1>
+        ${p.sku ? `<div class="pd-sku">Ürün Kodu: <strong>${p.sku}</strong></div>` : ''}
+        <div class="pd-rating"><span class="stars">★★★★★</span><span>5 Yıl Üretici Garantisi • 5 İş Gününde Teslimat</span></div>
+        <p class="pd-desc">${pDesc}</p>
+
+        <!-- İNTERAKTİF TASARIM & ÖLÇÜ STÜDYOSU -->
+        <div class="design-studio-box">
+          <div class="ds-header">
+            <div class="ds-title">🎨 Canlı Tasarım & Ölçü Modu</div>
+            <span class="ds-badge">Anlık Önizleme Aktif</span>
+          </div>
+
+          <!-- 1. RENK SEÇİMİ -->
+          <div class="pd-colors">
+            <div class="pd-section-label">
+              1. Renk & Membran Yüzey Seçin
+              <span id="lblSelectedColor">Orijinal Görsel</span>
+            </div>
+            <div class="color-list">${renkHtml}</div>
+          </div>
+
+          <!-- 2. STANDART VEYA ÖZEL ÖLÇÜ SEÇİMİ -->
+          <div class="pd-sizes">
+            <div class="pd-section-label">
+              2. Kapak Ölçüsü / Boyut Seçin
+              <span id="lblSelectedSize">45 × 72 cm • 0.32 m²</span>
+            </div>
+            <div class="size-list">${sizePresetsHtml}</div>
+
+            <!-- ÖZEL ÖLÇÜ SÜRGÜLERİ -->
+            <div class="custom-dim-grid">
+              <div class="dim-control">
+                <label><span>Genişlik (En)</span><strong id="lblRangeW">45 cm</strong></label>
+                <input type="range" id="dsWidthRange" min="20" max="120" value="45" oninput="onCustomDimensionInput()">
+              </div>
+              <div class="dim-control">
+                <label><span>Yükseklik (Boy)</span><strong id="lblRangeH">72 cm</strong></label>
+                <input type="range" id="dsHeightRange" min="15" max="240" value="72" oninput="onCustomDimensionInput()">
+              </div>
+              <div class="dim-control">
+                <label><span>Adet</span></label>
+                <input type="number" id="dsQtyInput" class="dim-num-input" min="1" max="500" value="1" oninput="onCustomDimensionInput()">
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. CNC PROFİL GÖRÜNÜMÜ -->
+          <div class="pd-profiles" style="margin-bottom:6px;">
+            <div class="pd-section-label">3. CNC Derz / Çerçeve Kesiti (3D Önizleme)</div>
+            <div class="profile-list">
+              <button type="button" class="profile-chip active" onclick="selectDoorProfile('cerceveli', this)">Çerçeveli Klasik</button>
+              <button type="button" class="profile-chip" onclick="selectDoorProfile('duz', this)">Düz Minimal</button>
+              <button type="button" class="profile-chip" onclick="selectDoorProfile('diyagonal', this)">Diyagonal CNC</button>
+              <button type="button" class="profile-chip" onclick="selectDoorProfile('citali', this)">Çıtalı (Fluted)</button>
+            </div>
+          </div>
+
+          <div class="ds-live-summary">
+            <span id="dsSummaryText">Seçilen Tasarım: <strong>Orijinal Görsel</strong> • Ölçü: <strong>45×72 cm</strong> • <strong>1 Adet (0.32 m²)</strong></span>
+          </div>
+        </div>
+
+        <div class="pd-actions">
+          <a href="https://wa.me/905050151035" id="pdWhatsappOrderBtn" target="_blank" class="btn-primary">💬 Bu Tasarım İçin WhatsApp'tan Teklif Al</a>
+          <a href="iletisim.html" class="btn-secondary">İletişime Geç</a>
+        </div>
+
+        <div class="pd-features">
+          <h4>Öne Çıkan Teknik Özellikler</h4>
+          <ul>${ozellikler.map(o=>`<li>${o}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>
+    ${bodyHtml ? `<div class="pd-body">${bodyHtml}</div>` : ''}
+  `;
 
   applyImageMode(p.gorsel_mod || 'contain');
+  updateLiveDesignPreview();
 }
 
 function simpleMarkdown(md) {
