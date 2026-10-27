@@ -162,6 +162,7 @@ footer a{color:var(--gold);}
 
 
 
+<script src="js/supabase-config.js"></script>
 <script>
 let allProducts = [];
 let currentFilter = 'all';
@@ -171,50 +172,37 @@ async function loadProducts() {
   const cacheBuster = '?t=' + Date.now();
   
   try {
-    let productIds = [];
-    
-    // 1. Yerel index dosyasını oku (Hızlı & Limitsiz)
-    try {
-      const idxRes = await fetch('_data/urunler-index.json' + cacheBuster);
-      if (idxRes.ok) productIds = await idxRes.json();
-    } catch(e) {}
-
-    // 2. Raw GitHub fallback (Limitsiz CDN)
-    if (!productIds || productIds.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/urunler-index.json' + cacheBuster);
-        if (rawRes.ok) productIds = await rawRes.json();
-      } catch(e) {}
-    }
-
-    // 3. Fallback: GitHub API
-    if (!productIds || productIds.length === 0) {
-      try {
-        const ghRes = await fetch('https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/urunler' + cacheBuster);
-        if (ghRes.ok) {
-          const files = await ghRes.json();
-          productIds = files.filter(f => f.name.endsWith('.json')).map(f => f.name.replace('.json', ''));
-        }
-      } catch(e) {}
-    }
-
     let loaded = [];
-    if (productIds && productIds.length > 0) {
-      const promises = productIds.map(async (id) => {
-        try {
-          // Önce yerel, sonra Raw GitHub
-          let res = await fetch(`_data/urunler/${id}.json${cacheBuster}`);
-          if (!res.ok) {
-            res = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/urunler/${id}.json${cacheBuster}`);
-          }
-          if (res.ok) {
-            const data = await res.json();
-            data.id = id;
-            return data;
-          }
-        } catch(e) { return null; }
-      });
-      loaded = (await Promise.all(promises)).filter(p => p);
+
+    // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+    if (window.GKM_SUPABASE) {
+      const sbProducts = await window.GKM_SUPABASE.getProducts();
+      if (sbProducts && sbProducts.length > 0) {
+        loaded = sbProducts;
+      }
+    }
+
+    // 2. FALLBACK: Yerel JSON dosyaları
+    if (loaded.length === 0) {
+      let productIds = [];
+      try {
+        const idxRes = await fetch('_data/urunler-index.json' + cacheBuster);
+        if (idxRes.ok) productIds = await idxRes.json();
+      } catch(e) {}
+
+      if (productIds && productIds.length > 0) {
+        const promises = productIds.map(async (id) => {
+          try {
+            let res = await fetch(`_data/urunler/${id}.json${cacheBuster}`);
+            if (res.ok) {
+              const data = await res.json();
+              data.id = id;
+              return data;
+            }
+          } catch(e) { return null; }
+        });
+        loaded = (await Promise.all(promises)).filter(p => p);
+      }
     }
     
     allProducts = loaded;

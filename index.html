@@ -1736,6 +1736,17 @@ nav {
   </div>
 </section>
 
+<!-- KURUMSAL TANITIM VİDEOSU (Supabase Storage & Module 1 Vitrin Yönetimi) -->
+<section class="about-section" id="corporateVideoSection" style="display:none; background:linear-gradient(180deg, #F4F7FA 0%, #FFFFFF 100%); border-top:1px solid var(--border); padding-bottom:90px;">
+  <div class="sec-head">
+    <div class="sec-tag">🎬 Üretim &amp; Teknoloji Tanıtım Filmi</div>
+    <h2 id="corpVideoTitle">Üretim &amp; Kalite Yolculuğumuz</h2>
+    <p id="corpVideoSub">Modern CNC parkurumuz ve membran kaplama teknolojimiz.</p>
+    <div class="sec-line"></div>
+  </div>
+  <div style="max-width:1040px; margin:0 auto; padding:0 40px;" id="corpVideoPlayerWrap"></div>
+</section>
+
 <!-- SOSYAL SORUMLULUK -->
 <section class="csr-section">
   <div class="csr-inner">
@@ -1967,39 +1978,39 @@ function goToProdSlide(index) {
 window.addEventListener('resize', () => initProdSlider());
 </script>
 
+<script src="js/supabase-config.js"></script>
 <script>
-// Anasayfa için ürün, galeri ve blog yükleyici
+// Anasayfa için ürün, galeri ve blog yükleyici (Önce Supabase Cloud DB, sonra yerel JSON fallback)
 async function loadHomePage() {
   const cacheBuster = '?t=' + Date.now();
   // ÜRÜNLERİ YÜKLE
   try {
-    let ids = [];
-    try {
-      const idxRes = await fetch('_data/urunler-index.json' + cacheBuster);
-      if (idxRes.ok) ids = await idxRes.json();
-    } catch(e) {}
-
-    if (!ids || ids.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/urunler-index.json' + cacheBuster);
-        if (rawRes.ok) ids = await rawRes.json();
-      } catch(e) {}
+    let loadedProducts = [];
+    if (window.GKM_SUPABASE) {
+      const sbProds = await window.GKM_SUPABASE.getProducts();
+      if (sbProds && sbProds.length > 0) {
+        loadedProducts = sbProds;
+      }
     }
 
-    let loadedProducts = [];
-    if (ids && ids.length > 0) {
-      for (const id of ids.slice(0, 12)) {
-        try {
-          let r = await fetch('_data/urunler/' + id + '.json' + cacheBuster);
-          if (!r.ok) {
-            r = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/urunler/${id}.json${cacheBuster}`);
-          }
-          if (r.ok) {
-            const d = await r.json();
-            d.id = id;
-            loadedProducts.push(d);
-          }
-        } catch(e) {}
+    if (loadedProducts.length === 0) {
+      let ids = [];
+      try {
+        const idxRes = await fetch('_data/urunler-index.json' + cacheBuster);
+        if (idxRes.ok) ids = await idxRes.json();
+      } catch(e) {}
+
+      if (ids && ids.length > 0) {
+        for (const id of ids.slice(0, 12)) {
+          try {
+            let r = await fetch('_data/urunler/' + id + '.json' + cacheBuster);
+            if (r.ok) {
+              const d = await r.json();
+              d.id = id;
+              loadedProducts.push(d);
+            }
+          } catch(e) {}
+        }
       }
     }
 
@@ -2018,7 +2029,7 @@ async function loadHomePage() {
             </div>
             <div class="prod-body">
               <div class="prod-cat">${p.kategori || 'Membran Kapak'}</div>
-              <h3>${p.title}</h3>
+              <h3>${p.title || p.baslik || ''}</h3>
               <p>${p.kisa_aciklama || ''}</p>
               <span class="prod-link">Modeli İncele →</span>
             </div>
@@ -2031,35 +2042,34 @@ async function loadHomePage() {
     console.log('Ürün yükleme hatası:', err);
   }
 
-  // GALERİ YÜKLE (Panelden Eklenenler)
+  // GALERİ YÜKLE (Önce Supabase, sonra yerel)
   try {
-    let galIds = [];
-    try {
-      const idxRes = await fetch('_data/galeri-index.json' + cacheBuster);
-      if (idxRes.ok) galIds = await idxRes.json();
-    } catch(e) {}
-
-    if (!galIds || galIds.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/galeri-index.json' + cacheBuster);
-        if (rawRes.ok) galIds = await rawRes.json();
-      } catch(e) {}
+    let loadedGal = [];
+    if (window.GKM_SUPABASE) {
+      const sbGal = await window.GKM_SUPABASE.getGallery();
+      if (sbGal && sbGal.length > 0) {
+        loadedGal = sbGal;
+      }
     }
 
-    let loadedGal = [];
-    if (galIds && galIds.length > 0) {
-      for (const id of galIds.slice(0, 8)) {
-        try {
-          let r = await fetch(`_data/galeri/${id}.json${cacheBuster}`);
-          if (!r.ok) {
-            r = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/galeri/${id}.json${cacheBuster}`);
-          }
-          if (r.ok) {
-            const d = await r.json();
-            d.id = id;
-            loadedGal.push(d);
-          }
-        } catch(e) {}
+    if (loadedGal.length === 0) {
+      let galIds = [];
+      try {
+        const idxRes = await fetch('_data/galeri-index.json' + cacheBuster);
+        if (idxRes.ok) galIds = await idxRes.json();
+      } catch(e) {}
+
+      if (galIds && galIds.length > 0) {
+        for (const id of galIds.slice(0, 8)) {
+          try {
+            let r = await fetch(`_data/galeri/${id}.json${cacheBuster}`);
+            if (r.ok) {
+              const d = await r.json();
+              d.id = id;
+              loadedGal.push(d);
+            }
+          } catch(e) {}
+        }
       }
     }
 
@@ -2079,44 +2089,43 @@ async function loadHomePage() {
     console.log('Galeri yükleme hatası:', err);
   }
 
-  // BLOG YÜKLE - GitHub API & Fallback
+  // BLOG YÜKLE (Önce Supabase, sonra yerel)
   try {
-    let ids = [];
-    try {
-      const idxRes = await fetch('_data/blog-index.json' + cacheBuster);
-      if (idxRes.ok) ids = await idxRes.json();
-    } catch(e) {}
-
-    if (!ids || ids.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/blog-index.json' + cacheBuster);
-        if (rawRes.ok) ids = await rawRes.json();
-      } catch(e) {}
+    let posts = [];
+    if (window.GKM_SUPABASE) {
+      const sbBlogs = await window.GKM_SUPABASE.getBlogs();
+      if (sbBlogs && sbBlogs.length > 0) {
+        posts = sbBlogs;
+      }
     }
 
-    const posts = [];
-    for (const id of (ids || []).slice(0, 3)) {
+    if (posts.length === 0) {
+      let ids = [];
       try {
-        let r = await fetch(`_data/blog/${id}.json${cacheBuster}`);
-        if (!r.ok) {
-          r = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/blog/${id}.json${cacheBuster}`);
-        }
-        if (r.ok) {
-          const d = await r.json();
-          d.id = id;
-          posts.push(d);
-        }
+        const idxRes = await fetch('_data/blog-index.json' + cacheBuster);
+        if (idxRes.ok) ids = await idxRes.json();
       } catch(e) {}
+
+      for (const id of (ids || []).slice(0, 3)) {
+        try {
+          let r = await fetch(`_data/blog/${id}.json${cacheBuster}`);
+          if (r.ok) {
+            const d = await r.json();
+            d.id = id;
+            posts.push(d);
+          }
+        } catch(e) {}
+      }
     }
 
-    posts.sort((a, b) => new Date(b.tarih) - new Date(a.tarih));
+    posts.sort((a, b) => new Date(b.tarih || 0) - new Date(a.tarih || 0));
 
     const blogGrid = document.getElementById('blogGrid');
     if (blogGrid && posts.length > 0) {
       blogGrid.innerHTML = posts.slice(0, 3).map(p => {
         const tarih = p.tarih ? new Date(p.tarih).toLocaleDateString('tr-TR') : '';
         return `
-          <a href="blog-yazi.html?id=${p.id}" class="blog-card">
+          <a href="blog-yazi.html?id=${p.id || p.slug}" class="blog-card">
             <div class="blog-img" style="background-image:url('${p.kapak_resim || 'resim/anasayfa-resimleri/anasayfa1.png'}');"></div>
             <div class="blog-body">
               <div class="blog-cat">${p.kategori || 'Rehber'}</div>

@@ -1,9 +1,21 @@
 /**
- * Global Kapak Mobilya — Genel İçerik Yükleyici & Nordic Blue-Slate-Sage Header
- * _data/ayarlar/genel.json dosyasından navbar, topbar,
- * hakkımızda resmi ve diğer sabit içerikleri dinamik yükler.
+ * Global Kapak Mobilya — Genel İçerik Yükleyici & Supabase Bulut Senkronizasyonu
+ * Önce Supabase Cloud Database (site_settings -> 'genel' ve 'anasayfa') üzerinden,
+ * bağlantı yoksa _data/ayarlar/genel.json dosyasından navbar, topbar,
+ * hakkımızda resmi, kurumsal tanıtım videosu ve diğer sabit içerikleri dinamik yükler.
  */
 (async function () {
+
+  // ── 0. Eğer GKM_SUPABASE henüz yüklenmediyse dinamik yükle ──
+  if (!window.GKM_SUPABASE) {
+    await new Promise((resolve) => {
+      const s = document.createElement('script');
+      s.src = 'js/supabase-config.js';
+      s.onload = resolve;
+      s.onerror = resolve;
+      document.head.appendChild(s);
+    });
+  }
 
   // ── 1. Eğer sayfada .topbar yoksa, nav öncesine kurumsal topbar ekle ──
   const navEl = document.querySelector('nav');
@@ -42,24 +54,36 @@
   `;
   document.head.appendChild(fixCSS);
 
-  // ── 3. genel.json yükle ────────────────────────────────────────────────
+  // ── 3. Supabase veya genel.json yükle ──────────────────────────────────
   let genel = {};
-  const REPO = 'emrecanaksoyea34-a11y/global-kapak-mobilyaa';
-  const paths = [
-    '_data/ayarlar/genel.json',
-    '/_data/ayarlar/genel.json'
-  ];
-  for (const p of paths) {
+  let anasayfaAyar = null;
+
+  if (window.GKM_SUPABASE) {
     try {
-      const res = await fetch(p);
-      if (res.ok) { genel = await res.json(); break; }
-    } catch(e) {}
+      const [sbGenel, sbAnasayfa] = await Promise.all([
+        window.GKM_SUPABASE.getSiteSetting('genel'),
+        window.GKM_SUPABASE.getSiteSetting('anasayfa')
+      ]);
+      if (sbGenel && typeof sbGenel === 'object') genel = sbGenel;
+      if (sbAnasayfa && typeof sbAnasayfa === 'object') anasayfaAyar = sbAnasayfa;
+    } catch (e) {}
   }
-  if (!genel.firma) {
-    try {
-      const raw = await fetch(`https://raw.githubusercontent.com/${REPO}/main/_data/ayarlar/genel.json`);
-      if (raw.ok) genel = await raw.json();
-    } catch(e) {}
+
+  if (!genel || !genel.firma) {
+    const paths = [
+      '_data/ayarlar/genel.json',
+      '/_data/ayarlar/genel.json'
+    ];
+    for (const p of paths) {
+      try {
+        const res = await fetch(p);
+        if (res.ok) {
+          const localGenel = await res.json();
+          genel = Object.assign({}, localGenel, genel);
+          break;
+        }
+      } catch(e) {}
+    }
   }
 
   const firma    = genel.firma    || {};
@@ -104,17 +128,37 @@
     if (navCta.link)  btn.href = navCta.link;
   });
 
-  // ── ANASAYFADAKİ HAKKIMIZDA RESMİ ────────────────────────────────────
+  // ── ANASAYFA HERO VE HAKKIMIZDA (Supabase 'anasayfa' veya 'genel') ────
+  if (anasayfaAyar) {
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      const tagEl = heroContent.querySelector('.hero-tag');
+      const h1El  = heroContent.querySelector('h1');
+      const pEl   = heroContent.querySelector('p');
+      if (tagEl && anasayfaAyar.hero_etiket) tagEl.textContent = anasayfaAyar.hero_etiket;
+      if (h1El && (anasayfaAyar.hero_baslik_1 || anasayfaAyar.hero_baslik_2)) {
+        h1El.innerHTML = `${anasayfaAyar.hero_baslik_1 || ''}<br><span>${anasayfaAyar.hero_baslik_2 || ''}</span>`;
+      }
+      if (pEl && anasayfaAyar.hero_aciklama) pEl.textContent = anasayfaAyar.hero_aciklama;
+      const btns = heroContent.querySelectorAll('.hero-btns button');
+      if (btns[0] && anasayfaAyar.hero_buton_1) btns[0].textContent = anasayfaAyar.hero_buton_1 + ' →';
+      if (btns[1] && anasayfaAyar.hero_buton_2) btns[1].textContent = anasayfaAyar.hero_buton_2;
+    }
+  }
+
   const aboutImg = document.getElementById('about-main-img') || document.querySelector('.about-img');
-  const aboutData = genel.anasayfa_hakkimizda || {};
+  const aboutData = Object.assign({}, genel.anasayfa_hakkimizda || {}, (anasayfaAyar && anasayfaAyar.anasayfa_hakkimizda) || {});
+  if (anasayfaAyar && anasayfaAyar.hakkimizda_baslik_1) aboutData.baslik_1 = anasayfaAyar.hakkimizda_baslik_1;
+  if (anasayfaAyar && anasayfaAyar.hakkimizda_baslik_2) aboutData.baslik_2 = anasayfaAyar.hakkimizda_baslik_2;
+  if (anasayfaAyar && anasayfaAyar.hakkimizda_p1) aboutData.paragraf_1 = anasayfaAyar.hakkimizda_p1;
+  if (anasayfaAyar && anasayfaAyar.hakkimizda_p2) aboutData.paragraf_2 = anasayfaAyar.hakkimizda_p2;
+
   if (aboutImg && aboutData.resim) {
     const imgUrl = aboutData.resim.includes('anasayfa-hakkimizda')
       ? 'resim/yonetilen/atelier-craft.jpg'
       : aboutData.resim;
     aboutImg.style.backgroundImage = `url('${imgUrl}')`;
-    if (imgUrl.includes('atelier-craft')) {
-      aboutImg.style.backgroundSize = 'cover';
-    }
+    aboutImg.style.backgroundSize = 'cover';
   }
   if (aboutData.etiket) {
     const tag = document.querySelector('.about-text .sec-tag');
@@ -139,8 +183,37 @@
     }
   }
 
+  // ── KURUMSAL TANITIM VİDEOSU (Supabase Storage & site_settings) ───────
+  const videoCfg = (anasayfaAyar && anasayfaAyar.kurumsal_video) || genel.kurumsal_video;
+  const videoSec = document.getElementById('corporateVideoSection');
+  if (videoSec && videoCfg && videoCfg.aktif !== false && videoCfg.url) {
+    videoSec.style.display = 'block';
+    const vTitle = document.getElementById('corpVideoTitle');
+    const vSub   = document.getElementById('corpVideoSub');
+    const vWrap  = document.getElementById('corpVideoPlayerWrap');
+    if (vTitle && videoCfg.baslik) vTitle.textContent = videoCfg.baslik;
+    if (vSub && videoCfg.alt_baslik) vSub.textContent = videoCfg.alt_baslik;
+    if (vWrap) {
+      const url = videoCfg.url.trim();
+      if (url.includes('youtube.com') || url.includes('youtu.be')) {
+        let vidId = '';
+        if (url.includes('youtu.be/')) vidId = url.split('youtu.be/')[1].split(/[?&]/)[0];
+        else if (url.includes('v=')) vidId = url.split('v=')[1].split(/[?&]/)[0];
+        else if (url.includes('embed/')) vidId = url.split('embed/')[1].split(/[?&]/)[0];
+        if (vidId) {
+          vWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${vidId}?rel=0" style="width:100%;aspect-ratio:16/9;border:0;border-radius:20px;box-shadow:0 24px 60px rgba(15,37,62,0.28);" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        }
+      } else {
+        const autoAttr = videoCfg.otomatik_oynat ? 'autoplay' : '';
+        const muteAttr = (videoCfg.sessiz !== false) ? 'muted' : '';
+        const loopAttr = (videoCfg.dongu !== false) ? 'loop' : '';
+        vWrap.innerHTML = `<video src="${url}" controls playsinline ${autoAttr} ${muteAttr} ${loopAttr} style="width:100%;max-height:600px;border-radius:20px;background:#091526;box-shadow:0 24px 60px rgba(15,37,62,0.28);display:block;"></video>`;
+      }
+    }
+  }
+
   // ── STATS BAR ────────────────────────────────────────────────────────
-  const stats = genel.stats || [];
+  const stats = (anasayfaAyar && anasayfaAyar.stats) || genel.stats || [];
   if (stats.length > 0) {
     const statItems = document.querySelectorAll('.stat-item');
     statItems.forEach((item, i) => {

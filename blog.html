@@ -144,37 +144,21 @@ footer a{color:var(--gold);}
 
 
 
+<script src="js/supabase-config.js"></script>
 <script>
 async function loadBlogs() {
   const container = document.getElementById('blog-container');
   const cacheBuster = '?t=' + Date.now();
   
   try {
-    // 1. GitHub API ile blog dosyalarını otomatik getir
-    let blogFiles = [];
-    try {
-      const ghRes = await fetch('https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/blog' + cacheBuster);
-      if (ghRes.ok) {
-        const files = await ghRes.json();
-        blogFiles = files.filter(f => f.name.endsWith('.json'));
-      }
-    } catch(e) {}
-
     let posts = [];
-    if (blogFiles.length > 0) {
-      const promises = blogFiles.map(async (file) => {
-        try {
-          const res = await fetch(`https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/blog/${file.name}${cacheBuster}`);
-          if (res.ok) {
-            const data = await res.json();
-            const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-            content.id = file.name.replace('.json', '');
-            return content;
-          }
-        } catch(e) {}
-        return null;
-      });
-      posts = (await Promise.all(promises)).filter(p => p);
+
+    // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+    if (window.GKM_SUPABASE) {
+      const sbBlogs = await window.GKM_SUPABASE.getBlogs();
+      if (sbBlogs && sbBlogs.length > 0) {
+        posts = sbBlogs;
+      }
     }
     
     // 2. Fallback: Yerel blog dosyaları

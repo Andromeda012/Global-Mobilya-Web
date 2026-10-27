@@ -241,6 +241,7 @@ footer{background:#060E22;padding:40px 40px 20px;}
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 
+<script src="js/supabase-config.js"></script>
 <script>
 async function loadSuppliers() {
   const loading = document.getElementById('supLoading');
@@ -249,53 +250,41 @@ async function loadSuppliers() {
   const cacheBuster = '?t=' + Date.now();
 
   try {
-    let supIds = [];
-
-    // 1. Yerel index
-    try {
-      const idxRes = await fetch('_data/tedarikciler-index.json' + cacheBuster);
-      if (idxRes.ok) supIds = await idxRes.json();
-    } catch(e) {}
-
-    // 2. Raw GitHub index fallback
-    if (!supIds || supIds.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/tedarikciler-index.json' + cacheBuster);
-        if (rawRes.ok) supIds = await rawRes.json();
-      } catch(e) {}
-    }
-
-    // 3. Fallback: GitHub API
-    if (!supIds || supIds.length === 0) {
-      try {
-        const ghRes = await fetch('https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/tedarikciler' + cacheBuster);
-        if (ghRes.ok) {
-          const files = await ghRes.json();
-          supIds = files.filter(f => f.name.endsWith('.json')).map(f => f.name.replace('.json', ''));
-        }
-      } catch(e) {}
-    }
-
-    if (!supIds || supIds.length === 0) {
-      supIds = ['tedarikci-1', 'tedarikci-2', 'tedarikci-3'];
-    }
-
     let loaded = [];
-    const promises = supIds.map(async (id) => {
-      try {
-        let res = await fetch(`_data/tedarikciler/${id}.json${cacheBuster}`);
-        if (!res.ok) {
-          res = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/tedarikciler/${id}.json${cacheBuster}`);
-        }
-        if (res.ok) {
-          const data = await res.json();
-          data.slug = id;
-          return data;
-        }
-      } catch(e) { return null; }
-    });
 
-    loaded = (await Promise.all(promises)).filter(s => s);
+    // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+    if (window.GKM_SUPABASE) {
+      const sbSups = await window.GKM_SUPABASE.getSuppliers();
+      if (sbSups && sbSups.length > 0) {
+        loaded = sbSups;
+      }
+    }
+
+    // 2. FALLBACK: Yerel JSON dosyaları
+    if (loaded.length === 0) {
+      let supIds = [];
+      try {
+        const idxRes = await fetch('_data/tedarikciler-index.json' + cacheBuster);
+        if (idxRes.ok) supIds = await idxRes.json();
+      } catch(e) {}
+
+      if (!supIds || supIds.length === 0) {
+        supIds = ['tedarikci-1', 'tedarikci-2', 'tedarikci-3'];
+      }
+
+      const promises = supIds.map(async (id) => {
+        try {
+          let res = await fetch(`_data/tedarikciler/${id}.json${cacheBuster}`);
+          if (res.ok) {
+            const data = await res.json();
+            data.slug = id;
+            return data;
+          }
+        } catch(e) { return null; }
+      });
+
+      loaded = (await Promise.all(promises)).filter(s => s);
+    }
 
     if (loaded.length === 0) {
       grid.style.display = 'none';

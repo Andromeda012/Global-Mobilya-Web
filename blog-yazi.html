@@ -103,6 +103,7 @@ footer a{color:var(--gold);}
 
 
 
+<script src="js/supabase-config.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const blogId = params.get('id');
@@ -120,14 +121,12 @@ async function loadBlog() {
     const cacheBuster = '?t=' + Date.now();
     let post = null;
 
-    // 1. GitHub API
-    try {
-      const ghRes = await fetch(`https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/blog/${blogId}.json${cacheBuster}`);
-      if (ghRes.ok) {
-        const d = await ghRes.json();
-        post = JSON.parse(decodeURIComponent(escape(atob(d.content))));
-      }
-    } catch(e) {}
+    // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+    if (window.GKM_SUPABASE) {
+      try {
+        post = await window.GKM_SUPABASE.getBlogBySlug(blogId);
+      } catch(e) {}
+    }
 
     // 2. Fallback: Yerel dosya
     if (!post) {

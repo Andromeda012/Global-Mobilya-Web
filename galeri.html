@@ -224,6 +224,7 @@ footer{background:#060E22;padding:40px 40px 20px;}
   <div class="lightbox-counter" id="lbCounter" style="position:absolute; bottom:20px; color:rgba(255,255,255,0.7); font-size:13px;"></div>
 </div>
 
+<script src="js/supabase-config.js"></script>
 <script>
 let allGalleryItems = [];
 let currentFiltered = [];
@@ -236,53 +237,41 @@ async function loadGallery() {
   const cacheBuster = '?t=' + Date.now();
 
   try {
-    let galIds = [];
-    
-    // 1. Yerel galeri index dosyasını oku
-    try {
-      const idxRes = await fetch('_data/galeri-index.json' + cacheBuster);
-      if (idxRes.ok) galIds = await idxRes.json();
-    } catch(e) {}
-
-    // 2. Raw GitHub fallback
-    if (!galIds || galIds.length === 0) {
-      try {
-        const rawRes = await fetch('https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/galeri-index.json' + cacheBuster);
-        if (rawRes.ok) galIds = await rawRes.json();
-      } catch(e) {}
-    }
-
-    // 3. Fallback: GitHub API
-    if (!galIds || galIds.length === 0) {
-      try {
-        const ghRes = await fetch('https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/galeri' + cacheBuster);
-        if (ghRes.ok) {
-          const files = await ghRes.json();
-          galIds = files.filter(f => f.name.endsWith('.json')).map(f => f.name.replace('.json', ''));
-        }
-      } catch(e) {}
-    }
-
-    if (!galIds || galIds.length === 0) {
-      galIds = ['galeri-1787672363723', 'galeri-1', 'galeri-2', 'galeri-3'];
-    }
-
     let loaded = [];
-    const promises = galIds.map(async (id) => {
-      try {
-        let res = await fetch(`_data/galeri/${id}.json${cacheBuster}`);
-        if (!res.ok) {
-          res = await fetch(`https://raw.githubusercontent.com/emrecanaksoy/global-mobilya/main/_data/galeri/${id}.json${cacheBuster}`);
-        }
-        if (res.ok) {
-          const data = await res.json();
-          data.slug = id;
-          return data;
-        }
-      } catch(e) { return null; }
-    });
 
-    loaded = (await Promise.all(promises)).filter(g => g);
+    // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+    if (window.GKM_SUPABASE) {
+      const sbGal = await window.GKM_SUPABASE.getGallery();
+      if (sbGal && sbGal.length > 0) {
+        loaded = sbGal;
+      }
+    }
+
+    // 2. FALLBACK: Yerel galeri dosyaları
+    if (loaded.length === 0) {
+      let galIds = [];
+      try {
+        const idxRes = await fetch('_data/galeri-index.json' + cacheBuster);
+        if (idxRes.ok) galIds = await idxRes.json();
+      } catch(e) {}
+
+      if (!galIds || galIds.length === 0) {
+        galIds = ['galeri-1787672363723', 'galeri-1', 'galeri-2', 'galeri-3'];
+      }
+
+      const promises = galIds.map(async (id) => {
+        try {
+          let res = await fetch(`_data/galeri/${id}.json${cacheBuster}`);
+          if (res.ok) {
+            const data = await res.json();
+            data.slug = id;
+            return data;
+          }
+        } catch(e) { return null; }
+      });
+
+      loaded = (await Promise.all(promises)).filter(g => g);
+    }
 
     allGalleryItems = loaded;
     renderGallery(allGalleryItems);

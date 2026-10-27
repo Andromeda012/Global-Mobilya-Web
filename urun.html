@@ -135,6 +135,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px
   <div class="lb-counter" id="lb-counter"></div>
 </div>
 
+<script src="js/supabase-config.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const productId = (params.get('id') || params.get('slug') || '').trim();
@@ -201,38 +202,29 @@ async function loadProduct() {
   const cacheBuster = '?t=' + Date.now();
   let p = null;
 
-  // 1. Yerel dosya /_data/urunler/{slug}.json
-  try {
-    const r = await fetch(`/_data/urunler/${productId}.json${cacheBuster}`);
-    if (r.ok) p = await r.json();
-  } catch(e) {}
-
-  // 2. Fastly CDN (GitHub Raw yedeği)
-  if (!p) {
+  // 1. ÖNCE SUPABASE CLOUD DATABASE KONTROLÜ
+  if (window.GKM_SUPABASE) {
     try {
-      const cdnRes = await fetch(`https://fastly.jsdelivr.net/gh/emrecanaksoy/global-mobilya@main/_data/urunler/${productId}.json${cacheBuster}`);
-      if (cdnRes.ok) p = await cdnRes.json();
+      p = await window.GKM_SUPABASE.getProductBySlug(productId);
     } catch(e) {}
   }
 
-  // 3. Ürünler İndeks Fihristinden Arama
+  // 2. FALLBACK: Yerel dosya _data/urunler/{slug}.json
   if (!p) {
     try {
-      const idxRes = await fetch(`/_data/urunler-index.json${cacheBuster}`);
+      let r = await fetch(`_data/urunler/${productId}.json${cacheBuster}`);
+      if (!r.ok) r = await fetch(`/_data/urunler/${productId}.json${cacheBuster}`);
+      if (r.ok) p = await r.json();
+    } catch(e) {}
+  }
+
+  // 3. FALLBACK: Ürünler İndeks Fihristinden Arama
+  if (!p) {
+    try {
+      const idxRes = await fetch(`_data/urunler-index.json${cacheBuster}`);
       if (idxRes.ok) {
         const list = await idxRes.json();
         p = list.find(item => (item.slug === productId || item.id === productId || (item.baslik && item.baslik.toLowerCase() === productId.toLowerCase())));
-      }
-    } catch(e) {}
-  }
-
-  // 4. GitHub API (Son çare)
-  if (!p) {
-    try {
-      const ghRes = await fetch(`https://api.github.com/repos/emrecanaksoy/global-mobilya/contents/_data/urunler/${productId}.json${cacheBuster}`);
-      if (ghRes.ok) {
-        const d = await ghRes.json();
-        p = JSON.parse(decodeURIComponent(escape(atob(d.content))));
       }
     } catch(e) {}
   }
