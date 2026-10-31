@@ -205,7 +205,7 @@ async function loadProducts() {
       }
     }
     
-    allProducts = loaded;
+    allProducts = loaded.filter(p => p.web_gorunur !== false && p.aktif !== false);
     
     if (allProducts.length === 0) {
       container.innerHTML = `<div class="empty"><h3>Henüz ürün eklenmedi</h3><p>Yakında ürünlerimiz burada listelenecek.</p></div>`;

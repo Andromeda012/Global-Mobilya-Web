@@ -2029,6 +2029,7 @@ async function loadHomePage() {
       }
     }
 
+    loadedProducts = loadedProducts.filter(p => p.web_gorunur !== false && p.aktif !== false);
     let showcase = loadedProducts.filter(p => p.anasayfada_goster === true || p.populer === true);
     if (showcase.length === 0) {
       showcase = loadedProducts.filter(p => p.anasayfada_goster !== false);
