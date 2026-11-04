@@ -79,14 +79,12 @@
   const FOOTER_CSS = `
 <style id="footer-dynamic-css">
 footer {
-  background: radial-gradient(circle at 18% 0%, rgba(59, 130, 166, 0.18) 0%, transparent 50%),
-              radial-gradient(circle at 85% 100%, rgba(74, 120, 98, 0.15) 0%, transparent 50%),
-              linear-gradient(180deg, #0B192C 0%, #07111E 100%) !important;
+  background: linear-gradient(180deg, #272522 0%, #1A1917 100%) !important;
   padding: 0 40px 32px !important;
-  color: rgba(226, 236, 245, 0.72);
+  color: #D8CBBE;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(124, 194, 230, 0.20);
+  border-top: 1px solid rgba(216, 203, 190, 0.16);
 }
 .footer-cta-banner {
   max-width: 1180px;
@@ -94,8 +92,8 @@ footer {
   padding-top: 52px;
 }
 .footer-cta-inner {
-  background: linear-gradient(135deg, rgba(30, 63, 102, 0.55) 0%, rgba(59, 130, 166, 0.25) 55%, rgba(74, 120, 98, 0.28) 100%);
-  border: 1px solid rgba(124, 194, 230, 0.28);
+  background: linear-gradient(135deg, rgba(96, 74, 61, 0.5) 0%, rgba(39, 37, 34, 0.85) 100%);
+  border: 1px solid rgba(216, 203, 190, 0.25);
   border-radius: 20px;
   padding: 36px 42px;
   display: flex;
@@ -111,7 +109,7 @@ footer {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: #84D2F6;
+  color: #D8CBBE;
   margin-bottom: 8px;
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
 }
@@ -125,7 +123,7 @@ footer {
 }
 .footer-cta-text p {
   font-size: 14px;
-  color: rgba(226, 236, 245, 0.76);
+  color: rgba(216, 203, 190, 0.82);
   max-width: 580px;
   line-height: 1.65;
 }
@@ -135,7 +133,7 @@ footer {
   flex-wrap: wrap;
 }
 .f-btn-primary {
-  background: linear-gradient(135deg, #2B6CB0 0%, #3B82A6 55%, #4A7862 100%);
+  background: #604A3D;
   color: #FFFFFF !important;
   padding: 14px 26px;
   border-radius: 12px;
@@ -143,27 +141,27 @@ footer {
   font-weight: 700;
   font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(43, 108, 176, 0.35);
+  box-shadow: 0 10px 24px rgba(96, 74, 61, 0.35);
   transition: all 0.3s ease;
+  border: 1px solid rgba(216, 203, 190, 0.3);
 }
 .f-btn-primary:hover {
+  background: #43332A;
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(59, 130, 166, 0.5);
 }
 .f-btn-wa {
-  background: rgba(255, 255, 255, 0.07);
+  background: #25D366;
   color: #FFFFFF !important;
-  border: 1px solid rgba(124, 194, 230, 0.35);
+  border: 1px solid #25D366;
   padding: 14px 22px;
   border-radius: 12px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 .f-btn-wa:hover {
-  background: rgba(74, 120, 98, 0.32);
-  border-color: #84A98C;
+  background: #1EBE5D;
 }
 .footer-grid {
   display: grid;
@@ -185,7 +183,7 @@ footer {
 }
 .footer-brand p {
   font-size: 13.5px;
-  color: rgba(226, 236, 245, 0.64);
+  color: rgba(216, 203, 190, 0.72);
   line-height: 1.8;
   margin-bottom: 16px;
 }
@@ -198,9 +196,9 @@ footer {
 .f-badges span {
   font-size: 11px;
   font-weight: 600;
-  color: #A5D8F3;
-  background: rgba(59, 130, 166, 0.14);
-  border: 1px solid rgba(124, 194, 230, 0.24);
+  color: #D8CBBE;
+  background: rgba(96, 74, 61, 0.25);
+  border: 1px solid rgba(216, 203, 190, 0.22);
   padding: 5px 11px;
   border-radius: 30px;
 }

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="tr" data-page="koleksiyon">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koleksiyon Detayı | Global Mobilya — Dijital Showroom</title>
+<meta name="description" content="Global Mobilya mimari yatak odası koleksiyonu: Gardırop, karyola, şifonyer ve komodin bileşenleri, özel ölçü ve renk seçenekleri.">
+<link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
+<link rel="shortcut icon" href="/favicon.ico">
+
+<!-- FONTS: Cormorant Garamond (Editorial Serif) & Plus Jakarta Sans (Clean Sans) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F1EA;
+  --ivory-light: #FAF8F5;
+  --beige: #D8CBBE;
+  --beige-light: #EFE8E0;
+  --taupe: #A99A8C;
+  --walnut: #604A3D;
+  --walnut-dark: #43332A;
+  --charcoal: #272522;
+  --white: #FFFFFF;
+  --border: rgba(96, 74, 61, 0.15);
+  --border-light: rgba(96, 74, 61, 0.08);
+  --text: #272522;
+  --text-muted: #6B655F;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--ivory-light);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── EDITORIAL HEADER ── */
+header.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 22px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.35s ease;
+  background: transparent;
+}
+header.site-header.scrolled {
+  background: rgba(250, 248, 245, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 14px 50px;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(39, 37, 34, 0.04);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-logo img {
+  height: 44px;
+  width: auto;
+  transition: transform 0.25s ease;
+}
+.header-logo:hover img { transform: scale(1.03); }
+.header-brand-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+header.site-header:not(.scrolled) .header-brand-title {
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.header-nav a {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 4px 0;
+}
+header.site-header:not(.scrolled) .header-nav a {
+  color: rgba(255, 255, 255, 0.9);
+}
+.header-nav a:hover, .header-nav a.active {
+  color: var(--walnut);
+}
+header.site-header:not(.scrolled) .header-nav a:hover {
+  color: var(--white);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.btn-editorial-cta {
+  background: var(--walnut);
+  color: var(--white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 40px;
+  border: 1px solid var(--walnut);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-editorial-cta:hover {
+  background: var(--walnut-dark);
+  border-color: var(--walnut-dark);
+  transform: translateY(-1px);
+}
+.btn-wa-pill {
+  background: #25D366;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.btn-wa-pill:hover { background: #1EBE5D; transform: translateY(-1px); }
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: var(--charcoal);
+}
+
+/* ── FULL-SCREEN HERO SECTION ── */
+.col-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 90px 60px;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.col-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.col-hero.loaded .col-hero-bg {
+  transform: scale(1);
+}
+.col-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(39,37,34,0.3) 0%, rgba(39,37,34,0.15) 45%, rgba(39,37,34,0.85) 100%);
+  z-index: 1;
+}
+.col-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  color: var(--white);
+}
+.col-hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--beige);
+  margin-bottom: 12px;
+}
+.col-hero-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.col-hero-story {
+  font-size: clamp(14px, 1.8vw, 17px);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+.col-hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ── BREADCRUMB ── */
+.col-breadcrumb {
+  padding: 16px 60px;
+  background: var(--ivory);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.col-breadcrumb a { color: var(--walnut); font-weight: 600; }
+.col-breadcrumb span { margin: 0 8px; color: var(--taupe); }
+
+/* ── EDITORIAL STORYTELLING SECTION ── */
+.editorial-story-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 90px 60px 70px;
+}
+.story-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 60px;
+}
+.story-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--walnut);
+  display: block;
+  margin-bottom: 10px;
+}
+.story-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--charcoal);
+  line-height: 1.2;
+}
+.story-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 14px;
+}
+
+/* Asymmetric Editorial Photo Strip */
+.editorial-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 90px;
+}
+.editorial-block {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(39, 37, 34, 0.07);
+}
+.editorial-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.editorial-block:hover img {
+  transform: scale(1.03);
+}
+
+/* ── COLLECTION COMPONENTS (SET PARÇALARI) ── */
+.components-section {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 90px 60px;
+}
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+.comp-card {
+  background: var(--ivory-light);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+.comp-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--walnut);
+  box-shadow: 0 12px 30px rgba(96, 74, 61, 0.08);
+}
+.comp-icon {
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+.comp-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.comp-dim {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--walnut);
+  margin-bottom: 8px;
+}
+.comp-mat {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.comp-action {
+  margin-top: auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--walnut);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── COLOR & MATERIAL EXPERIENCE ── */
+.materials-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 90px 60px;
+}
+.materials-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.swatches-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+.swatch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--ivory-light);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.swatch-pill:hover, .swatch-pill.active {
+  border-color: var(--walnut);
+  background: var(--beige-light);
+  transform: translateY(-2px);
+}
+.swatch-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+/* ── TECHNICAL SPECS & CRAFTSMANSHIP ── */
+.specs-section {
+  background: var(--ivory);
+  border-top: 1px solid var(--border);
+  padding: 70px 60px;
+}
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.spec-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+.spec-item small {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--taupe);
+  display: block;
+  margin-bottom: 4px;
+}
+.spec-item strong {
+  font-size: 15px;
+  color: var(--charcoal);
+  display: block;
+}
+
+/* ── CALL TO ACTION & FORM MODAL ── */
+.cta-banner {
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--walnut-dark) 100%);
+  color: var(--white);
+  padding: 90px 60px;
+  text-align: center;
+}
+.cta-banner h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.cta-banner p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 620px;
+  margin: 0 auto 30px;
+}
+
+/* ── MODAL (TEKLİF & ÖZEL ÖLÇÜ) ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(39, 37, 34, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+.modal-box {
+  background: var(--white);
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  padding: 34px;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--ivory);
+  border: 1px solid var(--border);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--charcoal);
+}
+.modal-close:hover { background: var(--walnut); color: #fff; }
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  margin-bottom: 12px;
+}
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--walnut);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  header.site-header { padding: 18px 24px; }
+  .col-hero { padding: 80px 24px 60px; }
+  .editorial-story-section { padding: 60px 24px; }
+  .components-section { padding: 60px 24px; }
+  .materials-section { padding: 60px 24px; }
+  .materials-box { grid-template-columns: 1fr; }
+  .specs-grid { grid-template-columns: repeat(2, 1fr); }
+  .editorial-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  .header-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+  .header-nav.open { display: flex; }
+  .header-actions { display: none; }
+  .col-hero { min-height: 75vh; }
+  .specs-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY EDITORIAL HEADER -->
+<header class="site-header" id="siteHeader">
+  <a href="index.html" class="header-logo">
+    <img src="resim/logo.png" alt="Global Mobilya">
+    <span class="header-brand-title">Global Mobilya</span>
+  </a>
+  <nav class="header-nav" id="headerNav">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="galeri.html" class="active">Koleksiyonlar</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="hakkimizda.html">Hakkımızda</a>
+    <a href="iletisim.html">İletişim</a>
+  </nav>
+  <div class="header-actions">
+    <a id="navWaBtn" href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill">
+      💬 WhatsApp
+    </a>
+    <button class="btn-editorial-cta" onclick="openQuoteModal()">
+      Teklif Talebi
+    </button>
+  </div>
+  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menü">☰</button>
+</header>
+
+<!-- FULL-SCREEN COLLECTION HERO -->
+<section class="col-hero" id="colHero">
+  <div class="col-hero-bg" id="heroBg"></div>
+  <div class="col-hero-overlay"></div>
+  <div class="col-hero-content">
+    <span class="col-hero-tag" id="heroStyle">MİMARİ YATAK ODASI KOLEKSİYONU</span>
+    <h1 class="col-hero-title" id="heroTitle">Yatak Odası Koleksiyonu</h1>
+    <p class="col-hero-story" id="heroStory">Doğal dokuların dinginliği ve mimari işçiliğin zarafetiyle tasarlanan yaşam alanı.</p>
+    <div class="col-hero-actions">
+      <button class="btn-editorial-cta" onclick="document.getElementById('componentsSection').scrollIntoView({behavior:'smooth'})">
+        Set Parçalarını İncele ↓
+      </button>
+      <a id="heroWaBtn" href="#" target="_blank" class="btn-wa-pill" style="padding:11px 24px; font-size:12.5px;">
+        💬 Bu Koleksiyon İçin Bilgi Al
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="col-breadcrumb">
+  <a href="index.html">Ana Sayfa</a>
+  <span>›</span>
+  <a href="galeri.html">Dijital Showroom</a>
+  <span>›</span>
+  <strong id="breadcrumbCurrent">Koleksiyon</strong>
+</div>
+
+<!-- EDITORIAL STORYTELLING SECTION -->
+<section class="editorial-story-section">
+  <div class="story-header">
+    <span class="story-eyebrow">TASARIM HİKÂYESİ & DİLİ</span>
+    <h2 class="story-title" id="storyHeadTitle">Mekana Karakter Katan Detaylar</h2>
+    <p class="story-text" id="storyHeadDesc">
+      Her koleksiyonumuz, yalnızca bir mobilya takımı değil; günün dinginliğini ve mimari estetiğini yansıtan bir yaşam alanıdır.
+    </p>
+  </div>
+
+  <div class="editorial-grid">
+    <div class="editorial-block" style="height:480px;">
+      <img id="storyImgMain" src="resim/anasayfa-resimleri/warm-hero.jpg" alt="Mekan Tasarımı">
+    </div>
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div class="editorial-block" style="height:230px;">
+        <img id="storyImgSecondary" src="resim/yonetilen/atelier-craft.jpg" alt="Zanaat Detayı">
+      </div>
+      <div style="background:var(--ivory); padding:28px; border-radius:12px; border:1px solid var(--border);">
+        <strong style="font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--charcoal); display:block; margin-bottom:8px;">Kişiye & Mekana Özel Ölçü</strong>
+        <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">
+          Tüm gardırop ve başlıklarımız oda ölçülerinize, tavan yüksekliğinize ve kulp tercihlerinize göre fabrikamızda milimetrik olarak uyarlanabilmektedir.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION COMPONENTS (SET PARÇALARI) -->
+<section class="components-section" id="componentsSection">
+  <div class="section-inner">
+    <div style="text-align:center; max-width:700px; margin:0 auto 40px;">
+      <span class="story-eyebrow">KOLEKSİYON BİLEŞENLERİ</span>
+      <h2 class="story-title">Seti Oluşturan Mobilyalar</h2>
+      <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">İster bütünsel set olarak, ister ihtiyacınıza göre parça parça seçebilirsiniz.</p>
+    </div>
+    <div class="components-grid" id="componentsGrid"></div>
+  </div>
+</section>
+
+<!-- COLOR & MATERIAL EXPERIENCE -->
+<section class="materials-section">
+  <div class="materials-box">
+    <div>
+      <span class="story-eyebrow">RENK & MALZEME DENEYİMİ</span>
+      <h2 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; font-weight:600; color:var(--charcoal); margin:8px 0 12px;">Doğal Kartela & Yüzey Dokuları</h2>
+      <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">
+        Parmak izi tutmayan ipek mat membran yüzeyler, çizilmeye dirençli doğal ahşap dokular ve zamansız renk seçenekleri.
+      </p>
+      <div class="swatches-wrap" id="swatchesContainer"></div>
+    </div>
+    <div style="background:var(--ivory-light); border:1px solid var(--border); border-radius:14px; padding:28px;">
+      <span style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--taupe);">GÖVDE & İŞÇİLİK STANDARDI</span>
+      <h4 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; color:var(--charcoal); margin:6px 0 10px;">18mm E1 Sağlam MDF</h4>
+      <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+        Sunta veya dolgu malzeme kullanılmaz; tüm çekmece ve kapaklarda çift taraflı CNC membran presleme ve frenli tandem ray sistemleri uygulanır.
+      </p>
+      <div style="margin-top:16px; display:flex; gap:16px; font-size:12px; font-weight:700; color:var(--walnut);">
+        <span>🛡️ 5 Yıl Üretim Garantisi</span>
+        <span>⚡ 5 Günde İmalat</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL SPECS -->
+<section class="specs-section">
+  <div class="specs-grid">
+    <div class="spec-item">
+      <small>Gövde Malzemesi</small>
+      <strong>18mm E1 Sertifikalı MDF</strong>
+    </div>
+    <div class="spec-item">
+      <small>Yüzey Kaplama</small>
+      <strong>CNC Vakum Membran Pres</strong>
+    </div>
+    <div class="spec-item">
+      <small>Mekanizma & Ray</small>
+      <strong>Soft-Close Frenli Ray Sistemi</strong>
+    </div>
+    <div class="spec-item">
+      <small>Üretici Güvencesi</small>
+      <strong>5 Yıl Fabrika Garantisi</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Bu Koleksiyonu Evinizde Canlandırın</h2>
+  <p>Mimarlarımız odanızın planına ve ölçülerine göre 2 saat içinde özel fiyat ve teknik çizim hazırlasın.</p>
+  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+    <button class="btn-editorial-cta" style="background:#fff; color:var(--charcoal); border-color:#fff;" onclick="openQuoteModal()">
+      ✦ Özel Ölçü & Fiyat Teklifi Al
+    </button>
+    <a id="footerWaBtn" href="#" target="_blank" class="btn-wa-pill" style="padding:12px 26px; font-size:13px;">
+      💬 WhatsApp ile Danış
+    </a>
+  </div>
+</section>
+
+<!-- TEKLİF MODALI -->
+<div class="modal-backdrop" id="quoteModal" onclick="if(event.target===this) closeQuoteModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeQuoteModal()">✕</button>
+    <span style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--walnut);">MİMARİ TEKLİF FORMU</span>
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:var(--charcoal); margin:4px 0 10px;">Özel Ölçü & Fiyat Talebi</h3>
+    <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:18px;">
+      Seçtiğiniz koleksiyon için bilgilerinizi bırakın, müşteri temsilcimiz WhatsApp üzerinden detayları iletsin.
+    </p>
+
+    <div id="quoteSuccess" style="display:none; background:#EAF5ED; border:1px solid #25D366; padding:18px; border-radius:10px; text-align:center; margin-bottom:14px;">
+      <strong style="color:#1EBE5D; font-size:15px; display:block;">Talebiniz Alındı!</strong>
+      <p style="font-size:12px; color:#272522; margin-top:4px;">
+        Referans Kodunuz: <span id="refCodeDisplay" style="font-weight:700; font-family:monospace; background:#fff; padding:2px 8px; border-radius:4px;"></span>
+      </p>
+      <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex; margin-top:12px;">
+        💬 WhatsApp'tan Görüşmeyi Başlat
+      </a>
+    </div>
+
+    <form id="quoteForm" onsubmit="submitCollectionQuote(event)">
+      <input type="text" id="q_model" class="form-input" readonly style="background:var(--ivory); font-weight:700;">
+      <input type="text" id="q_name" class="form-input" required placeholder="Adınız Soyadınız">
+      <input type="tel" id="q_phone" class="form-input" required placeholder="Telefon / WhatsApp Numaranız">
+      <input type="text" id="q_city" class="form-input" placeholder="Şehir / İlçe">
+      <textarea id="q_notes" class="form-textarea" rows="3" placeholder="Özel ölçü notlarınız (tavan yüksekliği, parça tercihleri vb.)"></textarea>
+      <button type="submit" id="btnQuoteSubmit" class="btn-editorial-cta" style="width:100%; border-radius:8px; padding:12px;">
+        ✦ Talebi Fabrikaya İlet
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="js/supabase-config.js"></script>
+<script>
+let currentCollection = null;
+
+// Header scroll listener
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('siteHeader');
+  if (window.scrollY > 80) header.classList.add('scrolled');
+  else header.classList.remove('scrolled');
+});
+
+async function initCollectionDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('id') || params.get('collection') || 'siena-yatak-odasi';
+
+  let col = null;
+  if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollectionBySlug) {
+    col = await window.GKM_SUPABASE.getCollectionBySlug(slug);
+  }
+  if (!col) {
+    // Default to Siena if not found
+    const all = await window.GKM_SUPABASE.getCollections();
+    col = all[0];
+  }
+  currentCollection = col;
+  renderCollectionData(col);
+}
+
+function renderCollectionData(c) {
+  document.title = `${c.name} | Global Mobilya — Dijital Showroom`;
+  document.getElementById('breadcrumbCurrent').textContent = c.name;
+  document.getElementById('heroTitle').textContent = c.name;
+  document.getElementById('heroStyle').textContent = c.architecture_style || 'MİMARİ YATAK ODASI KOLEKSİYONU';
+  document.getElementById('heroStory').textContent = c.design_story || '';
+  document.getElementById('heroBg').style.backgroundImage = `url('${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}')`;
+  document.getElementById('storyImgMain').src = c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg';
+
+  setTimeout(() => {
+    document.getElementById('colHero').classList.add('loaded');
+  }, 100);
+
+  // WhatsApp links
+  const waMsg = encodeURIComponent(`Merhaba, Global Mobilya Dijital Showroom'dan "${c.name}" hakkında detaylı bilgi ve özel ölçü fiyatı almak istiyorum.`);
+  const waUrl = `https://wa.me/905050151035?text=${waMsg}`;
+  document.getElementById('heroWaBtn').href = waUrl;
+  document.getElementById('footerWaBtn').href = waUrl;
+  document.getElementById('navWaBtn').href = waUrl;
+
+  // Render Components
+  const compGrid = document.getElementById('componentsGrid');
+  const icons = ['🪞', '🛏️', '🗄️', '✨', '🛋️'];
+  compGrid.innerHTML = (c.pieces || []).map((p, idx) => `
+    <div class="comp-card">
+      <div class="comp-icon">${icons[idx % icons.length]}</div>
+      <h3 class="comp-name">${p.name}</h3>
+      <div class="comp-dim">📐 ${p.dimensions || 'Özel Ölçü'}</div>
+      <div class="comp-mat">${p.material || '18mm E1 MDF, CNC Çift Yüzey Membran'}</div>
+      <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' içindeki ' + p.name + ' için fiyat bilgisi almak istiyorum.')}" target="_blank" class="comp-action">
+        Fiyat & Ölçü Danış →
+      </a>
+    </div>
+  `).join('');
+
+  // Render Color Swatches
+  const swatchWrap = document.getElementById('swatchesContainer');
+  const colorMap = {
+    'İpek Kaşmir': '#D7CCC8',
+    'Doğal Meşe': '#A1887F',
+    'Mat Bronz': '#8D6E63',
+    'Fildişi': '#FFF8E1',
+    'Dumanlı Meşe': '#5D4037',
+    'Mat Antrasit': '#37474F',
+    'Pirinç Vurgu': '#D4AF37',
+    'Krem Beyaz': '#FAFAFA',
+    'Ceviz': '#4E342E',
+    'Şampanya Altın': '#F5E0A9',
+    'Taş Grisi': '#9E9E9E',
+    'Hafif Çam': '#D7CCC8',
+    'Mat Siyah': '#212121',
+    'Pudra Bej': '#E0D6CE',
+    'Cappuccino': '#8D7B68',
+    'Açık Ceviz': '#6D4C41',
+    'Bal Ceviz': '#A98274',
+    'Bronz Cam': '#5D4037',
+    'Mat Vizon': '#795548',
+    'Doğal Huş': '#EFEBE9',
+    'Adaçayı Yeşili': '#81C784',
+    'Kırık Beyaz': '#F5F5F5',
+    'Altın Meşe': '#D7CCC8',
+    'Mat Terracotta': '#D84315',
+    'Keten Beji': '#EFEBE9'
+  };
+
+  swatchWrap.innerHTML = (c.color_palette || []).map((cp, idx) => {
+    const bgCol = colorMap[cp] || '#BCAAA4';
+    return `
+      <div class="swatch-pill ${idx===0?'active':''}" onclick="selectSwatch(this, '${cp}')">
+        <span class="swatch-dot" style="background:${bgCol};"></span>
+        <span>${cp}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function selectSwatch(el, colorName) {
+  document.querySelectorAll('.swatch-pill').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openQuoteModal() {
+  if (currentCollection) {
+    document.getElementById('q_model').value = currentCollection.name;
+  }
+  document.getElementById('quoteSuccess').style.display = 'none';
+  document.getElementById('quoteForm').style.display = 'block';
+  document.getElementById('quoteModal').classList.add('open');
+}
+
+function closeQuoteModal() {
+  document.getElementById('quoteModal').classList.remove('open');
+}
+
+async function submitCollectionQuote(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnQuoteSubmit');
+  btn.disabled = true;
+  btn.textContent = 'İletiliyor...';
+
+  const model = document.getElementById('q_model').value;
+  const name = document.getElementById('q_name').value.trim();
+  const phone = document.getElementById('q_phone').value.trim();
+  const city = document.getElementById('q_city').value.trim();
+  const notes = document.getElementById('q_notes').value.trim();
+
+  try {
+    let res = null;
+    if (window.GKM_SUPABASE && window.GKM_SUPABASE.createQuoteRequest) {
+      res = await window.GKM_SUPABASE.createQuoteRequest({
+        name, phone, city,
+        collection_id: model,
+        notes: `Model: ${model} | Notlar: ${notes}`
+      });
+    }
+
+    const ref = res?.reference_code || ('GM-2026-' + Math.floor(1000 + Math.random() * 9000));
+    document.getElementById('refCodeDisplay').textContent = ref;
+
+    const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" koleksiyonu için teklif talebi bıraktım. Bilgilerim: ${name} (${phone} - ${city}). Notum: ${notes}`;
+    document.getElementById('successWaBtn').href = `https://wa.me/905050151035?text=${encodeURIComponent(waMsg)}`;
+
+    document.getElementById('quoteForm').style.display = 'none';
+    document.getElementById('quoteSuccess').style.display = 'block';
+  } catch(err) {
+    alert('Hata: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✦ Talebi Fabrikaya İlet';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initCollectionDetail);
+</script>
+
+<script src="js/footer.js"></script>
+</body>
+</html>
