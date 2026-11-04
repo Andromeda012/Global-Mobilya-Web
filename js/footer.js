@@ -46,19 +46,18 @@
     <div class="footer-col">
       <h4>Kurumsal Menü</h4>
       <a href="index.html">Anasayfa</a>
-      <a href="urunler.html">Ürünlerimiz</a>
+      <a href="galeri.html">Dijital Galeri & Showroom</a>
       <a href="hakkimizda.html">Hakkımızda</a>
-      <a href="galeri.html">Proje Galerisi</a>
       <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
       <a href="blog.html">Blog & Rehber</a>
       <a href="iletisim.html">İletişim</a>
     </div>
     <div class="footer-col">
-      <h4>Koleksiyonlar</h4>
-      <a href="urunler.html">Düz Membran Kapak</a>
-      <a href="urunler.html">Çerçeveli Klasik Kapak</a>
-      <a href="urunler.html">CNC Derzli & Fluted Kapak</a>
-      <a href="urunler.html">Özel Ölçü Mimari Üretim</a>
+      <h4>Showroom & Koleksiyon</h4>
+      <a href="galeri.html">8 Yatak Odası Koleksiyonu</a>
+      <a href="galeri.html">Makyaj Masası & Dresuar</a>
+      <a href="galeri.html">Portmanto & Vestiyer</a>
+      <a href="galeri.html">Özel Ölçü Mimari Üretim</a>
       <a href="takip.html">Sipariş Durum Sorgulama</a>
     </div>
     <div class="footer-col">

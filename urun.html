@@ -492,9 +492,8 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px
   <div class="nav-menu" id="nm">
     <a href="index.html">Anasayfa</a>
     <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
-    <a href="urunler.html" class="active">Ürünlerimiz</a>
     <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="galeri.html">Galeri</a>
+    <a href="galeri.html">Galeri & Showroom</a>
     <a href="blog.html">Blog</a>
     <a href="iletisim.html">İletişim</a>
   </div>
@@ -503,8 +502,7 @@ nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px
 </nav>
 
 <div class="breadcrumb">
-  <a href="index.html">Anasayfa</a><span>›</span>
-  <a href="urunler.html">Ürünlerimiz</a><span>›</span>
+  <a href="index.html">Anasayfa</a><span>›</span><span>›</span>
   <span id="bc-category">Koleksiyon</span><span>›</span>
   <strong style="color:var(--navy);" id="bc-product">Yükleniyor...</strong>
 </div>
@@ -580,7 +578,7 @@ function getColorSwatch(colorName) {
 async function loadProduct() {
   const container = document.getElementById('product-container');
   if (!productId) {
-    container.innerHTML = '<div class="error"><h2>Ürün Belirtilmedi</h2><p><a href="urunler.html">← Ürünler Kataloğuna Dön</a></p></div>';
+    container.innerHTML = '<div class="error"><h2>Ürün Belirtilmedi</h2><p></p></div>';
     return;
   }
   const cacheBuster = '?t=' + Date.now();
@@ -603,7 +601,7 @@ async function loadProduct() {
   }
 
   if (!p) {
-    container.innerHTML = '<div class="error"><h2>Ürün Bulunamadı</h2><p>Aradığınız ürün yayından kaldırılmış veya güncelleniyor olabilir.</p><p><a href="urunler.html" style="color:var(--navy3); font-weight:700; text-decoration:underline;">← Tüm Ürünlere Dön</a></p></div>';
+    container.innerHTML = '<div class="error"><h2>Ürün Bulunamadı</h2><p>Aradığınız ürün yayından kaldırılmış veya güncelleniyor olabilir.</p><p></p></div>';
     return;
   }
 
