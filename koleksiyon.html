@@ -785,7 +785,9 @@ function renderCollectionData(c) {
   const icons = ['🪞', '🛏️', '🗄️', '✨', '🛋️'];
   compGrid.innerHTML = (c.pieces || []).map((p, idx) => `
     <div class="comp-card">
-      <div class="comp-icon">${icons[idx % icons.length]}</div>
+      ${p.image_url && !p.image_url.includes('logo.png') 
+        ? `<div class="comp-thumb-wrap" style="height:160px; border-radius:10px; overflow:hidden; margin-bottom:14px; background:#f4efe9;"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>` 
+        : `<div class="comp-icon">${icons[idx % icons.length]}</div>`}
       <h3 class="comp-name">${p.name}</h3>
       <div class="comp-dim">📐 ${p.dimensions || 'Özel Ölçü'}</div>
       <div class="comp-mat">${p.material || '18mm E1 MDF, CNC Çift Yüzey Membran'}</div>

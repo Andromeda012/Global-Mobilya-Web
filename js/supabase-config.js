@@ -104,6 +104,10 @@
     }
   }
 
+  // Koleksiyon parçası ve kodu tespit deseni (Modül 2 ve 7 ile %100 uyumlu)
+  const PIECE_SLUG_REGEX = /-(?:main-bed|wardrobe|nightstand|dresser|vanity|mirror|bed|dolap|komodin|parca|part)-\d+$/i;
+  const PIECE_SKU_REGEX = /-(?:P\d+|parca|piece)$/i;
+
   // 8 Yatak Odası Koleksiyonu (Prototip Tanımları - DB Fallback)
   const FALLBACK_COLLECTIONS = [
     {
@@ -236,27 +240,86 @@
       return !!(url && key);
     },
 
+    /**
+     * Tüm Yatak Odası Koleksiyonlarını Getirir.
+     * Veritabanındaki 'products' tablosunda bulunan gerçek koleksiyonları (örn. Viyana)
+     * parçalarıyla birlikte tespit edip EN ÜST SIRADA sunar.
+     */
     async getCollections() {
-      const data = await restSelect('collections?select=*&status=eq.active&order=created_at.asc');
-      if (Array.isArray(data) && data.length > 0) {
-        return data.map(c => ({
-          ...c,
-          hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/logo.png')
-        }));
-      }
-      return FALLBACK_COLLECTIONS;
+      const prods = await restSelect('products?select=*&order=created_at.desc');
+      const allProds = Array.isArray(prods) ? prods : [];
+
+      // Koleksiyon parçalarını ve üst koleksiyon slug'larını tespit et
+      const parentSlugs = new Set();
+      allProds.forEach(p => {
+        if (PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '')) {
+          const parent = p.slug.replace(PIECE_SLUG_REGEX, '');
+          parentSlugs.add(parent);
+        }
+      });
+
+      // Dinamik Koleksiyonlar (Veritabanındaki gerçek setler - Viyana vb.)
+      const dynamicCollections = [];
+      parentSlugs.forEach(parentSlug => {
+        const parentProd = allProds.find(p => p.slug === parentSlug) || {
+          slug: parentSlug,
+          title: parentSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+          kategori: 'Yatak Odası',
+          ana_resim: null,
+          renkler: [],
+          body: ''
+        };
+        const pieces = allProds.filter(p => p.slug.startsWith(parentSlug + '-') && p.slug !== parentSlug);
+
+        dynamicCollections.push({
+          id: parentSlug,
+          slug: parentSlug,
+          name: parentProd.title.toLowerCase().includes('koleksiyon') ? parentProd.title : `${parentProd.title} Koleksiyonu`,
+          category: parentProd.kategori || 'Yatak Odası',
+          design_story: parentProd.body || parentProd.kisa_aciklama || '18mm E1 masif MDF gövde ve CNC membran işçiliğiyle üretilen mimari yatak odası koleksiyonu.',
+          architecture_style: 'Modern Mimari & CNC Zarafeti',
+          color_palette: (parentProd.renkler && parentProd.renkler.length > 0) ? parentProd.renkler : ['Kaşmir Grej', 'Doğal Meşe', 'Antrasit'],
+          hero_image_url: normalizeMediaUrl(parentProd.ana_resim || (pieces.find(pc => pc.ana_resim)?.ana_resim), 'resim/anasayfa-resimleri/warm-hero.jpg'),
+          pieces: pieces.map(pc => ({
+            name: pc.title,
+            dimensions: pc.body || pc.kisa_aciklama || 'Özel Mimari Ölçü',
+            material: '1. Sınıf 18mm E1 MDF, CNC Membran Kapak',
+            image_url: normalizeMediaUrl(pc.ana_resim, 'resim/logo.png'),
+            slug: pc.slug
+          }))
+        });
+      });
+
+      // Varsa 'collections' tablosundaki aktif kayıtları ekle
+      try {
+        const data = await restSelect('collections?select=*&status=eq.active&order=created_at.asc');
+        if (Array.isArray(data) && data.length > 0) {
+          data.forEach(c => {
+            if (!dynamicCollections.some(dc => dc.slug === c.slug)) {
+              dynamicCollections.push({
+                ...c,
+                hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/logo.png')
+              });
+            }
+          });
+        }
+      } catch (_) {}
+
+      // Birleştir: Gerçek veritabanı koleksiyonları (Viyana) en üstte!
+      const merged = [...dynamicCollections];
+      FALLBACK_COLLECTIONS.forEach(fb => {
+        if (!merged.some(m => m.slug === fb.slug)) {
+          merged.push(fb);
+        }
+      });
+
+      return merged;
     },
 
     async getCollectionBySlug(slug) {
       if (!slug) return null;
-      const data = await restSelect(`collections?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`);
-      if (Array.isArray(data) && data.length > 0) {
-        return {
-          ...data[0],
-          hero_image_url: normalizeMediaUrl(data[0].hero_image_url, 'resim/logo.png')
-        };
-      }
-      return FALLBACK_COLLECTIONS.find(c => c.slug === slug) || null;
+      const all = await this.getCollections();
+      return all.find(c => c.slug === slug || c.id === slug || c.slug.startsWith(slug) || slug.startsWith(c.slug)) || null;
     },
 
     async createQuoteRequest(quoteData) {
@@ -276,10 +339,31 @@
       return { ok: true, reference_code: refCode, data: inserted };
     },
 
+    /**
+     * Yalnızca BAĞIMSIZ ürünleri (Portmanto, Dresuar vb.) getirir.
+     * Koleksiyon parçaları ve koleksiyon kök kayıtları kesinlikle süzülür.
+     */
     async getProducts() {
       const data = await restSelect('products?select=*&order=created_at.desc');
-      if (!Array.isArray(data)) return null;
-      return data.map(p => ({
+      if (!Array.isArray(data)) return [];
+
+      // Koleksiyon parçalarını ve üst koleksiyon slug'larını tespit et
+      const parentSlugs = new Set();
+      data.forEach(p => {
+        if (PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '')) {
+          parentSlugs.add(p.slug.replace(PIECE_SLUG_REGEX, ''));
+        }
+      });
+
+      // Koleksiyon parçası ve koleksiyon olmayan tekil bağımsız ürünler
+      const independentOnly = data.filter(p => {
+        const isPiece = PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '') || p.product_type === 'collection_piece';
+        const isCollection = parentSlugs.has(p.slug) || p.product_type === 'collection';
+        const isVisible = p.web_gorunur !== false;
+        return !isPiece && !isCollection && isVisible;
+      });
+
+      return independentOnly.map(p => ({
         ...p,
         id: p.slug,
         title: p.title || p.baslik || p.slug,
@@ -290,14 +374,16 @@
     async getProductBySlug(slug) {
       if (!slug) return null;
       const data = await restSelect(`products?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`);
-      if (!Array.isArray(data) || data.length === 0) return null;
-      const item = data[0];
-      return {
-        ...item,
-        id: item.slug,
-        title: item.title || item.baslik || item.slug,
-        ana_resim: normalizeMediaUrl(item.ana_resim, 'resim/logo.png')
-      };
+      if (Array.isArray(data) && data.length > 0) {
+        const item = data[0];
+        return {
+          ...item,
+          id: item.slug,
+          title: item.title || item.baslik || item.slug,
+          ana_resim: normalizeMediaUrl(item.ana_resim, 'resim/logo.png')
+        };
+      }
+      return null;
     },
 
     async getSuppliers() {
