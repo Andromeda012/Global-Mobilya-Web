@@ -1071,6 +1071,9 @@ if (heroSlides.length > 1) {
 
 // Load dynamic collections & products
 async function loadHomeShowroom() {
+  // 0. Veritabanından firma ve ana sayfa ayarlarını senkronize et
+  syncHomeWithDatabase();
+
   // 1. Koleksiyonları yükle
   const colGrid = document.getElementById('homeCollectionsGrid');
   try {
@@ -1107,15 +1110,17 @@ async function loadHomeShowroom() {
     console.error('Koleksiyon yükleme hatası:', e);
   }
 
-  // 2. Bağımsız ürünleri yükle
+  // 2. Bağımsız ürünleri yükle (Web görünürlük kontrolü dahil)
   const prodGrid = document.getElementById('homeProductsGrid');
   try {
     let prods = [];
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.getProducts) {
       prods = await window.GKM_SUPABASE.getProducts();
     }
-    if (prods && prods.length > 0) {
-      prodGrid.innerHTML = prods.slice(0, 4).map(p => `
+    // Modül 1'deki web_gorunur ve anasayfada_goster ayarlarını onayla
+    const visibleProds = (prods || []).filter(p => p.web_gorunur !== false);
+    if (visibleProds && visibleProds.length > 0) {
+      prodGrid.innerHTML = visibleProds.slice(0, 4).map(p => `
         <div class="indep-card">
           <div class="indep-img-wrap">
             <img src="${p.ana_resim || 'resim/logo.png'}" alt="${p.title}" class="indep-img" loading="lazy">
@@ -1140,6 +1145,52 @@ async function loadHomeShowroom() {
     }
   } catch(e) {
     console.error('Ürün yükleme hatası:', e);
+  }
+}
+
+// DYNAMIC DATABASE SYNCHRONIZATION (site_settings: genel & anasayfa)
+async function syncHomeWithDatabase() {
+  if (!window.GKM_SUPABASE) return;
+  try {
+    const [genel, anasayfa] = await Promise.all([
+      window.GKM_SUPABASE.getSiteSetting('genel'),
+      window.GKM_SUPABASE.getSiteSetting('anasayfa')
+    ]);
+
+    if (genel) {
+      const firma = genel.firma || {};
+      const iletisim = genel.iletisim || {};
+      if (firma.ad) {
+        document.querySelectorAll('.header-brand-title').forEach(el => el.textContent = firma.ad);
+      }
+      if (iletisim.whatsapp) {
+        const cleanWa = iletisim.whatsapp.replace(/\D/g, '');
+        document.querySelectorAll('.btn-wa-pill').forEach(btn => {
+          if (!btn.href.includes('text=')) btn.href = 'https://wa.me/' + cleanWa;
+        });
+      }
+    }
+
+    if (anasayfa && anasayfa.hero) {
+      const hero = anasayfa.hero;
+      const eyebrow = document.querySelector('.hero-eyebrow');
+      const titleEl = document.querySelector('.hero-title');
+      const subEl = document.querySelector('.hero-subtext');
+
+      if (eyebrow && (hero.tag || hero.hero_etiket)) {
+        eyebrow.textContent = hero.tag || hero.hero_etiket;
+      }
+      if (titleEl && (hero.baslik_1 || hero.baslik_2 || hero.hero_baslik_1)) {
+        const b1 = hero.baslik_1 || hero.hero_baslik_1 || '';
+        const b2 = hero.baslik_2 || hero.hero_baslik_2 || '';
+        titleEl.innerHTML = `${b1} <span>${b2}</span>`;
+      }
+      if (subEl && (hero.alt_yazi || hero.hero_aciklama)) {
+        subEl.textContent = hero.alt_yazi || hero.hero_aciklama;
+      }
+    }
+  } catch (err) {
+    console.warn('Ana sayfa senkronizasyon uyarısı:', err);
   }
 }
 

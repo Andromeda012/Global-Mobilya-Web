@@ -45,11 +45,10 @@
     </div>
     <div class="footer-col">
       <h4>Kurumsal Menü</h4>
-      <a href="index.html">Anasayfa</a>
-      <a href="galeri.html">Dijital Galeri & Showroom</a>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="index.html#koleksiyonlar">Koleksiyonlar</a>
+      <a href="galeri.html">Dijital Showroom</a>
       <a href="hakkimizda.html">Hakkımızda</a>
-      <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
-      <a href="blog.html">Blog & Rehber</a>
       <a href="iletisim.html">İletişim</a>
     </div>
     <div class="footer-col">
