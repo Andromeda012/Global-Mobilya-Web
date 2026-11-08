@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Koleksiyon Detayı | Global Mobilya — Dijital Showroom</title>
-<meta name="description" content="Global Mobilya mimari yatak odası koleksiyonu: Gardırop, karyola, şifonyer ve komodin bileşenleri, özel ölçü ve renk seçenekleri.">
+<title>İmmersive Koleksiyonlar | Global Mobilya — Dijital Showroom</title>
+<meta name="description" content="Global Mobilya mimari yatak odası koleksiyonları: Viyana, Verona, Siena, Milano ve daha fazlası. 18mm E1 masif MDF, CNC membran işçiliği ve tam ekran dijital showroom deneyimi.">
 <link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
@@ -15,841 +15,848 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="css/luxury-atelier.css">
+
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --ivory: #F5F1EA;
-  --ivory-light: #FAF8F5;
-  --beige: #D8CBBE;
-  --beige-light: #EFE8E0;
-  --taupe: #A99A8C;
-  --walnut: #604A3D;
-  --walnut-dark: #43332A;
-  --charcoal: #272522;
-  --white: #FFFFFF;
-  --border: rgba(96, 74, 61, 0.15);
-  --border-light: rgba(96, 74, 61, 0.08);
-  --text: #272522;
-  --text-muted: #6B655F;
-}
-
-html { scroll-behavior: smooth; }
+/* ── IMMERSIVE COLLECTIONS STYLES ── */
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--ivory-light);
-  color: var(--text);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-espresso);
+  color: var(--text-cream);
+  overflow-x: hidden;
 }
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
 
-/* ── EDITORIAL HEADER ── */
-header.site-header {
+/* Fixed Multi-dimensional Ambient Canvas */
+#collectionCanvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 22px 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.35s ease;
-  background: transparent;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #140F0C;
+  background-image: radial-gradient(circle at 75% 25%, rgba(31, 46, 36, 0.6), transparent 50%),
+                    radial-gradient(circle at 20% 80%, rgba(142, 70, 49, 0.25), transparent 45%);
+  transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background-image 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: background-color, background-image;
 }
-header.site-header.scrolled {
-  background: rgba(250, 248, 245, 0.94);
+
+/* Sticky Collection Index Navigator (Cassina / Poliform Lookbook Nav) */
+.col-index-nav {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(20, 16, 13, 0.45);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  padding: 14px 50px;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(39, 37, 34, 0.04);
+  padding: 18px 16px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: opacity 0.4s ease;
 }
-.header-logo {
+.col-index-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-.header-logo img {
-  height: 44px;
-  width: auto;
-  transition: transform 0.25s ease;
-}
-.header-logo:hover img { transform: scale(1.03); }
-.header-brand-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
+  gap: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-sans);
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--charcoal);
+  transition: all 0.3s var(--ease-editorial);
+  padding: 4px 6px;
+  border-radius: 20px;
 }
-header.site-header:not(.scrolled) .header-brand-title {
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+.col-index-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.3s var(--ease-editorial);
 }
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.header-nav a {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.2s ease;
-  position: relative;
-  padding: 4px 0;
-}
-header.site-header:not(.scrolled) .header-nav a {
-  color: rgba(255, 255, 255, 0.9);
-}
-.header-nav a:hover, .header-nav a.active {
-  color: var(--walnut);
-}
-header.site-header:not(.scrolled) .header-nav a:hover {
-  color: var(--white);
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.btn-editorial-cta {
-  background: var(--walnut);
-  color: var(--white);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 10px 22px;
-  border-radius: 40px;
-  border: 1px solid var(--walnut);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.btn-editorial-cta:hover {
-  background: var(--walnut-dark);
-  border-color: var(--walnut-dark);
-  transform: translateY(-1px);
-}
-.btn-wa-pill {
-  background: #25D366;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 9px 18px;
-  border-radius: 40px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-.btn-wa-pill:hover { background: #1EBE5D; transform: translateY(-1px); }
-.hamburger {
+.col-index-label {
   display: none;
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: var(--charcoal);
+  white-space: nowrap;
+}
+.col-index-item:hover {
+  color: #fff;
+}
+.col-index-item:hover .col-index-dot {
+  background: var(--color-gold-bright);
+  transform: scale(1.4);
+}
+.col-index-item.active {
+  color: #fff;
+}
+.col-index-item.active .col-index-dot {
+  background: var(--color-gold-bright);
+  box-shadow: 0 0 12px var(--color-gold-bright);
+  transform: scale(1.6);
+}
+.col-index-item.active .col-index-label {
+  display: inline-block;
+  color: var(--color-gold-bright);
 }
 
-/* ── FULL-SCREEN HERO SECTION ── */
-.col-hero {
-  position: relative;
-  min-height: 92vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 90px 60px;
-  overflow: hidden;
-  background: var(--charcoal);
-}
-.col-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.04);
-  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.col-hero.loaded .col-hero-bg {
-  transform: scale(1);
-}
-.col-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(39,37,34,0.3) 0%, rgba(39,37,34,0.15) 45%, rgba(39,37,34,0.85) 100%);
-  z-index: 1;
-}
-.col-hero-content {
+/* Full-Screen Collection Stage */
+.collection-stage {
   position: relative;
   z-index: 2;
-  max-width: 900px;
-  color: var(--white);
-}
-.col-hero-tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--beige);
-  margin-bottom: 12px;
-}
-.col-hero-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(40px, 6vw, 68px);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
-.col-hero-story {
-  font-size: clamp(14px, 1.8vw, 17px);
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1.6;
-  max-width: 720px;
-  margin-bottom: 28px;
-}
-.col-hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-/* ── BREADCRUMB ── */
-.col-breadcrumb {
-  padding: 16px 60px;
-  background: var(--ivory);
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.col-breadcrumb a { color: var(--walnut); font-weight: 600; }
-.col-breadcrumb span { margin: 0 8px; color: var(--taupe); }
-
-/* ── EDITORIAL STORYTELLING SECTION ── */
-.editorial-story-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 90px 60px 70px;
-}
-.story-header {
-  text-align: center;
-  max-width: 780px;
-  margin: 0 auto 60px;
-}
-.story-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  display: block;
-  margin-bottom: 10px;
-}
-.story-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 40px;
-  font-weight: 600;
-  color: var(--charcoal);
-  line-height: 1.2;
-}
-.story-text {
-  font-size: 15px;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-top: 14px;
-}
-
-/* Asymmetric Editorial Photo Strip */
-.editorial-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 36px;
-  align-items: center;
-  margin-bottom: 90px;
-}
-.editorial-block {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(39, 37, 34, 0.07);
-}
-.editorial-block img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.editorial-block:hover img {
-  transform: scale(1.03);
-}
-
-/* ── COLLECTION COMPONENTS (SET PARÇALARI) ── */
-.components-section {
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 90px 60px;
-}
-.section-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.components-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
-  margin-top: 40px;
-}
-.comp-card {
-  background: var(--ivory-light);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  justify-content: center;
+  padding: 120px 60px 80px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
-.comp-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--walnut);
-  box-shadow: 0 12px 30px rgba(96, 74, 61, 0.08);
+
+.stage-inner {
+  max-width: 1540px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 3;
 }
-.comp-icon {
-  font-size: 26px;
-  margin-bottom: 12px;
+
+.stage-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.15fr;
+  gap: 60px;
+  align-items: center;
 }
-.comp-name {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 6px;
+
+/* Left: Narrative Content */
+.stage-narrative {
+  position: relative;
+  z-index: 4;
 }
-.comp-dim {
+
+.stage-chapter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: 18px;
+}
+.stage-chapter::after {
+  content: '';
+  width: 40px;
+  height: 1.5px;
+  background: currentColor;
+}
+
+.stage-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(44px, 5.5vw, 84px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.stage-style {
   font-size: 13px;
   font-weight: 700;
-  color: var(--walnut);
-  margin-bottom: 8px;
-}
-.comp-mat {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.5;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-sage-light);
   margin-bottom: 16px;
+  display: block;
 }
-.comp-action {
-  margin-top: auto;
-  font-size: 11.5px;
+
+.stage-story {
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 30px;
+  opacity: 0.88;
+}
+
+/* Color Chips */
+.stage-palettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.palette-chip {
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--walnut);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ── COLOR & MATERIAL EXPERIENCE ── */
-.materials-section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 90px 60px;
-}
-.materials-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 44px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-}
-.swatches-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 18px;
-}
-.swatch-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  border-radius: 30px;
-  border: 1.5px solid var(--border);
-  background: var(--ivory-light);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--charcoal);
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
-.swatch-pill:hover, .swatch-pill.active {
-  border-color: var(--walnut);
-  background: var(--beige-light);
-  transform: translateY(-2px);
-}
-.swatch-dot {
-  width: 14px;
-  height: 14px;
+.palette-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.15);
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-/* ── TECHNICAL SPECS & CRAFTSMANSHIP ── */
-.specs-section {
-  background: var(--ivory);
-  border-top: 1px solid var(--border);
-  padding: 70px 60px;
+.stage-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.specs-grid {
+
+/* Right: Visual Showcase Composition */
+.stage-visual {
+  position: relative;
+  z-index: 3;
+}
+
+.stage-img-frame {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  aspect-ratio: 16 / 11;
+  background: #181512;
+}
+
+.stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+.collection-stage:hover .stage-img {
+  transform: scale(1.06);
+}
+
+.stage-badge-float {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(20, 16, 13, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-gold-bright);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Components Drawer / Piece Cards Grid inside Stage */
+.stage-pieces-tray {
+  margin-top: 50px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.pieces-tray-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.pieces-tray-title {
+  font-family: var(--font-editorial);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pieces-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  max-width: 1280px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
 }
-.spec-item {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
+.piece-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  transition: all 0.3s var(--ease-editorial);
+  display: flex;
+  flex-direction: column;
 }
-.spec-item small {
+.piece-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-gold-muted);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+.piece-thumb {
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #110e0c;
+  margin-bottom: 14px;
+}
+.piece-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.piece-card:hover .piece-thumb img {
+  transform: scale(1.05);
+}
+.piece-name {
+  font-family: var(--font-editorial);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+.piece-dim {
+  font-size: 12px;
+  color: var(--color-gold-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.piece-mat {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.piece-action {
+  margin-top: auto;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--taupe);
-  display: block;
-  margin-bottom: 4px;
+  color: var(--color-gold-bright);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
-.spec-item strong {
-  font-size: 15px;
-  color: var(--charcoal);
-  display: block;
-}
-
-/* ── CALL TO ACTION & FORM MODAL ── */
-.cta-banner {
-  background: linear-gradient(135deg, var(--charcoal) 0%, var(--walnut-dark) 100%);
-  color: var(--white);
-  padding: 90px 60px;
-  text-align: center;
-}
-.cta-banner h2 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 42px;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-.cta-banner p {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 620px;
-  margin: 0 auto 30px;
+.piece-action:hover {
+  color: #fff;
 }
 
-/* ── MODAL (TEKLİF & ÖZEL ÖLÇÜ) ── */
-.modal-backdrop {
+/* Light Theme Stage Variant (Verona) */
+.stage-light-theme {
+  color: var(--text-charcoal) !important;
+}
+.stage-light-theme .stage-chapter {
+  color: var(--color-terracotta);
+}
+.stage-light-theme .stage-style {
+  color: var(--color-olive);
+}
+.stage-light-theme .stage-story {
+  color: var(--text-muted-warm);
+}
+.stage-light-theme .palette-chip {
+  background: rgba(36, 29, 24, 0.06);
+  border-color: rgba(36, 29, 24, 0.15);
+  color: var(--text-charcoal);
+}
+.stage-light-theme .stage-pieces-tray {
+  border-top-color: rgba(36, 29, 24, 0.12);
+}
+.stage-light-theme .piece-card {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(36, 29, 24, 0.1);
+}
+.stage-light-theme .piece-card:hover {
+  background: #fff;
+  border-color: var(--color-terracotta);
+}
+.stage-light-theme .piece-name {
+  color: var(--text-charcoal);
+}
+.stage-light-theme .piece-dim {
+  color: var(--color-terracotta);
+}
+.stage-light-theme .piece-mat {
+  color: var(--text-muted-warm);
+}
+.stage-light-theme .piece-action {
+  color: var(--color-terracotta);
+}
+
+/* Quote Modal */
+.quote-modal-wrap {
   position: fixed;
   inset: 0;
-  background: rgba(39, 37, 34, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 99999;
+  z-index: 100010;
+  background: rgba(14, 11, 9, 0.85);
+  backdrop-filter: blur(12px);
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
 }
-.modal-backdrop.open { display: flex; }
-.modal-box {
-  background: var(--white);
-  border-radius: 16px;
-  max-width: 520px;
-  width: 100%;
-  padding: 34px;
-  position: relative;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-}
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--ivory);
-  border: 1px solid var(--border);
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 18px;
+.quote-modal-wrap.open {
   display: flex;
-  align-items: center;
-  justify-content: center;
+}
+.quote-modal {
+  background: #181310;
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  border-radius: 20px;
+  width: 580px;
+  max-width: 100%;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+.quote-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 26px;
   cursor: pointer;
-  color: var(--charcoal);
 }
-.modal-close:hover { background: var(--walnut); color: #fff; }
-.form-input, .form-textarea {
+.quote-modal-close:hover { color: #fff; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea {
   width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid var(--border);
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
-  margin-bottom: 12px;
-}
-.form-input:focus, .form-textarea:focus {
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
   outline: none;
-  border-color: var(--walnut);
+  transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--color-gold-bright);
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  header.site-header { padding: 18px 24px; }
-  .col-hero { padding: 80px 24px 60px; }
-  .editorial-story-section { padding: 60px 24px; }
-  .components-section { padding: 60px 24px; }
-  .materials-section { padding: 60px 24px; }
-  .materials-box { grid-template-columns: 1fr; }
-  .specs-grid { grid-template-columns: repeat(2, 1fr); }
-  .editorial-grid { grid-template-columns: 1fr; }
+@media (max-width: 1100px) {
+  .stage-grid { grid-template-columns: 1fr; gap: 40px; }
+  .col-index-nav { display: none; }
+  .collection-stage { padding: 100px 30px 60px; }
 }
-@media (max-width: 768px) {
-  .hamburger { display: block; }
-  .header-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    flex-direction: column;
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  }
-  .header-nav.open { display: flex; }
-  .header-actions { display: none; }
-  .col-hero { min-height: 75vh; }
-  .specs-grid { grid-template-columns: 1fr; }
+@media (max-width: 640px) {
+  .collection-stage { padding: 90px 20px 50px; }
+  .stage-title { font-size: 38px; }
+  .stage-actions { flex-direction: column; align-items: stretch; }
+  .stage-actions a, .stage-actions button { text-align: center; justify-content: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- STICKY EDITORIAL HEADER -->
+<!-- FIXED AMBIENT CANVAS (SMOOTH COLOR TRANSITIONS) -->
+<div id="collectionCanvas"></div>
+
+<!-- STICKY COLLECTION INDEX NAVIGATOR -->
+<nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Gezintisi">
+  <!-- Dynamic Chapter Buttons Injected via JS -->
+</nav>
+
+<!-- EDITORIAL HEADER -->
 <header class="site-header" id="siteHeader">
   <a href="index.html" class="header-logo">
-    <img src="resim/logo.png" alt="Global Mobilya">
-    <span class="header-brand-title">Global Mobilya</span>
+    <img src="/resim/logo.png" alt="Global Mobilya" onerror="this.src='resim/logo.png'">
+    <div>
+      <span class="header-brand-title">GLOBAL MOBİLYA</span>
+      <span class="header-brand-sub">EST. 2011 • DİJİTAL SHOWROOM</span>
+    </div>
   </a>
+
   <nav class="header-nav" id="headerNav">
     <a href="index.html">Ana Sayfa</a>
-    <a href="index.html#koleksiyonlar" class="active">Koleksiyonlar</a>
-    <a href="galeri.html">Dijital Showroom</a>
+    <a href="koleksiyon.html" class="active">Koleksiyonlar</a>
+    <a href="galeri.html">Galeri</a>
     <a href="hakkimizda.html">Hakkımızda</a>
     <a href="iletisim.html">İletişim</a>
   </nav>
+
   <div class="header-actions">
-    <a id="navWaBtn" href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill">
-      💬 WhatsApp
-    </a>
-    <button class="btn-editorial-cta" onclick="openQuoteModal()">
-      Teklif Talebi
+    <button type="button" class="btn-editorial-gold" onclick="openQuoteModal()">
+      ✦ Mimari Fiyat Al
     </button>
+    <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya,%20koleksiyonlar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill" id="navWaBtn">
+      💬 Danışman
+    </a>
+    <button type="button" class="hamburger" id="btnHamburger" aria-label="Menü">☰</button>
   </div>
-  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menü">☰</button>
 </header>
 
-<!-- FULL-SCREEN COLLECTION HERO -->
-<section class="col-hero" id="colHero">
-  <div class="col-hero-bg" id="heroBg"></div>
-  <div class="col-hero-overlay"></div>
-  <div class="col-hero-content">
-    <span class="col-hero-tag" id="heroStyle">MİMARİ YATAK ODASI KOLEKSİYONU</span>
-    <h1 class="col-hero-title" id="heroTitle">Yatak Odası Koleksiyonu</h1>
-    <p class="col-hero-story" id="heroStory">Doğal dokuların dinginliği ve mimari işçiliğin zarafetiyle tasarlanan yaşam alanı.</p>
-    <div class="col-hero-actions">
-      <button class="btn-editorial-cta" onclick="document.getElementById('componentsSection').scrollIntoView({behavior:'smooth'})">
-        Set Parçalarını İncele ↓
-      </button>
-      <a id="heroWaBtn" href="#" target="_blank" class="btn-wa-pill" style="padding:11px 24px; font-size:12.5px;">
-        💬 Bu Koleksiyon İçin Bilgi Al
-      </a>
-    </div>
+<!-- MAIN STAGES CONTAINER -->
+<main id="stagesContainer">
+  <div style="text-align:center; padding:180px 20px; font-family:var(--font-editorial); font-size:28px; color:var(--color-gold-muted);">
+    Showroom Koleksiyonları Yükleniyor...
   </div>
-</section>
+</main>
 
-<!-- BREADCRUMB -->
-<div class="col-breadcrumb">
-  <a href="index.html">Ana Sayfa</a>
-  <span>›</span>
-  <a href="galeri.html">Dijital Showroom</a>
-  <span>›</span>
-  <strong id="breadcrumbCurrent">Koleksiyon</strong>
-</div>
-
-<!-- EDITORIAL STORYTELLING SECTION -->
-<section class="editorial-story-section">
-  <div class="story-header">
-    <span class="story-eyebrow">TASARIM HİKÂYESİ & DİLİ</span>
-    <h2 class="story-title" id="storyHeadTitle">Mekana Karakter Katan Detaylar</h2>
-    <p class="story-text" id="storyHeadDesc">
-      Her koleksiyonumuz, yalnızca bir mobilya takımı değil; günün dinginliğini ve mimari estetiğini yansıtan bir yaşam alanıdır.
-    </p>
-  </div>
-
-  <div class="editorial-grid">
-    <div class="editorial-block" style="height:480px;">
-      <img id="storyImgMain" src="resim/anasayfa-resimleri/warm-hero.jpg" alt="Mekan Tasarımı">
-    </div>
-    <div style="display:flex; flex-direction:column; gap:20px;">
-      <div class="editorial-block" style="height:230px;">
-        <img id="storyImgSecondary" src="resim/yonetilen/atelier-craft.jpg" alt="Zanaat Detayı">
-      </div>
-      <div style="background:var(--ivory); padding:28px; border-radius:12px; border:1px solid var(--border);">
-        <strong style="font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--charcoal); display:block; margin-bottom:8px;">Kişiye & Mekana Özel Ölçü</strong>
-        <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">
-          Tüm gardırop ve başlıklarımız oda ölçülerinize, tavan yüksekliğinize ve kulp tercihlerinize göre fabrikamızda milimetrik olarak uyarlanabilmektedir.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COLLECTION COMPONENTS (SET PARÇALARI) -->
-<section class="components-section" id="componentsSection">
-  <div class="section-inner">
-    <div style="text-align:center; max-width:700px; margin:0 auto 40px;">
-      <span class="story-eyebrow">KOLEKSİYON BİLEŞENLERİ</span>
-      <h2 class="story-title">Seti Oluşturan Mobilyalar</h2>
-      <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">İster bütünsel set olarak, ister ihtiyacınıza göre parça parça seçebilirsiniz.</p>
-    </div>
-    <div class="components-grid" id="componentsGrid"></div>
-  </div>
-</section>
-
-<!-- COLOR & MATERIAL EXPERIENCE -->
-<section class="materials-section">
-  <div class="materials-box">
-    <div>
-      <span class="story-eyebrow">RENK & MALZEME DENEYİMİ</span>
-      <h2 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:34px; font-weight:600; color:var(--charcoal); margin:8px 0 12px;">Doğal Kartela & Yüzey Dokuları</h2>
-      <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">
-        Parmak izi tutmayan ipek mat membran yüzeyler, çizilmeye dirençli doğal ahşap dokular ve zamansız renk seçenekleri.
-      </p>
-      <div class="swatches-wrap" id="swatchesContainer"></div>
-    </div>
-    <div style="background:var(--ivory-light); border:1px solid var(--border); border-radius:14px; padding:28px;">
-      <span style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--taupe);">GÖVDE & İŞÇİLİK STANDARDI</span>
-      <h4 style="font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; color:var(--charcoal); margin:6px 0 10px;">18mm E1 Sağlam MDF</h4>
-      <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
-        Sunta veya dolgu malzeme kullanılmaz; tüm çekmece ve kapaklarda çift taraflı CNC membran presleme ve frenli tandem ray sistemleri uygulanır.
-      </p>
-      <div style="margin-top:16px; display:flex; gap:16px; font-size:12px; font-weight:700; color:var(--walnut);">
-        <span>🛡️ 5 Yıl Üretim Garantisi</span>
-        <span>⚡ 5 Günde İmalat</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TECHNICAL SPECS -->
-<section class="specs-section">
-  <div class="specs-grid">
-    <div class="spec-item">
-      <small>Gövde Malzemesi</small>
-      <strong>18mm E1 Sertifikalı MDF</strong>
-    </div>
-    <div class="spec-item">
-      <small>Yüzey Kaplama</small>
-      <strong>CNC Vakum Membran Pres</strong>
-    </div>
-    <div class="spec-item">
-      <small>Mekanizma & Ray</small>
-      <strong>Soft-Close Frenli Ray Sistemi</strong>
-    </div>
-    <div class="spec-item">
-      <small>Üretici Güvencesi</small>
-      <strong>5 Yıl Fabrika Garantisi</strong>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BANNER -->
-<section class="cta-banner">
-  <h2>Bu Koleksiyonu Evinizde Canlandırın</h2>
-  <p>Mimarlarımız odanızın planına ve ölçülerine göre 2 saat içinde özel fiyat ve teknik çizim hazırlasın.</p>
-  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
-    <button class="btn-editorial-cta" style="background:#fff; color:var(--charcoal); border-color:#fff;" onclick="openQuoteModal()">
-      ✦ Özel Ölçü & Fiyat Teklifi Al
-    </button>
-    <a id="footerWaBtn" href="#" target="_blank" class="btn-wa-pill" style="padding:12px 26px; font-size:13px;">
-      💬 WhatsApp ile Danış
-    </a>
-  </div>
-</section>
-
-<!-- TEKLİF MODALI -->
-<div class="modal-backdrop" id="quoteModal" onclick="if(event.target===this) closeQuoteModal()">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeQuoteModal()">✕</button>
-    <span style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--walnut);">MİMARİ TEKLİF FORMU</span>
-    <h3 style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; color:var(--charcoal); margin:4px 0 10px;">Özel Ölçü & Fiyat Talebi</h3>
-    <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:18px;">
-      Seçtiğiniz koleksiyon için bilgilerinizi bırakın, müşteri temsilcimiz WhatsApp üzerinden detayları iletsin.
-    </p>
-
-    <div id="quoteSuccess" style="display:none; background:#EAF5ED; border:1px solid #25D366; padding:18px; border-radius:10px; text-align:center; margin-bottom:14px;">
-      <strong style="color:#1EBE5D; font-size:15px; display:block;">Talebiniz Alındı!</strong>
-      <p style="font-size:12px; color:#272522; margin-top:4px;">
-        Referans Kodunuz: <span id="refCodeDisplay" style="font-weight:700; font-family:monospace; background:#fff; padding:2px 8px; border-radius:4px;"></span>
-      </p>
-      <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex; margin-top:12px;">
-        💬 WhatsApp'tan Görüşmeyi Başlat
-      </a>
-    </div>
-
+<!-- QUOTE REQUEST MODAL -->
+<div class="quote-modal-wrap" id="quoteModal">
+  <div class="quote-modal">
+    <button type="button" class="quote-modal-close" onclick="closeQuoteModal()">&times;</button>
+    <h3 style="font-family:var(--font-editorial); font-size:32px; font-weight:700; color:var(--color-gold-bright); margin-bottom:8px;">Mimari Fiyat &amp; Ölçü Danışma</h3>
+    <p style="font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:24px;">Global Mobilya üretim mühendisleri 18mm E1 masif MDF gövde ve özel projelendirme için sizinle iletişime geçer.</p>
+    
     <form id="quoteForm" onsubmit="submitCollectionQuote(event)">
-      <input type="text" id="q_model" class="form-input" readonly style="background:var(--ivory); font-weight:700;">
-      <input type="text" id="q_name" class="form-input" required placeholder="Adınız Soyadınız">
-      <input type="tel" id="q_phone" class="form-input" required placeholder="Telefon / WhatsApp Numaranız">
-      <input type="text" id="q_city" class="form-input" placeholder="Şehir / İlçe">
-      <textarea id="q_notes" class="form-textarea" rows="3" placeholder="Özel ölçü notlarınız (tavan yüksekliği, parça tercihleri vb.)"></textarea>
-      <button type="submit" id="btnQuoteSubmit" class="btn-editorial-cta" style="width:100%; border-radius:8px; padding:12px;">
+      <div class="form-group">
+        <label>Seçilen Koleksiyon</label>
+        <input type="text" id="q_model" readonly style="background:rgba(255,255,255,0.1); cursor:not-allowed;">
+      </div>
+      <div class="form-group">
+        <label>Adınız Soyadınız *</label>
+        <input type="text" id="q_name" required placeholder="Örn: Ahmet Yılmaz">
+      </div>
+      <div class="form-group">
+        <label>Telefon Numaranız *</label>
+        <input type="tel" id="q_phone" required placeholder="Örn: 05xx xxx xx xx">
+      </div>
+      <div class="form-group">
+        <label>İl / İlçe</label>
+        <input type="text" id="q_city" placeholder="Örn: İstanbul / Kadıköy">
+      </div>
+      <div class="form-group">
+        <label>Özel Ölçü / Notlar</label>
+        <textarea id="q_notes" rows="3" placeholder="Odanızın net ölçüleri veya tercih ettiğiniz kapak renkleri..."></textarea>
+      </div>
+      <button type="submit" class="btn-editorial-gold" id="btnQuoteSubmit" style="width:100%; justify-content:center; padding:14px; font-size:12px;">
         ✦ Talebi Fabrikaya İlet
       </button>
     </form>
+
+    <div id="quoteSuccess" style="display:none; text-align:center; padding:30px 10px;">
+      <div style="font-size:40px; margin-bottom:12px;">✨</div>
+      <h4 style="font-family:var(--font-editorial); font-size:26px; color:var(--color-gold-bright); margin-bottom:10px;">Talebiniz Alındı!</h4>
+      <p style="font-size:13.5px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:16px;">
+        Referans Kodunuz: <strong id="refCodeDisplay" style="color:#fff; background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:4px;"></strong><br>
+        Showroom ekibimiz en kısa sürede özel projelendirme ile dönüş yapacaktır.
+      </p>
+      <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex;">
+        💬 WhatsApp ile Hızlı Teyit Al
+      </a>
+    </div>
   </div>
 </div>
 
 <script src="js/supabase-config.js"></script>
 <script>
-let currentCollection = null;
-
-// Header scroll listener
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 80) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
-
-async function initCollectionDetail() {
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get('id') || params.get('collection') || 'siena-yatak-odasi';
-
-  let col = null;
-  if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollectionBySlug) {
-    col = await window.GKM_SUPABASE.getCollectionBySlug(slug);
+// ATMOSPHERIC DEFINITIONS FOR EACH COLLECTION
+const COLLECTION_ATMOSPHERES = {
+  'viyana': {
+    theme: 'vienna',
+    isLight: false,
+    watermark: 'VIENNA MASTER SUITE',
+    canvasBg: '#140F0C',
+    canvasGradient: 'radial-gradient(circle at 75% 25%, rgba(31, 46, 36, 0.6), transparent 50%), radial-gradient(circle at 20% 80%, rgba(142, 70, 49, 0.25), transparent 45%)',
+    badgeText: '🏛️ Modern Mimari & CNC Zarafeti',
+    paletteColors: { 'Kaşmir Grej': '#D7CCC8', 'Doğal Meşe': '#A1887F', 'Antrasit': '#37474F', '24K Altın Detay': '#D4AF37' }
+  },
+  'verona': {
+    theme: 'verona',
+    isLight: true,
+    watermark: 'VERONA NEOCLASSIC',
+    canvasBg: '#E5DFD4',
+    canvasGradient: 'radial-gradient(circle at 20% 20%, rgba(138, 154, 134, 0.4), transparent 55%), radial-gradient(circle at 80% 80%, rgba(189, 122, 99, 0.25), transparent 50%)',
+    badgeText: '☀️ Gün Işığı Villa Neoklasiği',
+    paletteColors: { 'Pudra Bej': '#E0D6CE', 'Cappuccino': '#8D7B68', 'Açık Ceviz': '#6D4C41', 'Adaçayı Yeşili': '#81C784' }
+  },
+  'siena': {
+    theme: 'siena',
+    isLight: false,
+    watermark: 'SIENA ATELIER',
+    canvasBg: '#241A14',
+    canvasGradient: 'radial-gradient(circle at 80% 30%, rgba(197, 160, 89, 0.3), transparent 50%), radial-gradient(circle at 10% 70%, rgba(96, 74, 61, 0.5), transparent 45%)',
+    badgeText: '🇮🇹 Modern İtalyan Minimalizm',
+    paletteColors: { 'İpek Kaşmir': '#D7CCC8', 'Doğal Meşe': '#A1887F', 'Mat Bronz': '#8D6E63', 'Fildişi': '#FFF8E1' }
+  },
+  'porto': {
+    theme: 'porto',
+    isLight: false,
+    watermark: 'PORTO INDUSTRIAL',
+    canvasBg: '#1B1816',
+    canvasGradient: 'radial-gradient(circle at 30% 20%, rgba(184, 151, 88, 0.25), transparent 45%), radial-gradient(circle at 70% 80%, rgba(31, 35, 39, 0.8), transparent 50%)',
+    badgeText: '⚙️ Endüstriyel Modern Loft',
+    paletteColors: { 'Dumanlı Meşe': '#5D4037', 'Mat Antrasit': '#37474F', 'Pirinç Vurgu': '#D4AF37' }
+  },
+  'milano': {
+    theme: 'milano',
+    isLight: false,
+    watermark: 'MILANO PALAZZO',
+    canvasBg: '#2D0F16',
+    canvasGradient: 'radial-gradient(circle at 70% 20%, rgba(197, 160, 89, 0.35), transparent 45%), radial-gradient(circle at 20% 70%, rgba(82, 31, 39, 0.4), transparent 50%)',
+    badgeText: '👑 Haute Couture Palazzo',
+    paletteColors: { 'Krem Beyaz': '#FAFAFA', 'Ceviz': '#4E342E', 'Şampanya Altın': '#F5E0A9' }
+  },
+  'zurih': {
+    theme: 'zurih',
+    isLight: false,
+    watermark: 'ZÜRIH ALPINE',
+    canvasBg: '#1D2226',
+    canvasGradient: 'radial-gradient(circle at 20% 30%, rgba(140, 146, 151, 0.25), transparent 45%), radial-gradient(circle at 80% 70%, rgba(18, 20, 19, 0.8), transparent 50%)',
+    badgeText: '🏔️ Alpine Minimalist Taş & Çam',
+    paletteColors: { 'Taş Grisi': '#9E9E9E', 'Hafif Çam': '#D7CCC8', 'Mat Siyah': '#212121' }
+  },
+  'kopenhag': {
+    theme: 'kopenhag',
+    isLight: false,
+    watermark: 'KOPENHAG BOTANICAL',
+    canvasBg: '#1B2920',
+    canvasGradient: 'radial-gradient(circle at 80% 20%, rgba(48, 64, 53, 0.55), transparent 50%), radial-gradient(circle at 20% 80%, rgba(214, 221, 212, 0.2), transparent 40%)',
+    badgeText: '🌿 Skandinav Doğal Botanik',
+    paletteColors: { 'Doğal Huş': '#EFEBE9', 'Adaçayı Yeşili': '#81C784', 'Kırık Beyaz': '#F5F5F5' }
+  },
+  'lizbon': {
+    theme: 'lizbon',
+    isLight: false,
+    watermark: 'LİZBON CONTEMPORARY',
+    canvasBg: '#5E2619',
+    canvasGradient: 'radial-gradient(circle at 30% 30%, rgba(197, 160, 89, 0.35), transparent 45%), radial-gradient(circle at 70% 70%, rgba(110, 50, 33, 0.6), transparent 50%)',
+    badgeText: '🏺 İberik Terracotta & Meşe',
+    paletteColors: { 'Altın Meşe': '#D7CCC8', 'Mat Terracotta': '#D84315', 'Keten Beji': '#EFEBE9' }
+  },
+  'venedik': {
+    theme: 'venedik',
+    isLight: false,
+    watermark: 'VENEDİK PALATIAL',
+    canvasBg: '#231710',
+    canvasGradient: 'radial-gradient(circle at 75% 25%, rgba(132, 104, 77, 0.35), transparent 50%), radial-gradient(circle at 25% 75%, rgba(45, 31, 23, 0.7), transparent 45%)',
+    badgeText: '🎭 Venedik Moderni & Bronz Cam',
+    paletteColors: { 'Bal Ceviz': '#A98274', 'Bronz Cam': '#5D4037', 'Mat Vizon': '#795548' }
   }
-  if (!col) {
-    // Default to Siena if not found
-    const all = await window.GKM_SUPABASE.getCollections();
-    col = all[0];
+};
+
+let allCollectionsData = [];
+let activeCollectionIndex = 0;
+
+function getAtmosphere(slug) {
+  const s = (slug || '').toLowerCase();
+  for (const key of Object.keys(COLLECTION_ATMOSPHERES)) {
+    if (s.includes(key)) return COLLECTION_ATMOSPHERES[key];
   }
-  currentCollection = col;
-  renderCollectionData(col);
+  return COLLECTION_ATMOSPHERES['siena'];
 }
 
-function renderCollectionData(c) {
-  document.title = `${c.name} | Global Mobilya — Dijital Showroom`;
-  document.getElementById('breadcrumbCurrent').textContent = c.name;
-  document.getElementById('heroTitle').textContent = c.name;
-  document.getElementById('heroStyle').textContent = c.architecture_style || 'MİMARİ YATAK ODASI KOLEKSİYONU';
-  document.getElementById('heroStory').textContent = c.design_story || '';
-  document.getElementById('heroBg').style.backgroundImage = `url('${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}')`;
-  document.getElementById('storyImgMain').src = c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg';
+async function initCollectionsPage() {
+  const container = document.getElementById('stagesContainer');
+  const indexNav = document.getElementById('colIndexNav');
 
-  setTimeout(() => {
-    document.getElementById('colHero').classList.add('loaded');
-  }, 100);
+  try {
+    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollections) {
+      allCollectionsData = await window.GKM_SUPABASE.getCollections();
+    }
+  } catch (e) {
+    console.error('Koleksiyonlar yüklenemedi:', e);
+  }
 
-  // WhatsApp links
-  const waMsg = encodeURIComponent(`Merhaba, Global Mobilya Dijital Showroom'dan "${c.name}" hakkında detaylı bilgi ve özel ölçü fiyatı almak istiyorum.`);
-  const waUrl = `https://wa.me/905050151035?text=${waMsg}`;
-  document.getElementById('heroWaBtn').href = waUrl;
-  document.getElementById('footerWaBtn').href = waUrl;
-  document.getElementById('navWaBtn').href = waUrl;
+  if (!allCollectionsData || allCollectionsData.length === 0) {
+    container.innerHTML = '<div style="text-align:center; padding:140px; color:#fff;">Koleksiyonlar hazırlanıyor...</div>';
+    return;
+  }
 
-  // Render Components
-  const compGrid = document.getElementById('componentsGrid');
-  const icons = ['🪞', '🛏️', '🗄️', '✨', '🛋️'];
-  compGrid.innerHTML = (c.pieces || []).map((p, idx) => `
-    <div class="comp-card">
-      ${p.image_url && !p.image_url.includes('logo.png') 
-        ? `<div class="comp-thumb-wrap" style="height:160px; border-radius:10px; overflow:hidden; margin-bottom:14px; background:#f4efe9;"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;" loading="lazy"></div>` 
-        : `<div class="comp-icon">${icons[idx % icons.length]}</div>`}
-      <h3 class="comp-name">${p.name}</h3>
-      <div class="comp-dim">📐 ${p.dimensions || 'Özel Ölçü'}</div>
-      <div class="comp-mat">${p.material || '18mm E1 MDF, CNC Çift Yüzey Membran'}</div>
-      <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' içindeki ' + p.name + ' için fiyat bilgisi almak istiyorum.')}" target="_blank" class="comp-action">
-        Fiyat & Ölçü Danış →
-      </a>
-    </div>
-  `).join('');
+  // 1. Build Stages HTML
+  container.innerHTML = allCollectionsData.map((c, i) => {
+    const atmo = getAtmosphere(c.slug);
+    const chapterNum = String(i + 1).padStart(2, '0');
+    const totalChapters = String(allCollectionsData.length).padStart(2, '0');
+    const isLightClass = atmo.isLight ? 'stage-light-theme' : '';
+    const watermarkColorClass = atmo.isLight ? 'watermark-light' : 'watermark-dark';
 
-  // Render Color Swatches
-  const swatchWrap = document.getElementById('swatchesContainer');
-  const colorMap = {
-    'İpek Kaşmir': '#D7CCC8',
-    'Doğal Meşe': '#A1887F',
-    'Mat Bronz': '#8D6E63',
-    'Fildişi': '#FFF8E1',
-    'Dumanlı Meşe': '#5D4037',
-    'Mat Antrasit': '#37474F',
-    'Pirinç Vurgu': '#D4AF37',
-    'Krem Beyaz': '#FAFAFA',
-    'Ceviz': '#4E342E',
-    'Şampanya Altın': '#F5E0A9',
-    'Taş Grisi': '#9E9E9E',
-    'Hafif Çam': '#D7CCC8',
-    'Mat Siyah': '#212121',
-    'Pudra Bej': '#E0D6CE',
-    'Cappuccino': '#8D7B68',
-    'Açık Ceviz': '#6D4C41',
-    'Bal Ceviz': '#A98274',
-    'Bronz Cam': '#5D4037',
-    'Mat Vizon': '#795548',
-    'Doğal Huş': '#EFEBE9',
-    'Adaçayı Yeşili': '#81C784',
-    'Kırık Beyaz': '#F5F5F5',
-    'Altın Meşe': '#D7CCC8',
-    'Mat Terracotta': '#D84315',
-    'Keten Beji': '#EFEBE9'
-  };
+    // Palettes
+    const palHtml = (c.color_palette || []).map(cp => {
+      const dotCol = atmo.paletteColors?.[cp] || '#BCAAA4';
+      return `<span class="palette-chip"><span class="palette-dot" style="background:${dotCol};"></span>${cp}</span>`;
+    }).join('');
 
-  swatchWrap.innerHTML = (c.color_palette || []).map((cp, idx) => {
-    const bgCol = colorMap[cp] || '#BCAAA4';
-    return `
-      <div class="swatch-pill ${idx===0?'active':''}" onclick="selectSwatch(this, '${cp}')">
-        <span class="swatch-dot" style="background:${bgCol};"></span>
-        <span>${cp}</span>
+    // Pieces Tray
+    const pieces = c.pieces || [];
+    const piecesHtml = pieces.map(p => `
+      <div class="piece-card">
+        <div class="piece-thumb">
+          <img src="${p.image_url || 'resim/logo.png'}" alt="${p.name}" loading="lazy" onerror="this.src='resim/logo.png'">
+        </div>
+        <h4 class="piece-name">${p.name}</h4>
+        <div class="piece-dim">📐 ${p.dimensions || 'Özel Mimari Ölçü'}</div>
+        <div class="piece-mat">${p.material || '18mm E1 Masif MDF, CNC Membran'}</div>
+        <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' içerisindeki ' + p.name + ' için fiyat ve ölçü danışmak istiyorum.')}" target="_blank" class="piece-action">
+          Fiyat &amp; Ölçü Danış →
+        </a>
       </div>
+    `).join('');
+
+    return `
+      <section class="collection-stage ${isLightClass}" id="stage-${c.slug}" data-slug="${c.slug}" data-index="${i}">
+        <div class="watermark-text ${watermarkColorClass}">
+          ${atmo.watermark}
+        </div>
+
+        <div class="stage-inner">
+          <div class="stage-grid">
+            
+            <!-- Left: Story & Specification -->
+            <div class="stage-narrative">
+              <div class="stage-chapter">CHAPTER ${chapterNum} / ${totalChapters}</div>
+              <span class="stage-style">${c.architecture_style || atmo.badgeText}</span>
+              <h2 class="stage-title">${c.name}</h2>
+              <p class="stage-story">${c.design_story || '18mm E1 masif MDF gövde, CNC membran zarafeti ve sessiz frenli ray donanımıyla üretilen çağdaş mimari master suite.'}</p>
+              
+              <div class="stage-palettes">
+                ${palHtml}
+              </div>
+
+              <div class="stage-actions">
+                <button type="button" class="btn-editorial-gold" onclick="openQuoteForCollection('${c.name}')">
+                  ✦ Bu Koleksiyon İçin Fiyat Al
+                </button>
+                <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' koleksiyonu hakkında detaylı bilgi ve özel mimari ölçü teklifi almak istiyorum.')}" target="_blank" class="btn-wa-pill">
+                  💬 WhatsApp ile Danış
+                </a>
+              </div>
+            </div>
+
+            <!-- Right: Architectural Photography -->
+            <div class="stage-visual">
+              <div class="stage-img-frame">
+                <img src="${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}" alt="${c.name}" class="stage-img" loading="${i===0?'eager':'lazy'}">
+                <div class="stage-badge-float">
+                  <span>🏛️</span>
+                  <span>18mm E1 Masif MDF • CNC Membran</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Component Pieces Tray -->
+          <div class="stage-pieces-tray">
+            <div class="pieces-tray-header">
+              <h3 class="pieces-tray-title">
+                <span>🗄️</span>
+                <span>Koleksiyon Parçaları &amp; Mimari Modüller (${pieces.length} Parça)</span>
+              </h3>
+            </div>
+            <div class="pieces-grid">
+              ${piecesHtml}
+            </div>
+          </div>
+        </div>
+      </section>
     `;
   }).join('');
-}
 
-function selectSwatch(el, colorName) {
-  document.querySelectorAll('.swatch-pill').forEach(s => s.classList.remove('active'));
-  el.classList.add('active');
-}
+  // 2. Build Sticky Navigator
+  indexNav.innerHTML = allCollectionsData.map((c, i) => {
+    const shortName = c.name.replace(/ Yatak Odası.*/i, '').replace(/ Koleksiyonu.*/i, '');
+    const num = String(i + 1).padStart(2, '0');
+    return `
+      <button type="button" class="col-index-item ${i===0?'active':''}" onclick="scrollToStage('${c.slug}')" title="${c.name}">
+        <span class="col-index-dot"></span>
+        <span class="col-index-label">${num} ${shortName}</span>
+      </button>
+    `;
+  }).join('');
 
-function openQuoteModal() {
-  if (currentCollection) {
-    document.getElementById('q_model').value = currentCollection.name;
+  // 3. Setup IntersectionObserver for Smooth Transitions
+  setupAtmosphereObserver();
+
+  // 4. If URL has ?id=slug, scroll to it immediately
+  const params = new URLSearchParams(window.location.search);
+  const targetSlug = params.get('id') || params.get('collection');
+  if (targetSlug) {
+    setTimeout(() => {
+      const match = allCollectionsData.find(c => c.slug === targetSlug || c.slug.startsWith(targetSlug) || targetSlug.startsWith(c.slug));
+      if (match) scrollToStage(match.slug);
+    }, 300);
   }
+}
+
+function scrollToStage(slug) {
+  const el = document.getElementById(`stage-${slug}`);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function setupAtmosphereObserver() {
+  const canvas = document.getElementById('collectionCanvas');
+  const navItems = document.querySelectorAll('.col-index-item');
+  const stages = document.querySelectorAll('.collection-stage');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const slug = entry.target.dataset.slug;
+        const index = parseInt(entry.target.dataset.index, 10);
+        const atmo = getAtmosphere(slug);
+
+        // Smooth background morph
+        canvas.style.backgroundColor = atmo.canvasBg;
+        canvas.style.backgroundImage = atmo.canvasGradient;
+
+        // Update active index nav
+        navItems.forEach((btn, idx) => {
+          btn.classList.toggle('active', idx === index);
+        });
+
+        // Update header scrolled appearance
+        const header = document.getElementById('siteHeader');
+        if (atmo.isLight) {
+          header.classList.add('on-light-stage');
+        } else {
+          header.classList.remove('on-light-stage');
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+
+  stages.forEach(s => observer.observe(s));
+}
+
+// Quote Modal Handlers
+let currentQuoteModel = '';
+function openQuoteForCollection(name) {
+  currentQuoteModel = name;
+  document.getElementById('q_model').value = name;
   document.getElementById('quoteSuccess').style.display = 'none';
   document.getElementById('quoteForm').style.display = 'block';
   document.getElementById('quoteModal').classList.add('open');
+}
+
+function openQuoteModal() {
+  openQuoteForCollection(allCollectionsData[0]?.name || 'Viyana Yatak Odası Koleksiyonu');
 }
 
 function closeQuoteModal() {
@@ -894,7 +901,31 @@ async function submitCollectionQuote(e) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initCollectionDetail);
+// Window scroll header shadow
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('siteHeader');
+  if (window.scrollY > 80) header.classList.add('scrolled');
+  else header.classList.remove('scrolled');
+});
+
+// Mobile hamburger toggle
+document.getElementById('btnHamburger')?.addEventListener('click', () => {
+  const nav = document.getElementById('headerNav');
+  if (nav.style.display === 'flex') nav.style.display = 'none';
+  else {
+    nav.style.display = 'flex';
+    nav.style.flexDirection = 'column';
+    nav.style.position = 'absolute';
+    nav.style.top = '100%';
+    nav.style.left = '0';
+    nav.style.right = '0';
+    nav.style.background = 'rgba(20,16,13,0.98)';
+    nav.style.padding = '20px';
+    nav.style.gap = '16px';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', initCollectionsPage);
 </script>
 
 <script src="js/footer.js"></script>

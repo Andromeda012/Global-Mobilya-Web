@@ -30,29 +30,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="css/luxury-atelier.css">
+
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-  --ivory: #F5F1EA;
-  --ivory-light: #FAF8F5;
-  --beige: #D8CBBE;
-  --beige-light: #EFE8E0;
-  --taupe: #A99A8C;
-  --walnut: #604A3D;
-  --walnut-dark: #43332A;
-  --charcoal: #272522;
-  --white: #FFFFFF;
-  --border: rgba(96, 74, 61, 0.15);
-  --border-light: rgba(96, 74, 61, 0.08);
-  --text: #272522;
-  --text-muted: #6B655F;
-}
-
-html { scroll-behavior: smooth; }
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--ivory-light);
+  background-color: var(--bg-stone-light);
+  color: var(--text-charcoal);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
   color: var(--text);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -192,7 +181,7 @@ header.site-header:not(.scrolled) .hamburger { color: #fff; }
 .gallery-hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1920&q=85');
+  background-image: url('resim/showroom/luxury_showroom.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.85;

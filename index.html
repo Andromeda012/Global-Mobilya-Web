@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="Ogq44Xs7l3q1ZXKPHR2oxgjtYcVEjy1H7CQoUZiIvIA" />
-<title>Global Mobilya — Premium Mobilya Showroom & Mimari Koleksiyonlar</title>
-<meta name="description" content="Yaşam alanlarına karakter katan zamansız mobilya tasarımları. 18mm E1 masif MDF gövde, CNC membran zarafeti ve 8 seçkin yatak odası koleksiyonu. 5 yıl üretici garantisi.">
-<meta name="keywords" content="global mobilya, lüks mobilya, yatak odası koleksiyonu, mimari mobilya, membran kapak, makyaj masası, portmanto, dresuar, özel ölçü mobilya, istanbul mobilya imalatı">
+<title>Global Mobilya — Premium Mobilya Showroom &amp; Mimari Koleksiyonlar</title>
+<meta name="description" content="Yaşam alanlarına karakter katan çağdaş mimari mobilya tasarımları. 18mm E1 masif MDF gövde, CNC membran zarafeti, 8 seçkin yatak odası koleksiyonu ve 2.000 m² entegre üretim gücü. 5 yıl üretici garantisi.">
+<meta name="keywords" content="global mobilya, lüks mobilya, yatak odası koleksiyonu, mimari mobilya, membran kapak, makyaj masası, portmanto, dresuar, özel ölçü mobilya, istanbul mobilya imalatı, viyana yatak odası">
 <meta name="author" content="Global Mobilya">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://globalkapakmobilya.com/">
 
 <!-- OPEN GRAPH & TWITTER -->
 <meta property="og:site_name" content="Global Mobilya">
-<meta property="og:title" content="Global Mobilya — Premium Mobilya Showroom">
+<meta property="og:title" content="Global Mobilya — Premium Mobilya Showroom & Mimari Koleksiyonlar">
 <meta property="og:description" content="Karakterli yaşam alanları için tasarlanan modern mimari koleksiyonlar ve özel üretim mobilyalar.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://globalkapakmobilya.com/">
@@ -51,184 +51,36 @@
 }
 </script>
 
-<!-- FONTS: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans) -->
+<!-- FONTS: Cormorant Garamond & Plus Jakarta Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="css/luxury-atelier.css">
+
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── HOMEPAGE SPECIFIC ARCHITECTURAL STYLES ── */
 
-:root {
-  --ivory: #F5F1EA;
-  --ivory-light: #FAF8F5;
-  --beige: #D8CBBE;
-  --beige-light: #EFE8E0;
-  --taupe: #A99A8C;
-  --walnut: #604A3D;
-  --walnut-dark: #43332A;
-  --charcoal: #272522;
-  --white: #FFFFFF;
-  --border: rgba(96, 74, 61, 0.15);
-  --border-light: rgba(96, 74, 61, 0.08);
-  --text: #272522;
-  --text-muted: #6B655F;
-}
-
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--ivory-light);
-  color: var(--text);
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* ── EDITORIAL HEADER ── */
-header.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 24px 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.35s ease;
-  background: transparent;
-}
-header.site-header.scrolled {
-  background: rgba(250, 248, 245, 0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 14px 60px;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 24px rgba(39, 37, 34, 0.04);
-}
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.header-logo img {
-  height: 46px;
-  width: auto;
-  transition: transform 0.25s ease;
-}
-.header-logo:hover img { transform: scale(1.03); }
-.header-brand-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.3s ease;
-}
-header.site-header:not(.scrolled) .header-brand-title {
-  color: var(--white);
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-}
-.header-nav a {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.2s ease;
-  position: relative;
-  padding: 4px 0;
-}
-header.site-header:not(.scrolled) .header-nav a {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-.header-nav a:hover, .header-nav a.active {
-  color: var(--walnut);
-}
-header.site-header:not(.scrolled) .header-nav a:hover {
-  color: var(--beige-light);
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.btn-editorial-cta {
-  background: var(--walnut);
-  color: var(--white) !important;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 11px 24px;
-  border-radius: 40px;
-  border: 1px solid var(--walnut);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.btn-editorial-cta:hover {
-  background: var(--walnut-dark);
-  border-color: var(--walnut-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(96, 74, 61, 0.2);
-}
-.btn-wa-pill {
-  background: #25D366;
-  color: #fff !important;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 10px 20px;
-  border-radius: 40px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-.btn-wa-pill:hover { background: #1EBE5D; transform: translateY(-1px); }
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: var(--charcoal);
-}
-header.site-header:not(.scrolled) .hamburger { color: #fff; }
-
-/* ── CINEMATIC EDITORIAL HERO ── */
+/* 1. CINEMATIC HERO COMPOSITION */
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 120px 60px 80px;
-  background: var(--charcoal);
+  padding: 140px 60px 90px;
+  background-color: var(--bg-espresso);
   overflow: hidden;
 }
-.hero-bg {
+.hero-bg-layer {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transform: scale(1.05);
-  transition: opacity 1.2s ease, transform 8s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.4s var(--ease-editorial), transform 8s var(--ease-editorial);
 }
-.hero-bg.active {
+.hero-bg-layer.active {
   opacity: 1;
   transform: scale(1);
 }
@@ -236,845 +88,868 @@ header.site-header:not(.scrolled) .hamburger { color: #fff; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(39,37,34,0.85) 0%, rgba(39,37,34,0.45) 50%, rgba(39,37,34,0.2) 100%),
-    linear-gradient(180deg, rgba(39,37,34,0.4) 0%, transparent 40%, rgba(39,37,34,0.7) 100%);
+    linear-gradient(90deg, rgba(22, 18, 15, 0.92) 0%, rgba(22, 18, 15, 0.55) 50%, rgba(22, 18, 15, 0.3) 100%),
+    linear-gradient(180deg, rgba(22, 18, 15, 0.4) 0%, transparent 40%, rgba(22, 18, 15, 0.9) 100%);
   z-index: 1;
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 820px;
-  color: var(--white);
+  max-width: 860px;
+  color: #fff;
 }
-.hero-eyebrow {
-  display: inline-flex;
+.hero-badge-row {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--beige);
-  margin-bottom: 16px;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--beige);
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 .hero-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(42px, 6.2vw, 76px);
+  font-family: var(--font-editorial);
+  font-size: clamp(44px, 6.2vw, 86px);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.5px;
-  margin-bottom: 22px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  margin-bottom: 24px;
 }
 .hero-title span {
   font-style: italic;
   font-weight: 400;
-  color: var(--beige-light);
+  color: var(--color-gold-bright);
 }
 .hero-subtext {
-  font-size: clamp(14.5px, 1.8vw, 17.5px);
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.65;
-  max-width: 640px;
-  margin-bottom: 34px;
-  font-weight: 300;
+  font-size: clamp(15px, 1.35vw, 19px);
+  color: rgba(245, 239, 235, 0.88);
+  line-height: 1.7;
+  max-width: 720px;
+  margin-bottom: 38px;
 }
-.hero-buttons {
+.hero-actions {
   display: flex;
+  gap: 18px;
   align-items: center;
-  gap: 16px;
   flex-wrap: wrap;
 }
-.btn-hero-primary {
-  background: var(--white);
-  color: var(--charcoal);
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 14px 32px;
-  border-radius: 40px;
-  transition: all 0.3s ease;
-  display: inline-flex;
+
+/* Mood Switcher Control inside Hero */
+.hero-mood-switch {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  z-index: 10;
+  display: flex;
   align-items: center;
   gap: 8px;
-}
-.btn-hero-primary:hover {
-  background: var(--beige-light);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-.btn-hero-outline {
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  color: var(--white);
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 13px 30px;
+  background: rgba(20, 16, 13, 0.6);
+  backdrop-filter: blur(14px);
+  padding: 8px 12px;
   border-radius: 40px;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.btn-hero-outline:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-}
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  right: 60px;
-  z-index: 2;
-  color: rgba(255, 255, 255, 0.7);
+.mood-pill {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.hero-scroll-indicator::after {
-  content: '';
-  width: 30px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-/* ── CRAFTSMANSHIP TRUST BAR ── */
-.trust-strip {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 24px 60px;
-}
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.trust-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--ivory);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: var(--walnut);
-  flex-shrink: 0;
-}
-.trust-text strong {
-  display: block;
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--charcoal);
-}
-.trust-text span {
-  font-size: 11.5px;
-  color: var(--text-muted);
-}
-
-/* ── EDITORIAL BRAND INTRODUCTION ── */
-.intro-section {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 110px 60px;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.intro-photo-wrap {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(39, 37, 34, 0.08);
-  height: 520px;
-}
-.intro-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-.intro-photo-wrap:hover .intro-photo {
-  transform: scale(1.03);
-}
-.intro-floating-tag {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  background: rgba(250, 248, 245, 0.95);
-  backdrop-filter: blur(8px);
-  padding: 12px 20px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  color: var(--charcoal);
-}
-.intro-floating-tag strong {
-  display: block;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 20px;
-}
-.intro-floating-tag span {
-  font-size: 11.5px;
-  color: var(--walnut);
-  font-weight: 600;
-}
-.intro-text-side {
-  padding-right: 20px;
-}
-.section-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  display: block;
-  margin-bottom: 12px;
-}
-.section-headline {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(34px, 4vw, 46px);
-  font-weight: 600;
-  color: var(--charcoal);
-  line-height: 1.18;
-  margin-bottom: 22px;
-}
-.section-desc {
-  font-size: 15px;
-  color: var(--text-muted);
-  line-height: 1.75;
-  margin-bottom: 28px;
-}
-.intro-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 34px;
-}
-.intro-feat-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--charcoal);
-}
-.intro-feat-pill span {
-  color: var(--walnut);
-  font-size: 16px;
-}
-
-/* ── FEATURED MASTER COLLECTIONS (EDITORIAL ASYMMETRIC GRID) ── */
-.collections-section {
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 110px 60px;
-}
-.section-header-center {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 60px;
-}
-.asymmetric-col-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 36px;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-.col-tile {
-  background: var(--ivory-light);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(39, 37, 34, 0.04);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-}
-.col-tile:hover {
-  transform: translateY(-6px);
-  border-color: var(--walnut);
-  box-shadow: 0 20px 48px rgba(96, 74, 61, 0.12);
-}
-.col-tile.span-7 { grid-column: span 7; }
-.col-tile.span-5 { grid-column: span 5; }
-.col-tile.span-6 { grid-column: span 6; }
-
-.col-tile-img-wrap {
-  position: relative;
-  height: 380px;
-  background: var(--charcoal);
-  overflow: hidden;
-}
-.col-tile.span-5 .col-tile-img-wrap { height: 380px; }
-.col-tile-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.col-tile:hover .col-tile-img {
-  transform: scale(1.05);
-}
-.col-tile-tag {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  background: rgba(39, 37, 34, 0.88);
-  backdrop-filter: blur(8px);
-  color: var(--beige-light);
-  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 6px;
-  border: 1px solid rgba(216, 203, 190, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
-.col-tile-body {
-  padding: 30px;
+.mood-pill:hover { color: #fff; }
+.mood-pill.active {
+  background: var(--color-gold-muted);
+  color: #0F0C0A;
+  box-shadow: 0 2px 10px rgba(197, 160, 89, 0.4);
+}
+
+/* 2. THE ATELIER MANIFESTO (SPLIT EDITORIAL) */
+.atelier-manifesto {
+  padding: 120px 0;
+  position: relative;
+}
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 80px;
+  align-items: center;
+}
+.manifesto-photo-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  aspect-ratio: 4 / 3;
+}
+.manifesto-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-editorial);
+}
+.manifesto-photo-wrap:hover .manifesto-photo {
+  transform: scale(1.04);
+}
+.manifesto-badge-float {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(22, 18, 15, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 14px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border-dark-subtle);
+  color: #fff;
+}
+.manifesto-badge-float strong {
+  font-family: var(--font-editorial);
+  font-size: 24px;
+  display: block;
+  color: var(--color-gold-bright);
+}
+.manifesto-badge-float span {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.manifesto-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 36px;
+}
+.pillar-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 0.3s var(--ease-editorial);
+}
+.pillar-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--color-gold-muted);
+  transform: translateY(-3px);
+}
+.pillar-icon {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.pillar-title {
+  font-family: var(--font-editorial);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+.pillar-desc {
+  font-size: 12.5px;
+  color: rgba(245, 239, 235, 0.7);
+  line-height: 1.55;
+}
+
+/* 3. FEATURED COLLECTIONS (ASYMMETRICAL LOOKBOOK) */
+.asym-collections {
+  padding: 130px 0 110px;
+  position: relative;
+}
+.asym-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 36px;
+  margin-top: 50px;
+}
+.col-card-hero {
+  grid-column: span 7;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  flex: 1;
+  background: #171310;
+  transition: transform 0.4s var(--ease-editorial);
 }
-.col-tile-style {
-  font-size: 11px;
+.col-card-side {
+  grid-column: span 5;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient-dark);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  background: #171310;
+  transition: transform 0.4s var(--ease-editorial);
+}
+.col-card-hero:hover,
+.col-card-side:hover {
+  transform: translateY(-6px);
+}
+.card-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #100C09;
+}
+.col-card-side .card-media-wrap {
+  aspect-ratio: 4 / 3;
+}
+.card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-editorial);
+}
+.col-card-hero:hover .card-media,
+.col-card-side:hover .card-media {
+  transform: scale(1.05);
+}
+.card-tag-top {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(20, 16, 13, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--walnut);
-  margin-bottom: 6px;
+  color: var(--color-gold-bright);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.col-tile-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--charcoal);
-  margin-bottom: 10px;
-}
-.col-tile-story {
-  font-size: 13.5px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 18px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.col-tile-palettes {
+.card-body {
+  padding: 32px 36px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 22px;
+  flex-direction: column;
+  flex-grow: 1;
 }
-.palette-chip {
-  font-size: 11px;
-  background: var(--ivory);
-  border: 1px solid var(--border);
-  color: var(--charcoal);
-  padding: 4px 10px;
-  border-radius: 4px;
+.card-style {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(26px, 2.6vw, 38px);
   font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: #fff;
 }
-.col-tile-link {
+.card-story {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(245, 239, 235, 0.75);
+  margin-bottom: 24px;
+}
+.card-foot {
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+}
+.card-link {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--walnut);
+  color: var(--color-gold-bright);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.2s ease;
 }
-.col-tile:hover .col-tile-link {
-  transform: translateX(4px);
-  color: var(--walnut-dark);
+.card-link:hover { color: #fff; }
+
+/* 4. THE 2,000 M² FACTORY & CRAFTSMANSHIP */
+.factory-atelier {
+  padding: 120px 0;
+  position: relative;
+}
+.factory-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+.stat-box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease;
+}
+.stat-box:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold-bright);
+}
+.stat-num {
+  font-family: var(--font-editorial);
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--color-gold-bright);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.stat-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
 }
 
-/* ── FEATURED INDEPENDENT PRODUCTS (BAĞIMSIZ ÜRÜNLER) ── */
-.products-section {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 110px 60px;
+/* 5. INDEPENDENT FURNITURE (PORTMANTO & DRESUAR) */
+.indep-section {
+  padding: 120px 0;
+  position: relative;
 }
-.indep-grid {
+.indep-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   margin-top: 50px;
 }
 .indep-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  background: #FFFFFF;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(39, 37, 34, 0.04);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-ambient-warm);
+  border: 1px solid rgba(36, 29, 24, 0.1);
   display: flex;
   flex-direction: column;
+  transition: transform 0.35s var(--ease-editorial), box-shadow 0.35s ease;
 }
 .indep-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--walnut);
-  box-shadow: 0 16px 36px rgba(96, 74, 61, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(56, 41, 31, 0.18);
 }
-.indep-img-wrap {
-  height: 250px;
-  background: var(--ivory);
+.indep-img-frame {
   position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  background: #F4EFEA;
 }
 .indep-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.8s var(--ease-editorial);
 }
 .indep-card:hover .indep-img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 .indep-body {
-  padding: 22px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex-grow: 1;
 }
 .indep-cat {
-  font-size: 10.5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-terracotta);
+  margin-bottom: 6px;
+}
+.indep-title {
+  font-family: var(--font-editorial);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-charcoal);
+  margin-bottom: 8px;
+}
+.indep-desc {
+  font-size: 13.5px;
+  color: var(--text-muted-warm);
+  line-height: 1.55;
+  margin-bottom: 20px;
+}
+.indep-actions-row {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(36, 29, 24, 0.08);
+  padding-top: 16px;
+}
+.btn-indep-detail {
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--taupe);
-  margin-bottom: 4px;
-}
-.indep-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 6px;
-}
-.indep-desc {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.indep-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: auto;
-}
-.btn-indep-detail {
-  flex: 1;
-  background: var(--ivory);
-  color: var(--charcoal);
-  border: 1px solid var(--border);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-align: center;
-  transition: all 0.2s ease;
+  color: var(--text-charcoal);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .btn-indep-detail:hover {
-  background: var(--walnut);
-  color: var(--white);
-  border-color: var(--walnut);
+  color: var(--color-terracotta);
 }
 
-/* ── BRAND STATEMENT & CLOSING SECTION ── */
-.statement-section {
-  background: linear-gradient(135deg, var(--charcoal) 0%, var(--walnut-dark) 100%);
-  color: var(--white);
-  padding: 110px 60px;
-  text-align: center;
+/* 6. BOTANICAL LIVING & MATERIALITY GALLERY */
+.botanical-gallery-sec {
+  padding: 130px 0;
   position: relative;
+}
+.gallery-mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+.mosaic-col-8 {
+  grid-column: span 8;
+  position: relative;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: var(--shadow-ambient-dark);
+  aspect-ratio: 16 / 10;
 }
-.statement-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(216, 203, 190, 0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-.statement-inner {
-  max-width: 820px;
-  margin: 0 auto;
+.mosaic-col-4 {
+  grid-column: span 4;
   position: relative;
-  z-index: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient-dark);
+  aspect-ratio: 16 / 10;
 }
-.statement-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(36px, 5vw, 56px);
+.mosaic-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-editorial);
+}
+.mosaic-col-8:hover .mosaic-img,
+.mosaic-col-4:hover .mosaic-img {
+  transform: scale(1.05);
+}
+.mosaic-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(22, 18, 15, 0.75);
+  backdrop-filter: blur(12px);
+  padding: 14px 20px;
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.mosaic-caption strong {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: 20px;
+  color: var(--color-gold-bright);
+}
+.mosaic-caption span {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+/* 7. SHOWROOM CONCIERGE & APPOINTMENT */
+.concierge-sec {
+  padding: 120px 0;
+  position: relative;
+}
+.concierge-box {
+  background: #171310;
+  border-radius: 24px;
+  border: 1px solid var(--border-dark-subtle);
+  padding: 70px 60px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  box-shadow: var(--shadow-ambient-dark);
+}
+.concierge-info h2 {
+  font-family: var(--font-editorial);
+  font-size: clamp(34px, 4.5vw, 56px);
   font-weight: 600;
-  line-height: 1.15;
-  margin-bottom: 20px;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 18px;
 }
-.statement-text {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.85);
+.concierge-info p {
+  font-size: 15px;
+  color: rgba(245, 239, 235, 0.8);
   line-height: 1.7;
-  margin-bottom: 38px;
+  margin-bottom: 30px;
 }
-
-/* ── TEKLİF VE ÖZEL ÖLÇÜ MODALI ── */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(39, 37, 34, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 99999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.modal-backdrop.open { display: flex; }
-.modal-box {
-  background: var(--white);
+.concierge-form-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
-  max-width: 520px;
-  width: 100%;
-  padding: 36px;
-  position: relative;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-}
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: var(--ivory);
-  border: 1px solid var(--border);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--charcoal);
-}
-.modal-close:hover { background: var(--walnut); color: #fff; }
-.form-input, .form-textarea {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: inherit;
-  margin-bottom: 12px;
-}
-.form-input:focus, .form-textarea:focus {
-  outline: none;
-  border-color: var(--walnut);
+  padding: 32px;
 }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  header.site-header { padding: 18px 24px; }
-  .hero { padding: 100px 24px 60px; }
-  .trust-strip { padding: 20px 24px; }
-  .trust-grid { grid-template-columns: repeat(2, 1fr); }
-  .intro-section { padding: 70px 24px; grid-template-columns: 1fr; }
-  .intro-photo-wrap { height: 380px; }
-  .collections-section { padding: 70px 24px; }
-  .asymmetric-col-grid { grid-template-columns: 1fr; }
-  .col-tile.span-7, .col-tile.span-5, .col-tile.span-6 { grid-column: span 1; }
-  .products-section { padding: 70px 24px; }
-  .statement-section { padding: 70px 24px; }
-}
-@media (max-width: 768px) {
-  .hamburger { display: block; }
-  .header-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    flex-direction: column;
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  }
-  .header-nav.open { display: flex; }
-  .header-actions { display: none; }
-  .hero-scroll-indicator { display: none; }
-  .trust-grid { grid-template-columns: 1fr; }
+  .manifesto-grid { grid-template-columns: 1fr; gap: 40px; }
+  .asym-grid { grid-template-columns: 1fr; }
+  .col-card-hero, .col-card-side { grid-column: span 1; }
+  .factory-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .indep-products-grid { grid-template-columns: 1fr; }
+  .mosaic-col-8, .mosaic-col-4 { grid-column: span 12; }
+  .concierge-box { grid-template-columns: 1fr; padding: 40px 30px; }
+  .hero-mood-switch { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- STICKY EDITORIAL HEADER -->
+<!-- EDITORIAL HEADER (NAVBAR) -->
 <header class="site-header" id="siteHeader">
   <a href="index.html" class="header-logo">
-    <img src="resim/logo.png" alt="Global Mobilya">
-    <span class="header-brand-title">Global Mobilya</span>
+    <img src="/resim/logo.png" alt="Global Mobilya" onerror="this.src='resim/logo.png'">
+    <div>
+      <span class="header-brand-title">GLOBAL MOBİLYA</span>
+      <span class="header-brand-sub">EST. 2011 • DİJİTAL SHOWROOM</span>
+    </div>
   </a>
+
   <nav class="header-nav" id="headerNav">
     <a href="index.html" class="active">Ana Sayfa</a>
-    <a href="#koleksiyonlar">Koleksiyonlar</a>
-    <a href="galeri.html">Dijital Showroom</a>
+    <a href="koleksiyon.html">Koleksiyonlar</a>
+    <a href="galeri.html">Galeri</a>
     <a href="hakkimizda.html">Hakkımızda</a>
     <a href="iletisim.html">İletişim</a>
   </nav>
+
   <div class="header-actions">
-    <a href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill">
+    <a href="koleksiyon.html" class="btn-editorial-gold">
+      ✦ Koleksiyonları Keşfet
+    </a>
+    <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya,%20mimari%20tasar%C4%B1mlar%C4%B1n%C4%B1z%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill">
       💬 WhatsApp
     </a>
-    <button class="btn-editorial-cta" onclick="openHomeQuoteModal('Genel Koleksiyon Talebi')">
-      ✦ Fiyat & Teklif Al
-    </button>
+    <button type="button" class="hamburger" id="btnHamburger" aria-label="Menü">☰</button>
   </div>
-  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menüyü Aç">☰</button>
 </header>
 
-<!-- CINEMATIC HERO SECTION -->
+<!-- CHAPTER 1: CINEMATIC EDITORIAL HERO -->
 <section class="hero" id="heroSection">
-  <div class="hero-bg active" style="background-image:url('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1920&q=85');"></div>
-  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1920&q=85');"></div>
-  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1920&q=85');"></div>
+  <div class="hero-bg-layer active" id="heroBg1" style="background-image:url('resim/showroom/luxury_showroom.jpg');"></div>
+  <div class="hero-bg-layer" id="heroBg2" style="background-image:url('resim/showroom/nordic_atelier.jpg');"></div>
+  <div class="hero-bg-layer" id="heroBg3" style="background-image:url('resim/showroom/warm_atelier.jpg');"></div>
   <div class="hero-overlay"></div>
 
-  <div class="hero-content">
-    <span class="hero-eyebrow">DİJİTAL SHOWROOM & MİMARİ MOBİLYA</span>
-    <h1 class="hero-title">
-      Yaşam Alanlarına Karakter Katan <span>Zamansız Tasarımlar</span>
-    </h1>
-    <p class="hero-subtext">
-      18mm E1 masif MDF gövde, CNC membran zarafeti ve mimari mekan anlayışıyla tasarlanan 8 seçkin yatak odası koleksiyonu ve bağımsız mobilya modelleri.
-    </p>
-    <div class="hero-buttons">
-      <a href="#koleksiyonlar" class="btn-hero-primary">
-        Koleksiyonları Keşfet ↓
-      </a>
-      <a href="galeri.html" class="btn-hero-outline">
-        Showroom Galerisi ↗
-      </a>
-    </div>
-  </div>
-
-  <div class="hero-scroll-indicator">
-    <span>Aşağı Kaydırın</span>
-  </div>
-</section>
-
-<!-- CRAFTSMANSHIP TRUST STRIP -->
-<section class="trust-strip">
-  <div class="trust-grid">
-    <div class="trust-item">
-      <div class="trust-icon">🪵</div>
-      <div class="trust-text">
-        <strong>18mm E1 Masif MDF</strong>
-        <span>Kastamonu & AGT panel gövde</span>
+  <div class="luxury-container">
+    <div class="hero-content">
+      <div class="hero-badge-row">
+        <span class="botanical-tag">🌿 DOĞAL MASİF &amp; MİMARİ ZARAFET</span>
+        <span class="palette-chip" style="color:var(--color-gold-bright); border-color:var(--color-gold-muted);">
+          18MM E1 MASİF MDF • CNC MEMBRAN
+        </span>
       </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">🪞</div>
-      <div class="trust-text">
-        <strong>CNC Çift Yüzey Membran</strong>
-        <span>Çizilmeye & buhara tam direnç</span>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">🛡️</div>
-      <div class="trust-text">
-        <strong>5 Yıl Birebir Garanti</strong>
-        <span>İstanbul fabrika tescilli üretim</span>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">⚡</div>
-      <div class="trust-text">
-        <strong>5 Günde Hızlı Teslim</strong>
-        <span>Özel ölçüye göre milimetrik imalat</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- BRAND INTRODUCTION (EDITORIAL SPLIT) -->
-<section class="intro-section" id="hakkimizda">
-  <div class="intro-photo-wrap">
-    <img src="resim/yonetilen/atelier-craft.jpg" alt="Global Mobilya Zanaat" class="intro-photo" loading="lazy">
-    <div class="intro-floating-tag">
-      <strong>2.000 m² Modern Fabrika</strong>
-      <span>İstanbul Bağcılar Üretim Tesisi</span>
-    </div>
-  </div>
-  <div class="intro-text-side">
-    <span class="section-eyebrow">ZANAAT VE MİMARİ UYUMU</span>
-    <h2 class="section-headline">
-      Mekana Dinginlik ve Fonksiyon Katan Üretim Gücü
-    </h2>
-    <p class="section-desc">
-      Global Mobilya, 15 yılı aşkın üretim uzmanlığını modern mimarinin yalın diliyle harmanlıyor. Sıradan mobilya kalıplarının ötesine geçerek, odanızın tavan yüksekliğine ve yaşam alışkanlıklarınıza tam uyum sağlayan özel ölçü yaşam alanları üretiyoruz.
-    </p>
-    <div class="intro-features">
-      <div class="intro-feat-pill"><span>✦</span> 5-Eksen CNC Milimetrik Kesim</div>
-      <div class="intro-feat-pill"><span>✦</span> Frenli Tandem Ray Mekanizmaları</div>
-      <div class="intro-feat-pill"><span>✦</span> Doğa Dostu E1 Sertifikası</div>
-      <div class="intro-feat-pill"><span>✦</span> Kişiye Özel Renk & Kulp Seçenekleri</div>
-    </div>
-    <a href="hakkimizda.html" class="btn-editorial-cta">
-      Hikâyemizi Keşfedin →
-    </a>
-  </div>
-</section>
+      <h1 class="hero-title" id="heroTitle">
+        Yaşam Alanlarına Karakter Katan <span>Zamansız Mimari</span>
+      </h1>
 
-<!-- FEATURED MASTER COLLECTIONS (8 YATAK ODASI VİTRİNİ) -->
-<section class="collections-section" id="koleksiyonlar">
-  <div class="section-header-center">
-    <span class="section-eyebrow">SEÇKİN MİMARİ SETLER</span>
-    <h2 class="section-headline">Yatak Odası Koleksiyonları (Master Suites)</h2>
-    <p class="section-desc">
-      Gardırop, karyola, şifonyer ve komodini aynı dingin mimari dilde buluşturan bütünsel konsept takımlarımız.
-    </p>
-  </div>
-
-  <div class="asymmetric-col-grid" id="homeCollectionsGrid">
-    <div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--text-muted);">
-      Koleksiyonlar yükleniyor...
-    </div>
-  </div>
-
-  <div style="text-align:center; margin-top:54px;">
-    <a href="galeri.html" class="btn-editorial-cta" style="padding:14px 34px;">
-      Tüm 8 Koleksiyonu & Showroom Galerisini Gör →
-    </a>
-  </div>
-</section>
-
-<!-- FEATURED INDEPENDENT PRODUCTS (BAĞIMSIZ ÜRÜNLER) -->
-<section class="products-section">
-  <div class="section-header-center">
-    <span class="section-eyebrow">FONKSİYONEL MODÜLLER</span>
-    <h2 class="section-headline">Bağımsız Mobilya & Depolama Modelleri</h2>
-    <p class="section-desc">
-      Antre, yatak odası ve giyinme odalarınıza özel ölçülerle hayat veren bağımsız mobilya tasarımlarımız.
-    </p>
-  </div>
-
-  <div class="indep-grid" id="homeProductsGrid">
-    <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">
-      Ürünler yükleniyor...
-    </div>
-  </div>
-</section>
-
-<!-- BRAND STATEMENT & CLOSING SECTION -->
-<section class="statement-section">
-  <div class="statement-inner">
-    <span class="hero-eyebrow" style="color:var(--beige);">MİMARİ DANIŞMANLIK & İMALAT</span>
-    <h2 class="statement-title">
-      Ölçülerinize ve Hayallerinize Özel İmalat
-    </h2>
-    <p class="statement-text">
-      Beğendiğiniz modelin gardırop genişliğini, ayna formunu veya renk kartelasını mekanınıza göre birlikte belirleyelim. 5 iş gününde fabrikamızdan adresinize teslim edelim.
-    </p>
-    <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
-      <button class="btn-editorial-cta" style="background:var(--white); color:var(--charcoal) !important; border-color:var(--white);" onclick="openHomeQuoteModal('Genel Özel Ölçü Talebi')">
-        ✦ Özel Ölçü & Fiyat Teklifi Al
-      </button>
-      <a href="https://wa.me/905050151035?text=Merhaba%2C%20Global%20Mobilya%20web%20sitesi%20%C3%BCzerinden%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="btn-wa-pill" style="padding:12px 26px; font-size:13px;">
-        💬 WhatsApp Danışma Hattı
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- TEKLİF VE ÖZEL ÖLÇÜ MODALI -->
-<div class="modal-backdrop" id="homeQuoteModal" onclick="if(event.target===this) closeHomeQuoteModal()">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeHomeQuoteModal()">✕</button>
-    <span style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--walnut);">MİMARİ TEKLİF FORMU</span>
-    <h3 style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--charcoal); margin:4px 0 10px;">Özel Ölçü & Fiyat Talebi</h3>
-    <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:18px;">
-      İlgilendiğiniz model için bilgilerinizi bırakın; mühendislerimiz 2 saat içinde özel fiyat ve teknik çizim hazırlasın.
-    </p>
-
-    <div id="homeQuoteSuccess" style="display:none; background:#EAF5ED; border:1px solid #25D366; padding:18px; border-radius:10px; text-align:center; margin-bottom:14px;">
-      <strong style="color:#1EBE5D; font-size:15px; display:block;">Talebiniz Alındı!</strong>
-      <p style="font-size:12px; color:#272522; margin-top:4px;">
-        Referans Kodunuz: <span id="homeRefCodeDisplay" style="font-weight:700; font-family:monospace; background:#fff; padding:2px 8px; border-radius:4px;"></span>
+      <p class="hero-subtext" id="heroDesc">
+        Global Mobilya, 2.000 m² entegre üretim gücü, 5-eksen CNC membran teknolojisi ve İtalyan mimari anlayışıyla tasarlanan seçkin master suite koleksiyonlarını doğrudan evinize taşıyor.
       </p>
-      <a id="homeSuccessWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex; margin-top:12px;">
-        💬 WhatsApp'tan Görüşmeyi Başlat
-      </a>
+
+      <div class="hero-actions">
+        <a href="koleksiyon.html" class="btn-editorial-gold" style="padding:14px 32px; font-size:12px;">
+          ✦ Tam Ekran Koleksiyon Deneyimi →
+        </a>
+        <a href="galeri.html" class="btn-editorial-ghost">
+          Showroom Galerisi ↗
+        </a>
+        <a href="https://wa.me/905050151035?text=Merhaba%2C%20Global%20Mobilya%20koleksiyonlar%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill" style="padding:12px 20px;">
+          💬 Mimari Danışmanlık
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient Mood Switcher -->
+  <div class="hero-mood-switch">
+    <span style="font-size:10px; color:rgba(255,255,255,0.5); font-weight:700; margin-right:4px;">ATMOSFER:</span>
+    <button type="button" class="mood-pill active" onclick="switchHeroMood(0, this)">Akşam Lüksü</button>
+    <button type="button" class="mood-pill" onclick="switchHeroMood(1, this)">Nordik Gün Işığı</button>
+    <button type="button" class="mood-pill" onclick="switchHeroMood(2, this)">Sıcak Ceviz</button>
+  </div>
+</section>
+
+<!-- CHAPTER 2: THE ATELIER MANIFESTO (FOREST & MOSS ATELIER) -->
+<section class="atelier-manifesto theme-forest-atelier">
+  <div class="luxury-container">
+    <div class="manifesto-grid">
+      
+      <div class="manifesto-photo-wrap reveal-on-scroll">
+        <img src="resim/showroom/warm_atelier.jpg" alt="Global Mobilya İmalat Gücü" class="manifesto-photo" loading="lazy">
+        <div class="manifesto-badge-float">
+          <strong>2.000 m² Entegre Tesis</strong>
+          <span>İstanbul Bağcılar Üretim Fabrikası</span>
+        </div>
+      </div>
+
+      <div class="manifesto-text reveal-on-scroll">
+        <span class="sec-eyebrow">ZANAAT VE MİMARİ FELSEFE</span>
+        <h2 class="sec-title" style="color:#fff;">
+          Sıradan Mobilya Kalıplarının Ötesinde, Mekanın Ruhuna Dokunan Bir Duruş
+        </h2>
+        <p class="sec-desc">
+          15 yılı aşkın imalat disiplinimizle, endüstriyel soğukluktan uzak, yaşayan ahşap ve doğal dokuların dengesini kuruyoruz. Odanızın tavan yüksekliği, ışık alma açısı ve depolama alışkanlıklarınıza göre milimetrik CNC kesimle üretilen her parça, yaşam alanınıza dingin bir prestij katar.
+        </p>
+
+        <div class="manifesto-pillars">
+          <div class="pillar-card">
+            <div class="pillar-icon">🪵</div>
+            <h3 class="pillar-title">18mm E1 Masif MDF</h3>
+            <p class="pillar-desc">Sunta kullanılmaz. Kastamonu Entegre ve AGT 1. sınıf masif panellerle ömürlük mukavemet.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">✨</div>
+            <h3 class="pillar-title">CNC Membran Zarafeti</h3>
+            <p class="pillar-desc">Yüksek vakum membran kaplama sayesinde neme, buhara ve çizilmelere karşı %100 dayanıklı yüzey.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🤫</div>
+            <h3 class="pillar-title">Sessiz Frenli Donanım</h3>
+            <p class="pillar-desc">Tüm kapak ve çekmecelerde Alman mühendisliği tandem ray ve frenli menteşe standarttır.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">🛡️</div>
+            <h3 class="pillar-title">5 Yıl Fabrika Garantisi</h3>
+            <p class="pillar-desc">Üretici güvencesiyle İstanbul fabrikamızdan doğrudan adrese teslim ve montaj desteği.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 3: FEATURED MASTER COLLECTIONS (ASYMMETRICAL LOOKBOOK) -->
+<section class="asym-collections theme-dark-espresso" id="koleksiyonlar">
+  <div class="luxury-container">
+    <div class="sec-header center reveal-on-scroll">
+      <span class="sec-eyebrow">SEÇKİN MİMARİ MASTER SUITES</span>
+      <h2 class="sec-title" style="color:#fff;">Karakterli Yaşam Alanları İçin 8 Seçkin Koleksiyon</h2>
+      <p class="sec-desc">
+        Viyana'nın dramatik zarafetinden Verona'nın gün ışığı ferahlığına; her biri kendi renk paleti ve mimari atmosferine sahip yatak odası koleksiyonlarımız.
+      </p>
     </div>
 
-    <form id="homeQuoteForm" onsubmit="submitHomeQuote(event)">
-      <input type="text" id="hq_model" class="form-input" readonly style="background:var(--ivory); font-weight:700;">
-      <input type="text" id="hq_name" class="form-input" required placeholder="Adınız Soyadınız">
-      <input type="tel" id="hq_phone" class="form-input" required placeholder="Telefon / WhatsApp Numaranız">
-      <input type="text" id="hq_city" class="form-input" placeholder="Şehir / İlçe">
-      <textarea id="hq_notes" class="form-textarea" rows="3" placeholder="Özel ölçü notlarınız (tavan yüksekliği, parça tercihleri vb.)"></textarea>
-      <button type="submit" id="btnHqSubmit" class="btn-editorial-cta" style="width:100%; border-radius:8px; padding:12px;">
-        ✦ Talebi Fabrikaya İlet
-      </button>
-    </form>
-  </div>
-</div>
+    <div class="asym-grid" id="homeCollectionsGrid">
+      <div style="grid-column:1/-1; text-align:center; padding:60px; color:rgba(255,255,255,0.6); font-family:var(--font-editorial); font-size:24px;">
+        Koleksiyonlar Derleniyor...
+      </div>
+    </div>
 
-<!-- SCRIPTS -->
+    <div style="text-align:center; margin-top:60px;">
+      <a href="koleksiyon.html" class="btn-editorial-gold" style="padding:16px 40px; font-size:12.5px;">
+        ✦ Tüm Koleksiyonları Tam Ekran İncele (Viyana, Verona, Siena...) →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 4: THE 2,000 M² FACTORY & CRAFTSMANSHIP (WARM TERRACOTTA) -->
+<section class="factory-atelier theme-warm-terracotta">
+  <div class="luxury-container">
+    <div class="sec-header center reveal-on-scroll">
+      <span class="sec-eyebrow" style="color:var(--color-gold-bright);">FABRİKA &amp; İMALAT GÜCÜ</span>
+      <h2 class="sec-title" style="color:#fff;">Aracısız, İstanbul Fabrikamızdan Evinize</h2>
+      <p class="sec-desc" style="color:rgba(255,255,255,0.9);">
+        Bağcılar'daki 2.000 m² tesisimizde bilgisayarlı 5-eksen CNC parkuru ve membran vakum presleriyle mimari hassasiyetle üretiyoruz.
+      </p>
+    </div>
+
+    <div class="factory-stats-grid reveal-on-scroll">
+      <div class="stat-box">
+        <div class="stat-num">2.000</div>
+        <div class="stat-label">m² Üretim Tesisi</div>
+        <div class="stat-sub">İstanbul Bağcılar Entegre Fabrika</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Yıllık Ustalık</div>
+        <div class="stat-sub">CNC Membran ve Masif Ahşap Zanaati</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Yıl Tam Garanti</div>
+        <div class="stat-sub">Gövde, Kapak ve Mekanizma Güvencesi</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">5</div>
+        <div class="stat-label">İş Gününde Üretim</div>
+        <div class="stat-sub">Özel Ölçüye Göre Hızlı Teslimat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 5: INDEPENDENT FUNCTIONAL FURNITURE (SUNLIT STONE) -->
+<section class="indep-section theme-sunlit-stone">
+  <div class="luxury-container">
+    <div class="sec-header center reveal-on-scroll">
+      <span class="sec-eyebrow">FONKSİYONEL MODÜLLER</span>
+      <h2 class="sec-title" style="color:var(--text-charcoal);">Bağımsız Mobilya &amp; Depolama Modelleri</h2>
+      <p class="sec-desc">
+        Antre, giyinme odası ve yatak odalarınıza özel ölçülerle hayat veren tekil mobilya tasarımlarımız. Koleksiyon parçalarından tamamen bağımsızdır.
+      </p>
+    </div>
+
+    <div class="indep-products-grid" id="homeProductsGrid">
+      <div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--text-muted-warm);">
+        Modüller yükleniyor...
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 6: BOTANICAL LIVING & MATERIALITY (FRAMA / VITRA STYLE) -->
+<section class="botanical-gallery-sec theme-forest-atelier">
+  <div class="luxury-container">
+    <div class="sec-header center reveal-on-scroll">
+      <span class="sec-eyebrow">DOĞAL YAŞAM &amp; BOTANİK ESTETİK</span>
+      <h2 class="sec-title" style="color:#fff;">Işık, Yeşillik ve Doğal Ahşabın Dingin Dengesi</h2>
+      <p class="sec-desc">
+        Global Mobilya tasarımları, iç mekan bitkileri, doğal taş zeminler ve süzülen gün ışığı ile bir araya geldiğinde yaşayan, nefes alan mekanlar oluşturur.
+      </p>
+    </div>
+
+    <div class="gallery-mosaic-grid reveal-on-scroll">
+      <div class="mosaic-col-8">
+        <img src="resim/showroom/luxury_showroom.jpg" alt="Mimari Showroom Yaşam Alanı" class="mosaic-img" loading="lazy">
+        <div class="mosaic-caption">
+          <strong>Viyana Salon Kompozisyonu</strong>
+          <span>18mm E1 MDF Masif Gövde • Bronz Detaylar • Doğal Ficus Yaprakları</span>
+        </div>
+      </div>
+      <div class="mosaic-col-4">
+        <img src="resim/showroom/nordic_atelier.jpg" alt="Nordik Gün Işığı Odası" class="mosaic-img" loading="lazy">
+        <div class="mosaic-caption">
+          <strong>Doğal Işık &amp; Ahşap Dokusu</strong>
+          <span>Kopenhag &amp; Verona Serisi Uyum</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <a href="galeri.html" class="btn-editorial-ghost">
+        Tüm Showroom Fotoğraflarını İncele ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 7: SHOWROOM CONCIERGE & APPOINTMENT -->
+<section class="concierge-sec theme-dark-espresso">
+  <div class="luxury-container">
+    <div class="concierge-box reveal-on-scroll">
+      <div class="concierge-info">
+        <span class="sec-eyebrow">MİMARİ DANIŞMANLIK &amp; RANDEVU</span>
+        <h2>Mekanınıza Özel Ölçü ve Üretim Danışmanlığı</h2>
+        <p>
+          Odanızın planını veya mimari çizimini bize iletin. Mühendislerimiz 18mm masif MDF konstrüksiyon, renk uyumu ve tavan yüksekliğine göre en ergonomik çözümü 24 saat içinde hazırlasın.
+        </p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="https://wa.me/905050151035?text=Merhaba%2C%20Global%20Mobilya%20mimari%20dan%C4%B1%C5%9Fmanl%C4%B1k%20ve%20%C3%B6zel%20%C3%B6l%C3%A7%C3%BC%20i%C3%A7in%20yaz%C4%B1yorum." target="_blank" class="btn-wa-pill" style="padding:14px 28px; font-size:12.5px;">
+            💬 WhatsApp ile Hemen Danış
+          </a>
+          <a href="iletisim.html" class="btn-editorial-ghost" style="padding:14px 28px;">
+            Fabrika Konumu &amp; İletişim ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="concierge-form-wrap">
+        <h3 style="font-family:var(--font-editorial); font-size:24px; color:var(--color-gold-bright); margin-bottom:14px;">Hızlı Teklif Formu</h3>
+        <form onsubmit="handleQuickQuote(event)">
+          <div class="form-group">
+            <input type="text" id="hq_name" required placeholder="Adınız Soyadınız">
+          </div>
+          <div class="form-group">
+            <input type="tel" id="hq_phone" required placeholder="Telefon Numaranız">
+          </div>
+          <div class="form-group">
+            <input type="text" id="hq_model" placeholder="İlgilendiğiniz Model (Örn: Viyana, Bahar Portmanto)">
+          </div>
+          <div class="form-group">
+            <textarea id="hq_notes" rows="2" placeholder="Odanızın ölçüsü veya notlarınız..."></textarea>
+          </div>
+          <button type="submit" class="btn-editorial-gold" id="btnHqSubmit" style="width:100%; justify-content:center; padding:12px;">
+            ✦ Fabrika Teklifi İste
+          </button>
+        </form>
+        <div id="hqSuccess" style="display:none; text-align:center; padding:14px; color:var(--color-gold-bright); font-size:13px; margin-top:10px;">
+          ✓ Talebiniz alındı! Mühendislerimiz kısa sürede dönüş yapacaktır.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script src="js/supabase-config.js"></script>
 <script>
-// Header scroll effect
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 60) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+// Hero Mood Switcher
+const heroLayers = [
+  document.getElementById('heroBg1'),
+  document.getElementById('heroBg2'),
+  document.getElementById('heroBg3')
+];
 
-// Hero slider
-let heroIndex = 0;
-const heroSlides = document.querySelectorAll('.hero-bg');
-if (heroSlides.length > 1) {
-  setInterval(() => {
-    heroSlides[heroIndex].classList.remove('active');
-    heroIndex = (heroIndex + 1) % heroSlides.length;
-    heroSlides[heroIndex].classList.add('active');
-  }, 6000);
+function switchHeroMood(idx, btn) {
+  heroLayers.forEach((layer, i) => {
+    layer.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.mood-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Reveal on Scroll
+function initScrollReveals() {
+  const elements = document.querySelectorAll('.reveal-on-scroll');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  elements.forEach(el => observer.observe(el));
 }
 
 // Load dynamic collections & products
 async function loadHomeShowroom() {
-  // 0. Veritabanından firma ve ana sayfa ayarlarını senkronize et
   syncHomeWithDatabase();
 
-  // 1. Koleksiyonları yükle
+  // 1. Koleksiyonları yükle (Viyana 1. sırada)
   const colGrid = document.getElementById('homeCollectionsGrid');
   try {
     let cols = [];
@@ -1085,70 +960,77 @@ async function loadHomeShowroom() {
       // 4 seçkin koleksiyonu asimetrik sergile (7-5 ve 6-6)
       const topCols = cols.slice(0, 4);
       colGrid.innerHTML = topCols.map((c, i) => {
-        const spanClass = (i === 0) ? 'span-7' : ((i === 1) ? 'span-5' : 'span-6');
+        const isHero = (i === 0);
+        const cardClass = isHero ? 'col-card-hero' : 'col-card-side';
         const palHtml = (c.color_palette || []).slice(0, 3).map(p => `<span class="palette-chip">${p}</span>`).join('');
         return `
-          <div class="col-tile ${spanClass}">
-            <div class="col-tile-img-wrap">
-              <img src="${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}" alt="${c.name}" class="col-tile-img" loading="lazy">
-              <span class="col-tile-tag">MİMARİ ODA SAHNESİ</span>
+          <div class="${cardClass} reveal-on-scroll">
+            <div class="card-media-wrap">
+              <img src="${c.hero_image_url || 'resim/showroom/luxury_showroom.jpg'}" alt="${c.name}" class="card-media" loading="lazy">
+              <span class="card-tag-top">MİMARİ MASTER SUITE</span>
             </div>
-            <div class="col-tile-body">
-              <span class="col-tile-style">${c.architecture_style || 'Modern Mimari'}</span>
-              <h3 class="col-tile-title">${c.name}</h3>
-              <p class="col-tile-story">${c.design_story || ''}</p>
-              <div class="col-tile-palettes">${palHtml}</div>
-              <a href="koleksiyon.html?id=${c.slug}" class="col-tile-link">
-                Koleksiyonu Keşfet →
-              </a>
+            <div class="card-body">
+              <span class="card-style">${c.architecture_style || 'Modern Mimari & Masif MDF'}</span>
+              <h3 class="card-title">${c.name}</h3>
+              <p class="card-story">${c.design_story || '18mm E1 masif MDF gövde ve CNC membran işçiliğiyle üretilen seçkin yatak odası koleksiyonu.'}</p>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">${palHtml}</div>
+              <div class="card-foot">
+                <a href="koleksiyon.html?id=${c.slug}" class="card-link">
+                  Tam Ekran Keşfet →
+                </a>
+                <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' koleksiyonu için mimari fiyat ve ölçü danışmak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 14px; font-size:11px;">
+                  💬 Danış
+                </a>
+              </div>
             </div>
           </div>
         `;
       }).join('');
+      initScrollReveals();
     }
   } catch(e) {
     console.error('Koleksiyon yükleme hatası:', e);
   }
 
-  // 2. Bağımsız ürünleri yükle (Web görünürlük kontrolü dahil)
+  // 2. Bağımsız ürünleri yükle (Koleksiyon parçaları kesinlikle süzüldü)
   const prodGrid = document.getElementById('homeProductsGrid');
   try {
     let prods = [];
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.getProducts) {
       prods = await window.GKM_SUPABASE.getProducts();
     }
-    // Modül 1'deki web_gorunur ve anasayfada_goster ayarlarını onayla
     const visibleProds = (prods || []).filter(p => p.web_gorunur !== false);
     if (visibleProds && visibleProds.length > 0) {
-      prodGrid.innerHTML = visibleProds.slice(0, 4).map(p => `
-        <div class="indep-card">
-          <div class="indep-img-wrap">
+      prodGrid.innerHTML = visibleProds.slice(0, 3).map(p => `
+        <div class="indep-card reveal-on-scroll">
+          <div class="indep-img-frame">
             <img src="${p.ana_resim || 'resim/logo.png'}" alt="${p.title}" class="indep-img" loading="lazy">
           </div>
           <div class="indep-body">
-            <span class="indep-cat">${p.kategori || 'Mobilya'}</span>
-            <h4 class="indep-title">${p.title || p.baslik}</h4>
-            <p class="indep-desc">${p.aciklama || p.description || ''}</p>
-            <div class="indep-actions">
+            <span class="indep-cat">${p.kategori || 'Portmanto & Depolama'}</span>
+            <h3 class="indep-title">${p.title || p.baslik}</h3>
+            <p class="indep-desc">${p.aciklama || p.description || '18mm E1 masif MDF, CNC membran kapak ve sessiz frenli mekanizma.'}</p>
+            <div class="indep-actions-row">
               <a href="urun.html?id=${p.slug}" class="btn-indep-detail">
-                İncele & Ölçüler
+                İncele &amp; Ölçüler →
               </a>
-              <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + (p.title || p.baslik) + ' hakkında bilgi almak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 12px; font-size:11px;" title="WhatsApp ile Sor">
+              <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + (p.title || p.baslik) + ' hakkında bilgi ve ölçü almak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 12px; font-size:11px;" title="WhatsApp ile Sor">
                 💬
               </a>
             </div>
           </div>
         </div>
       `).join('');
+      initScrollReveals();
     } else {
-      prodGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">Ürünler hazırlanıyor.</div>';
+      prodGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted-warm);">Ürünler hazırlanıyor.</div>';
     }
   } catch(e) {
     console.error('Ürün yükleme hatası:', e);
   }
 }
 
-// DYNAMIC DATABASE SYNCHRONIZATION (site_settings: genel & anasayfa)
+// Dynamic Database Sync
 async function syncHomeWithDatabase() {
   if (!window.GKM_SUPABASE) return;
   try {
@@ -1157,94 +1039,73 @@ async function syncHomeWithDatabase() {
       window.GKM_SUPABASE.getSiteSetting('anasayfa')
     ]);
 
-    if (genel) {
-      const firma = genel.firma || {};
-      const iletisim = genel.iletisim || {};
-      if (firma.ad) {
-        document.querySelectorAll('.header-brand-title').forEach(el => el.textContent = firma.ad);
-      }
-      if (iletisim.whatsapp) {
-        const cleanWa = iletisim.whatsapp.replace(/\D/g, '');
-        document.querySelectorAll('.btn-wa-pill').forEach(btn => {
-          if (!btn.href.includes('text=')) btn.href = 'https://wa.me/' + cleanWa;
-        });
-      }
+    if (anasayfa && anasayfa.hero_baslik) {
+      const hTitle = document.getElementById('heroTitle');
+      if (hTitle) hTitle.innerHTML = anasayfa.hero_baslik.replace(/\n/g, '<br>');
     }
-
-    if (anasayfa && anasayfa.hero) {
-      const hero = anasayfa.hero;
-      const eyebrow = document.querySelector('.hero-eyebrow');
-      const titleEl = document.querySelector('.hero-title');
-      const subEl = document.querySelector('.hero-subtext');
-
-      if (eyebrow && (hero.tag || hero.hero_etiket)) {
-        eyebrow.textContent = hero.tag || hero.hero_etiket;
-      }
-      if (titleEl && (hero.baslik_1 || hero.baslik_2 || hero.hero_baslik_1)) {
-        const b1 = hero.baslik_1 || hero.hero_baslik_1 || '';
-        const b2 = hero.baslik_2 || hero.hero_baslik_2 || '';
-        titleEl.innerHTML = `${b1} <span>${b2}</span>`;
-      }
-      if (subEl && (hero.alt_yazi || hero.hero_aciklama)) {
-        subEl.textContent = hero.alt_yazi || hero.hero_aciklama;
-      }
+    if (anasayfa && anasayfa.hero_alt_metin) {
+      const hDesc = document.getElementById('heroDesc');
+      if (hDesc) hDesc.textContent = anasayfa.hero_alt_metin;
     }
   } catch (err) {
-    console.warn('Ana sayfa senkronizasyon uyarısı:', err);
+    console.warn('Veritabanı senkronizasyonu atlandı:', err);
   }
 }
 
-// Modal işlemleri
-function openHomeQuoteModal(modelName) {
-  document.getElementById('hq_model').value = modelName || 'Genel Showroom Koleksiyonu';
-  document.getElementById('homeQuoteSuccess').style.display = 'none';
-  document.getElementById('homeQuoteForm').style.display = 'block';
-  document.getElementById('homeQuoteModal').classList.add('open');
-}
-
-function closeHomeQuoteModal() {
-  document.getElementById('homeQuoteModal').classList.remove('open');
-}
-
-async function submitHomeQuote(e) {
+async function handleQuickQuote(e) {
   e.preventDefault();
   const btn = document.getElementById('btnHqSubmit');
   btn.disabled = true;
   btn.textContent = 'İletiliyor...';
 
-  const model = document.getElementById('hq_model').value;
   const name = document.getElementById('hq_name').value.trim();
   const phone = document.getElementById('hq_phone').value.trim();
-  const city = document.getElementById('hq_city').value.trim();
+  const model = document.getElementById('hq_model').value.trim();
   const notes = document.getElementById('hq_notes').value.trim();
 
   try {
-    let res = null;
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.createQuoteRequest) {
-      res = await window.GKM_SUPABASE.createQuoteRequest({
-        name, phone, city,
-        collection_id: model,
-        notes: `Model: ${model} | Notlar: ${notes}`
+      await window.GKM_SUPABASE.createQuoteRequest({
+        name, phone,
+        collection_id: model || 'Genel Showroom Teklifi',
+        notes: `Model: ${model} | Not: ${notes}`
       });
     }
-
-    const ref = res?.reference_code || ('GM-2026-' + Math.floor(1000 + Math.random() * 9000));
-    document.getElementById('homeRefCodeDisplay').textContent = ref;
-
-    const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" için web sitesinden teklif talebi bıraktım. Bilgilerim: ${name} (${phone} - ${city}). Notum: ${notes}`;
-    document.getElementById('homeSuccessWaBtn').href = `https://wa.me/905050151035?text=${encodeURIComponent(waMsg)}`;
-
-    document.getElementById('homeQuoteForm').style.display = 'none';
-    document.getElementById('homeQuoteSuccess').style.display = 'block';
-  } catch(err) {
+    document.getElementById('hqSuccess').style.display = 'block';
+  } catch (err) {
     alert('Hata: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = '✦ Talebi Fabrikaya İlet';
+    btn.textContent = '✦ Fabrika Teklifi İste';
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadHomeShowroom);
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('siteHeader');
+  if (window.scrollY > 80) header.classList.add('scrolled');
+  else header.classList.remove('scrolled');
+});
+
+document.getElementById('btnHamburger')?.addEventListener('click', () => {
+  const nav = document.getElementById('headerNav');
+  if (nav.style.display === 'flex') nav.style.display = 'none';
+  else {
+    nav.style.display = 'flex';
+    nav.style.flexDirection = 'column';
+    nav.style.position = 'absolute';
+    nav.style.top = '100%';
+    nav.style.left = '0';
+    nav.style.right = '0';
+    nav.style.background = 'rgba(22, 18, 15, 0.98)';
+    nav.style.padding = '20px';
+    nav.style.gap = '16px';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadHomeShowroom();
+  initScrollReveals();
+});
 </script>
 
 <script src="js/footer.js"></script>
