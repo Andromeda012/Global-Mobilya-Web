@@ -47,10 +47,42 @@
     return { url, key };
   }
 
+  const R2_GATEWAY_ORIGIN = 'https://erp.globalkapakmobilya.com';
+  const B2C_API_ENDPOINTS = [
+    'https://erp.globalkapakmobilya.com/api/b2c-public',
+    'https://insta-deployment-rho.vercel.app/api/b2c-public'
+  ];
+  let cachedB2CPublicPayload = null;
+
+  async function fetchUnifiedB2CPublicCatalog() {
+    if (cachedB2CPublicPayload) return cachedB2CPublicPayload;
+    for (const ep of B2C_API_ENDPOINTS) {
+      try {
+        const res = await fetch(ep, { method: 'GET', cache: 'default' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.ok) {
+            cachedB2CPublicPayload = json;
+            return json;
+          }
+        }
+      } catch (_) {}
+    }
+    return null;
+  }
+
   function normalizeMediaUrl(url, fallback = 'resim/logo.png') {
     if (!url || typeof url !== 'string') return fallback;
     const trimmed = url.trim();
     if (!trimmed) return fallback;
+    // Eski Supabase Storage bağlantılarını otomatik Cloudflare R2 CDN geçidine yönlendir
+    const supaMatch = trimmed.match(/\/storage\/v1\/object\/(?:public\/)?media\/(.+)$/i);
+    if (supaMatch && supaMatch[1]) {
+      return `${R2_GATEWAY_ORIGIN}/r2/${supaMatch[1].replace(/^\/+/, '')}`;
+    }
+    if (trimmed.startsWith('/r2/')) {
+      return `${R2_GATEWAY_ORIGIN}${trimmed}`;
+    }
     if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('blob:')) {
       return trimmed;
     }
@@ -246,6 +278,25 @@
      * parçalarıyla birlikte tespit edip EN ÜST SIRADA sunar.
      */
     async getCollections() {
+      // 1. Önce Faz 6 Birleşik B2C & 3D Showroom API'sinden (Modül 7 + Modül 8 .glb + Cloudflare R2) çek
+      const unified = await fetchUnifiedB2CPublicCatalog();
+      if (unified && Array.isArray(unified.collections) && unified.collections.length > 0) {
+        const merged = unified.collections.map(c => ({
+          ...c,
+          hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/anasayfa-resimleri/warm-hero.jpg'),
+          model_3d_url: c.model_3d_url ? normalizeMediaUrl(c.model_3d_url, '') : null,
+          pieces: (c.pieces || []).map(pc => ({
+            ...pc,
+            image_url: normalizeMediaUrl(pc.image_url, 'resim/logo.png'),
+            model_3d_url: pc.model_3d_url ? normalizeMediaUrl(pc.model_3d_url, '') : null
+          }))
+        }));
+        FALLBACK_COLLECTIONS.forEach(fb => {
+          if (!merged.some(m => m.slug === fb.slug)) merged.push(fb);
+        });
+        return merged;
+      }
+
       const prods = await restSelect('products?select=*&order=created_at.desc');
       const allProds = Array.isArray(prods) ? prods : [];
 

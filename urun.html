@@ -16,6 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -580,9 +581,46 @@ function renderProduct(p) {
     document.getElementById('colLinkedBadge').href = `koleksiyon.html?id=${matched.slug}`;
   }
 
-  // Photos
+  // Photos + Optional Cloudflare R2 3D (<model-viewer>) Interactive Showroom
   const mainImgUrl = p.ana_resim || 'resim/logo.png';
   document.getElementById('mainPhoto').src = mainImgUrl;
+  if (p.model_3d_url) {
+    const photoWrap = document.getElementById('mainPhotoWrap');
+    if (photoWrap && !document.getElementById('toggle3dBtn')) {
+      const btn3d = document.createElement('button');
+      btn3d.id = 'toggle3dBtn';
+      btn3d.type = 'button';
+      btn3d.style.cssText = 'position:absolute;bottom:16px;right:16px;z-index:20;background:rgba(15,23,42,0.88);color:#fde68a;border:1px solid #d4af37;padding:10px 16px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;backdrop-filter:blur(8px);';
+      btn3d.textContent = '🧊 3D & AR İncele';
+      btn3d.onclick = (ev) => {
+        ev.stopPropagation();
+        const existingMv = document.getElementById('prodModelViewer3D');
+        if (existingMv) {
+          existingMv.remove();
+          document.getElementById('mainPhoto').style.display = 'block';
+          btn3d.textContent = '🧊 3D & AR İncele';
+          return;
+        }
+        document.getElementById('mainPhoto').style.display = 'none';
+        const mv = document.createElement('model-viewer');
+        mv.id = 'prodModelViewer3D';
+        mv.setAttribute('src', p.model_3d_url);
+        mv.setAttribute('alt', title);
+        mv.setAttribute('ar', '');
+        mv.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+        mv.setAttribute('camera-controls', '');
+        mv.setAttribute('auto-rotate', '');
+        mv.setAttribute('shadow-intensity', '1');
+        mv.style.cssText = 'width:100%;height:100%;background:#111827;';
+        photoWrap.appendChild(mv);
+        btn3d.textContent = '🖼️ Fotoğrafa Dön';
+        if (window.NOVA_TELEMETRY?.trackEvent) {
+          window.NOVA_TELEMETRY.trackEvent('3d_model_interacted', { model_name: title, model_src: p.model_3d_url });
+        }
+      };
+      photoWrap.appendChild(btn3d);
+    }
+  }
   currentPhotos = [mainImgUrl];
   if (p.galeri && Array.isArray(p.galeri)) {
     p.galeri.forEach(g => { if (g && !currentPhotos.includes(g)) currentPhotos.push(g); });

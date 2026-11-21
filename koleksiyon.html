@@ -16,6 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
 /* ── IMMERSIVE COLLECTIONS STYLES ── */
@@ -741,6 +742,11 @@ async function initCollectionsPage() {
                 <button type="button" class="btn-editorial-gold" onclick="openQuoteForCollection('${c.name}')">
                   ✦ Bu Koleksiyon İçin Fiyat Al
                 </button>
+                ${c.model_3d_url ? `
+                  <button type="button" class="btn-editorial-gold" style="background:rgba(15,23,42,0.85);color:#fde68a;border:1px solid #d4af37;" onclick="openCollection3DModal('${c.name}', '${c.model_3d_url}')">
+                    🧊 3D &amp; AR Showroom
+                  </button>
+                ` : ''}
                 <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' koleksiyonu hakkında detaylı bilgi ve özel mimari ölçü teklifi almak istiyorum.')}" target="_blank" class="btn-wa-pill">
                   💬 WhatsApp ile Danış
                 </a>
@@ -861,6 +867,33 @@ function openQuoteModal() {
 
 function closeQuoteModal() {
   document.getElementById('quoteModal').classList.remove('open');
+}
+
+function openCollection3DModal(name, modelUrl) {
+  let modal = document.getElementById('col3dViewerModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'col3dViewerModal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:999998;background:rgba(10,12,18,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;';
+    modal.innerHTML = `
+      <div style="position:relative;width:min(960px,100%);height:min(680px,86vh);background:#0f172a;border:1px solid rgba(212,175,55,0.45);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08);">
+          <strong id="col3dTitle" style="color:#fde68a;font-size:15px;">🧊 3D Dijital Showroom</strong>
+          <button type="button" onclick="document.getElementById('col3dViewerModal').style.display='none'" style="background:#1e293b;color:#fff;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;">✕</button>
+        </div>
+        <div id="col3dMount" style="flex:1;width:100%;height:100%;"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  modal.style.display = 'flex';
+  document.getElementById('col3dTitle').textContent = `🧊 ${name} — 3D & AR İnceleme`;
+  document.getElementById('col3dMount').innerHTML = `
+    <model-viewer src="${modelUrl}" alt="${name}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" style="width:100%;height:100%;background:#0b1120;"></model-viewer>
+  `;
+  if (window.NOVA_TELEMETRY?.trackEvent) {
+    window.NOVA_TELEMETRY.trackEvent('3d_model_interacted', { model_name: name, model_src: modelUrl });
+  }
 }
 
 async function submitCollectionQuote(e) {
