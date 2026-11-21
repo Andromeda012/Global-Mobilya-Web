@@ -47,7 +47,7 @@
     return { url, key };
   }
 
-  const R2_GATEWAY_ORIGIN = 'https://erp.globalkapakmobilya.com';
+  const R2_CDN_BASE = 'https://cdn.globalkapakmobilya.com';
   const B2C_API_ENDPOINTS = [
     'https://erp.globalkapakmobilya.com/api/b2c-public',
     'https://insta-deployment-rho.vercel.app/api/b2c-public'
@@ -75,13 +75,17 @@
     if (!url || typeof url !== 'string') return fallback;
     const trimmed = url.trim();
     if (!trimmed) return fallback;
-    // Eski Supabase Storage bağlantılarını otomatik Cloudflare R2 CDN geçidine yönlendir
+    // Eski Supabase Storage bağlantılarını doğrudan Cloudflare R2 CDN'e (cdn.globalkapakmobilya.com) yönlendir
     const supaMatch = trimmed.match(/\/storage\/v1\/object\/(?:public\/)?media\/(.+)$/i);
     if (supaMatch && supaMatch[1]) {
-      return `${R2_GATEWAY_ORIGIN}/r2/${supaMatch[1].replace(/^\/+/, '')}`;
+      return `${R2_CDN_BASE}/${supaMatch[1].replace(/^\/+/, '')}`;
     }
     if (trimmed.startsWith('/r2/')) {
-      return `${R2_GATEWAY_ORIGIN}${trimmed}`;
+      return `${R2_CDN_BASE}/${trimmed.slice(4).replace(/^\/+/, '')}`;
+    }
+    const gwMatch = trimmed.match(/^https?:\/\/(?:erp\.globalkapakmobilya\.com|insta-deployment-rho\.vercel\.app)\/r2\/(.+)$/i);
+    if (gwMatch && gwMatch[1]) {
+      return `${R2_CDN_BASE}/${gwMatch[1].replace(/^\/+/, '')}`;
     }
     if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('blob:')) {
       return trimmed;
