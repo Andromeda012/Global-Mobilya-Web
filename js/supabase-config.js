@@ -386,6 +386,14 @@
       } catch (_) {}
 
       const inserted = await restInsert('quote_requests', payload);
+      if (window.NOVA_TELEMETRY?.trackEvent) {
+        window.NOVA_TELEMETRY.trackEvent('quote_or_order_submitted', {
+          reference_code: refCode,
+          model_name: quoteData.collection_id || 'Özel Ölçü Mobilya',
+          city: quoteData.city || '',
+          clerk_user_id: clerkUserId || undefined
+        });
+      }
       return { ok: true, reference_code: refCode, data: inserted };
     },
 
@@ -697,5 +705,15 @@
         }
       });
     });
+
+    // Faz 4: B2C Vitrin PostHog EU + Sentry EU Telemetri Modülünü Otomatik Yükle
+    if (!window.__NOVA_TELEMETRY_LOADED__) {
+      const ts = document.createElement('script');
+      ts.src = (window.location.pathname.includes('/urun/') || window.location.pathname.includes('/blog/'))
+        ? '../js/nova-telemetry.js'
+        : 'js/nova-telemetry.js';
+      ts.async = true;
+      document.head.appendChild(ts);
+    }
   });
 })();
