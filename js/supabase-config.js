@@ -565,8 +565,8 @@
 
     clerkLoadPromise = (async () => {
       const srcs = [
-        'https://clerk.globalkapakmobilya.com/npm/@clerk/clerk-js@5/dist/clerk.browser.js',
-        'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js'
+        'https://clerk.globalkapakmobilya.com/npm/@clerk/clerk-js@6/dist/clerk.browser.js',
+        'https://cdn.jsdelivr.net/npm/@clerk/clerk-js@6/dist/clerk.browser.js'
       ];
       for (const src of srcs) {
         if (window.Clerk) break;
