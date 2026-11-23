@@ -1,23 +1,23 @@
 /**
  * Global Mobilya — Etkileşimli Koleksiyon Sahnesi Yapılandırma ve Otomasyon Kayıt Defteri
  * --------------------------------------------------------------------------------------
- * Her koleksiyon için çok katmanlı (arka plan + modül dolaplar + ön plan dekorlar)
- * sahne tanımlarını tutar. İleride Supabase `collections.scene_config` JSONB sütunundan
- * doğrudan beslendiğinde yeni koleksiyonlar kod değişikliği olmadan otomatik sahne alır.
+ * Her koleksiyon için tam genişlik çok katmanlı sahne tanımlarını tutar.
+ * Animasyonlar ilk yerleşim sonrasında konumlarını sabitler; modüller hover/tıklama ve
+ * alt sahne şeridi üzerinden etkileşimli olarak incelenir.
  */
 
 export const BERGAMO_SCENE_CONFIG = {
-  id: 'bergamo-interactive-scene-v1',
+  id: 'bergamo-interactive-scene-v2',
   collectionSlugMatch: 'bergamo',
+  fullBleedStage: true,
+  hideFlatPiecesTray: true,
   stageAspectRatio: '1920 / 1072',
-  badgeText: 'Etkileşimli Modül Sahnesi · İncelemek İçin Üzerine Gelin',
   background: {
     src: '/hero/bg.jpg',
     alt: 'Bergamo Kahve Köşesi Tuğla ve Sıva Duvarlı Showroom Mekânı',
-    initialScale: 1.06,
+    initialScale: 1.05,
     targetScale: 1.0,
-    entranceDurationSec: 1.2,
-    parallaxStrengthPx: 8,
+    entranceDurationSec: 1.15,
   },
   modules: [
     {
@@ -30,11 +30,11 @@ export const BERGAMO_SCENE_CONFIG = {
       heightPct: 63.2,
       aspectRatio: '900 / 1447',
       zIndex: 21,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.08,
       eyebrow: 'Tek Vitrinli Modül',
-      label: 'Bergamo Orta Modül',
-      dimensions: '140 × 210 × 45 cm',
+      label: 'Orta Boy Modül',
+      dimensions: '120 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-orta-kahve-kosesi-2',
     },
     {
@@ -47,11 +47,11 @@ export const BERGAMO_SCENE_CONFIG = {
       heightPct: 65.0,
       aspectRatio: '900 / 1897',
       zIndex: 22,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.23,
       eyebrow: 'Kompakt İstasyon',
-      label: 'Bergamo Küçük Modül',
-      dimensions: '100 × 210 × 45 cm',
+      label: 'Küçük Boy Modül',
+      dimensions: '80 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-kucuk-kahve-kosesi-1',
     },
     {
@@ -60,15 +60,15 @@ export const BERGAMO_SCENE_CONFIG = {
       src: '/hero/dolap-3.png',
       alt: 'Bergamo Büyük Boy Çift Vitrinli Kahve Köşesi Modülü',
       leftPct: 62.5,
-      bottomPct: 13.8,
+      bottomPct: 14.0,
       heightPct: 64.6,
       aspectRatio: '1000 / 1229',
       zIndex: 23,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.38,
       eyebrow: 'Çift Vitrinli Amiral',
-      label: 'Bergamo Büyük Modül',
-      dimensions: '180 × 210 × 45 cm',
+      label: 'Büyük Boy Modül',
+      dimensions: '160 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-buyuk-kahve-kosesi-3',
     },
   ],
@@ -83,9 +83,7 @@ export const BERGAMO_SCENE_CONFIG = {
       widthPct: 22.13,
       aspectRatio: '609 / 613',
       zIndex: 31,
-      entranceX: -72,
-      parallaxFactorX: 1.35,
-      parallaxFactorY: 1.0,
+      entranceX: -64,
     },
     {
       id: 'bergamo-dekor-sag',
@@ -97,9 +95,7 @@ export const BERGAMO_SCENE_CONFIG = {
       widthPct: 17.22,
       aspectRatio: '474 / 569',
       zIndex: 32,
-      entranceX: 72,
-      parallaxFactorX: 1.55,
-      parallaxFactorY: 1.15,
+      entranceX: 64,
     },
   ],
 };
@@ -141,17 +137,15 @@ function enrichModulesFromPieces(modules, collection) {
   });
 }
 
-/**
- * Verilen koleksiyon kaydı için etkileşimli sahne yapılandırmasını çözer.
- * 1) Öncelik Supabase/CRM kaydındaki `collection.scene_config` alanındadır.
- * 2) İkincil olarak yerel `COLLECTION_SCENES` kayıt defteri koleksiyon slug'ı ile eşleştirilir.
- * 3) Eşleşen modüller canlı `collection.pieces` verisiyle zenginleştirilir.
- */
 export function resolveCollectionSceneConfig(collection) {
   if (!collection) return null;
 
   let base = null;
-  if (collection.scene_config && typeof collection.scene_config === 'object' && Array.isArray(collection.scene_config.modules)) {
+  if (
+    collection.scene_config &&
+    typeof collection.scene_config === 'object' &&
+    Array.isArray(collection.scene_config.modules)
+  ) {
     base = collection.scene_config;
   } else {
     const slug = String(collection.slug || '').toLowerCase();

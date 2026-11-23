@@ -1,23 +1,23 @@
 /**
- * Global Mobilya — Otomatik Çok Katmanlı Etkileşimli Koleksiyon Sahnesi (Framer Motion + React 18)
- * -----------------------------------------------------------------------------------------------
- * Koleksiyon sayfasında (`koleksiyon.html`) tanımlı `scene_config` veya `COLLECTION_SCENES`
- * eşleşmesi olan her seri için otomatik olarak şu katmanlı yapıyı üretir:
- *   - Katman 1 (z-10): Arka Plan mekân görseli (1.06 -> 1.0 smooth zoom-out + mouse parallax)
- *   - Katman 2 (z-20): Referans ölçülerine yüzdeyle kilitli modül dolapları
- *     (yukarıdan aşağıya yay fiziği + 0.15s stagger + hover/dokunma vurgusu + ürün tooltip'i)
- *   - Katman 3 (z-30): Sol & sağ ön plan dekorları (yatay giriş + derinlikli mouse parallax)
+ * Global Mobilya — Fotogerçekçi Işıklı & Sabitlenebilen Koleksiyon Sahnesi Engine
+ * ---------------------------------------------------------------------------------
+ * 1) Katman 1 (z-10): Mekân arka planı (tüm sahneyi kaplar, 1.05 -> 1.0 smooth yerleşim).
+ * 2) Katman 2 (z-20): Dolap modülleri — tabanında yüksek bulanıklıklı temas gölgesi
+ *    (contact shadow) + arkaya doğru çok katmanlı drop-shadow + sabitlenmiş yerleşim
+ *    (fare hareketiyle kaymaz; yalnızca hover vurgusu ve ürün bilgi kartı açılır).
+ * 3) Katman 3 (z-30): Ön plan dekorları — taban temas gölgesi + gölge derinliği,
+ *    giriş animasyonundan sonra konumunda sabit kalır.
+ * 4) Katman 4 (z-38): pointer-events-none sıcak ton bütünleştirici katman (`mix-blend-mode: multiply`).
+ * 5) Alt İnteraktif Modül Şeridi: Düz kart tekrarı yerine sahne üzerindeki ürünleri
+ *    vurgulayıp doğrudan ürün detayına yönlendiren etkileşimli kontrol barı.
  */
 
-import React, { useEffect, useRef, useState } from 'https://esm.sh/react@18.3.1';
+import React, { useState } from 'https://esm.sh/react@18.3.1';
 import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
 import {
   AnimatePresence,
   MotionConfig,
   motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
 } from 'https://esm.sh/framer-motion@11.11.17?deps=react@18.3.1,react-dom@18.3.1';
 import { resolveCollectionSceneConfig } from './heroConfig.js';
 
@@ -37,15 +37,15 @@ function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, on
         aspectRatio: item.aspectRatio,
         zIndex: isActive ? 45 : item.zIndex,
       },
-      initial: { y: item.entranceY ?? -100, opacity: 0 },
+      initial: { y: item.entranceY ?? -96, opacity: 0 },
       whileInView: { y: 0, opacity: 1 },
-      viewport: { once: true, amount: 0.2 },
+      viewport: { once: true, amount: 0.15 },
       transition: {
         y: { type: 'spring', stiffness: 65, damping: 14, delay: item.entranceDelaySec ?? index * 0.15 },
-        opacity: { duration: 0.48, delay: item.entranceDelaySec ?? index * 0.15 },
-        scale: { type: 'spring', stiffness: 280, damping: 22 },
+        opacity: { duration: 0.45, delay: item.entranceDelaySec ?? index * 0.15 },
+        scale: { type: 'spring', stiffness: 280, damping: 24 },
       },
-      whileHover: { scale: 1.022 },
+      whileHover: { scale: 1.016 },
       onMouseEnter: () => onActivate(item.id),
       onMouseLeave: () => onDeactivate(item.id),
       onClick: (e) => {
@@ -54,6 +54,8 @@ function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, on
         onToggleTap(item.id);
       },
     },
+    // Zemin temas gölgesi (blur-md eşdeğeri koyu elips AO)
+    h('span', { className: 'scase-contact-shadow scase-contact-module', 'aria-hidden': 'true' }),
     h('img', {
       src: item.src,
       alt: item.alt,
@@ -74,7 +76,7 @@ function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, on
               initial: { opacity: 0, y: 8, scale: 0.94 },
               animate: { opacity: 1, y: 0, scale: 1 },
               exit: { opacity: 0, y: 6, scale: 0.94 },
-              transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
+              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
               onClick: (e) => e.stopPropagation(),
             },
             h('span', { className: 'scase-tooltip-eyebrow' }, item.eyebrow),
@@ -96,12 +98,7 @@ function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, on
   );
 }
 
-function InteractiveDecorLayer({ decor, normX, normY }) {
-  const pxRange = 14 * (decor.parallaxFactorX ?? 1.2);
-  const pyRange = 8 * (decor.parallaxFactorY ?? 1.0);
-  const x = useTransform(normX, [-0.5, 0.5], [-pxRange, pxRange]);
-  const y = useTransform(normY, [-0.5, 0.5], [-pyRange, pyRange]);
-
+function StaticAnchoredDecorLayer({ decor }) {
   const posStyle = {
     bottom: `${decor.bottomPct}%`,
     width: `${decor.widthPct}%`,
@@ -116,62 +113,23 @@ function InteractiveDecorLayer({ decor, normX, normY }) {
     {
       className: `scase-decor-slot scase-decor-${decor.side}`,
       style: posStyle,
-      initial: { x: decor.entranceX ?? (decor.side === 'left' ? -72 : 72), opacity: 0 },
+      initial: { x: decor.entranceX ?? (decor.side === 'left' ? -64 : 64), opacity: 0 },
       whileInView: { x: 0, opacity: 1 },
-      viewport: { once: true, amount: 0.2 },
-      transition: { duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
+      viewport: { once: true, amount: 0.15 },
+      transition: { duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] },
     },
-    h(
-      motion.div,
-      { className: 'scase-decor-parallax', style: { x, y } },
-      h('img', {
-        src: decor.src,
-        alt: decor.alt,
-        className: 'scase-decor-img',
-        draggable: false,
-      })
-    )
+    h('span', { className: 'scase-contact-shadow scase-contact-decor', 'aria-hidden': 'true' }),
+    h('img', {
+      src: decor.src,
+      alt: decor.alt,
+      className: 'scase-decor-img',
+      draggable: false,
+    })
   );
 }
 
 function CollectionShowcaseStage({ scene }) {
-  const stageRef = useRef(null);
   const [hoveredId, setHoveredId] = useState(null);
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth >= 900 : true
-  );
-
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const smoothX = useSpring(rawX, { stiffness: 95, damping: 24, mass: 0.65 });
-  const smoothY = useSpring(rawY, { stiffness: 95, damping: 24, mass: 0.65 });
-
-  const bgStrength = scene.background?.parallaxStrengthPx ?? 8;
-  const bgX = useTransform(smoothX, [-0.5, 0.5], [bgStrength, -bgStrength]);
-  const bgY = useTransform(smoothY, [-0.5, 0.5], [bgStrength * 0.6, -bgStrength * 0.6]);
-
-  useEffect(() => {
-    const onResize = () => setIsDesktop(window.innerWidth >= 900);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  const handleMouseMove = (e) => {
-    if (!isDesktop || !stageRef.current) return;
-    const rect = stageRef.current.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    const nx = (e.clientX - rect.left) / rect.width - 0.5;
-    const ny = (e.clientY - rect.top) / rect.height - 0.5;
-    rawX.set(nx);
-    rawY.set(ny);
-  };
-
-  const handleMouseLeaveStage = () => {
-    rawX.set(0);
-    rawY.set(0);
-    setHoveredId(null);
-  };
-
   const modules = scene.modules || [];
   const decors = scene.decors || [];
 
@@ -180,80 +138,98 @@ function CollectionShowcaseStage({ scene }) {
     { reducedMotion: 'never' },
     h(
       'div',
-      {
-        ref: stageRef,
-        className: 'scase-stage',
-        style: { aspectRatio: scene.stageAspectRatio || '1920 / 1072' },
-        onMouseMove: handleMouseMove,
-        onMouseLeave: handleMouseLeaveStage,
-        onClick: () => setHoveredId(null),
-      },
-      // Katman 1 (z-10): Arka Plan + Scale 1.06 -> 1.0 + İnce Mouse Parallax
+      { className: 'scase-stage-shell' },
       h(
-        motion.div,
+        'div',
         {
-          className: 'scase-layer-bg',
-          style: isDesktop ? { x: bgX, y: bgY } : undefined,
+          className: 'scase-stage',
+          style: { aspectRatio: scene.stageAspectRatio || '1920 / 1072' },
+          onMouseLeave: () => setHoveredId(null),
+          onClick: () => setHoveredId(null),
         },
-        h(motion.img, {
-          src: scene.background.src,
-          alt: scene.background.alt,
-          className: 'scase-bg-img',
-          initial: { scale: scene.background.initialScale ?? 1.06 },
-          whileInView: { scale: scene.background.targetScale ?? 1.0 },
-          viewport: { once: true, amount: 0.2 },
-          transition: {
-            duration: scene.background.entranceDurationSec ?? 1.2,
-            ease: [0.22, 1, 0.36, 1],
-          },
-          draggable: false,
-        })
-      ),
-
-      // Katman 2 (z-20): Referans Ölçü ve Konumlarda Modül Dolapları
-      h(
-        'div',
-        { className: 'scase-layer-modules', 'aria-label': 'Koleksiyon Modülleri' },
-        modules.map((mod, idx) =>
-          h(InteractiveModuleSlot, {
-            key: mod.id || idx,
-            item: mod,
-            index: idx,
-            isActive: hoveredId === mod.id,
-            isDimmed: Boolean(hoveredId && hoveredId !== mod.id),
-            onActivate: (id) => setHoveredId(id),
-            onDeactivate: (id) => setHoveredId((prev) => (prev === id ? null : prev)),
-            onToggleTap: (id) => setHoveredId((prev) => (prev === id ? null : id)),
+        // Katman 1 (z-10): Sabitlenebilen Tam Arka Plan
+        h(
+          'div',
+          { className: 'scase-layer-bg' },
+          h(motion.img, {
+            src: scene.background.src,
+            alt: scene.background.alt,
+            className: 'scase-bg-img',
+            initial: { scale: scene.background.initialScale ?? 1.05 },
+            whileInView: { scale: scene.background.targetScale ?? 1.0 },
+            viewport: { once: true, amount: 0.15 },
+            transition: {
+              duration: scene.background.entranceDurationSec ?? 1.15,
+              ease: [0.22, 1, 0.36, 1],
+            },
+            draggable: false,
           })
-        )
+        ),
+
+        // Katman 2 (z-20): Referans Konumlarına Sabitlenen Modüller (fare ile kayma yok)
+        h(
+          'div',
+          { className: 'scase-layer-modules', 'aria-label': 'Koleksiyon Modülleri' },
+          modules.map((mod, idx) =>
+            h(InteractiveModuleSlot, {
+              key: mod.id || idx,
+              item: mod,
+              index: idx,
+              isActive: hoveredId === mod.id,
+              isDimmed: Boolean(hoveredId && hoveredId !== mod.id),
+              onActivate: (id) => setHoveredId(id),
+              onDeactivate: (id) => setHoveredId((prev) => (prev === id ? null : prev)),
+              onToggleTap: (id) => setHoveredId((prev) => (prev === id ? null : id)),
+            })
+          )
+        ),
+
+        // Katman 3 (z-30): Sabitlenen Ön Plan Dekorları (temas gölgeli, kayma yok)
+        h(
+          'div',
+          { className: 'scase-layer-decors', 'aria-hidden': 'true' },
+          decors.map((d) => h(StaticAnchoredDecorLayer, { key: d.id, decor: d }))
+        ),
+
+        // Katman 4 (z-38): Sıcak Ortam Işığı Ton Bütünleştirici (mix-blend-mode: multiply, pointer-events-none)
+        h('div', { className: 'scase-warm-blend', 'aria-hidden': 'true' })
       ),
 
-      // Katman 3 (z-30): Ön Plan Dekorları + Desktop Parallax
-      h(
-        'div',
-        { className: 'scase-layer-decors', 'aria-hidden': 'true' },
-        decors.map((d) =>
-          h(InteractiveDecorLayer, {
-            key: d.id,
-            decor: d,
-            normX: smoothX,
-            normY: smoothY,
-          })
-        )
-      ),
-
-      // Bilgilendirme Rozeti
-      scene.badgeText
-        ? h('div', { className: 'scase-hint-pill' }, scene.badgeText)
+      // Sahne altı kompakt etkileşimli modül seçici barı
+      modules.length
+        ? h(
+            'div',
+            { className: 'scase-dock-bar', 'aria-label': 'Seri Modülleri Hızlı İnceleme' },
+            h(
+              'span',
+              { className: 'scase-dock-label' },
+              'Modülü sahnede vurgulamak için üzerine gelin veya dokunun:'
+            ),
+            h(
+              'div',
+              { className: 'scase-dock-pills' },
+              modules.map((mod) =>
+                h(
+                  'a',
+                  {
+                    key: `dock-${mod.id}`,
+                    href: mod.link,
+                    className: `scase-dock-pill${hoveredId === mod.id ? ' is-active' : ''}`,
+                    onMouseEnter: () => setHoveredId(mod.id),
+                    onMouseLeave: () => setHoveredId(null),
+                  },
+                  h('strong', null, mod.label),
+                  mod.dimensions ? h('span', null, mod.dimensions) : null,
+                  h('em', null, 'Detaya Git →')
+                )
+              )
+            )
+          )
         : null
     )
   );
 }
 
-/**
- * Sayfadaki tüm `[data-collection-scene]` kapsayıcılarına ilgili koleksiyon sahnesini
- * otomatik kurar; filtre değişimlerinde eski React ağaçlarını temizler.
- */
 export function mountAllCollectionScenes(collections = []) {
   for (const [el, root] of ACTIVE_ROOTS.entries()) {
     if (!document.body.contains(el)) {

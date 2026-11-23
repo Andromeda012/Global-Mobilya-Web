@@ -2,10 +2,7 @@
  * Global Kapak Mobilya — Etkileşimli Koleksiyon Sahnesi Yapılandırma Şeması
  * -------------------------------------------------------------------------
  * Gelecekteki Supabase / ERP entegrasyonu için tüm çok katmanlı sahne görselleri,
- * yüzde koordinatları, oranlar ve tooltip ürün verileri tek bir veri şemasında tutulur.
- * `collections` tablosunda eklenecek opsiyonel `scene_config` JSONB sütunu veya
- * `COLLECTION_SCENES` kayıt defteri üzerinden yeni koleksiyonlar otomatik olarak
- * çok katmanlı etkileşimli sahneye dönüşür.
+ * yüzde koordinatları, ışık/gölge ayarları ve tooltip ürün verileri tek şemada tutulur.
  */
 
 export interface SceneBackgroundConfig {
@@ -14,20 +11,15 @@ export interface SceneBackgroundConfig {
   initialScale: number;
   targetScale: number;
   entranceDurationSec: number;
-  parallaxStrengthPx: number;
 }
 
 export interface SceneModuleItem {
   id: string;
-  /** Koleksiyon içi parça slug eşleştirme anahtarı (otomatik CRM/ERP parça eşleştirme için) */
   pieceSlugHint?: string;
   src: string;
   alt: string;
-  /** 1920x1072 (16:9) sahne tuvalinde sol kenar yüzdesi (%) */
   leftPct: number;
-  /** Sahne alt kenarından yukarıya zemin/süpürgelik hiza yüzdesi (%) */
   bottomPct: number;
-  /** Sahne yüksekliğine göre yükseklik yüzdesi (%) — en-boy oranı naturalWidth/Height ile korunur */
   heightPct: number;
   aspectRatio: string;
   zIndex: number;
@@ -47,43 +39,35 @@ export interface SceneDecorItem {
   leftPct?: number;
   rightPct?: number;
   bottomPct: number;
-  /** Sahne genişliğine göre genişlik yüzdesi (%) */
   widthPct: number;
   aspectRatio: string;
   zIndex: number;
   entranceX: number;
-  parallaxFactorX: number;
-  parallaxFactorY: number;
 }
 
 export interface CollectionSceneConfig {
   id: string;
   collectionSlugMatch: string;
+  fullBleedStage: boolean;
+  hideFlatPiecesTray: boolean;
   stageAspectRatio: string;
-  badgeText: string;
   background: SceneBackgroundConfig;
   modules: SceneModuleItem[];
   decors: SceneDecorItem[];
 }
 
-/**
- * Bergamo Kahve Köşesi referans sahne yerleşimi:
- * 16:9 (1920x1072) arka plan üzerinde solda Tek Vitrinli Orta Modül (dolap-2),
- * ortada Kompakt Küçük Modül (dolap-1), sağda Çift Vitrinli Büyük Modül (dolap-3),
- * ön planda ise sol bar masası/tabureler (dekor-sol) ve sağ deri koltuk/sehpa (dekor-sag).
- */
 export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
-  id: 'bergamo-interactive-scene-v1',
+  id: 'bergamo-interactive-scene-v2',
   collectionSlugMatch: 'bergamo',
+  fullBleedStage: true,
+  hideFlatPiecesTray: true,
   stageAspectRatio: '1920 / 1072',
-  badgeText: 'Etkileşimli 3 Modüllü Sahne · İncelemek İçin Modüle Gelin',
   background: {
     src: '/hero/bg.jpg',
     alt: 'Bergamo Kahve Köşesi Tuğla ve Sıva Duvarlı Showroom Mekânı',
-    initialScale: 1.06,
+    initialScale: 1.05,
     targetScale: 1.0,
-    entranceDurationSec: 1.2,
-    parallaxStrengthPx: 8,
+    entranceDurationSec: 1.15,
   },
   modules: [
     {
@@ -96,11 +80,11 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       heightPct: 63.2,
       aspectRatio: '900 / 1447',
       zIndex: 21,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.08,
       eyebrow: 'Tek Vitrinli Modül',
-      label: 'Bergamo Orta Modül',
-      dimensions: '140 × 210 × 45 cm',
+      label: 'Orta Boy Modül',
+      dimensions: '120 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-orta-kahve-kosesi-2',
     },
     {
@@ -113,11 +97,11 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       heightPct: 65.0,
       aspectRatio: '900 / 1897',
       zIndex: 22,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.23,
       eyebrow: 'Kompakt İstasyon',
-      label: 'Bergamo Küçük Modül',
-      dimensions: '100 × 210 × 45 cm',
+      label: 'Küçük Boy Modül',
+      dimensions: '80 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-kucuk-kahve-kosesi-1',
     },
     {
@@ -126,15 +110,15 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       src: '/hero/dolap-3.png',
       alt: 'Bergamo Büyük Boy Çift Vitrinli Kahve Köşesi Modülü',
       leftPct: 62.5,
-      bottomPct: 13.8,
+      bottomPct: 14.0,
       heightPct: 64.6,
       aspectRatio: '1000 / 1229',
       zIndex: 23,
-      entranceY: -100,
+      entranceY: -96,
       entranceDelaySec: 0.38,
       eyebrow: 'Çift Vitrinli Amiral',
-      label: 'Bergamo Büyük Modül',
-      dimensions: '180 × 210 × 45 cm',
+      label: 'Büyük Boy Modül',
+      dimensions: '160 / 200 / 45',
       link: 'urun.html?id=bergamo-kahve-kosesi-61kf-buyuk-kahve-kosesi-3',
     },
   ],
@@ -149,9 +133,7 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       widthPct: 22.13,
       aspectRatio: '609 / 613',
       zIndex: 31,
-      entranceX: -72,
-      parallaxFactorX: 1.35,
-      parallaxFactorY: 1.0,
+      entranceX: -64,
     },
     {
       id: 'bergamo-dekor-sag',
@@ -163,9 +145,7 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       widthPct: 17.22,
       aspectRatio: '474 / 569',
       zIndex: 32,
-      entranceX: 72,
-      parallaxFactorX: 1.55,
-      parallaxFactorY: 1.15,
+      entranceX: 64,
     },
   ],
 };
