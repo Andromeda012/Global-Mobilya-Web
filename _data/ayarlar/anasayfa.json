@@ -11,17 +11,17 @@
   },
   "slider": [
     {
-      "resim": "/resim/anasayfa-resimleri/anasayfa1.png",
+      "resim": "/resim/anasayfa-resimleri/warm-hero.jpg",
       "baslik": "Modern Mutfak",
       "alt_yazi": "Yeni nesil membran kapaklarla hayalinizdeki mutfak"
     },
     {
-      "resim": "/resim/anasayfa-resimleri/anasayfa2.png",
+      "resim": "/resim/showroom/luxury_showroom.jpg",
       "baslik": "Şık Tasarım",
       "alt_yazi": "Estetik ve dayanıklılığı bir arada"
     },
     {
-      "resim": "/resim/anasayfa-resimleri/anasayfa3.png",
+      "resim": "/resim/showroom/nordic_atelier.jpg",
       "baslik": "Özel Ölçü",
       "alt_yazi": "İhtiyacınıza özel boyutlarda üretim"
     }

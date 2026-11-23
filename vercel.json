@@ -3,8 +3,8 @@
   "framework": null,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/siparis-paneli", "destination": "/siparis-paneli.html" },
-    { "source": "/siparis-paneli/(.*)", "destination": "/siparis-paneli.html" },
+    { "source": "/siparis-paneli", "destination": "/takip.html" },
+    { "source": "/siparis-paneli/(.*)", "destination": "/takip.html" },
     { "source": "/takip", "destination": "/takip.html" },
     { "source": "/takip/(.*)", "destination": "/takip.html" }
   ]
