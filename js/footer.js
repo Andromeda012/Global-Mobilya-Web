@@ -328,18 +328,19 @@ footer {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0F253E, #1E3F66);
-  color: #7CC2E6;
-  border: 1px solid rgba(124, 194, 230, 0.4);
+  background: rgba(21, 18, 15, 0.86);
+  backdrop-filter: blur(12px);
+  color: #DFC793;
+  border: 1px solid rgba(223, 199, 147, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(15, 37, 62, 0.3);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scroll-top-lux.visible {
   opacity: 1;
@@ -347,8 +348,9 @@ footer {
   transform: translateY(0);
 }
 .scroll-top-lux:hover {
-  background: linear-gradient(135deg, #2E6F9E, #4A7862);
-  color: #fff;
+  background: #4A6450;
+  border-color: #DFC793;
+  color: #F7F5F0;
   transform: translateY(-3px);
 }
 @media(max-width:1024px){

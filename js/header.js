@@ -88,27 +88,18 @@
 
     mount.replaceWith(wrapper);
 
-    // Floating quick-return pill when scrolled into content
-    let backTopBtn = document.getElementById('hgBackTopBtn');
-    if (!backTopBtn) {
-      backTopBtn = document.createElement('button');
-      backTopBtn.id = 'hgBackTopBtn';
-      backTopBtn.type = 'button';
-      backTopBtn.className = 'hg-back-top-btn' + (isDarkSurface ? ' dark-surface' : '');
-      backTopBtn.textContent = '↑ Menüye Dön';
-      backTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-      document.body.appendChild(backTopBtn);
-    }
+    // Clean up any stale back-to-top button from earlier builds (footer.js provides #scrollTopLux)
+    document.getElementById('hgBackTopBtn')?.remove();
 
     const burger = document.getElementById('hgHamburgerBtn');
     const drawer = document.getElementById('hgMobileDrawer');
 
-    // Continuous 60fps requestAnimationFrame scroll-damped glide for header exit & return
+    // Time-normalized (refresh-rate independent) 60/120fps rAF scroll glide across all pages
     const pillEl = wrapper.querySelector('.hg-header-pill');
-    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let currentProg = 0;
     let targetProg = 0;
     let rafId = 0;
+    let lastTs = 0;
 
     function applyHeaderFrame(p) {
       const clamped = Math.max(0, Math.min(1, p));
@@ -117,28 +108,26 @@
       if (pillEl) {
         pillEl.style.pointerEvents = clamped > 0.72 ? 'none' : 'auto';
       }
-      if (reducedMotion) {
-        wrapper.style.transform = hidden ? 'translate3d(0, -110px, 0)' : 'translate3d(0, 0, 0)';
-        wrapper.style.opacity = hidden ? '0' : '1';
-      } else {
-        const yPx = (-104 * clamped).toFixed(2);
-        const sc = (1 - 0.06 * clamped).toFixed(4);
-        const op = Math.max(0, 1 - Math.pow(clamped, 1.3)).toFixed(3);
-        wrapper.style.transform = `translate3d(0, ${yPx}px, 0) scale(${sc})`;
-        wrapper.style.opacity = op;
-      }
-      backTopBtn.classList.toggle('visible', window.scrollY > 180 && !drawer?.classList.contains('open'));
+      const yPx = (-112 * clamped).toFixed(2);
+      const sc = (1 - 0.06 * clamped).toFixed(4);
+      const op = Math.max(0, 1 - Math.pow(clamped, 1.35)).toFixed(3);
+      wrapper.style.transform = `translate3d(0, ${yPx}px, 0) scale(${sc})`;
+      wrapper.style.opacity = op;
     }
 
-    function stepHeaderAnim() {
+    function stepHeaderAnim(now) {
+      const dt = lastTs ? Math.min(0.05, (now - lastTs) / 1000) : 0.016;
+      lastTs = now;
       const diff = targetProg - currentProg;
       if (Math.abs(diff) < 0.002) {
         currentProg = targetProg;
         applyHeaderFrame(currentProg);
         rafId = 0;
+        lastTs = 0;
         return;
       }
-      currentProg += diff * 0.11;
+      const factor = 1 - Math.exp(-dt * 6.5);
+      currentProg += diff * factor;
       applyHeaderFrame(currentProg);
       rafId = requestAnimationFrame(stepHeaderAnim);
     }
@@ -149,13 +138,10 @@
       if (drawer?.classList.contains('open')) {
         targetProg = 0;
       } else {
-        // Glides smoothly away from 24px -> 190px scroll, and glides back smoothly on return
         targetProg = Math.max(0, Math.min(1, (y - 24) / 166));
       }
-      if (reducedMotion) {
-        currentProg = targetProg;
-        applyHeaderFrame(currentProg);
-      } else if (!rafId) {
+      if (!rafId) {
+        lastTs = 0;
         rafId = requestAnimationFrame(stepHeaderAnim);
       }
     };
