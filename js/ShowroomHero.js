@@ -1,15 +1,14 @@
 /**
- * Global Mobilya — Fotogerçekçi Işıklı & Sabitlenebilen Koleksiyon Sahnesi Engine
- * ---------------------------------------------------------------------------------
- * 1) Katman 1 (z-10): Mekân arka planı (tüm sahneyi kaplar, 1.05 -> 1.0 smooth yerleşim).
- * 2) Katman 2 (z-20): Dolap modülleri — tabanında yüksek bulanıklıklı temas gölgesi
- *    (contact shadow) + arkaya doğru çok katmanlı drop-shadow + sabitlenmiş yerleşim
- *    (fare hareketiyle kaymaz; yalnızca hover vurgusu ve ürün bilgi kartı açılır).
- * 3) Katman 3 (z-30): Ön plan dekorları — taban temas gölgesi + gölge derinliği,
- *    giriş animasyonundan sonra konumunda sabit kalır.
- * 4) Katman 4 (z-38): pointer-events-none sıcak ton bütünleştirici katman (`mix-blend-mode: multiply`).
- * 5) Alt İnteraktif Modül Şeridi: Düz kart tekrarı yerine sahne üzerindeki ürünleri
- *    vurgulayıp doğrudan ürün detayına yönlendiren etkileşimli kontrol barı.
+ * Global Mobilya — Kusursuz Geçişli Tam Ekran Koleksiyon Sahnesi (Framer Motion + React 18)
+ * -----------------------------------------------------------------------------------------
+ * 1) Katman 1 (z-10): Temiz arka plan mekân görseli (1.03 -> 1.0 yerleşme).
+ * 2) Katman 2 (z-20): Tüm dolap modülleri AYNI ANDA (stagger olmadan) yukarıdan aşağıya iner;
+ *    referans kompozitle 1:1 piksel koordinatlarına sabitlenir.
+ * 3) Katman 3 (z-30): Sol ve sağ ön plan dekorları eşzamanlı sahneye yerleşir.
+ * 4) Katman 4 (z-36): Yerleşim tamamlanırken tam kompozit master fotoğraf (`finalMaster`)
+ *    sıfır sıçrama ve sıfır kopuklukla (`opacity: 0 -> 1`) pürüzsüzce sabitlenir.
+ * 5) Katman 5 (z-42): Görünmez etkileşimli hotspot bölgeleri üzerinden her modüle ait
+ *    vurgulama ve ürün detay kartı (`Detayları Gör →`) çalışır.
  */
 
 import React, { useState } from 'https://esm.sh/react@18.3.1';
@@ -24,28 +23,49 @@ import { resolveCollectionSceneConfig } from './heroConfig.js';
 const h = React.createElement;
 const ACTIVE_ROOTS = new Map();
 
-function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, onDeactivate, onToggleTap }) {
+function DroppingModuleVisual({ item }) {
   return h(
     motion.div,
     {
-      className: `scase-module-slot${isActive ? ' is-hovered' : ''}${isDimmed ? ' is-dimmed' : ''}`,
+      className: 'scase-module-slot',
+      style: {
+        left: `${item.leftPct}%`,
+        bottom: `${item.bottomPct}%`,
+        width: `${item.widthPct}%`,
+        height: `${item.heightPct}%`,
+        zIndex: item.zIndex,
+      },
+      initial: { y: item.entranceY ?? -90, opacity: 0 },
+      whileInView: { y: 0, opacity: 1 },
+      viewport: { once: true, amount: 0.15 },
+      transition: {
+        y: { type: 'spring', stiffness: 74, damping: 16, delay: item.entranceDelaySec ?? 0 },
+        opacity: { duration: 0.36, delay: item.entranceDelaySec ?? 0 },
+      },
+    },
+    h('span', { className: 'scase-contact-shadow scase-contact-module', 'aria-hidden': 'true' }),
+    h('img', {
+      src: item.src,
+      alt: item.alt,
+      className: 'scase-module-img',
+      draggable: false,
+    })
+  );
+}
+
+function InteractiveHotspotZone({ item, isActive, isDimmed, onActivate, onDeactivate, onToggleTap }) {
+  return h(
+    'div',
+    {
+      className: `scase-hotspot-zone${isActive ? ' is-hovered' : ''}${isDimmed ? ' is-dimmed' : ''}`,
       'data-module-id': item.id,
       style: {
         left: `${item.leftPct}%`,
         bottom: `${item.bottomPct}%`,
+        width: `${item.widthPct}%`,
         height: `${item.heightPct}%`,
-        aspectRatio: item.aspectRatio,
-        zIndex: isActive ? 45 : item.zIndex,
+        zIndex: isActive ? 48 : 42,
       },
-      initial: { y: item.entranceY ?? -96, opacity: 0 },
-      whileInView: { y: 0, opacity: 1 },
-      viewport: { once: true, amount: 0.15 },
-      transition: {
-        y: { type: 'spring', stiffness: 65, damping: 14, delay: item.entranceDelaySec ?? index * 0.15 },
-        opacity: { duration: 0.45, delay: item.entranceDelaySec ?? index * 0.15 },
-        scale: { type: 'spring', stiffness: 280, damping: 24 },
-      },
-      whileHover: { scale: 1.016 },
       onMouseEnter: () => onActivate(item.id),
       onMouseLeave: () => onDeactivate(item.id),
       onClick: (e) => {
@@ -54,14 +74,7 @@ function InteractiveModuleSlot({ item, index, isActive, isDimmed, onActivate, on
         onToggleTap(item.id);
       },
     },
-    // Zemin temas gölgesi (blur-md eşdeğeri koyu elips AO)
-    h('span', { className: 'scase-contact-shadow scase-contact-module', 'aria-hidden': 'true' }),
-    h('img', {
-      src: item.src,
-      alt: item.alt,
-      className: 'scase-module-img',
-      draggable: false,
-    }),
+    h('div', { className: 'scase-hotspot-halo', 'aria-hidden': 'true' }),
     h(
       AnimatePresence,
       null,
@@ -113,10 +126,10 @@ function StaticAnchoredDecorLayer({ decor }) {
     {
       className: `scase-decor-slot scase-decor-${decor.side}`,
       style: posStyle,
-      initial: { x: decor.entranceX ?? (decor.side === 'left' ? -64 : 64), opacity: 0 },
+      initial: { x: decor.entranceX ?? (decor.side === 'left' ? -56 : 56), opacity: 0 },
       whileInView: { x: 0, opacity: 1 },
       viewport: { once: true, amount: 0.15 },
-      transition: { duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
     },
     h('span', { className: 'scase-contact-shadow scase-contact-decor', 'aria-hidden': 'true' }),
     h('img', {
@@ -132,6 +145,7 @@ function CollectionShowcaseStage({ scene }) {
   const [hoveredId, setHoveredId] = useState(null);
   const modules = scene.modules || [];
   const decors = scene.decors || [];
+  const finalMaster = scene.finalMaster;
 
   return h(
     MotionConfig,
@@ -143,11 +157,11 @@ function CollectionShowcaseStage({ scene }) {
         'div',
         {
           className: 'scase-stage',
-          style: { aspectRatio: scene.stageAspectRatio || '1920 / 1072' },
+          style: { aspectRatio: scene.stageAspectRatio || '1024 / 571' },
           onMouseLeave: () => setHoveredId(null),
           onClick: () => setHoveredId(null),
         },
-        // Katman 1 (z-10): Sabitlenebilen Tam Arka Plan
+        // Katman 1 (z-10): Temiz Arka Plan Mekânı
         h(
           'div',
           { className: 'scase-layer-bg' },
@@ -155,26 +169,60 @@ function CollectionShowcaseStage({ scene }) {
             src: scene.background.src,
             alt: scene.background.alt,
             className: 'scase-bg-img',
-            initial: { scale: scene.background.initialScale ?? 1.05 },
+            initial: { scale: scene.background.initialScale ?? 1.03 },
             whileInView: { scale: scene.background.targetScale ?? 1.0 },
             viewport: { once: true, amount: 0.15 },
             transition: {
-              duration: scene.background.entranceDurationSec ?? 1.15,
+              duration: scene.background.entranceDurationSec ?? 0.78,
               ease: [0.22, 1, 0.36, 1],
             },
             draggable: false,
           })
         ),
 
-        // Katman 2 (z-20): Referans Konumlarına Sabitlenen Modüller (fare ile kayma yok)
+        // Katman 2 (z-20): Tüm Modül Dolapları Yukarıdan AYNI ANDA İner
         h(
           'div',
-          { className: 'scase-layer-modules', 'aria-label': 'Koleksiyon Modülleri' },
-          modules.map((mod, idx) =>
-            h(InteractiveModuleSlot, {
-              key: mod.id || idx,
+          { className: 'scase-layer-modules', 'aria-hidden': 'true' },
+          modules.map((mod, idx) => h(DroppingModuleVisual, { key: mod.id || idx, item: mod }))
+        ),
+
+        // Katman 3 (z-30): Sol ve Sağ Ön Plan Dekorları
+        h(
+          'div',
+          { className: 'scase-layer-decors', 'aria-hidden': 'true' },
+          decors.map((d) => h(StaticAnchoredDecorLayer, { key: d.id, decor: d }))
+        ),
+
+        // Katman 3.5 (z-34): Sıcak Ortam Işığı Ton Bütünleştirici
+        h('div', { className: 'scase-warm-blend', 'aria-hidden': 'true' }),
+
+        // Katman 4 (z-36): Yerleşim biterken sıçramasız tam kompozit final görseline çözünme
+        finalMaster
+          ? h(motion.img, {
+              src: finalMaster.src,
+              alt: finalMaster.alt,
+              className: 'scase-master-overlay',
+              initial: { opacity: 0 },
+              whileInView: { opacity: 1 },
+              viewport: { once: true, amount: 0.15 },
+              transition: {
+                duration: finalMaster.fadeDurationSec ?? 0.58,
+                delay: finalMaster.revealDelaySec ?? 0.68,
+                ease: [0.22, 1, 0.36, 1],
+              },
+              draggable: false,
+            })
+          : null,
+
+        // Katman 5 (z-42): Final Fotoğraf Üstünde Görünmez İnteraktif Modül Hotspotları
+        h(
+          'div',
+          { className: 'scase-layer-hotspots', 'aria-label': 'Koleksiyon Modülleri Etkileşim Katmanı' },
+          modules.map((mod) =>
+            h(InteractiveHotspotZone, {
+              key: `hot-${mod.id}`,
               item: mod,
-              index: idx,
               isActive: hoveredId === mod.id,
               isDimmed: Boolean(hoveredId && hoveredId !== mod.id),
               onActivate: (id) => setHoveredId(id),
@@ -182,20 +230,10 @@ function CollectionShowcaseStage({ scene }) {
               onToggleTap: (id) => setHoveredId((prev) => (prev === id ? null : id)),
             })
           )
-        ),
-
-        // Katman 3 (z-30): Sabitlenen Ön Plan Dekorları (temas gölgeli, kayma yok)
-        h(
-          'div',
-          { className: 'scase-layer-decors', 'aria-hidden': 'true' },
-          decors.map((d) => h(StaticAnchoredDecorLayer, { key: d.id, decor: d }))
-        ),
-
-        // Katman 4 (z-38): Sıcak Ortam Işığı Ton Bütünleştirici (mix-blend-mode: multiply, pointer-events-none)
-        h('div', { className: 'scase-warm-blend', 'aria-hidden': 'true' })
+        )
       ),
 
-      // Sahne altı kompakt etkileşimli modül seçici barı
+      // Sahne altı tam genişlikli modül etkileşim şeridi
       modules.length
         ? h(
             'div',

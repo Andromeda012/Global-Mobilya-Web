@@ -1,37 +1,44 @@
 /**
  * Global Mobilya — Etkileşimli Koleksiyon Sahnesi Yapılandırma ve Otomasyon Kayıt Defteri
  * --------------------------------------------------------------------------------------
- * Her koleksiyon için tam genişlik çok katmanlı sahne tanımlarını tutar.
- * Animasyonlar ilk yerleşim sonrasında konumlarını sabitler; modüller hover/tıklama ve
- * alt sahne şeridi üzerinden etkileşimli olarak incelenir.
+ * Modüller yukarıdan aynı anda (delay: 0) referans koordinatlara iner; yerleşim tamamlanırken
+ * master kompozit fotoğraf (`finalMaster`) kesintisiz çözünme ile sahneye sabitlenir ve
+ * görünmez etkileşimli hotspot bölgeleri üzerinden ürün detaylarına erişilir.
  */
 
 export const BERGAMO_SCENE_CONFIG = {
-  id: 'bergamo-interactive-scene-v2',
+  id: 'bergamo-interactive-scene-v3',
   collectionSlugMatch: 'bergamo',
   fullBleedStage: true,
   hideFlatPiecesTray: true,
-  stageAspectRatio: '1920 / 1072',
+  stageAspectRatio: '1024 / 571',
   background: {
     src: '/hero/bg.jpg',
     alt: 'Bergamo Kahve Köşesi Tuğla ve Sıva Duvarlı Showroom Mekânı',
-    initialScale: 1.05,
+    initialScale: 1.03,
     targetScale: 1.0,
-    entranceDurationSec: 1.15,
+    entranceDurationSec: 0.78,
+  },
+  finalMaster: {
+    src: '/hero/bergamo-final.jpg',
+    alt: 'Bergamo Kahve Köşesi Tam Kompozit Stüdyo Sahnesi',
+    revealDelaySec: 0.68,
+    fadeDurationSec: 0.58,
   },
   modules: [
     {
       id: 'bergamo-orta-sol',
       pieceSlugHint: 'orta-kahve-kosesi',
-      src: '/hero/dolap-2.png',
+      src: '/hero/bergamo-sol-drop.png',
       alt: 'Bergamo Orta Boy Tek Vitrinli Kahve Köşesi Modülü',
-      leftPct: 16.9,
-      bottomPct: 14.3,
-      heightPct: 63.2,
-      aspectRatio: '900 / 1447',
+      leftPct: 16.80,
+      bottomPct: 13.13,
+      widthPct: 21.48,
+      heightPct: 70.23,
+      aspectRatio: '220 / 401',
       zIndex: 21,
-      entranceY: -96,
-      entranceDelaySec: 0.08,
+      entranceY: -90,
+      entranceDelaySec: 0,
       eyebrow: 'Tek Vitrinli Modül',
       label: 'Orta Boy Modül',
       dimensions: '120 / 200 / 45',
@@ -40,15 +47,16 @@ export const BERGAMO_SCENE_CONFIG = {
     {
       id: 'bergamo-kucuk-merkez',
       pieceSlugHint: 'kucuk-kahve-kosesi',
-      src: '/hero/dolap-1.png',
+      src: '/hero/bergamo-orta-drop.png',
       alt: 'Bergamo Küçük Boy Kahve Köşesi Modülü',
-      leftPct: 41.6,
-      bottomPct: 14.3,
-      heightPct: 65.0,
-      aspectRatio: '900 / 1897',
+      leftPct: 41.60,
+      bottomPct: 13.13,
+      widthPct: 17.77,
+      heightPct: 70.23,
+      aspectRatio: '182 / 401',
       zIndex: 22,
-      entranceY: -96,
-      entranceDelaySec: 0.23,
+      entranceY: -90,
+      entranceDelaySec: 0,
       eyebrow: 'Kompakt İstasyon',
       label: 'Küçük Boy Modül',
       dimensions: '80 / 200 / 45',
@@ -57,15 +65,16 @@ export const BERGAMO_SCENE_CONFIG = {
     {
       id: 'bergamo-buyuk-sag',
       pieceSlugHint: 'buyuk-kahve-kosesi',
-      src: '/hero/dolap-3.png',
+      src: '/hero/bergamo-sag-drop.png',
       alt: 'Bergamo Büyük Boy Çift Vitrinli Kahve Köşesi Modülü',
-      leftPct: 62.5,
-      bottomPct: 14.0,
-      heightPct: 64.6,
-      aspectRatio: '1000 / 1229',
+      leftPct: 62.79,
+      bottomPct: 13.13,
+      widthPct: 30.66,
+      heightPct: 70.23,
+      aspectRatio: '314 / 401',
       zIndex: 23,
-      entranceY: -96,
-      entranceDelaySec: 0.38,
+      entranceY: -90,
+      entranceDelaySec: 0,
       eyebrow: 'Çift Vitrinli Amiral',
       label: 'Büyük Boy Modül',
       dimensions: '160 / 200 / 45',
@@ -83,7 +92,7 @@ export const BERGAMO_SCENE_CONFIG = {
       widthPct: 22.13,
       aspectRatio: '609 / 613',
       zIndex: 31,
-      entranceX: -64,
+      entranceX: -56,
     },
     {
       id: 'bergamo-dekor-sag',
@@ -95,7 +104,7 @@ export const BERGAMO_SCENE_CONFIG = {
       widthPct: 17.22,
       aspectRatio: '474 / 569',
       zIndex: 32,
-      entranceX: 64,
+      entranceX: 56,
     },
   ],
 };
