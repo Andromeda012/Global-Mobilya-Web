@@ -26,11 +26,67 @@
   z-index: 1200;
   padding: 16px 32px 0;
   pointer-events: none;
-  transition: padding 0.45s var(--ease-hg);
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  will-change: transform, opacity;
+  transition:
+    padding 0.45s var(--ease-hg),
+    transform 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hg-header-shell.scrolled {
   padding-top: 12px;
+}
+
+.hg-header-shell.hg-header-hidden {
+  transform: translate3d(0, -110px, 0) scale(0.97);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hg-back-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 950;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(42, 41, 37, 0.16);
+  background: rgba(247, 245, 240, 0.84);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--hg-ink);
+  font-family: var(--font-hg-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px -12px rgba(42, 41, 37, 0.35);
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.38s ease, transform 0.45s var(--ease-hg), border-color 0.25s ease;
+}
+
+.hg-back-top-btn.dark-surface {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(20, 17, 14, 0.78);
+  color: #F7F5F0;
+}
+
+.hg-back-top-btn:hover {
+  border-color: var(--hg-sage);
+}
+
+.hg-back-top-btn.dark-surface:hover {
+  border-color: #DFC793;
+}
+
+.hg-back-top-btn.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 .hg-header-pill {
@@ -64,10 +120,11 @@
     0 18px 46px -20px rgba(42, 41, 37, 0.38);
 }
 
-/* Dark stage adaptation when not scrolled */
+/* Dark stage adaptation */
+.hg-header-shell.dark-surface .hg-header-pill,
 .hg-header-shell.dark-surface:not(.scrolled) .hg-header-pill {
   border-color: rgba(255, 255, 255, 0.22);
-  background: linear-gradient(180deg, rgba(26, 22, 18, 0.62) 0%, rgba(26, 22, 18, 0.36) 100%);
+  background: linear-gradient(180deg, rgba(26, 22, 18, 0.66) 0%, rgba(26, 22, 18, 0.4) 100%);
   color: #F7F5F0;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),

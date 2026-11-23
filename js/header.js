@@ -90,19 +90,39 @@
 
     mount.replaceWith(wrapper);
 
-    // Scroll frosted glass transition (>10px per H&G spec)
-    const updateScroll = () => wrapper.classList.toggle('scrolled', window.scrollY > 10);
+    // Floating quick-return pill when scrolled into content
+    let backTopBtn = document.getElementById('hgBackTopBtn');
+    if (!backTopBtn) {
+      backTopBtn = document.createElement('button');
+      backTopBtn.id = 'hgBackTopBtn';
+      backTopBtn.type = 'button';
+      backTopBtn.className = 'hg-back-top-btn' + (isDarkSurface ? ' dark-surface' : '');
+      backTopBtn.textContent = '↑ Menüye Dön';
+      backTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      document.body.appendChild(backTopBtn);
+    }
+
+    const burger = document.getElementById('hgHamburgerBtn');
+    const drawer = document.getElementById('hgMobileDrawer');
+
+    // Smoothly glide header away on scroll down & restore smoothly near top across all pages
+    const updateScroll = () => {
+      const y = window.scrollY;
+      wrapper.classList.toggle('scrolled', y > 10);
+      const shouldHide = y > 36 && !drawer?.classList.contains('open');
+      wrapper.classList.toggle('hg-header-hidden', shouldHide);
+      backTopBtn.classList.toggle('visible', shouldHide);
+    };
     updateScroll();
     window.addEventListener('scroll', updateScroll, { passive: true });
 
     // Mobile drawer morphing toggle
-    const burger = document.getElementById('hgHamburgerBtn');
-    const drawer = document.getElementById('hgMobileDrawer');
     burger?.addEventListener('click', () => {
       const next = !drawer.classList.contains('open');
       drawer.classList.toggle('open', next);
       burger.classList.toggle('open', next);
       burger.setAttribute('aria-expanded', String(next));
+      updateScroll();
     });
 
     mountQuickSearchModal();
