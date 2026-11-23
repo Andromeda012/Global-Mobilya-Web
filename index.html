@@ -50,6 +50,7 @@
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
 <link rel="stylesheet" href="css/showroom-motion.css">
+<link rel="preload" as="image" href="/hero/bg.jpg">
 
 <style>
   :root {
@@ -71,144 +72,296 @@
     overflow-x: hidden;
   }
 
-  /* ── 1. ARCHITECTURAL HERO STAGE ── */
-  .hg-hero {
+  /* ── 1. FRAMER MOTION MULTI-LAYER INTERACTIVE SHOWROOM HERO ── */
+  .fhero-mount-root {
+    min-height: 100svh;
+    background: #1B1510;
+  }
+  .fhero-stage {
     position: relative;
     min-height: 100svh;
+    height: 100svh;
+    max-height: 1080px;
+    width: 100%;
+    overflow: hidden;
+    background: #1B1510;
+    color: #F7F5F0;
+    isolation: isolate;
+  }
+  .fhero-layer-bg {
+    position: absolute;
+    inset: -16px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .fhero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    display: block;
+    will-change: transform;
+  }
+  .fhero-bg-ambient {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(95deg, rgba(18, 14, 11, 0.36) 0%, rgba(18, 14, 11, 0.08) 45%, rgba(18, 14, 11, 0.16) 100%),
+      linear-gradient(180deg, rgba(18, 14, 11, 0.28) 0%, transparent 32%, rgba(18, 14, 11, 0.24) 100%);
+  }
+
+  /* Katman 2 (z-20): Dolap Modülleri (Süpürgelik / Zemin Çizgisi Üstünde) */
+  .fhero-layer-cabinets {
+    position: absolute;
+    z-index: 20;
+    left: 35.5vw;
+    right: 8.5vw;
+    bottom: 14.8%;
     display: flex;
     align-items: flex-end;
-    padding: 150px 0 88px;
-    background: var(--surface-espresso);
-    overflow: hidden;
-    color: #F7F5F0;
+    justify-content: center;
+    gap: clamp(10px, 1.3vw, 22px);
+    pointer-events: none;
   }
-  .hg-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: scale(1.06);
-    transition: opacity 1.3s var(--ease-hg), transform 7s var(--ease-hg);
-  }
-  .hg-hero-bg.active {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .hg-hero-scrim {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background:
-      linear-gradient(95deg, rgba(16, 13, 10, 0.88) 0%, rgba(16, 13, 10, 0.56) 48%, rgba(16, 13, 10, 0.25) 100%),
-      linear-gradient(180deg, rgba(16, 13, 10, 0.45) 0%, rgba(16, 13, 10, 0.1) 42%, rgba(16, 13, 10, 0.88) 100%);
-  }
-  .hg-hero-container {
+  .fhero-cabinet-slot {
     position: relative;
-    z-index: 3;
-    width: 100%;
-    max-width: 1380px;
-    margin: 0 auto;
-    padding: 0 36px;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) auto;
-    gap: 40px;
-    align-items: end;
+    height: min(var(--cab-h, 45%), 38vw);
+    aspect-ratio: var(--cab-ar, 0.65);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 24px 26px rgba(15, 10, 6, 0.48));
+    transform-origin: center bottom;
   }
-  .hg-hero-eyebrow {
+  .fhero-cabinet-slot.is-hovered {
+    z-index: 28;
+    filter: drop-shadow(0 28px 34px rgba(15, 10, 6, 0.68));
+  }
+  .fhero-cabinet-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    display: block;
+    user-select: none;
+  }
+
+  .fhero-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 196px;
+    max-width: 240px;
+    padding: 12px 15px;
+    border-radius: 16px;
+    background: rgba(20, 16, 12, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(223, 199, 147, 0.45);
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+    color: #F7F5F0;
+    text-align: center;
+    z-index: 50;
+  }
+  .fhero-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(20, 16, 12, 0.88) transparent transparent transparent;
+  }
+  .fhero-tooltip-sub {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #DFC793;
+    margin-bottom: 3px;
+  }
+  .fhero-tooltip-title {
+    display: block;
+    font-family: var(--font-hg-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .fhero-tooltip-link {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 7px 15px;
+    gap: 5px;
+    padding: 5px 12px;
     border-radius: 999px;
-    background: rgba(247, 245, 240, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #DFC793;
+    color: #1A1612;
     font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .fhero-tooltip-link:hover {
+    background: #F7F5F0;
+    transform: translateY(-1px);
+  }
+
+  /* Katman 3 (z-30): Ön Plan Dekorları */
+  .fhero-layer-decors {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .fhero-decor {
+    position: absolute;
+    bottom: -4px;
+    height: var(--dec-h, 38%);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .fhero-decor-left {
+    left: -6px;
+  }
+  .fhero-decor-right {
+    right: -6px;
+  }
+  .fhero-decor-img {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    filter: drop-shadow(0 18px 30px rgba(10, 8, 6, 0.45));
+  }
+
+  /* Katman 4 (z-40): Zarif Yarı Saydam Tipografi & CTA Kartı */
+  .fhero-layer-typography {
+    position: absolute;
+    z-index: 40;
+    top: 110px;
+    left: 3.4vw;
+    width: min(440px, 31vw);
+    min-width: 310px;
+  }
+  .fhero-glass-card {
+    background: rgba(19, 15, 12, 0.56);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 24px;
+    padding: 26px 28px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 26px 60px -20px rgba(0, 0, 0, 0.55);
+  }
+  .fhero-eyebrow {
+    display: inline-block;
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-gold-bright);
-    margin-bottom: 22px;
+    color: #DFC793;
+    margin-bottom: 12px;
   }
-  .hg-hero-title {
+  .fhero-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(46px, 6.4vw, 90px);
+    font-size: clamp(32px, 3.2vw, 48px);
     font-weight: 400;
-    line-height: 0.98;
-    letter-spacing: -0.02em;
-    color: #fff;
-    margin-bottom: 24px;
-    max-width: 780px;
+    line-height: 1.03;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin-bottom: 14px;
   }
-  .hg-hero-title em {
+  .fhero-title em {
     font-style: italic;
     color: #DFC793;
   }
-  .hg-hero-desc {
-    font-size: clamp(15px, 1.3vw, 18px);
-    line-height: 1.72;
-    color: rgba(247, 245, 240, 0.86);
-    max-width: 600px;
-    margin-bottom: 34px;
+  .fhero-desc {
+    font-size: 13.8px;
+    line-height: 1.62;
+    color: rgba(247, 245, 240, 0.88);
+    margin-bottom: 22px;
   }
-  .hg-hero-cta-row {
+  .fhero-cta-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
     flex-wrap: wrap;
   }
-  .btn-hg-ghost {
+  .fhero-secondary-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     height: 44px;
-    padding: 0 22px;
+    padding: 0 18px;
     border-radius: 9999px;
     border: 1px solid rgba(255, 255, 255, 0.34);
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
     color: #F7F5F0;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    letter-spacing: 0.02em;
-    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-hg);
+    transition: background-color 0.28s ease, border-color 0.28s ease;
   }
-  .btn-hg-ghost:hover {
+  .fhero-secondary-btn:hover {
     background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.7);
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.72);
   }
 
-  .hg-mood-dock {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px;
-    border-radius: 9999px;
-    background: rgba(21, 18, 15, 0.65);
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
+  @media (max-width: 1180px) {
+    .fhero-layer-typography {
+      width: min(390px, 34vw);
+      top: 100px;
+    }
+    .fhero-layer-cabinets {
+      left: 38vw;
+      right: 5vw;
+    }
   }
-  .hg-mood-btn {
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.68);
-    font-family: var(--font-hg-sans);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 8px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-  .hg-mood-btn:hover { color: #fff; }
-  .hg-mood-btn.active {
-    background: #F7F5F0;
-    color: var(--ink-primary);
+
+  @media (max-width: 1023px) {
+    .fhero-stage {
+      height: auto;
+      min-height: 100svh;
+      max-height: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 102px 16px 42px;
+      gap: 24px;
+    }
+    .fhero-layer-typography {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: min(560px, 100%);
+      min-width: 0;
+      margin: 0 auto;
+    }
+    .fhero-glass-card {
+      padding: 22px 20px;
+    }
+    .fhero-layer-cabinets {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      padding: 8px 4px 16px;
+      gap: 10px;
+    }
+    .fhero-cabinet-slot {
+      height: clamp(150px, 32vw, 270px);
+    }
+    .fhero-decor {
+      height: clamp(82px, 17vw, 150px);
+      opacity: 0.9;
+    }
   }
 
   /* ── SHARED BAND CONTAINERS ── */
@@ -772,77 +925,31 @@
 
 <header id="hgSiteHeader" class="site-header"></header>
 
-<!-- ── 1. ARCHITECTURAL HERO STAGE WITH INTERACTIVE HOTSPOTS ── -->
-<section class="hg-hero" id="heroStage">
-  <div class="hg-hero-bg active" id="heroBgWarm" style="background-image:url('resim/showroom/warm_atelier.jpg')"></div>
-  <div class="hg-hero-bg" id="heroBgNordic" style="background-image:url('resim/showroom/nordic_atelier.jpg')"></div>
-  <div class="hg-hero-bg" id="heroBgEvening" style="background-image:url('resim/showroom/luxury_showroom.jpg')"></div>
-  <div class="hg-hero-scrim"></div>
-
-  <!-- Interactive Pulsing Room Hotspots (Desktop) -->
-  <div class="hg-hotspot" style="left:61%;top:37%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Doğal ahşap gövde detayı">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Doğal Ahşap Doku</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Yüzey &amp; Gövde Bütünlüğü</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Mekânın ışığına göre ton alan ceviz, meşe ve mat lake mobilya yüzeyleri.</p>
+<!-- ── 1. FRAMER MOTION MULTI-LAYER INTERACTIVE SHOWROOM HERO ── -->
+<div id="heroShowroomMount" class="fhero-mount-root">
+  <!-- Progressive first-paint backdrop while Framer Motion ESM mounts -->
+  <section class="fhero-stage" id="heroStageFallback">
+    <div class="fhero-layer-bg">
+      <img src="/hero/bg.jpg" alt="Global Mobilya Showroom" class="fhero-bg-img">
+      <div class="fhero-bg-ambient"></div>
     </div>
-  </div>
-
-  <div class="hg-hotspot" style="left:75%;top:53%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Kahve köşesi modülleri">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Kahve İstasyonu</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Kahve Köşesi Mimarisi</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Fincan rafları, gizli kablo kanalları ve geniş servis tezgâhlı özel seriler.</p>
-    </div>
-  </div>
-
-  <div class="hg-hotspot left" style="left:67%;top:71%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Kişiye özel modüler ölçü">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Ölçüye Özel Üretim</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Atölyeden Doğrudan Kurulum</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Dolap ve oda nişlerinize milimetrik uyarlanan mimari mobilya çözümleri.</p>
-    </div>
-  </div>
-
-  <div class="hg-hero-container">
-    <div>
-      <div class="hg-hero-eyebrow hg-reveal" data-delay="40">İstanbul Atölyeden Mimari Yaşam Alanları</div>
-      <h1 class="hg-hero-title hg-reveal" id="domHeroBaslik" data-delay="140">
-        Zamansız Formlar,<br><em>Sıcak</em> Yaşam Alanları
-      </h1>
-      <p class="hg-hero-desc hg-reveal" id="domHeroAciklama" data-delay="240">
-        Kahve köşesi koleksiyonlarından modüler dolap sistemlerine ve özel yatak odası kurgularına kadar her parçayı mekânınızın oranlarına göre üretiyoruz.
-      </p>
-      <div class="hg-hero-cta-row hg-reveal" data-delay="340">
-        <a href="koleksiyon.html" class="btn-hg-wipe">
-          <span class="btn-hg-wipe-inner">
-            <span class="btn-hg-wipe-row main">Koleksiyonları Keşfet →</span>
-            <span class="btn-hg-wipe-row clone" aria-hidden="true">Koleksiyonları Keşfet →</span>
-          </span>
-        </a>
-        <a href="galeri.html#sectionBagimsiz" class="btn-hg-ghost">Bağımsız Ürünler Merkezi</a>
+    <div class="fhero-layer-typography">
+      <div class="fhero-glass-card">
+        <span class="fhero-eyebrow">Öne Çıkan Seri · Bergamo Koleksiyonu</span>
+        <h1 class="fhero-title" id="domHeroBaslik">Zamansız Formlar,<br><em>Sıcak Yaşam Alanları</em></h1>
+        <p class="fhero-desc" id="domHeroAciklama">Kahve köşesi koleksiyonlarından modüler dolap sistemlerine ve özel yatak odası kurgularına kadar her parçayı mekânınızın oranlarına göre üretiyoruz.</p>
+        <div class="fhero-cta-row">
+          <a href="koleksiyon.html?id=bergamo-kahve-kosesi-61kf" class="btn-hg-wipe">
+            <span class="btn-hg-wipe-inner">
+              <span class="btn-hg-wipe-row main">Koleksiyonu İncele →</span>
+              <span class="btn-hg-wipe-row clone" aria-hidden="true">Koleksiyonu İncele →</span>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
-
-    <div class="hg-mood-dock hg-reveal" data-delay="380" role="group" aria-label="Atmosfer Seçimi">
-      <button type="button" class="hg-mood-btn active" onclick="switchHeroMood('warm', this)">Warm Atölye</button>
-      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('nordic', this)">Nordic Meşe</button>
-      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('evening', this)">Akşam Pirinç</button>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <!-- ── 2. WAAPI INFINITE CRAFT MARQUEE ── -->
 <div class="hg-marquee-viewport" aria-label="Kategori ve Uzmanlık Şeridi">
@@ -1243,7 +1350,6 @@
 <script src="js/showroom-motion.js"></script>
 
 <script>
-const HEROM_MOOD_MAP = { warm: 'heroBgWarm', nordic: 'heroBgNordic', evening: 'heroBgEvening' };
 const CATEGORY_LIST = [
   'Kahve Köşesi Koleksiyonları',
   'Dolap Koleksiyonları',
@@ -1252,29 +1358,6 @@ const CATEGORY_LIST = [
 
 let _liveCollections = [];
 let _selectedHomeCategory = 'ALL';
-
-function switchHeroMood(key, btnEl) {
-  document.querySelectorAll('.hg-mood-btn').forEach(b => b.classList.remove('active'));
-  if (btnEl) btnEl.classList.add('active');
-  document.querySelectorAll('.hg-hero-bg').forEach(bg => bg.classList.remove('active'));
-  const target = document.getElementById(HEROM_MOOD_MAP[key] || 'heroBgWarm');
-  if (target) target.classList.add('active');
-}
-
-function bindHeroHotspots() {
-  const spots = document.querySelectorAll('.hg-hotspot');
-  spots.forEach(spot => {
-    const toggle = (e) => {
-      e.stopPropagation();
-      const willOpen = !spot.classList.contains('open');
-      spots.forEach(s => s.classList.remove('open'));
-      if (willOpen) spot.classList.add('open');
-    };
-    spot.querySelector('.hg-hotspot-btn')?.addEventListener('click', toggle);
-    spot.querySelector('.hg-hotspot-label')?.addEventListener('click', toggle);
-  });
-  document.addEventListener('click', () => spots.forEach(s => s.classList.remove('open')));
-}
 
 function esc(str) {
   return String(str || '').replace(/[&<>"']/g, m => ({
@@ -1582,7 +1665,6 @@ async function handleQuickQuote(e) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  bindHeroHotspots();
   document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(b => b.classList.remove('active'));
@@ -1597,5 +1679,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.GKM_MOTION?.initAll();
 });
 </script>
+<script type="module" src="js/ShowroomHero.js"></script>
 </body>
 </html>
