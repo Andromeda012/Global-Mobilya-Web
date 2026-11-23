@@ -753,9 +753,9 @@
   <div id="toastContainer"></div>
 
   <script>
-    const FIREBASE_BASE = 'https://global-kapak-default-rtdb.firebaseio.com';
-    const FIREBASE_URL = `${FIREBASE_BASE}/siparisler.json`;
-    const IMAGES_URL = `${FIREBASE_BASE}/siparis_gorseller`;
+    const ERP_BASE = 'https://erp.globalkapakmobilya.com';
+    const ERP_FALLBACK_BASE = 'https://insta-deployment-rho.vercel.app';
+    const HAY_LOCAL_KEY = 'gkm_hay_mobilya_orders';
 
     const STAGES = [
       { id: 'cizim', name: 'Çizim', icon: '📐' },
@@ -1108,26 +1108,8 @@
 
       if (imgEl) {
         imgEl.src = '';
-        imgEl.alt = 'Görsel buluttan yükleniyor... Lütfen bekleyiniz.';
+        imgEl.alt = 'Bu sipariş için ekli görsel bulunmuyor.';
       }
-
-      const orderId = orderIdOrSrc;
-      try {
-        const res = await fetch(`${IMAGES_URL}/${orderId}.json`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.image) {
-            if (imgEl) {
-              imgEl.src = data.image;
-              imgEl.alt = 'Sipariş Görseli';
-            }
-            if (dlBtn) dlBtn.href = data.image;
-            return;
-          }
-        }
-      } catch(e) {}
-
-      if (imgEl) imgEl.alt = 'Görsel yüklenemedi veya bulunamadı.';
     }
 
     // IMAGE COMPRESSION (Canvas)
@@ -1205,19 +1187,6 @@
       const notes = document.getElementById('no_notes').value.trim();
       const hasImg = Boolean(newOrderUploadedImage);
 
-      // 1. Varsa görseli buluta yükle
-      if (hasImg) {
-        try {
-          await fetch(`${IMAGES_URL}/${orderId}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: newOrderUploadedImage })
-          });
-        } catch(err) {
-          console.warn('Görsel bulut kayıt hatası:', err);
-        }
-      }
-
       const newOrder = {
         id: orderId,
         trackingCode: code,
@@ -1241,7 +1210,7 @@
         productDetails: notes,
         orderDate: new Date().toISOString().split('T')[0],
         hasReceiptImage: hasImg,
-        receiptImage: '',
+        receiptImage: hasImg ? newOrderUploadedImage : '',
         updatedAt: new Date().toISOString(),
         stageHistory: [
           { stageName: 'Çizim', timestamp: new Date().toISOString(), note: 'Hay Mobilya tarafından portal üzerinden sipariş iletildi.' }
@@ -1249,14 +1218,27 @@
       };
 
       try {
-        // 2. Siparişi ana bulut listesine ekle
+        // 1. Yerel listeye ve ERP / Supabase kuyruğuna yaz
         allOrders.unshift(newOrder);
+        localStorage.setItem(HAY_LOCAL_KEY, JSON.stringify(allOrders.slice(0, 100)));
 
-        await fetch(`${FIREBASE_BASE}/siparisler/${orderId}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newOrder)
+        const payloadBody = JSON.stringify({
+          name: 'Hay Mobilya',
+          collection_id: title || model || 'Hay Mobilya Siparişi',
+          notes: `${color || ''} | ${thickness || ''} | ${partCount} Adet | ${area} m² | ${notes || ''}`.trim(),
+          reference_code: code,
+          source: 'hay_mobilya_portal',
+          work_order: { ...newOrder, receiptImage: '' }
         });
+
+        for (const base of [ERP_BASE, ERP_FALLBACK_BASE]) {
+          const r = await fetch(`${base}/api/b2c-lazy-quote`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payloadBody
+          }).catch(() => null);
+          if (r && r.ok) break;
+        }
 
         closeModal('newOrderModal');
         renderView();
@@ -1312,74 +1294,41 @@
       return Array.from(byId.values());
     }
 
-    // CLOUD SYNC & STREAM
+    // CLOUD SYNC (Supabase / ERP API)
     async function syncOrdersFromCloud() {
-      try {
-        const res = await fetch(FIREBASE_URL);
-        if (res.ok) {
-          const data = await res.json();
-          if (data) {
-            allOrders = normalizeOrdersData(data);
-            renderView();
+      let loaded = null;
+      for (const base of [ERP_BASE, ERP_FALLBACK_BASE]) {
+        try {
+          const res = await fetch(`${base}/api/b2c-public?scope=hay_mobilya`, { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data?.orders)) {
+              loaded = data.orders;
+              break;
+            }
           }
-        }
-      } catch(e) {
-        console.warn('Bulut senkronizasyon hatası:', e);
+        } catch(e) {}
+      }
+      if (!loaded) {
+        try {
+          loaded = JSON.parse(localStorage.getItem(HAY_LOCAL_KEY) || '[]');
+        } catch (_) { loaded = []; }
+      }
+      if (Array.isArray(loaded)) {
+        allOrders = normalizeOrdersData(loaded);
+        renderView();
       }
     }
 
     function setupStream() {
-      try {
-        const es = new EventSource(FIREBASE_URL);
-
-        const handleUpdate = (e) => {
-          try {
-            const parsed = JSON.parse(e.data);
-            if (!parsed) return;
-            const path = parsed.path || '/';
-            const data = parsed.data;
-
-            if (path === '/') {
-              if (data) {
-                allOrders = normalizeOrdersData(data);
-                renderView();
-              }
-            } else {
-              const parts = path.replace(/^\//, '').split('/');
-              const key = parts[0];
-              if (!key) return;
-
-              if (parts.length === 1) {
-                if (data === null) {
-                  allOrders = allOrders.filter(o => o.id !== key);
-                } else if (typeof data === 'object') {
-                  const idx = allOrders.findIndex(o => o.id === key);
-                  if (idx !== -1) {
-                    allOrders[idx] = { ...allOrders[idx], ...data, id: key };
-                  } else if (data.customerName || data.orderNumber) {
-                    allOrders.unshift({ id: key, ...data });
-                  }
-                }
-              } else if (parts.length === 2) {
-                const field = parts[1];
-                const o = allOrders.find(x => x.id === key);
-                if (o) o[field] = data;
-              }
-              renderView();
-            }
-          } catch(err) {}
-        };
-
-        es.addEventListener('put', handleUpdate);
-        es.addEventListener('patch', handleUpdate);
-      } catch(err) {}
+      // Supabase / ERP 30 sn polling kullanılır; Firebase SSE kaldırıldı.
     }
 
     // INIT
     window.addEventListener('DOMContentLoaded', async () => {
       await syncOrdersFromCloud();
       setupStream();
-      setInterval(syncOrdersFromCloud, 15000);
+      setInterval(syncOrdersFromCloud, 30000);
 
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') syncOrdersFromCloud();

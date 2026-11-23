@@ -406,19 +406,23 @@
 
       let order = null;
 
-      // 1. Check cloud endpoint (Google Firebase Realtime Database)
-      const DEFAULT_FIREBASE_URL = 'https://global-kapak-default-rtdb.firebaseio.com/siparisler.json';
-      const cloudEndpoint = localStorage.getItem('global_cloud_endpoint') || DEFAULT_FIREBASE_URL;
-      if (cloudEndpoint) {
+      // 1. Supabase / ERP B2C Public takip sorgusu (Firebase yerine)
+      const erpTrackEndpoints = [
+        `https://erp.globalkapakmobilya.com/api/b2c-public?track=${encodeURIComponent(code)}`,
+        `https://insta-deployment-rho.vercel.app/api/b2c-public?track=${encodeURIComponent(code)}`
+      ];
+      for (const ep of erpTrackEndpoints) {
         try {
-          const res = await fetch(cloudEndpoint);
+          const res = await fetch(ep, { cache: 'no-store' });
           if (res.ok) {
-            const data = await res.json();
-            const list = Array.isArray(data) ? data : Object.values(data || {});
-            order = list.find(o => o && o.trackingCode && o.trackingCode.toUpperCase() === code);
+            const json = await res.json();
+            if (json?.ok && json.order) {
+              order = json.order;
+              break;
+            }
           }
-        } catch(e) {
-          console.warn('Bulut sorgusu başarısız, yerel bellek kontrol ediliyor:', e);
+        } catch (e) {
+          console.warn('Takip servisi sorgusu atlandı:', e);
         }
       }
 
