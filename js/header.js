@@ -103,15 +103,67 @@
     const burger = document.getElementById('hgHamburgerBtn');
     const drawer = document.getElementById('hgMobileDrawer');
 
-    // Smoothly glide header away on scroll down & restore smoothly near top across all pages
+    // Continuous 60fps requestAnimationFrame scroll-damped glide for header exit & return
+    const pillEl = wrapper.querySelector('.hg-header-pill');
+    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let currentProg = 0;
+    let targetProg = 0;
+    let rafId = 0;
+
+    function applyHeaderFrame(p) {
+      const clamped = Math.max(0, Math.min(1, p));
+      const hidden = clamped > 0.985;
+      wrapper.classList.toggle('hg-header-hidden', hidden);
+      if (pillEl) {
+        pillEl.style.pointerEvents = clamped > 0.72 ? 'none' : 'auto';
+      }
+      if (reducedMotion) {
+        wrapper.style.transform = hidden ? 'translate3d(0, -110px, 0)' : 'translate3d(0, 0, 0)';
+        wrapper.style.opacity = hidden ? '0' : '1';
+      } else {
+        const yPx = (-104 * clamped).toFixed(2);
+        const sc = (1 - 0.06 * clamped).toFixed(4);
+        const op = Math.max(0, 1 - Math.pow(clamped, 1.3)).toFixed(3);
+        wrapper.style.transform = `translate3d(0, ${yPx}px, 0) scale(${sc})`;
+        wrapper.style.opacity = op;
+      }
+      backTopBtn.classList.toggle('visible', window.scrollY > 180 && !drawer?.classList.contains('open'));
+    }
+
+    function stepHeaderAnim() {
+      const diff = targetProg - currentProg;
+      if (Math.abs(diff) < 0.002) {
+        currentProg = targetProg;
+        applyHeaderFrame(currentProg);
+        rafId = 0;
+        return;
+      }
+      currentProg += diff * 0.11;
+      applyHeaderFrame(currentProg);
+      rafId = requestAnimationFrame(stepHeaderAnim);
+    }
+
     const updateScroll = () => {
       const y = window.scrollY;
       wrapper.classList.toggle('scrolled', y > 10);
-      const shouldHide = y > 48 && !drawer?.classList.contains('open');
-      wrapper.classList.toggle('hg-header-hidden', shouldHide);
-      backTopBtn.classList.toggle('visible', shouldHide);
+      if (drawer?.classList.contains('open')) {
+        targetProg = 0;
+      } else {
+        // Glides smoothly away from 24px -> 190px scroll, and glides back smoothly on return
+        targetProg = Math.max(0, Math.min(1, (y - 24) / 166));
+      }
+      if (reducedMotion) {
+        currentProg = targetProg;
+        applyHeaderFrame(currentProg);
+      } else if (!rafId) {
+        rafId = requestAnimationFrame(stepHeaderAnim);
+      }
     };
-    requestAnimationFrame(updateScroll);
+
+    const initialTarget = Math.max(0, Math.min(1, (window.scrollY - 24) / 166));
+    currentProg = initialTarget;
+    targetProg = initialTarget;
+    applyHeaderFrame(currentProg);
     window.addEventListener('scroll', updateScroll, { passive: true });
 
     // Mobile drawer morphing toggle

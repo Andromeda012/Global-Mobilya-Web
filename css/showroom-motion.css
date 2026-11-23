@@ -27,14 +27,10 @@
   padding: 16px 32px 0;
   pointer-events: none;
   transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center top;
   opacity: 1;
-  filter: blur(0px);
-  will-change: transform, opacity, filter;
-  transition:
-    padding 0.45s var(--ease-hg),
-    transform 0.76s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.62s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.42s ease-out 0ms;
+  will-change: transform, opacity;
+  transition: padding 0.45s var(--ease-hg);
 }
 
 .hg-header-shell.scrolled {
@@ -42,15 +38,7 @@
 }
 
 .hg-header-shell.hg-header-hidden {
-  transform: translate3d(0, -135%, 0) scale(0.94);
-  filter: blur(8px);
-  opacity: 0;
   pointer-events: none;
-  transition:
-    padding 0.45s var(--ease-hg),
-    transform 0.76s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.56s ease,
-    opacity 0.48s ease-in 150ms;
 }
 
 .hg-back-top-btn {
