@@ -26,13 +26,17 @@
     return url.replace(/^\/+/, '');
   };
 
-  // ── 1. Eğer sayfada .topbar yoksa, nav öncesine kurumsal topbar ekle ──
-  const navEl = document.querySelector('nav');
+  // ── 1. Modern H&G pill header bulunan sayfalarda eski topbar/sticky-header enjeksiyonunu devre dışı bırak ──
+  const hasModernPillHeader = Boolean(
+    document.getElementById('hgSiteHeader') ||
+    document.querySelector('.hg-header-shell')
+  );
+  const navEl = hasModernPillHeader ? null : document.querySelector('body > nav');
   if (navEl && !document.querySelector('.topbar')) {
     const tb = document.createElement('div');
     tb.className = 'topbar';
     tb.innerHTML = `
-      <span class="topbar-left">✦ 5 İş Gününde Teslimat  |  🛡️ 5 Yıl Üretici Garantisi  |  🌿 Doğa Dostu Üretim & Türkiye Geneli Sevkiyat</span>
+      <span class="topbar-left">✦ Özel Ölçü Mimari Mobilya  |  🛡️ 5 Yıl Üretici Garantisi  |  🌿 Türkiye Geneli Güvenli Sevkiyat</span>
       <div class="topbar-right">
         <a href="tel:05050151035">📞 0 (505) 015 1035</a>
         <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
@@ -41,7 +45,7 @@
     navEl.parentNode.insertBefore(tb, navEl);
   }
 
-  // ── 1b. Topbar ve Nav'ı tek bir sabit (sticky) üst panel içinde birleştir ──
+  // ── 1b. Topbar ve Nav'ı tek bir sabit (sticky) üst panel içinde birleştir (yalnızca eski nav için) ──
   const topbarEl = document.querySelector('.topbar');
   if (navEl && topbarEl && !navEl.closest('.site-sticky-header')) {
     const stickyWrap = document.createElement('div');
