@@ -81,12 +81,25 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* Hide top floating pill completely while scrolling through collections */
-  .hg-header-shell {
-    transition: padding 0.45s var(--ease-hg), transform 0.45s var(--ease-hg), opacity 0.32s ease;
+  /* Hide top floating pill with silky smooth upward glide while scrolling collections */
+  html[data-page="koleksiyon"] #siteHeader.hg-header-shell {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+    will-change: transform, opacity;
+    transition:
+      transform 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
-  body.koleksiyon-immersive .hg-header-shell {
-    transform: translateY(-135%);
+  html[data-page="koleksiyon"] #siteHeader.hg-header-shell.scrolled .hg-header-pill {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: linear-gradient(180deg, rgba(26, 22, 18, 0.72) 0%, rgba(26, 22, 18, 0.44) 100%);
+    color: #F7F5F0;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 14px 40px -16px rgba(0, 0, 0, 0.55);
+  }
+  html[data-page="koleksiyon"] body.koleksiyon-immersive #siteHeader.hg-header-shell {
+    transform: translate3d(0, -105px, 0) scale(0.97);
     opacity: 0;
     pointer-events: none;
   }
@@ -905,7 +918,7 @@ async function initCollectionsPage() {
     }, 240);
   }
   function updateImmersiveChrome() {
-    document.body.classList.toggle('koleksiyon-immersive', window.scrollY > 210);
+    document.body.classList.toggle('koleksiyon-immersive', window.scrollY > 36);
   }
   window.addEventListener('scroll', updateImmersiveChrome, { passive: true });
   updateImmersiveChrome();
