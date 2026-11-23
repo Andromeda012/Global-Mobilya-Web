@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Nordic Blue, Slate Grey & Botanical Sage Tema Motoru
+ * Global Mobilya — Nordic Blue, Slate Grey & Botanical Sage Tema Motoru
  * Tüm sayfalarda mavi, gri ve hafif doğa yeşili renk paletini, tipografiyi,
  * cam efektli navigasyonu ve kart animasyonlarını uygular.
  */
@@ -150,7 +150,7 @@
         border-bottom: 1px solid rgba(124, 194, 230, 0.22);
       }
       .page-hero::before {
-        content: '✦ GLOBAL KAPAK ATELIER ✦';
+        content: '✦ GLOBAL MOBİLYA ATELIER ✦';
         display: inline-block;
         font-size: 10.5px;
         font-weight: 700;

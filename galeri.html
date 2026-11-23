@@ -3,905 +3,922 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dijital Galeri & Showroom | Global Mobilya — Yaşam Alanlarını Keşfedin</title>
-<meta name="description" content="Global Mobilya Dijital Showroom: 8 seçkin yatak odası koleksiyonu, bağımsız mobilya modelleri ve mimari mekan tasarımları.">
-<meta name="keywords" content="global mobilya showroom, yatak odası koleksiyonları, mimari mobilya galeri, makyaj masası, portmanto, lüks mobilya">
-<meta name="author" content="Global Mobilya">
-<meta name="robots" content="index, follow">
+<title>Galeri &amp; Bağımsız Ürünler Sunum Merkezi | Global Mobilya</title>
+<meta name="description" content="Global Mobilya Galeri ve Bağımsız Ürünler Sunum Merkezi: Koleksiyon kareleri, bağımsız tasarım modülleri ve atölye projeleri.">
 <link rel="canonical" href="https://globalkapakmobilya.com/galeri.html">
+<link rel="icon" type="image/png" href="resim/logo.png">
 
-<!-- OPEN GRAPH & TWITTER -->
-<meta property="og:site_name" content="Global Mobilya">
-<meta property="og:title" content="Dijital Galeri & Showroom — Global Mobilya">
-<meta property="og:description" content="Yaşam alanlarını keşfedin. Her koleksiyon, kendine özgü bir tasarım hikâyesi anlatır.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://globalkapakmobilya.com/galeri.html">
-<meta property="og:image" content="https://globalkapakmobilya.com/resim/logo.png">
-<meta property="og:locale" content="tr_TR">
-
-<!-- FAVICON -->
-<link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
-<link rel="shortcut icon" href="/favicon.ico">
-
-<!-- FONTS: Cormorant Garamond & Plus Jakarta Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<link rel="stylesheet" href="css/showroom-motion.css">
 
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-stone-light);
-  color: var(--text-charcoal);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
-  color: var(--text);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* ── EDITORIAL HEADER ── */
-header.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 22px 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.35s ease;
-  background: transparent;
-}
-header.site-header.scrolled {
-  background: rgba(250, 248, 245, 0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 14px 60px;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(39, 37, 34, 0.04);
-}
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.header-logo img {
-  height: 44px;
-  width: auto;
-  transition: transform 0.25s ease;
-}
-.header-logo:hover img { transform: scale(1.03); }
-.header-brand-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.3s ease;
-}
-header.site-header:not(.scrolled) .header-brand-title {
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 34px;
-}
-.header-nav a {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.2s ease;
-  position: relative;
-  padding: 4px 0;
-}
-header.site-header:not(.scrolled) .header-nav a {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-.header-nav a:hover, .header-nav a.active {
-  color: var(--walnut);
-}
-header.site-header:not(.scrolled) .header-nav a:hover {
-  color: var(--beige-light);
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.btn-editorial-cta {
-  background: var(--walnut);
-  color: var(--white) !important;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 10px 22px;
-  border-radius: 40px;
-  border: 1px solid var(--walnut);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.btn-editorial-cta:hover {
-  background: var(--walnut-dark);
-  border-color: var(--walnut-dark);
-  transform: translateY(-1px);
-}
-.btn-wa-pill {
-  background: #25D366;
-  color: #fff !important;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 9px 18px;
-  border-radius: 40px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-.btn-wa-pill:hover { background: #1EBE5D; transform: translateY(-1px); }
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: var(--charcoal);
-}
-header.site-header:not(.scrolled) .hamburger { color: #fff; }
-
-/* ── GALERİ HERO ── */
-.gallery-hero {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 40px 80px;
-  background: var(--charcoal);
-  overflow: hidden;
-}
-.gallery-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('resim/showroom/luxury_showroom.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.85;
-}
-.gallery-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(39,37,34,0.3) 0%, rgba(39,37,34,0.85) 100%),
-    linear-gradient(180deg, rgba(39,37,34,0.4) 0%, rgba(39,37,34,0.9) 100%);
-  z-index: 1;
-}
-.gallery-hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 820px;
-  color: var(--white);
-}
-.gallery-hero-tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--beige);
-  margin-bottom: 14px;
-}
-.gallery-hero-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(38px, 5.5vw, 66px);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
-.gallery-hero-sub {
-  font-size: clamp(15px, 1.8vw, 18px);
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 640px;
-  margin: 0 auto;
-  font-weight: 300;
-}
-
-/* ── BREADCRUMB ── */
-.breadcrumb {
-  background: var(--ivory);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 60px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.breadcrumb a { color: var(--walnut); font-weight: 600; }
-.breadcrumb span { margin: 0 8px; color: var(--taupe); }
-
-/* ── STICKY CATEGORY FILTER BAR ── */
-.gallery-nav-bar {
-  background: rgba(250, 248, 245, 0.96);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 60px;
-  position: sticky;
-  top: 72px;
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.gallery-pill {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  padding: 8px 20px;
-  border-radius: 40px;
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-family: inherit;
-}
-.gallery-pill:hover, .gallery-pill.active {
-  background: var(--walnut);
-  color: var(--white);
-  border-color: var(--walnut);
-  box-shadow: 0 4px 14px rgba(96, 74, 61, 0.18);
-}
-
-/* ── MAIN SHOWROOM CONTAINER ── */
-.showroom-container {
-  max-width: 1340px;
-  margin: 0 auto;
-  padding: 70px 60px 110px;
-}
-.cat-heading {
-  margin-bottom: 36px;
-}
-.cat-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  display: block;
-  margin-bottom: 6px;
-}
-.cat-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 36px;
-  font-weight: 600;
-  color: var(--charcoal);
-}
-.cat-desc {
-  font-size: 14px;
-  color: var(--text-muted);
-  max-width: 680px;
-  margin-top: 6px;
-}
-
-/* ── 8 YATAK ODASI KOLEKSİYONU GRİDİ (EDİTORYAL ASİMETRİK) ── */
-.col-grid-showroom {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 36px;
-  margin-bottom: 90px;
-}
-.showroom-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(39, 37, 34, 0.04);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-}
-.showroom-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--walnut);
-  box-shadow: 0 20px 48px rgba(96, 74, 61, 0.12);
-}
-.sc-img-wrap {
-  position: relative;
-  height: 300px;
-  background: var(--charcoal);
-  overflow: hidden;
-}
-.sc-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.showroom-card:hover .sc-img {
-  transform: scale(1.05);
-}
-.sc-tag {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(39, 37, 34, 0.88);
-  backdrop-filter: blur(8px);
-  color: var(--beige-light);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 6px;
-  border: 1px solid rgba(216, 203, 190, 0.3);
-}
-.sc-body {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.sc-style {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  margin-bottom: 6px;
-}
-.sc-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--charcoal);
-  margin-bottom: 8px;
-}
-.sc-story {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.sc-palettes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-.palette-chip {
-  font-size: 10.5px;
-  background: var(--ivory);
-  border: 1px solid var(--border);
-  color: var(--charcoal);
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-.sc-btn {
-  margin-top: auto;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s ease;
-}
-.showroom-card:hover .sc-btn {
-  transform: translateX(4px);
-  color: var(--walnut-dark);
-}
-
-/* ── BAĞIMSIZ ÜRÜNLER GRİDİ ── */
-.indep-products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 28px;
-  margin-bottom: 90px;
-}
-.indep-item {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(39, 37, 34, 0.04);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.indep-item:hover {
-  transform: translateY(-4px);
-  border-color: var(--walnut);
-  box-shadow: 0 16px 36px rgba(96, 74, 61, 0.1);
-}
-.ii-img-wrap {
-  height: 240px;
-  background: var(--ivory);
-  overflow: hidden;
-}
-.ii-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.indep-item:hover .ii-img {
-  transform: scale(1.04);
-}
-.ii-body {
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.ii-cat {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--taupe);
-  margin-bottom: 4px;
-}
-.ii-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 6px;
-}
-.ii-desc {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.ii-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: auto;
-}
-.btn-ii-detail {
-  flex: 1;
-  background: var(--ivory);
-  color: var(--charcoal);
-  border: 1px solid var(--border);
-  padding: 9px 12px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-.btn-ii-detail:hover {
-  background: var(--walnut);
-  color: var(--white);
-  border-color: var(--walnut);
-}
-
-/* ── FABRİKA VE UYGULAMA FOTOĞRAFLARI ── */
-.factory-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-.fact-tile {
-  height: 240px;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  background: var(--charcoal);
-  box-shadow: 0 6px 20px rgba(39, 37, 34, 0.06);
-}
-.fact-tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.fact-tile:hover img {
-  transform: scale(1.06);
-}
-.fact-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(39, 37, 34, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  color: #fff;
-  text-align: center;
-  padding: 16px;
-}
-.fact-tile:hover .fact-overlay {
-  opacity: 1;
-}
-
-/* ── LIGHTBOX (GÖRSEL BÜYÜTME) ── */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(39, 37, 34, 0.95);
-  backdrop-filter: blur(8px);
-  z-index: 99999;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
-}
-.lightbox.open { display: flex; }
-.lb-box {
-  max-width: 900px;
-  width: 100%;
-  background: var(--white);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-}
-.lb-img {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: contain;
-  background: var(--charcoal);
-}
-.lb-meta {
-  padding: 20px 24px;
-  background: var(--white);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  header.site-header { padding: 18px 24px; }
-  .gallery-hero { padding: 100px 24px 60px; }
-  .gallery-nav-bar { padding: 14px 24px; top: 70px; }
-  .showroom-container { padding: 50px 24px 80px; }
-  .col-grid-showroom { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
-  .factory-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .hamburger { display: block; }
-  .header-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    flex-direction: column;
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  :root {
+    --gal-ivory: #F7F5F0;
+    --gal-linen: #EEEAE2;
+    --gal-sand: #E4DED3;
+    --gal-ink: #2A2925;
+    --gal-muted: #656058;
+    --gal-sage: #5E7462;
+    --gal-sage-dark: #4A6450;
   }
-  .header-nav.open { display: flex; }
-  .header-actions { display: none; }
-  .col-grid-showroom { grid-template-columns: 1fr; }
-  .indep-products-grid { grid-template-columns: 1fr; }
-  .factory-grid { grid-template-columns: 1fr; }
-}
+
+  body {
+    background: var(--gal-ivory);
+    color: var(--gal-ink);
+    font-family: var(--font-hg-sans);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .gal-hero {
+    position: relative;
+    min-height: 62vh;
+    padding: 150px 36px 76px;
+    background: #15120F;
+    color: #F7F5F0;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .gal-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('resim/showroom/luxury_showroom.jpg') center/cover no-repeat;
+    opacity: 0.56;
+    transform: scale(1.03);
+  }
+  .gal-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(16, 13, 10, 0.45) 0%, rgba(16, 13, 10, 0.88) 100%);
+  }
+  .gal-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1380px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .gal-kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #DFC793;
+    margin-bottom: 12px;
+  }
+  .gal-hero h1 {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(40px, 5.2vw, 72px);
+    font-weight: 400;
+    line-height: 1.02;
+    color: #fff;
+  }
+  .gal-hero h1 em { font-style: italic; color: #DFC793; }
+  .gal-hero-sub {
+    max-width: 470px;
+    font-size: 14.5px;
+    line-height: 1.68;
+    color: rgba(247, 245, 240, 0.78);
+  }
+
+  /* ── STICKY NAVIGATION BAR ── */
+  .gal-nav-bar {
+    position: sticky;
+    top: 86px;
+    z-index: 900;
+    background: rgba(247, 245, 240, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(42, 41, 37, 0.1);
+    padding: 14px 36px;
+  }
+  .gal-nav-inner {
+    max-width: 1380px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .gal-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gal-tab {
+    border: 1px solid rgba(42, 41, 37, 0.16);
+    background: #fff;
+    color: var(--gal-ink);
+    font-family: var(--font-hg-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s var(--ease-hg);
+  }
+  .gal-tab:hover { border-color: var(--gal-sage-dark); }
+  .gal-tab.active {
+    background: var(--gal-ink);
+    color: #F7F5F0;
+    border-color: var(--gal-ink);
+  }
+  .gal-count {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(42, 41, 37, 0.08);
+  }
+  .gal-tab.active .gal-count {
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  /* ── SECTIONS ── */
+  .gal-sec {
+    padding: 72px 36px;
+    max-width: 1380px;
+    margin: 0 auto;
+  }
+  .gal-sec-divider {
+    border-top: 1px solid rgba(42, 41, 37, 0.1);
+  }
+  .gal-sec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .gal-sec-title {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(32px, 3.8vw, 52px);
+    font-weight: 400;
+    line-height: 1.06;
+    color: var(--gal-ink);
+  }
+  .gal-sec-title em { font-style: italic; color: var(--gal-sage-dark); }
+  .gal-sec-note {
+    max-width: 470px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--gal-muted);
+  }
+
+  /* Subcategory Chips inside Independent Products & Collections */
+  .sub-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 26px;
+  }
+  .sub-chip {
+    border: 1px solid rgba(42, 41, 37, 0.14);
+    background: var(--gal-linen);
+    color: var(--gal-ink);
+    font-family: var(--font-hg-sans);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 15px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  .sub-chip.active, .sub-chip:hover {
+    background: var(--gal-sage-dark);
+    color: #fff;
+    border-color: var(--gal-sage-dark);
+  }
+
+  /* Independent Products Presentation Hub Cards */
+  .indep-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .indep-item {
+    background: #fff;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 40px -24px rgba(42, 41, 37, 0.25);
+    transition: transform 0.45s var(--ease-hg), box-shadow 0.45s ease;
+  }
+  .indep-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 52px -22px rgba(42, 41, 37, 0.36);
+  }
+  .ii-thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--gal-linen);
+    cursor: pointer;
+  }
+  .ii-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease-hg);
+  }
+  .indep-item:hover .ii-thumb img { transform: scale(1.06); }
+  .ii-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(25, 22, 19, 0.72);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ii-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .ii-title {
+    font-family: var(--font-hg-serif);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--gal-ink);
+    margin-bottom: 6px;
+  }
+  .ii-meta {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gal-sage-dark);
+    margin-bottom: 10px;
+  }
+  .ii-desc {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--gal-muted);
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .ii-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+  }
+  .btn-ii-detail {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(42, 41, 37, 0.18);
+    color: var(--gal-ink);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+  }
+  .btn-ii-detail:hover {
+    background: var(--gal-ink);
+    color: #fff;
+    border-color: var(--gal-ink);
+  }
+  .btn-ii-quote {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: none;
+    background: var(--gal-sage-dark);
+    color: #fff;
+    font-family: var(--font-hg-sans);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+  .btn-ii-quote:hover { background: var(--gal-ink); }
+
+  /* Empty Hub Banner for Independent Products */
+  .presentation-empty-hub {
+    background: linear-gradient(135deg, #EEEAE2 0%, #E7E1D5 100%);
+    border: 1px solid rgba(42, 41, 37, 0.1);
+    border-radius: 26px;
+    padding: 46px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .presentation-empty-hub h3 {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(30px, 3.2vw, 44px);
+    font-weight: 400;
+    line-height: 1.08;
+    margin-bottom: 12px;
+  }
+  .presentation-pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .pres-slot {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+  }
+  .pres-slot strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--gal-ink);
+    margin-bottom: 4px;
+  }
+  .pres-slot span {
+    font-size: 12px;
+    color: var(--gal-muted);
+    line-height: 1.45;
+  }
+
+  /* Collections Grid */
+  .gal-col-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .gal-col-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.45s var(--ease-hg), box-shadow 0.45s ease;
+  }
+  .gal-col-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 52px -24px rgba(42, 41, 37, 0.34);
+  }
+  .gal-col-img {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--gal-sand);
+    position: relative;
+  }
+  .gal-col-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease-hg);
+  }
+  .gal-col-card:hover .gal-col-img img { transform: scale(1.06); }
+  .gal-col-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+  .gal-col-cat {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gal-sage-dark);
+    margin-bottom: 6px;
+  }
+  .gal-col-title {
+    font-family: var(--font-hg-serif);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .gal-col-story {
+    font-size: 13.5px;
+    color: var(--gal-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .gal-col-foot {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(42, 41, 37, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gal-sage-dark);
+  }
+
+  /* Atelier Tiles */
+  .factory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .fact-tile {
+    height: 250px;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #1C1814;
+  }
+  .fact-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease-hg);
+  }
+  .fact-tile:hover img { transform: scale(1.06); }
+  .fact-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(24, 20, 16, 0.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: #fff;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .fact-tile:hover .fact-overlay { opacity: 1; }
+
+  /* Lightbox & Request Modal */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1600;
+    background: rgba(20, 17, 14, 0.92);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .lightbox.open { display: flex; }
+  .lb-box { max-width: 920px; width: 100%; text-align: center; position: relative; }
+  .lb-box img { max-height: 78vh; margin: 0 auto; border-radius: 16px; }
+  .lb-caption { margin-top: 12px; color: #F7F5F0; font-family: var(--font-hg-serif); font-size: 26px; }
+  .lb-close {
+    position: fixed;
+    top: 22px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .gal-quote-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1650;
+    background: rgba(16, 13, 10, 0.78);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .gal-quote-backdrop.open { display: flex; }
+  .gal-quote-dialog {
+    width: min(520px, 100%);
+    background: var(--gal-ivory);
+    color: var(--gal-ink);
+    border-radius: 22px;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 32px 72px rgba(0, 0, 0, 0.45);
+  }
+  .gal-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(42, 41, 37, 0.16);
+    background: #fff;
+    font-family: var(--font-hg-sans);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    .indep-hub-grid, .gal-col-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .factory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .presentation-empty-hub { grid-template-columns: 1fr; padding: 30px; }
+  }
+  @media (max-width: 640px) {
+    .gal-hero, .gal-nav-bar, .gal-sec { padding-left: 20px; padding-right: 20px; }
+    .indep-hub-grid, .gal-col-grid, .factory-grid, .presentation-pillars { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- STICKY EDITORIAL HEADER -->
-<header class="site-header" id="siteHeader">
-  <a href="index.html" class="header-logo">
-    <img src="resim/logo.png" alt="Global Mobilya">
-    <span class="header-brand-title">Global Mobilya</span>
-  </a>
-  <nav class="header-nav" id="headerNav">
-    <a href="index.html">Ana Sayfa</a>
-    <a href="index.html#koleksiyonlar">Koleksiyonlar</a>
-    <a href="galeri.html" class="active">Dijital Showroom</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="iletisim.html">İletişim</a>
-  </nav>
-  <div class="header-actions">
-    <a href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill">
-      💬 WhatsApp
-    </a>
-    <a href="iletisim.html" class="btn-editorial-cta">
-      ✦ Fiyat & Teklif Al
-    </a>
-  </div>
-  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menüyü Aç">☰</button>
-</header>
+<header id="hgSiteHeader" class="site-header"></header>
 
-<!-- HERO -->
-<section class="gallery-hero">
-  <div class="gallery-hero-bg"></div>
-  <div class="gallery-hero-overlay"></div>
-  <div class="gallery-hero-content">
-    <span class="gallery-hero-tag">DİJİTAL SHOWROOM & MİMARİ GALERİ</span>
-    <h1 class="gallery-hero-title">Yaşam Alanlarını Keşfedin</h1>
-    <p class="gallery-hero-sub">
-      Her koleksiyon, kendine özgü bir tasarım hikâyesi anlatır.
+<section class="gal-hero">
+  <div class="gal-hero-bg"></div>
+  <div class="gal-hero-scrim"></div>
+  <div class="gal-hero-inner">
+    <div class="hg-reveal">
+      <span class="gal-kicker">Sunum &amp; Kürasyon Merkezi</span>
+      <h1>Galeri &amp; <em>Bağımsız</em> Ürünler</h1>
+    </div>
+    <p class="gal-hero-sub hg-reveal" data-delay="120">
+      Tekil tasarım modülleri için özel <strong>Bağımsız Ürünler Sunum Merkezi</strong>’mizi ve kategorilere ayrılmış tüm mobilya koleksiyonlarımızı aynı vitrinde inceleyin.
     </p>
   </div>
 </section>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="index.html">Ana Sayfa</a>
-  <span>›</span>
-  <strong style="color:var(--charcoal);">Dijital Showroom & Galeri</strong>
+<div class="gal-nav-bar">
+  <div class="gal-nav-inner">
+    <div class="gal-tabs" id="galSwitchTabs">
+      <button type="button" class="gal-tab active" onclick="switchGalleryView('all', this)">Tümü</button>
+      <button type="button" class="gal-tab" onclick="switchGalleryView('bagimsiz', this)">Bağımsız Ürünler <span class="gal-count" id="tabCntIndep">0</span></button>
+      <button type="button" class="gal-tab" onclick="switchGalleryView('koleksiyonlar', this)">Koleksiyonlar <span class="gal-count" id="tabCntCols">0</span></button>
+      <button type="button" class="gal-tab" onclick="switchGalleryView('atolye', this)">Atölye &amp; Mekân <span class="gal-count" id="tabCntFactory">0</span></button>
+    </div>
+    <a href="koleksiyon.html" style="font-size:12.5px;font-weight:700;color:var(--gal-sage-dark);text-decoration:none;">
+      Tam Ekran Koleksiyon Hikâyeleri →
+    </a>
+  </div>
 </div>
 
-<!-- STICKY CATEGORY FILTER BAR -->
-<nav class="gallery-nav-bar">
-  <button class="gallery-pill active" onclick="switchFilter('all', this)">✨ Tümü</button>
-  <button class="gallery-pill" onclick="switchFilter('koleksiyonlar', this)">🏛️ 8 Yatak Odası Koleksiyonu</button>
-  <button class="gallery-pill" onclick="switchFilter('makyaj', this)">🪞 Makyaj Masası & Dresuar</button>
-  <button class="gallery-pill" onclick="switchFilter('portmanto', this)">🚪 Portmanto & Vestiyer</button>
-  <button class="gallery-pill" onclick="switchFilter('dolap', this)">🗄️ Dolap & Depolama</button>
-  <button class="gallery-pill" onclick="switchFilter('fabrika', this)">📸 İmalat & Montaj Galerisi</button>
-</nav>
-
-<!-- MAIN SHOWROOM CONTENT -->
-<main class="showroom-container">
-
-  <!-- 1. BÖLÜM: KOLEKSİYONLAR (8 YATAK ODASI) -->
-  <section id="sectionKoleksiyonlar" class="cat-section" style="margin-bottom:80px;">
-    <div class="cat-heading">
-      <span class="cat-eyebrow">BÜTÜNSEL MEKAN DENEYİMİ</span>
-      <h2 class="cat-title">8 Yatak Odası Koleksiyonu (Master Suites)</h2>
-      <p class="cat-desc">
-        Karyola, gardırop, şifonyer ve komodini aynı mimari çizgide buluşturan seçkin takımlarımız.
-      </p>
+<!-- 1. BAĞIMSIZ ÜRÜNLER SUNUM MERKEZİ -->
+<section class="gal-sec" id="sectionBagimsiz">
+  <div class="gal-sec-head hg-reveal">
+    <div>
+      <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">Bağımsız Ürünler Sunum Merkezi</span>
+      <h2 class="gal-sec-title">Tekil Tasarım <em>Modülleri</em></h2>
     </div>
-    <div class="col-grid-showroom" id="showroomCollectionsGrid">
-      <div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--text-muted);">
-        Koleksiyonlar yükleniyor...
-      </div>
-    </div>
-  </section>
+    <p class="gal-sec-note">Koleksiyon setlerinden bağımsız olarak dresuar, konsol, sehpa veya özel depolama birimi şeklinde tek başına sipariş edilebilen parçalar.</p>
+  </div>
 
-  <!-- 2. BÖLÜM: BAĞIMSIZ ÜRÜNLER -->
-  <section id="sectionBagimsiz" class="cat-section" style="margin-bottom:80px;">
-    <div class="cat-heading">
-      <span class="cat-eyebrow">FONKSİYONEL MODÜLLER</span>
-      <h2 class="cat-title">Bağımsız Mobilya Tasarımları</h2>
-      <p class="cat-desc">
-        Antre, giyinme odası ve yatak odalarınız için özel ölçü üretilen fonksiyonel mobilyalar.
-      </p>
-    </div>
-    <div class="indep-products-grid" id="showroomProductsGrid">
-      <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">
-        Ürünler yükleniyor...
-      </div>
-    </div>
-  </section>
+  <div class="sub-chips" id="indepFilterChips" style="display:none;"></div>
+  <div id="indepProductsContainer"></div>
+</section>
 
-  <!-- 3. BÖLÜM: FABRİKA & İMALAT SAHNELERİ -->
-  <section id="sectionFabrika" class="cat-section">
-    <div class="cat-heading">
-      <span class="cat-eyebrow">ÜRETİM VE MONTAJ FOTOĞRAFLARI</span>
-      <h2 class="cat-title">Fabrika & Atölye Uygulamaları</h2>
-      <p class="cat-desc">
-        2.000 m² CNC membran tesisimizden ve tamamlanan müşteri montajlarımızdan gerçek kareler.
-      </p>
+<!-- 2. KOLEKSİYON VİTRİNİ -->
+<section class="gal-sec gal-sec-divider" id="sectionKoleksiyonlar">
+  <div class="gal-sec-head hg-reveal">
+    <div>
+      <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">Kategori Bazlı Seçki</span>
+      <h2 class="gal-sec-title">Koleksiyon <em>Vitrini</em></h2>
     </div>
-    <div class="factory-grid" id="showroomFactoryGrid"></div>
-  </section>
+    <p class="gal-sec-note">Kahve Köşesi, Dolap ve Yatak Odası alt kategorilerine ayrılan aktif mobilya serilerimizi inceleyip detay sayfalarına geçebilirsiniz.</p>
+  </div>
 
-</main>
+  <div class="sub-chips" id="colSubChips">
+    <button type="button" class="sub-chip active" data-colcat="ALL">Tümü</button>
+    <button type="button" class="sub-chip" data-colcat="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları</button>
+    <button type="button" class="sub-chip" data-colcat="Dolap Koleksiyonları">Dolap Koleksiyonları</button>
+    <button type="button" class="sub-chip" data-colcat="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları</button>
+  </div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightboxModal" onclick="closeLightbox()">
-  <div class="lb-box" onclick="event.stopPropagation()">
-    <img id="lbImg" src="" alt="Büyük Görsel" class="lb-img">
-    <div class="lb-meta" style="display:flex; justify-content:space-between; align-items:center;">
-      <strong id="lbTitle" style="font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--charcoal);"></strong>
-      <button onclick="closeLightbox()" style="background:var(--ivory); border:1px solid var(--border); padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:700;">Kapat ✕</button>
+  <div class="gal-col-grid" id="galCollectionsGrid"></div>
+</section>
+
+<!-- 3. ATÖLYE & MEKÂN KARELERİ -->
+<section class="gal-sec gal-sec-divider" id="sectionFabrika">
+  <div class="gal-sec-head hg-reveal">
+    <div>
+      <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">Mekân &amp; İşçilik</span>
+      <h2 class="gal-sec-title">Atölye &amp; Showroom <em>Kareleri</em></h2>
+    </div>
+    <p class="gal-sec-note">Atölye hazırlık sürecimizden ve yaşam alanı kurgularımızdan yüksek çözünürlüklü kareler.</p>
+  </div>
+  <div class="factory-grid" id="factoryGrid"></div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightboxModal" onclick="if(event.target===this) closeLightbox()">
+  <button type="button" class="lb-close" onclick="closeLightbox()" aria-label="Görseli Kapat">×</button>
+  <div class="lb-box">
+    <img id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<!-- Independent Piece Request Modal -->
+<div class="gal-quote-backdrop" id="galQuoteModal" onclick="if(event.target===this) closeGalQuoteModal()">
+  <div class="gal-quote-dialog">
+    <button type="button" onclick="closeGalQuoteModal()" style="position:absolute;top:16px;right:18px;border:none;background:none;font-size:22px;cursor:pointer;color:var(--gal-muted);">×</button>
+    <div id="gqFormWrap">
+      <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gal-sage-dark);">Bağımsız Ürün Talebi</span>
+      <h3 id="gqTitle" style="font-family:var(--font-hg-serif);font-size:32px;font-weight:400;margin:6px 0 18px;">Özel Parça Teklifi İste</h3>
+      <form onsubmit="submitGalQuote(event)">
+        <input type="hidden" id="gq_item" value="Bağımsız Ürün Talebi">
+        <input type="text" id="gq_name" class="gal-input" required placeholder="Adınız Soyadınız">
+        <input type="tel" id="gq_phone" class="gal-input" required placeholder="Telefon / WhatsApp (05XX XXX XX XX)">
+        <textarea id="gq_notes" rows="3" class="gal-input" placeholder="İstediğiniz ürün tipi (dresuar, konsol, sehpa vb.), genişlik ve renk tercihiniz..."></textarea>
+        <button type="submit" id="btnGqSubmit" class="btn-hg-wipe" style="width:100%;height:46px;">
+          <span class="btn-hg-wipe-inner" style="width:100%;">
+            <span class="btn-hg-wipe-row main" style="width:100%;">✦ Talebi İlet →</span>
+            <span class="btn-hg-wipe-row clone" style="width:100%;" aria-hidden="true">✦ Talebi İlet →</span>
+          </span>
+        </button>
+      </form>
+    </div>
+    <div id="gqSuccess" style="display:none;text-align:center;padding:18px 0;">
+      <div style="font-size:32px;color:var(--gal-sage-dark);margin-bottom:8px;">✦</div>
+      <h4 style="font-family:var(--font-hg-serif);font-size:28px;font-weight:400;margin-bottom:8px;">Talebiniz Alındı</h4>
+      <p style="font-size:14px;color:var(--gal-muted);margin-bottom:18px;">Atölye ekibimiz ölçü ve fiyat değerlendirmesiyle size dönüş yapacaktır.</p>
+      <button type="button" class="gal-tab active" onclick="closeGalQuoteModal()">Tamam</button>
     </div>
   </div>
 </div>
 
-<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
+<script src="js/genel.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
+
 <script>
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 80) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+let _galProducts = [];
+let _galCollections = [];
+let _galColFilter = 'ALL';
+let _galIndepFilter = 'ALL';
 
-let allCollections = [];
-let allProducts = [];
+const CLEAN_LOCAL_TILES = [
+  { image_url: 'resim/showroom/warm_atelier.jpg', title: 'Sıcak Meşe Kahve Köşesi Atölyesi' },
+  { image_url: 'resim/showroom/nordic_atelier.jpg', title: 'Minimalist İskandinav Yaşam Modülü' },
+  { image_url: 'resim/showroom/luxury_showroom.jpg', title: 'Mimari Showroom Perspektifi' },
+  { image_url: 'resim/yonetilen/atelier-craft.jpg', title: 'İnce Marangozluk ve Birleşim Detayı' }
+];
 
-async function initShowroomPage() {
-  await Promise.all([
-    loadCollections(),
-    loadProducts(),
-    loadFactoryImages()
-  ]);
+function esc(s) {
+  return String(s || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
 }
 
-async function loadCollections() {
-  const container = document.getElementById('showroomCollectionsGrid');
-  try {
-    let list = [];
-    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollections) {
-      list = await window.GKM_SUPABASE.getCollections();
-    }
-    allCollections = list || [];
-    if (allCollections.length > 0) {
-      container.innerHTML = allCollections.map(c => {
-        const palHtml = (c.color_palette || []).map(p => `<span class="palette-chip">${p}</span>`).join('');
-        return `
-          <div class="showroom-card">
-            <a href="koleksiyon.html?id=${c.slug}" class="sc-img-wrap">
-              <img src="${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}" alt="${c.name}" class="sc-img" loading="lazy">
-              <span class="sc-tag">MİMARİ ODA SAHNESİ</span>
-            </a>
-            <div class="sc-body">
-              <span class="sc-style">${c.architecture_style || 'Modern Mimari'}</span>
-              <h3 class="sc-title">${c.name}</h3>
-              <p class="sc-story">${c.design_story || ''}</p>
-              <div class="sc-palettes">${palHtml}</div>
-              <a href="koleksiyon.html?id=${c.slug}" class="sc-btn">
-                Koleksiyonu & Parçaları İncele →
-              </a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-  } catch(e) {
-    console.error('Koleksiyon hatası:', e);
-  }
+function isLegacyKapakEntry(item) {
+  const blob = `${item?.title || ''} ${item?.baslik || ''} ${item?.caption || ''} ${item?.image_url || ''}`;
+  return /(membran|\bmdf\b|kapak|cnc\s*vakum)/i.test(blob);
 }
 
-async function loadProducts() {
-  const container = document.getElementById('showroomProductsGrid');
-  try {
-    let list = [];
-    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getProducts) {
-      list = await window.GKM_SUPABASE.getProducts();
-    }
-    allProducts = list || [];
-    renderProductsList(allProducts);
-  } catch(e) {
-    console.error('Ürün hatası:', e);
-  }
-}
+function renderIndependentHub() {
+  const mount = document.getElementById('indepProductsContainer');
+  const chipsEl = document.getElementById('indepFilterChips');
+  document.getElementById('tabCntIndep').textContent = String(_galProducts.length);
 
-function renderProductsList(list) {
-  const container = document.getElementById('showroomProductsGrid');
-  if (!list || list.length === 0) {
-    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">Bu kategoride ürün bulunamadı.</div>';
+  if (!_galProducts.length) {
+    chipsEl.style.display = 'none';
+    mount.innerHTML = `
+      <div class="presentation-empty-hub hg-reveal">
+        <div>
+          <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">Sunum Merkezi Aktif</span>
+          <h3>Bağımsız Ürünler Burada Sergilenecek</h3>
+          <p style="font-size:14.5px;line-height:1.7;color:var(--gal-muted);margin-bottom:24px;">
+            Koleksiyon setlerinden ayrı olarak tekil sipariş edilebilen tamamlayıcı mobilyalar yayınlandığında burada kategori bazlı kartlarla listelenir. Özel bir tekil parça tasarımına ihtiyacınız varsa şimdi talep oluşturabilirsiniz.
+          </p>
+          <button type="button" class="btn-hg-wipe" onclick="openGalQuoteModal('Bağımsız Özel Tasarım Parça')">
+            <span class="btn-hg-wipe-inner">
+              <span class="btn-hg-wipe-row main">✦ Bağımsız Parça Talebi Oluştur →</span>
+              <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Bağımsız Parça Talebi Oluştur →</span>
+            </span>
+          </button>
+        </div>
+        <div class="presentation-pillars">
+          <div class="pres-slot"><strong>Konsol &amp; Dresuar</strong><span>Giriş ve salon aksı için zarif tekil hacimler.</span></div>
+          <div class="pres-slot"><strong>Yan &amp; Orta Sehpalar</strong><span>Masif ve doğal doku odaklı serbest formlar.</span></div>
+          <div class="pres-slot"><strong>Tekil Dolap Modülleri</strong><span>Dar niş ve koridorlara özel ölçülü üniteler.</span></div>
+          <div class="pres-slot"><strong>Vitrin &amp; Kitaplıklar</strong><span>Açık raf ve aydınlatmalı sergileme üniteleri.</span></div>
+        </div>
+      </div>
+    `;
+    window.GKM_MOTION?.refreshReveals();
     return;
   }
-  container.innerHTML = list.map(p => `
-    <div class="indep-item">
-      <a href="urun.html?id=${p.slug}" class="ii-img-wrap">
-        <img src="${p.ana_resim || 'resim/logo.png'}" alt="${p.title}" class="ii-img" loading="lazy">
-      </a>
+
+  const cats = Array.from(new Set(_galProducts.map(p => p.kategori || 'Diğer')));
+  chipsEl.style.display = 'flex';
+  chipsEl.innerHTML = ['ALL', ...cats].map(cat => `
+    <button type="button" class="sub-chip ${_galIndepFilter === cat ? 'active' : ''}" onclick="setIndepFilter('${esc(cat)}')">
+      ${cat === 'ALL' ? 'Tümü (' + _galProducts.length + ')' : esc(cat)}
+    </button>
+  `).join('');
+
+  const items = _galIndepFilter === 'ALL'
+    ? _galProducts
+    : _galProducts.filter(p => (p.kategori || 'Diğer') === _galIndepFilter);
+
+  mount.innerHTML = `<div class="indep-hub-grid">` + items.map((p, idx) => `
+    <article class="indep-item hg-reveal" data-delay="${Math.min(idx * 65, 320)}">
+      <div class="ii-thumb" onclick="openLightbox('${esc(p.ana_resim || 'resim/showroom/warm_atelier.jpg')}', '${esc(p.title)}')">
+        <img src="${esc(p.ana_resim || 'resim/showroom/warm_atelier.jpg')}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+        <span class="ii-badge">${esc(p.kategori || 'Bağımsız Ürün')}</span>
+      </div>
       <div class="ii-body">
-        <span class="ii-cat">${p.kategori || 'Mobilya'}</span>
-        <h3 class="ii-title">${p.title || p.baslik}</h3>
-        <p class="ii-desc">${p.aciklama || p.description || ''}</p>
+        <h3 class="ii-title"><span class="miles-underline-link">${esc(p.title)}</span></h3>
+        <div class="ii-meta">${p.olcu ? esc(p.olcu) : 'Özel Ölçü Seçenekli'}${p.fiyat ? ' · ' + esc(String(p.fiyat)) + ' TL' : ''}</div>
+        <p class="ii-desc">${esc(p.aciklama || 'Atölyeden doğrudan özel ölçü ve yüzey seçenekleriyle sunulan tekil tasarım ürünü.')}</p>
         <div class="ii-actions">
-          <a href="urun.html?id=${p.slug}" class="btn-ii-detail">
-            İncele & Ölçüler
-          </a>
-          <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + (p.title || p.baslik) + ' hakkında bilgi almak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 12px; font-size:11px;" title="WhatsApp ile Sor">
-            💬
-          </a>
+          <a href="urun.html?id=${encodeURIComponent(p.slug)}" class="btn-ii-detail">Ürün Detayı</a>
+          <button type="button" class="btn-ii-quote" onclick="openGalQuoteModal('${esc(p.title)}')">Teklif İste</button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </article>
+  `).join('') + `</div>`;
+  window.GKM_MOTION?.refreshReveals();
 }
 
-async function loadFactoryImages() {
-  const container = document.getElementById('showroomFactoryGrid');
-  const factoryItems = [
-    { src: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80', title: 'CNC Ebatlama ve Freze Parkuru' },
-    { src: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80', title: 'Membran Vakum Pres Hattı' },
-    { src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80', title: 'Villa Yatak Odası Montajı' },
-    { src: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80', title: 'Lake ve Membran Yüzey Uygulaması' }
-  ];
-  container.innerHTML = factoryItems.map(f => `
-    <div class="fact-tile" onclick="openLightbox('${f.src}', '${f.title}')">
-      <img src="${f.src}" alt="${f.title}" loading="lazy">
-      <div class="fact-overlay">
-        <div>
-          <div style="font-size:22px; margin-bottom:6px;">🔍</div>
-          <strong style="font-family:'Cormorant Garamond',serif; font-size:18px;">${f.title}</strong>
-        </div>
+function setIndepFilter(cat) {
+  _galIndepFilter = cat;
+  renderIndependentHub();
+}
+
+function renderGalleryCollections() {
+  const grid = document.getElementById('galCollectionsGrid');
+  document.getElementById('tabCntCols').textContent = String(_galCollections.length);
+
+  const list = _galColFilter === 'ALL'
+    ? _galCollections
+    : _galCollections.filter(c => c.category === _galColFilter);
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;padding:38px;border-radius:20px;border:1px dashed rgba(42,41,37,0.22);background:var(--gal-linen);text-align:center;">
+        <h3 style="font-family:var(--font-hg-serif);font-size:28px;font-weight:400;margin-bottom:8px;">${esc(_galColFilter)}</h3>
+        <p style="font-size:14px;color:var(--gal-muted);">Bu alt kategoride henüz yayınlanan koleksiyon yok. Özel tasarım talebi için bizimle iletişime geçebilirsiniz.</p>
       </div>
-    </div>
-  `).join('');
-}
-
-function switchFilter(type, btn) {
-  document.querySelectorAll('.gallery-pill').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  const secCol = document.getElementById('sectionKoleksiyonlar');
-  const secBag = document.getElementById('sectionBagimsiz');
-  const secFab = document.getElementById('sectionFabrika');
-
-  if (type === 'all') {
-    secCol.style.display = 'block';
-    secBag.style.display = 'block';
-    secFab.style.display = 'block';
-    renderProductsList(allProducts);
-  } else if (type === 'koleksiyonlar') {
-    secCol.style.display = 'block';
-    secBag.style.display = 'none';
-    secFab.style.display = 'none';
-  } else if (type === 'makyaj') {
-    secCol.style.display = 'none';
-    secBag.style.display = 'block';
-    secFab.style.display = 'none';
-    const filtered = allProducts.filter(p => (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('makyaj') || (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('dresuar'));
-    renderProductsList(filtered);
-  } else if (type === 'portmanto') {
-    secCol.style.display = 'none';
-    secBag.style.display = 'block';
-    secFab.style.display = 'none';
-    const filtered = allProducts.filter(p => (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('portmanto') || (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('vestiyer'));
-    renderProductsList(filtered);
-  } else if (type === 'dolap') {
-    secCol.style.display = 'none';
-    secBag.style.display = 'block';
-    secFab.style.display = 'none';
-    const filtered = allProducts.filter(p => (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('dolap') || (p.title + ' ' + (p.kategori||'')).toLowerCase().includes('gardırop'));
-    renderProductsList(filtered);
-  } else if (type === 'fabrika') {
-    secCol.style.display = 'none';
-    secBag.style.display = 'none';
-    secFab.style.display = 'block';
+    `;
+    return;
   }
+
+  grid.innerHTML = list.map((c, idx) => `
+    <a href="koleksiyon.html?id=${encodeURIComponent(c.slug)}" class="gal-col-card hg-reveal" data-delay="${Math.min(idx * 65, 320)}">
+      <div class="gal-col-img">
+        <img src="${esc(c.hero_image_url || 'resim/showroom/warm_atelier.jpg')}" alt="${esc(c.name)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+      </div>
+      <div class="gal-col-body">
+        <span class="gal-col-cat">${esc(c.category)}</span>
+        <h3 class="gal-col-title"><span class="miles-underline-link">${esc(c.name)}</span></h3>
+        <p class="gal-col-story">${esc(c.design_story || '')}</p>
+        <div class="gal-col-foot">
+          <span>${c.pieces?.length ? c.pieces.length + ' Modül' : 'Koleksiyon Detayı'}</span>
+          <span>İncele →</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+  window.GKM_MOTION?.refreshReveals();
 }
 
-function openLightbox(src, title) {
+async function renderFactoryTiles() {
+  const grid = document.getElementById('factoryGrid');
+  let tiles = [];
+  try {
+    if (window.GKM_SUPABASE?.client) {
+      const { data } = await window.GKM_SUPABASE.client.from('gallery').select('*').order('created_at', { ascending: false }).limit(8);
+      if (data && data.length) {
+        tiles = data.filter(item => !isLegacyKapakEntry(item) && item.image_url);
+      }
+    }
+  } catch (_) {}
+
+  if (!tiles.length) tiles = CLEAN_LOCAL_TILES;
+  document.getElementById('tabCntFactory').textContent = String(tiles.length);
+
+  grid.innerHTML = tiles.map((item, idx) => {
+    const title = item.title || item.caption || 'Showroom & Atölye Karesi';
+    return `
+      <div class="fact-tile hg-reveal" data-delay="${Math.min(idx * 60, 240)}" onclick="openLightbox('${esc(item.image_url)}', '${esc(title)}')">
+        <img src="${esc(item.image_url)}" alt="${esc(title)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+        <div class="fact-overlay">
+          <div style="font-family:var(--font-hg-serif);font-size:22px;margin-bottom:4px;">${esc(title)}</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#DFC793;">Büyütmek için tıklayın</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  window.GKM_MOTION?.refreshReveals();
+}
+
+function switchGalleryView(view, btnEl) {
+  document.querySelectorAll('#galSwitchTabs .gal-tab').forEach(t => t.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  const secBagimsiz = document.getElementById('sectionBagimsiz');
+  const secCols = document.getElementById('sectionKoleksiyonlar');
+  const secFactory = document.getElementById('sectionFabrika');
+
+  secBagimsiz.style.display = (view === 'all' || view === 'bagimsiz') ? '' : 'none';
+  secCols.style.display = (view === 'all' || view === 'koleksiyonlar') ? '' : 'none';
+  secFactory.style.display = (view === 'all' || view === 'atolye') ? '' : 'none';
+}
+
+function openLightbox(src, caption) {
   document.getElementById('lbImg').src = src;
-  document.getElementById('lbTitle').textContent = title;
+  document.getElementById('lbCaption').textContent = caption || '';
   document.getElementById('lightboxModal').classList.add('open');
 }
+
 function closeLightbox() {
   document.getElementById('lightboxModal').classList.remove('open');
 }
 
-document.addEventListener('DOMContentLoaded', initShowroomPage);
-</script>
+function openGalQuoteModal(itemName) {
+  document.getElementById('gqTitle').textContent = `${itemName} — Teklif`;
+  document.getElementById('gq_item').value = itemName;
+  document.getElementById('gqFormWrap').style.display = 'block';
+  document.getElementById('gqSuccess').style.display = 'none';
+  document.getElementById('galQuoteModal').classList.add('open');
+}
 
-<script src="js/footer.js"></script>
+function closeGalQuoteModal() {
+  document.getElementById('galQuoteModal').classList.remove('open');
+}
+
+async function submitGalQuote(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnGqSubmit');
+  btn.disabled = true;
+  const item = document.getElementById('gq_item').value;
+  const name = document.getElementById('gq_name').value.trim();
+  const phone = document.getElementById('gq_phone').value.trim();
+  const notes = document.getElementById('gq_notes').value.trim();
+
+  try {
+    if (window.GKM_SUPABASE?.createQuoteRequest) {
+      await window.GKM_SUPABASE.createQuoteRequest({
+        name, phone,
+        collection_id: item,
+        notes: `Bağımsız Ürün Talebi: ${item} | Not: ${notes}`
+      });
+    }
+    document.getElementById('gqFormWrap').style.display = 'none';
+    document.getElementById('gqSuccess').style.display = 'block';
+  } catch (err) {
+    alert('Hata: ' + err.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function initGalleryPage() {
+  document.querySelectorAll('#colSubChips .sub-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#colSubChips .sub-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      _galColFilter = btn.dataset.colcat || 'ALL';
+      renderGalleryCollections();
+    });
+  });
+
+  try {
+    const [prods, cols] = await Promise.all([
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : [],
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getCollections() : []
+    ]);
+    _galProducts = prods || [];
+    _galCollections = cols || [];
+  } catch (_) {
+    _galProducts = [];
+    _galCollections = [];
+  }
+
+  renderIndependentHub();
+  renderGalleryCollections();
+  await renderFactoryTiles();
+  window.GKM_MOTION?.initAll();
+}
+
+document.addEventListener('DOMContentLoaded', initGalleryPage);
+</script>
 </body>
 </html>

@@ -1,0 +1,816 @@
+/* ==========================================================================
+   GLOBAL MOBİLYA — ARCHITECTURAL PILL HEADER & MOTION ENGINE
+   Inspired by Jiro H&G Furniture Showroom Header + Miles Animation Grammar
+   ========================================================================== */
+
+:root {
+  --hg-ivory: #F7F5F0;
+  --hg-linen: #EEEAE2;
+  --hg-sand: #E4DED3;
+  --hg-ink: #2A2925;
+  --hg-charcoal: #34322D;
+  --hg-sage: #5E7462;
+  --hg-sage-dark: #4A6450;
+  --hg-sage-deep: #3F5443;
+  --ease-hg: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-hg-serif: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --font-hg-sans: 'Manrope', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── 1. FLOATING ARCHITECTURAL PILL HEADER (H&G SHOWROOM STYLE) ── */
+.hg-header-shell {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1200;
+  padding: 16px 32px 0;
+  pointer-events: none;
+  transition: padding 0.45s var(--ease-hg);
+}
+
+.hg-header-shell.scrolled {
+  padding-top: 12px;
+}
+
+.hg-header-pill {
+  pointer-events: auto;
+  position: relative;
+  max-width: 1400px;
+  height: 66px;
+  margin: 0 auto;
+  padding: 0 14px 0 22px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  background: linear-gradient(180deg, rgba(247, 245, 240, 0.72) 0%, rgba(247, 245, 240, 0.46) 100%);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 40px -18px rgba(42, 41, 37, 0.45);
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  color: var(--hg-ink);
+}
+
+.hg-header-shell.scrolled .hg-header-pill {
+  border-color: rgba(255, 255, 255, 0.84);
+  background: rgba(247, 245, 240, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 18px 46px -20px rgba(42, 41, 37, 0.38);
+}
+
+/* Dark stage adaptation when not scrolled */
+.hg-header-shell.dark-surface:not(.scrolled) .hg-header-pill {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(180deg, rgba(26, 22, 18, 0.62) 0%, rgba(26, 22, 18, 0.36) 100%);
+  color: #F7F5F0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 14px 40px -16px rgba(0, 0, 0, 0.55);
+}
+
+.hg-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.hg-brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--hg-sage);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(42, 41, 37, 0.18);
+  transition: transform 0.5s var(--ease-hg);
+}
+
+.hg-brand-link:hover .hg-brand-mark {
+  transform: rotate(-6deg) scale(1.04);
+}
+
+.hg-brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.hg-brand-wordmark {
+  font-family: var(--font-hg-serif);
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.hg-nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-hg-sans);
+}
+
+.hg-nav-center a {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 17px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s var(--ease-hg);
+  white-space: nowrap;
+}
+
+.hg-nav-center a:hover,
+.hg-nav-center a.active {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--hg-sage-deep);
+}
+
+.hg-header-shell.dark-surface:not(.scrolled) .hg-nav-center a:hover,
+.hg-header-shell.dark-surface:not(.scrolled) .hg-nav-center a.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #F7F5F0;
+}
+
+.hg-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  z-index: 2;
+}
+
+.hg-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid rgba(42, 41, 37, 0.12);
+  background: rgba(255, 255, 255, 0.45);
+  color: inherit;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s var(--ease-hg), color 0.3s ease;
+  text-decoration: none;
+}
+
+.hg-icon-circle:hover {
+  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--hg-sage-deep);
+}
+
+.hg-icon-circle.primary-dark {
+  background: var(--hg-ink);
+  color: var(--hg-ivory);
+  border-color: transparent;
+}
+
+.hg-icon-circle.primary-dark:hover {
+  background: var(--hg-sage);
+  color: #fff;
+}
+
+/* ── 2. H&G ROLLING DUAL-TEXT WIPE BUTTON ── */
+.btn-hg-wipe {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: var(--hg-sage-dark);
+  color: #fff !important;
+  font-family: var(--font-hg-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 26px -12px rgba(42, 41, 37, 0.55);
+  transition: transform 0.5s var(--ease-hg), box-shadow 0.5s var(--ease-hg);
+  text-decoration: none;
+}
+
+.btn-hg-wipe.btn-lg {
+  height: 54px;
+  padding: 0 30px;
+  font-size: 15.5px;
+}
+
+.btn-hg-wipe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--hg-ink);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-hg);
+}
+
+.btn-hg-wipe:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -14px rgba(42, 41, 37, 0.65);
+}
+
+.btn-hg-wipe:hover::before {
+  transform: scaleX(1);
+}
+
+.btn-hg-wipe:active {
+  transform: scale(0.97);
+}
+
+.btn-hg-wipe-inner {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-hg-wipe-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.5s var(--ease-hg);
+}
+
+.btn-hg-wipe-row.clone {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+}
+
+.btn-hg-wipe:hover .btn-hg-wipe-row.main {
+  transform: translateY(-100%);
+}
+
+.btn-hg-wipe:hover .btn-hg-wipe-row.clone {
+  transform: translateY(0);
+}
+
+/* ── 3. MOBILE PILL DRAWER (GRID-TEMPLATE-ROWS 0fr -> 1fr) ── */
+.hg-hamburger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.hg-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hg-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hg-hamburger.open span:nth-child(2) { opacity: 0; }
+.hg-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.hg-mobile-drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-hg);
+}
+
+.hg-mobile-drawer.open {
+  grid-template-rows: 1fr;
+}
+
+.hg-mobile-drawer-inner {
+  overflow: hidden;
+}
+
+.hg-mobile-list {
+  list-style: none;
+  padding: 4px 18px 16px;
+}
+
+.hg-mobile-list li {
+  border-top: 1px solid rgba(42, 41, 37, 0.1);
+}
+
+.hg-header-shell.dark-surface:not(.scrolled) .hg-mobile-list li {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.hg-mobile-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 4px;
+  font-family: var(--font-hg-sans);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: inherit;
+}
+
+.hg-mobile-list a span.arrow {
+  transition: transform 0.3s ease;
+}
+
+.hg-mobile-list a:hover span.arrow {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+@media (max-width: 1024px) {
+  .hg-header-shell { padding: 12px 14px 0; }
+  .hg-header-pill {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    border-radius: 29px;
+    padding: 0;
+  }
+  .hg-pill-top {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    padding: 0 10px;
+  }
+  .hg-nav-center { display: none; }
+  .hg-hamburger { display: flex; }
+  .hg-actions-right .btn-hg-wipe { display: none; }
+  .hg-brand-wordmark { font-size: 23px; }
+}
+
+@media (min-width: 1025px) {
+  .hg-pill-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  .hg-mobile-drawer { display: none !important; }
+}
+
+/* ── 4. BLUR-UP STAGGER REVEAL (HG & MILES SIGNATURE) ── */
+.hg-reveal {
+  opacity: 0;
+  transform: translateY(52px) scale(0.96);
+  filter: blur(10px);
+  transition:
+    opacity 1100ms var(--ease-hg),
+    transform 1100ms var(--ease-hg),
+    filter 1100ms var(--ease-hg);
+  will-change: opacity, transform, filter;
+}
+
+.hg-reveal.revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ── 5. MILES WAVE CLIP-PATH REVEAL FRAME ── */
+.miles-wave-frame {
+  overflow: hidden;
+  position: relative;
+}
+
+.miles-wave-inner {
+  width: 100%;
+  height: 100%;
+  will-change: clip-path, transform;
+}
+
+.miles-wave-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── 6. H&G EXPAND-ON-HOVER CATEGORY PANELS ── */
+.hg-category-deck {
+  display: flex;
+  gap: 20px;
+  height: 460px;
+  margin-top: 40px;
+}
+
+.hg-cat-panel {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--hg-sand);
+  display: block;
+  text-decoration: none;
+  transition: flex-grow 700ms var(--ease-hg), box-shadow 500ms ease;
+}
+
+.hg-cat-panel.is-active,
+.hg-cat-panel:hover,
+.hg-cat-panel:focus-visible {
+  flex-grow: 2.25;
+  box-shadow: 0 28px 60px -24px rgba(42, 41, 37, 0.55);
+}
+
+.hg-cat-panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1200ms var(--ease-hg);
+}
+
+.hg-cat-panel:hover img,
+.hg-cat-panel.is-active img {
+  transform: scale(1.05);
+}
+
+.hg-cat-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(24, 21, 18, 0.08) 35%, rgba(24, 21, 18, 0.84) 100%);
+}
+
+.hg-cat-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+}
+
+.hg-cat-count {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  margin-bottom: 12px;
+}
+
+.hg-cat-name {
+  font-family: var(--font-hg-serif);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: #fff;
+}
+
+.hg-cat-desc-wrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  transition: max-height 700ms var(--ease-hg), opacity 700ms var(--ease-hg), margin-top 700ms var(--ease-hg);
+}
+
+.hg-cat-panel:hover .hg-cat-desc-wrap,
+.hg-cat-panel.is-active .hg-cat-desc-wrap,
+.hg-cat-panel:focus-visible .hg-cat-desc-wrap {
+  max-height: 88px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.hg-cat-desc {
+  max-width: 380px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hg-cat-arrow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: rgba(247, 245, 240, 0.9);
+  color: var(--hg-ink);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateX(-10px) scale(0.8);
+  transition: opacity 500ms var(--ease-hg), transform 500ms var(--ease-hg);
+}
+
+.hg-cat-panel:hover .hg-cat-arrow,
+.hg-cat-panel.is-active .hg-cat-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 960px) {
+  .hg-category-deck {
+    flex-direction: column;
+    height: auto;
+  }
+  .hg-cat-panel {
+    flex: none;
+    height: 250px;
+  }
+  .hg-cat-desc-wrap {
+    max-height: 70px;
+    opacity: 0.9;
+    margin-top: 8px;
+  }
+  .hg-cat-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 7. H&G INTERACTIVE HOTSPOTS ── */
+.hg-hotspot {
+  position: absolute;
+  z-index: 8;
+}
+
+.hg-hotspot-btn {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s var(--ease-hg);
+}
+
+.hg-hotspot-btn:hover { transform: translate(-50%, -50%) scale(1.12); }
+
+.hg-hotspot-core {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.hg-hotspot.open .hg-hotspot-core { transform: scale(1.45); }
+
+.hg-hotspot-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+.hg-hotspot-label {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hg-charcoal);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hg-hotspot.left .hg-hotspot-label {
+  left: auto;
+  right: 20px;
+}
+
+.hg-hotspot-label:hover { background: rgba(255, 255, 255, 0.82); }
+
+.hg-hotspot-popover {
+  position: absolute;
+  top: 22px;
+  left: 20px;
+  width: 240px;
+  border-radius: 16px;
+  background: var(--hg-ivory);
+  color: var(--hg-charcoal);
+  padding: 16px;
+  box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease-hg), transform 0.45s var(--ease-hg);
+}
+
+.hg-hotspot.left .hg-hotspot-popover {
+  left: auto;
+  right: 20px;
+}
+
+.hg-hotspot.open .hg-hotspot-popover {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (max-width: 1024px) {
+  .hg-hotspot { display: none; }
+}
+
+/* ── 8. MARQUEE BAR & UNDERLINE SWEEP ── */
+.hg-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-top: 1px solid rgba(42, 41, 37, 0.08);
+  border-bottom: 1px solid rgba(42, 41, 37, 0.08);
+  background: var(--hg-linen);
+  color: var(--hg-ink);
+  padding: 16px 0;
+}
+
+.hg-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
+}
+
+.hg-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 28px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hg-marquee-dot {
+  color: var(--hg-sage);
+  font-size: 14px;
+}
+
+.miles-underline-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  transition: background-size 500ms var(--ease-hg);
+  padding-bottom: 2px;
+}
+
+.door-hover-card:hover .miles-underline-link,
+.col-card-hero:hover .miles-underline-link,
+.col-card-side:hover .miles-underline-link,
+.indep-card:hover .miles-underline-link,
+.indep-item:hover .miles-underline-link,
+.showroom-card:hover .miles-underline-link {
+  background-size: 100% 1px;
+}
+
+/* ── 9. QUICK SEARCH OVERLAY (HEADER SEARCH ICON) ── */
+.hg-search-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  background: rgba(22, 18, 15, 0.72);
+  backdrop-filter: blur(12px);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 96px 20px 24px;
+}
+
+.hg-search-backdrop.open {
+  display: flex;
+}
+
+.hg-search-dialog {
+  width: min(680px, 100%);
+  background: var(--hg-ivory);
+  color: var(--hg-ink);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+}
+
+.hg-search-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.hg-search-input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(42, 41, 37, 0.16);
+  background: #fff;
+  font-family: var(--font-hg-sans);
+  font-size: 15px;
+  color: var(--hg-ink);
+  outline: none;
+}
+
+.hg-search-input:focus {
+  border-color: var(--hg-sage);
+}
+
+.hg-search-results {
+  max-height: 55vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hg-search-hit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(42, 41, 37, 0.08);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s var(--ease-hg), border-color 0.25s ease;
+}
+
+.hg-search-hit:hover {
+  transform: translateY(-2px);
+  border-color: var(--hg-sage);
+}
+
+.hg-search-hit img {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-reveal,
+  .miles-wave-inner,
+  .hg-cat-panel,
+  .btn-hg-wipe::before {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}

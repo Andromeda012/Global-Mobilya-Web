@@ -3,35 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="Ogq44Xs7l3q1ZXKPHR2oxgjtYcVEjy1H7CQoUZiIvIA" />
-<title>Global Mobilya — Premium Mobilya Showroom &amp; Mimari Koleksiyonlar</title>
-<meta name="description" content="Yaşam alanlarına karakter katan çağdaş mimari mobilya tasarımları. 18mm E1 masif MDF gövde, CNC membran zarafeti, 8 seçkin yatak odası koleksiyonu ve 2.000 m² entegre üretim gücü. 5 yıl üretici garantisi.">
-<meta name="keywords" content="global mobilya, lüks mobilya, yatak odası koleksiyonu, mimari mobilya, membran kapak, makyaj masası, portmanto, dresuar, özel ölçü mobilya, istanbul mobilya imalatı, viyana yatak odası">
-<meta name="author" content="Global Mobilya">
-<meta name="robots" content="index, follow">
+<title>Global Mobilya | Yaşam Alanları İçin Mimari Koleksiyonlar</title>
+<meta name="description" content="Global Mobilya: Kahve köşesi koleksiyonları, modüler dolap sistemleri, yatak odası kurguları ve bağımsız tasarım ürünleri sunum merkezi.">
 <link rel="canonical" href="https://globalkapakmobilya.com/">
+<link rel="icon" type="image/png" href="resim/logo.png">
 
-<!-- OPEN GRAPH & TWITTER -->
-<meta property="og:site_name" content="Global Mobilya">
-<meta property="og:title" content="Global Mobilya — Premium Mobilya Showroom & Mimari Koleksiyonlar">
-<meta property="og:description" content="Karakterli yaşam alanları için tasarlanan modern mimari koleksiyonlar ve özel üretim mobilyalar.">
+<meta property="og:title" content="Global Mobilya | Yaşam Alanları İçin Mimari Koleksiyonlar">
+<meta property="og:description" content="Kahve köşesi, modüler dolap ve yatak odası koleksiyonlarıyla mekânınıza özel mobilya mimarisi.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://globalkapakmobilya.com/">
-<meta property="og:image" content="https://globalkapakmobilya.com/resim/logo.png">
-<meta property="og:locale" content="tr_TR">
+<meta property="og:image" content="https://globalkapakmobilya.com/resim/showroom/warm_atelier.jpg">
 
-<!-- FAVICON -->
-<link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="manifest" href="/site.webmanifest">
-
-<!-- SCHEMA.ORG JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://globalkapakmobilya.com/#website",
+      "url": "https://globalkapakmobilya.com/",
+      "name": "Global Mobilya",
+      "inLanguage": "tr-TR"
+    },
     {
       "@type": ["Organization", "FurnitureStore"],
       "@id": "https://globalkapakmobilya.com/#organization",
@@ -51,1012 +44,1172 @@
 }
 </script>
 
-<!-- FONTS: Cormorant Garamond & Plus Jakarta Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<link rel="stylesheet" href="css/showroom-motion.css">
 
 <style>
-/* ── HOMEPAGE SPECIFIC ARCHITECTURAL STYLES ── */
+  :root {
+    --surface-ivory: #F7F5F0;
+    --surface-linen: #EEEAE2;
+    --surface-sand: #E4DED3;
+    --surface-espresso: #15120F;
+    --surface-espresso-card: #1D1915;
+    --ink-primary: #2A2925;
+    --ink-muted: #656058;
+    --sage: #5E7462;
+    --sage-dark: #4A6450;
+  }
 
-/* 1. CINEMATIC HERO COMPOSITION */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 140px 60px 90px;
-  background-color: var(--bg-espresso);
-  overflow: hidden;
-}
-.hero-bg-layer {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.4s var(--ease-editorial), transform 8s var(--ease-editorial);
-}
-.hero-bg-layer.active {
-  opacity: 1;
-  transform: scale(1);
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(22, 18, 15, 0.92) 0%, rgba(22, 18, 15, 0.55) 50%, rgba(22, 18, 15, 0.3) 100%),
-    linear-gradient(180deg, rgba(22, 18, 15, 0.4) 0%, transparent 40%, rgba(22, 18, 15, 0.9) 100%);
-  z-index: 1;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 860px;
-  color: #fff;
-}
-.hero-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-.hero-title {
-  font-family: var(--font-editorial);
-  font-size: clamp(44px, 6.2vw, 86px);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -1.2px;
-  margin-bottom: 24px;
-}
-.hero-title span {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--color-gold-bright);
-}
-.hero-subtext {
-  font-size: clamp(15px, 1.35vw, 19px);
-  color: rgba(245, 239, 235, 0.88);
-  line-height: 1.7;
-  max-width: 720px;
-  margin-bottom: 38px;
-}
-.hero-actions {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+  body {
+    background: var(--surface-ivory);
+    color: var(--ink-primary);
+    font-family: var(--font-hg-sans);
+    overflow-x: hidden;
+  }
 
-/* Mood Switcher Control inside Hero */
-.hero-mood-switch {
-  position: absolute;
-  bottom: 40px;
-  right: 60px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(20, 16, 13, 0.6);
-  backdrop-filter: blur(14px);
-  padding: 8px 12px;
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-.mood-pill {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.mood-pill:hover { color: #fff; }
-.mood-pill.active {
-  background: var(--color-gold-muted);
-  color: #0F0C0A;
-  box-shadow: 0 2px 10px rgba(197, 160, 89, 0.4);
-}
+  /* ── 1. ARCHITECTURAL HERO STAGE ── */
+  .hg-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding: 150px 0 88px;
+    background: var(--surface-espresso);
+    overflow: hidden;
+    color: #F7F5F0;
+  }
+  .hg-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1.3s var(--ease-hg), transform 7s var(--ease-hg);
+  }
+  .hg-hero-bg.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .hg-hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(95deg, rgba(16, 13, 10, 0.88) 0%, rgba(16, 13, 10, 0.56) 48%, rgba(16, 13, 10, 0.25) 100%),
+      linear-gradient(180deg, rgba(16, 13, 10, 0.45) 0%, rgba(16, 13, 10, 0.1) 42%, rgba(16, 13, 10, 0.88) 100%);
+  }
+  .hg-hero-container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 36px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) auto;
+    gap: 40px;
+    align-items: end;
+  }
+  .hg-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 15px;
+    border-radius: 999px;
+    background: rgba(247, 245, 240, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-gold-bright);
+    margin-bottom: 22px;
+  }
+  .hg-hero-title {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(46px, 6.4vw, 90px);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 24px;
+    max-width: 780px;
+  }
+  .hg-hero-title em {
+    font-style: italic;
+    color: #DFC793;
+  }
+  .hg-hero-desc {
+    font-size: clamp(15px, 1.3vw, 18px);
+    line-height: 1.72;
+    color: rgba(247, 245, 240, 0.86);
+    max-width: 600px;
+    margin-bottom: 34px;
+  }
+  .hg-hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-hg-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    color: #F7F5F0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-hg);
+  }
+  .btn-hg-ghost:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+  }
 
-/* 2. THE ATELIER MANIFESTO (SPLIT EDITORIAL) */
-.atelier-manifesto {
-  padding: 120px 0;
-  position: relative;
-}
-.manifesto-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 80px;
-  align-items: center;
-}
-.manifesto-photo-wrap {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-dark);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  aspect-ratio: 4 / 3;
-}
-.manifesto-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s var(--ease-editorial);
-}
-.manifesto-photo-wrap:hover .manifesto-photo {
-  transform: scale(1.04);
-}
-.manifesto-badge-float {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  background: rgba(22, 18, 15, 0.85);
-  backdrop-filter: blur(12px);
-  padding: 14px 22px;
-  border-radius: 12px;
-  border: 1px solid var(--border-dark-subtle);
-  color: #fff;
-}
-.manifesto-badge-float strong {
-  font-family: var(--font-editorial);
-  font-size: 24px;
-  display: block;
-  color: var(--color-gold-bright);
-}
-.manifesto-badge-float span {
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+  .hg-mood-dock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px;
+    border-radius: 9999px;
+    background: rgba(21, 18, 15, 0.65);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .hg-mood-btn {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.68);
+    font-family: var(--font-hg-sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .hg-mood-btn:hover { color: #fff; }
+  .hg-mood-btn.active {
+    background: #F7F5F0;
+    color: var(--ink-primary);
+  }
 
-.manifesto-pillars {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 36px;
-}
-.pillar-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 20px;
-  transition: all 0.3s var(--ease-editorial);
-}
-.pillar-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: var(--color-gold-muted);
-  transform: translateY(-3px);
-}
-.pillar-icon {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-.pillar-title {
-  font-family: var(--font-editorial);
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: #fff;
-}
-.pillar-desc {
-  font-size: 12.5px;
-  color: rgba(245, 239, 235, 0.7);
-  line-height: 1.55;
-}
+  /* ── SHARED BAND CONTAINERS ── */
+  .band-light {
+    background: var(--surface-ivory);
+    color: var(--ink-primary);
+    padding: 108px 0;
+  }
+  .band-linen {
+    background: var(--surface-linen);
+    color: var(--ink-primary);
+    padding: 108px 0;
+  }
+  .band-dark {
+    background: var(--surface-espresso);
+    color: #F7F5F0;
+    padding: 108px 0;
+  }
+  .hg-wrap {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    margin-bottom: 14px;
+  }
+  .band-dark .section-kicker {
+    color: var(--color-gold-bright);
+  }
+  .section-heading {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(36px, 4.4vw, 62px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: inherit;
+  }
+  .section-heading em {
+    font-style: italic;
+    color: var(--sage-dark);
+  }
+  .band-dark .section-heading em {
+    color: var(--color-gold-bright);
+  }
+  .section-head-split {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .section-lead {
+    max-width: 460px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-muted);
+  }
+  .band-dark .section-lead {
+    color: rgba(247, 245, 240, 0.72);
+  }
 
-/* 3. FEATURED COLLECTIONS (ASYMMETRICAL LOOKBOOK) */
-.asym-collections {
-  padding: 130px 0 110px;
-  position: relative;
-}
-.asym-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 36px;
-  margin-top: 50px;
-}
-.col-card-hero {
-  grid-column: span 7;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-dark);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  background: #171310;
-  transition: transform 0.4s var(--ease-editorial);
-}
-.col-card-side {
-  grid-column: span 5;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-dark);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  background: #171310;
-  transition: transform 0.4s var(--ease-editorial);
-}
-.col-card-hero:hover,
-.col-card-side:hover {
-  transform: translateY(-6px);
-}
-.card-media-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: #100C09;
-}
-.col-card-side .card-media-wrap {
-  aspect-ratio: 4 / 3;
-}
-.card-media {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s var(--ease-editorial);
-}
-.col-card-hero:hover .card-media,
-.col-card-side:hover .card-media {
-  transform: scale(1.05);
-}
-.card-tag-top {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  background: rgba(20, 16, 13, 0.7);
-  backdrop-filter: blur(10px);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-gold-bright);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-.card-body {
-  padding: 32px 36px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-.card-style {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-gold-muted);
-  margin-bottom: 8px;
-}
-.card-title {
-  font-family: var(--font-editorial);
-  font-size: clamp(26px, 2.6vw, 38px);
-  font-weight: 600;
-  line-height: 1.15;
-  margin-bottom: 12px;
-  color: #fff;
-}
-.card-story {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(245, 239, 235, 0.75);
-  margin-bottom: 24px;
-}
-.card-foot {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 18px;
-}
-.card-link {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--color-gold-bright);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.card-link:hover { color: #fff; }
+  /* ── 2. SUBCATEGORY FILTER & ASYMMETRIC LOOKBOOK ── */
+  .cat-filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 38px;
+  }
+  .cat-pill-btn {
+    border: 1px solid rgba(42, 41, 37, 0.16);
+    background: #fff;
+    color: var(--ink-primary);
+    font-family: var(--font-hg-sans);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.28s var(--ease-hg);
+  }
+  .cat-pill-btn:hover {
+    border-color: var(--sage-dark);
+    transform: translateY(-1px);
+  }
+  .cat-pill-btn.active {
+    background: var(--ink-primary);
+    color: #F7F5F0;
+    border-color: var(--ink-primary);
+  }
+  .cat-pill-count {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(42, 41, 37, 0.08);
+  }
+  .cat-pill-btn.active .cat-pill-count {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
 
-/* 4. THE 2,000 M² FACTORY & CRAFTSMANSHIP */
-.factory-atelier {
-  padding: 120px 0;
-  position: relative;
-}
-.factory-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 50px;
-}
-.stat-box {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease;
-}
-.stat-box:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-gold-bright);
-}
-.stat-num {
-  font-family: var(--font-editorial);
-  font-size: 52px;
-  font-weight: 700;
-  color: var(--color-gold-bright);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-.stat-label {
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 6px;
-}
-.stat-sub {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.4;
-}
+  .collections-lookbook-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+  .col-card-hero,
+  .col-card-side {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #231E1A;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 20px 50px -24px rgba(42, 41, 37, 0.35);
+    transition: transform 0.6s var(--ease-hg), box-shadow 0.5s ease;
+  }
+  .col-card-hero {
+    grid-column: span 7;
+    min-height: 480px;
+  }
+  .col-card-side {
+    grid-column: span 5;
+    min-height: 480px;
+  }
+  .collections-lookbook-grid.balanced-row .col-card-hero,
+  .collections-lookbook-grid.balanced-row .col-card-side {
+    grid-column: span 4;
+    min-height: 430px;
+  }
+  .col-card-hero:hover,
+  .col-card-side:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 64px -22px rgba(42, 41, 37, 0.48);
+  }
+  .col-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.1s var(--ease-hg);
+  }
+  .col-card-hero:hover .col-card-img,
+  .col-card-side:hover .col-card-img {
+    transform: scale(1.06);
+  }
+  .col-card-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 17, 14, 0.08) 30%, rgba(20, 17, 14, 0.88) 100%);
+  }
+  .col-card-body {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+  }
+  .col-card-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .col-card-cat {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    color: #F7F5F0;
+  }
+  .col-card-pieces {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(247, 245, 240, 0.8);
+  }
+  .col-card-title {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(28px, 2.5vw, 38px);
+    font-weight: 400;
+    line-height: 1.08;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .col-card-story {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: rgba(247, 245, 240, 0.82);
+    max-width: 460px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .col-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .col-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .col-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .col-card-cta {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #DFC793;
+  }
 
-/* 5. INDEPENDENT FURNITURE (PORTMANTO & DRESUAR) */
-.indep-section {
-  padding: 120px 0;
-  position: relative;
-}
-.indep-products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 50px;
-}
-.indep-card {
-  background: #FFFFFF;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-warm);
-  border: 1px solid rgba(36, 29, 24, 0.1);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.35s var(--ease-editorial), box-shadow 0.35s ease;
-}
-.indep-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(56, 41, 31, 0.18);
-}
-.indep-img-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background: #F4EFEA;
-}
-.indep-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-editorial);
-}
-.indep-card:hover .indep-img {
-  transform: scale(1.05);
-}
-.indep-body {
-  padding: 26px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-.indep-cat {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-terracotta);
-  margin-bottom: 6px;
-}
-.indep-title {
-  font-family: var(--font-editorial);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text-charcoal);
-  margin-bottom: 8px;
-}
-.indep-desc {
-  font-size: 13.5px;
-  color: var(--text-muted-warm);
-  line-height: 1.55;
-  margin-bottom: 20px;
-}
-.indep-actions-row {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(36, 29, 24, 0.08);
-  padding-top: 16px;
-}
-.btn-indep-detail {
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--text-charcoal);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.btn-indep-detail:hover {
-  color: var(--color-terracotta);
-}
+  .empty-category-card {
+    grid-column: 1 / -1;
+    background: var(--surface-linen);
+    border: 1px dashed rgba(42, 41, 37, 0.24);
+    border-radius: 24px;
+    padding: 56px 36px;
+    text-align: center;
+  }
+  .empty-category-card h3 {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .empty-category-card p {
+    max-width: 560px;
+    margin: 0 auto 24px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
 
-/* 6. BOTANICAL LIVING & MATERIALITY GALLERY */
-.botanical-gallery-sec {
-  padding: 130px 0;
-  position: relative;
-}
-.gallery-mosaic-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 28px;
-  margin-top: 50px;
-}
-.mosaic-col-8 {
-  grid-column: span 8;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-dark);
-  aspect-ratio: 16 / 10;
-}
-.mosaic-col-4 {
-  grid-column: span 4;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-ambient-dark);
-  aspect-ratio: 16 / 10;
-}
-.mosaic-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s var(--ease-editorial);
-}
-.mosaic-col-8:hover .mosaic-img,
-.mosaic-col-4:hover .mosaic-img {
-  transform: scale(1.05);
-}
-.mosaic-caption {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  background: rgba(22, 18, 15, 0.75);
-  backdrop-filter: blur(12px);
-  padding: 14px 20px;
-  border-radius: 12px;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-.mosaic-caption strong {
-  display: block;
-  font-family: var(--font-editorial);
-  font-size: 20px;
-  color: var(--color-gold-bright);
-}
-.mosaic-caption span {
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 1px;
-}
+  /* ── 3. ATELIER SPLIT WITH MILES WAVE REVEAL ── */
+  .atelier-split {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .atelier-wave-box {
+    border-radius: 24px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 28px 60px -24px rgba(42, 41, 37, 0.35);
+    background: var(--surface-sand);
+  }
+  .atelier-badge-overlay {
+    position: absolute;
+    bottom: 22px;
+    left: 22px;
+    z-index: 3;
+    background: rgba(247, 245, 240, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(42, 41, 37, 0.1);
+  }
+  .atelier-badge-overlay strong {
+    display: block;
+    font-family: var(--font-hg-serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink-primary);
+  }
+  .atelier-badge-overlay span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+  }
+  .craft-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .craft-pillar {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .craft-pillar h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--ink-primary);
+  }
+  .craft-pillar p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
 
-/* 7. SHOWROOM CONCIERGE & APPOINTMENT */
-.concierge-sec {
-  padding: 120px 0;
-  position: relative;
-}
-.concierge-box {
-  background: #171310;
-  border-radius: 24px;
-  border: 1px solid var(--border-dark-subtle);
-  padding: 70px 60px;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  box-shadow: var(--shadow-ambient-dark);
-}
-.concierge-info h2 {
-  font-family: var(--font-editorial);
-  font-size: clamp(34px, 4.5vw, 56px);
-  font-weight: 600;
-  line-height: 1.1;
-  color: #fff;
-  margin-bottom: 18px;
-}
-.concierge-info p {
-  font-size: 15px;
-  color: rgba(245, 239, 235, 0.8);
-  line-height: 1.7;
-  margin-bottom: 30px;
-}
-.concierge-form-wrap {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 32px;
-}
+  /* ── 4. GALLERY & INDEPENDENT PRODUCTS PREVIEW BAND ── */
+  .presentation-dual-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 24px;
+    margin-top: 36px;
+  }
+  .pres-panel {
+    background: var(--surface-espresso-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .indep-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 22px 0;
+  }
+  .indep-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.35s var(--ease-hg), border-color 0.3s ease;
+  }
+  .indep-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(223, 199, 147, 0.45);
+  }
+  .indep-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .indep-card-body {
+    padding: 14px 16px;
+  }
+  .indep-card-title {
+    font-family: var(--font-hg-serif);
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .indep-card-meta {
+    font-size: 12px;
+    color: rgba(247, 245, 240, 0.65);
+  }
 
-@media (max-width: 1024px) {
-  .manifesto-grid { grid-template-columns: 1fr; gap: 40px; }
-  .asym-grid { grid-template-columns: 1fr; }
-  .col-card-hero, .col-card-side { grid-column: span 1; }
-  .factory-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .indep-products-grid { grid-template-columns: 1fr; }
-  .mosaic-col-8, .mosaic-col-4 { grid-column: span 12; }
-  .concierge-box { grid-template-columns: 1fr; padding: 40px 30px; }
-  .hero-mood-switch { display: none; }
-}
+  /* ── 5. CONCIERGE QUICK QUOTE BAND ── */
+  .concierge-card {
+    background: var(--surface-linen);
+    border: 1px solid rgba(42, 41, 37, 0.1);
+    border-radius: 26px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .concierge-form-card {
+    background: #fff;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 24px 50px -30px rgba(42, 41, 37, 0.25);
+  }
+  .hg-field-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .hg-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(42, 41, 37, 0.16);
+    background: var(--surface-ivory);
+    color: var(--ink-primary);
+    font-family: var(--font-hg-sans);
+    font-size: 14px;
+    margin-bottom: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+  }
+  .hg-input:focus {
+    border-color: var(--sage-dark);
+    background: #fff;
+  }
+
+  @media (max-width: 1024px) {
+    .hg-hero-container { grid-template-columns: 1fr; }
+    .col-card-hero, .col-card-side,
+    .collections-lookbook-grid.balanced-row .col-card-hero,
+    .collections-lookbook-grid.balanced-row .col-card-side {
+      grid-column: span 12;
+      min-height: 360px;
+    }
+    .atelier-split,
+    .presentation-dual-grid,
+    .concierge-card {
+      grid-template-columns: 1fr;
+    }
+    .concierge-card { padding: 32px 24px; }
+  }
+  @media (max-width: 640px) {
+    .hg-wrap, .hg-hero-container { padding: 0 20px; }
+    .band-light, .band-linen, .band-dark { padding: 72px 0; }
+    .craft-pillars-grid, .indep-preview-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- EDITORIAL HEADER (NAVBAR) -->
-<header class="site-header" id="siteHeader">
-  <a href="index.html" class="header-logo">
-    <img src="/resim/logo.png" alt="Global Mobilya" onerror="this.src='resim/logo.png'">
+<header id="hgSiteHeader" class="site-header"></header>
+
+<!-- ── 1. ARCHITECTURAL HERO STAGE WITH INTERACTIVE HOTSPOTS ── -->
+<section class="hg-hero" id="heroStage">
+  <div class="hg-hero-bg active" id="heroBgWarm" style="background-image:url('resim/showroom/warm_atelier.jpg')"></div>
+  <div class="hg-hero-bg" id="heroBgNordic" style="background-image:url('resim/showroom/nordic_atelier.jpg')"></div>
+  <div class="hg-hero-bg" id="heroBgEvening" style="background-image:url('resim/showroom/luxury_showroom.jpg')"></div>
+  <div class="hg-hero-scrim"></div>
+
+  <!-- Interactive Pulsing Room Hotspots (Desktop) -->
+  <div class="hg-hotspot" style="left:61%;top:37%;">
+    <button type="button" class="hg-hotspot-btn" aria-label="Doğal ahşap gövde detayı">
+      <span class="hg-hotspot-ring"></span>
+      <span class="hg-hotspot-core"></span>
+    </button>
+    <span class="hg-hotspot-label">Doğal Ahşap Doku</span>
+    <div class="hg-hotspot-popover">
+      <strong style="display:block;font-size:14px;margin-bottom:4px;">Yüzey &amp; Gövde Bütünlüğü</strong>
+      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Mekânın ışığına göre ton alan ceviz, meşe ve mat lake mobilya yüzeyleri.</p>
+    </div>
+  </div>
+
+  <div class="hg-hotspot" style="left:75%;top:53%;">
+    <button type="button" class="hg-hotspot-btn" aria-label="Kahve köşesi modülleri">
+      <span class="hg-hotspot-ring"></span>
+      <span class="hg-hotspot-core"></span>
+    </button>
+    <span class="hg-hotspot-label">Kahve İstasyonu</span>
+    <div class="hg-hotspot-popover">
+      <strong style="display:block;font-size:14px;margin-bottom:4px;">Kahve Köşesi Mimarisi</strong>
+      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Fincan rafları, gizli kablo kanalları ve geniş servis tezgâhlı özel seriler.</p>
+    </div>
+  </div>
+
+  <div class="hg-hotspot left" style="left:67%;top:71%;">
+    <button type="button" class="hg-hotspot-btn" aria-label="Kişiye özel modüler ölçü">
+      <span class="hg-hotspot-ring"></span>
+      <span class="hg-hotspot-core"></span>
+    </button>
+    <span class="hg-hotspot-label">Ölçüye Özel Üretim</span>
+    <div class="hg-hotspot-popover">
+      <strong style="display:block;font-size:14px;margin-bottom:4px;">Atölyeden Doğrudan Kurulum</strong>
+      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Dolap ve oda nişlerinize milimetrik uyarlanan mimari mobilya çözümleri.</p>
+    </div>
+  </div>
+
+  <div class="hg-hero-container">
     <div>
-      <span class="header-brand-title">GLOBAL MOBİLYA</span>
-      <span class="header-brand-sub">EST. 2011 • DİJİTAL SHOWROOM</span>
-    </div>
-  </a>
-
-  <nav class="header-nav" id="headerNav">
-    <a href="index.html" class="active">Ana Sayfa</a>
-    <a href="koleksiyon.html">Koleksiyonlar</a>
-    <a href="galeri.html">Galeri</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="iletisim.html">İletişim</a>
-  </nav>
-
-  <div class="header-actions">
-    <a href="koleksiyon.html" class="btn-editorial-gold">
-      ✦ Koleksiyonları Keşfet
-    </a>
-    <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya,%20mimari%20tasar%C4%B1mlar%C4%B1n%C4%B1z%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill">
-      💬 WhatsApp
-    </a>
-    <button type="button" class="hamburger" id="btnHamburger" aria-label="Menü">☰</button>
-  </div>
-</header>
-
-<!-- CHAPTER 1: CINEMATIC EDITORIAL HERO -->
-<section class="hero" id="heroSection">
-  <div class="hero-bg-layer active" id="heroBg1" style="background-image:url('resim/showroom/luxury_showroom.jpg');"></div>
-  <div class="hero-bg-layer" id="heroBg2" style="background-image:url('resim/showroom/nordic_atelier.jpg');"></div>
-  <div class="hero-bg-layer" id="heroBg3" style="background-image:url('resim/showroom/warm_atelier.jpg');"></div>
-  <div class="hero-overlay"></div>
-
-  <div class="luxury-container">
-    <div class="hero-content">
-      <div class="hero-badge-row">
-        <span class="botanical-tag">🌿 DOĞAL MASİF &amp; MİMARİ ZARAFET</span>
-        <span class="palette-chip" style="color:var(--color-gold-bright); border-color:var(--color-gold-muted);">
-          18MM E1 MASİF MDF • CNC MEMBRAN
-        </span>
-      </div>
-
-      <h1 class="hero-title" id="heroTitle">
-        Yaşam Alanlarına Karakter Katan <span>Zamansız Mimari</span>
+      <div class="hg-hero-eyebrow hg-reveal" data-delay="40">İstanbul Atölyeden Mimari Yaşam Alanları</div>
+      <h1 class="hg-hero-title hg-reveal" id="domHeroBaslik" data-delay="140">
+        Zamansız Formlar,<br><em>Sıcak</em> Yaşam Alanları
       </h1>
-
-      <p class="hero-subtext" id="heroDesc">
-        Global Mobilya, 2.000 m² entegre üretim gücü, 5-eksen CNC membran teknolojisi ve İtalyan mimari anlayışıyla tasarlanan seçkin master suite koleksiyonlarını doğrudan evinize taşıyor.
+      <p class="hg-hero-desc hg-reveal" id="domHeroAciklama" data-delay="240">
+        Kahve köşesi koleksiyonlarından modüler dolap sistemlerine ve özel yatak odası kurgularına kadar her parçayı mekânınızın oranlarına göre üretiyoruz.
       </p>
-
-      <div class="hero-actions">
-        <a href="koleksiyon.html" class="btn-editorial-gold" style="padding:14px 32px; font-size:12px;">
-          ✦ Tam Ekran Koleksiyon Deneyimi →
+      <div class="hg-hero-cta-row hg-reveal" data-delay="340">
+        <a href="koleksiyon.html" class="btn-hg-wipe">
+          <span class="btn-hg-wipe-inner">
+            <span class="btn-hg-wipe-row main">Koleksiyonları Keşfet →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">Koleksiyonları Keşfet →</span>
+          </span>
         </a>
-        <a href="galeri.html" class="btn-editorial-ghost">
-          Showroom Galerisi ↗
-        </a>
-        <a href="https://wa.me/905050151035?text=Merhaba%2C%20Global%20Mobilya%20koleksiyonlar%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill" style="padding:12px 20px;">
-          💬 Mimari Danışmanlık
-        </a>
+        <a href="galeri.html#sectionBagimsiz" class="btn-hg-ghost">Bağımsız Ürünler Merkezi</a>
       </div>
     </div>
-  </div>
 
-  <!-- Ambient Mood Switcher -->
-  <div class="hero-mood-switch">
-    <span style="font-size:10px; color:rgba(255,255,255,0.5); font-weight:700; margin-right:4px;">ATMOSFER:</span>
-    <button type="button" class="mood-pill active" onclick="switchHeroMood(0, this)">Akşam Lüksü</button>
-    <button type="button" class="mood-pill" onclick="switchHeroMood(1, this)">Nordik Gün Işığı</button>
-    <button type="button" class="mood-pill" onclick="switchHeroMood(2, this)">Sıcak Ceviz</button>
-  </div>
-</section>
-
-<!-- CHAPTER 2: THE ATELIER MANIFESTO (FOREST & MOSS ATELIER) -->
-<section class="atelier-manifesto theme-forest-atelier">
-  <div class="luxury-container">
-    <div class="manifesto-grid">
-      
-      <div class="manifesto-photo-wrap reveal-on-scroll">
-        <img src="resim/showroom/warm_atelier.jpg" alt="Global Mobilya İmalat Gücü" class="manifesto-photo" loading="lazy">
-        <div class="manifesto-badge-float">
-          <strong>2.000 m² Entegre Tesis</strong>
-          <span>İstanbul Bağcılar Üretim Fabrikası</span>
-        </div>
-      </div>
-
-      <div class="manifesto-text reveal-on-scroll">
-        <span class="sec-eyebrow">ZANAAT VE MİMARİ FELSEFE</span>
-        <h2 class="sec-title" style="color:#fff;">
-          Sıradan Mobilya Kalıplarının Ötesinde, Mekanın Ruhuna Dokunan Bir Duruş
-        </h2>
-        <p class="sec-desc">
-          15 yılı aşkın imalat disiplinimizle, endüstriyel soğukluktan uzak, yaşayan ahşap ve doğal dokuların dengesini kuruyoruz. Odanızın tavan yüksekliği, ışık alma açısı ve depolama alışkanlıklarınıza göre milimetrik CNC kesimle üretilen her parça, yaşam alanınıza dingin bir prestij katar.
-        </p>
-
-        <div class="manifesto-pillars">
-          <div class="pillar-card">
-            <div class="pillar-icon">🪵</div>
-            <h3 class="pillar-title">18mm E1 Masif MDF</h3>
-            <p class="pillar-desc">Sunta kullanılmaz. Kastamonu Entegre ve AGT 1. sınıf masif panellerle ömürlük mukavemet.</p>
-          </div>
-          <div class="pillar-card">
-            <div class="pillar-icon">✨</div>
-            <h3 class="pillar-title">CNC Membran Zarafeti</h3>
-            <p class="pillar-desc">Yüksek vakum membran kaplama sayesinde neme, buhara ve çizilmelere karşı %100 dayanıklı yüzey.</p>
-          </div>
-          <div class="pillar-card">
-            <div class="pillar-icon">🤫</div>
-            <h3 class="pillar-title">Sessiz Frenli Donanım</h3>
-            <p class="pillar-desc">Tüm kapak ve çekmecelerde Alman mühendisliği tandem ray ve frenli menteşe standarttır.</p>
-          </div>
-          <div class="pillar-card">
-            <div class="pillar-icon">🛡️</div>
-            <h3 class="pillar-title">5 Yıl Fabrika Garantisi</h3>
-            <p class="pillar-desc">Üretici güvencesiyle İstanbul fabrikamızdan doğrudan adrese teslim ve montaj desteği.</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="hg-mood-dock hg-reveal" data-delay="380" role="group" aria-label="Atmosfer Seçimi">
+      <button type="button" class="hg-mood-btn active" onclick="switchHeroMood('warm', this)">Warm Atölye</button>
+      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('nordic', this)">Nordic Meşe</button>
+      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('evening', this)">Akşam Pirinç</button>
     </div>
   </div>
 </section>
 
-<!-- CHAPTER 3: FEATURED MASTER COLLECTIONS (ASYMMETRICAL LOOKBOOK) -->
-<section class="asym-collections theme-dark-espresso" id="koleksiyonlar">
-  <div class="luxury-container">
-    <div class="sec-header center reveal-on-scroll">
-      <span class="sec-eyebrow">SEÇKİN MİMARİ MASTER SUITES</span>
-      <h2 class="sec-title" style="color:#fff;">Karakterli Yaşam Alanları İçin 8 Seçkin Koleksiyon</h2>
-      <p class="sec-desc">
-        Viyana'nın dramatik zarafetinden Verona'nın gün ışığı ferahlığına; her biri kendi renk paleti ve mimari atmosferine sahip yatak odası koleksiyonlarımız.
-      </p>
-    </div>
+<!-- ── 2. WAAPI INFINITE CRAFT MARQUEE ── -->
+<div class="hg-marquee-viewport" aria-label="Kategori ve Uzmanlık Şeridi">
+  <div class="hg-marquee-track" data-duration="34000">
+    <div class="hg-marquee-item"><span>Kahve Köşesi Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Dolap Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Yatak Odası Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Bağımsız Ürünler Sunum Merkezi</span><span class="hg-marquee-dot">✦</span><span>Ölçüye Özel Atölye Üretimi</span><span class="hg-marquee-dot">✦</span></div>
+    <div class="hg-marquee-item" aria-hidden="true"><span>Kahve Köşesi Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Dolap Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Yatak Odası Koleksiyonları</span><span class="hg-marquee-dot">✦</span><span>Bağımsız Ürünler Sunum Merkezi</span><span class="hg-marquee-dot">✦</span><span>Ölçüye Özel Atölye Üretimi</span><span class="hg-marquee-dot">✦</span></div>
+  </div>
+</div>
 
-    <div class="asym-grid" id="homeCollectionsGrid">
-      <div style="grid-column:1/-1; text-align:center; padding:60px; color:rgba(255,255,255,0.6); font-family:var(--font-editorial); font-size:24px;">
-        Koleksiyonlar Derleniyor...
+<!-- ── 3. H&G EXPAND-ON-HOVER 3 COLLECTION SUBCATEGORIES ── -->
+<section class="band-ivory band-light">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="section-kicker">Koleksiyon Mimarisi</div>
+        <h2 class="section-heading">Üç Ana <em>Koleksiyon</em> Dünyası</h2>
       </div>
+      <p class="section-lead">Tüm tasarımlarımızı kullanım ritmine göre üç alt kategoriye ayırdık. Panellerin üzerine gelerek her dünyanın canlı seri sayısını ve atmosferini inceleyebilirsiniz.</p>
     </div>
 
-    <div style="text-align:center; margin-top:60px;">
-      <a href="koleksiyon.html" class="btn-editorial-gold" style="padding:16px 40px; font-size:12.5px;">
-        ✦ Tüm Koleksiyonları Tam Ekran İncele (Viyana, Verona, Siena...) →
+    <div class="hg-category-deck hg-reveal" data-delay="120" id="homeCategoryDeck">
+      <a href="koleksiyon.html?kategori=Kahve+K%C3%B6%C5%9Fesi+Koleksiyonlar%C4%B1" class="hg-cat-panel is-active" id="catPanelKahve">
+        <img src="resim/showroom/warm_atelier.jpg" alt="Kahve Köşesi Koleksiyonları" id="catImgKahve">
+        <div class="hg-cat-scrim"></div>
+        <span class="hg-cat-arrow">→</span>
+        <div class="hg-cat-content">
+          <span class="hg-cat-count" id="catCountKahve">Yükleniyor...</span>
+          <h3 class="hg-cat-name">Kahve Köşesi Koleksiyonları</h3>
+          <div class="hg-cat-desc-wrap">
+            <p class="hg-cat-desc">Salon, yemek alanı ve nişler için tasarlanan zarif bar tezgâhları, açık raf kurguları ve gizli depolamalı kahve köşeleri.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="koleksiyon.html?kategori=Dolap+Koleksiyonlar%C4%B1" class="hg-cat-panel" id="catPanelDolap">
+        <img src="resim/showroom/nordic_atelier.jpg" alt="Dolap Koleksiyonları" id="catImgDolap">
+        <div class="hg-cat-scrim"></div>
+        <span class="hg-cat-arrow">→</span>
+        <div class="hg-cat-content">
+          <span class="hg-cat-count" id="catCountDolap">Yükleniyor...</span>
+          <h3 class="hg-cat-name">Dolap Koleksiyonları</h3>
+          <div class="hg-cat-desc-wrap">
+            <p class="hg-cat-desc">Giyinme odası ve antre düzenini mimari cepheye dönüştüren çoklu gardırop ve şifonyer kombinasyonları.</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="koleksiyon.html?kategori=Yatak+Odas%C4%B1+Koleksiyonlar%C4%B1" class="hg-cat-panel" id="catPanelYatak">
+        <img src="resim/showroom/luxury_showroom.jpg" alt="Yatak Odası Koleksiyonları" id="catImgYatak">
+        <div class="hg-cat-scrim"></div>
+        <span class="hg-cat-arrow">→</span>
+        <div class="hg-cat-content">
+          <span class="hg-cat-count" id="catCountYatak">Özel Seri</span>
+          <h3 class="hg-cat-name">Yatak Odası Koleksiyonları</h3>
+          <div class="hg-cat-desc-wrap">
+            <p class="hg-cat-desc">Başlık, komodin ve tam boy dolaplarla bütüncül dinginlik kuran uyku ve dinlenme mekânları.</p>
+          </div>
+        </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- CHAPTER 4: THE 2,000 M² FACTORY & CRAFTSMANSHIP (WARM TERRACOTTA) -->
-<section class="factory-atelier theme-warm-terracotta">
-  <div class="luxury-container">
-    <div class="sec-header center reveal-on-scroll">
-      <span class="sec-eyebrow" style="color:var(--color-gold-bright);">FABRİKA &amp; İMALAT GÜCÜ</span>
-      <h2 class="sec-title" style="color:#fff;">Aracısız, İstanbul Fabrikamızdan Evinize</h2>
-      <p class="sec-desc" style="color:rgba(255,255,255,0.9);">
-        Bağcılar'daki 2.000 m² tesisimizde bilgisayarlı 5-eksen CNC parkuru ve membran vakum presleriyle mimari hassasiyetle üretiyoruz.
-      </p>
-    </div>
-
-    <div class="factory-stats-grid reveal-on-scroll">
-      <div class="stat-box">
-        <div class="stat-num">2.000</div>
-        <div class="stat-label">m² Üretim Tesisi</div>
-        <div class="stat-sub">İstanbul Bağcılar Entegre Fabrika</div>
+<!-- ── 4. LIVE FILTERABLE COLLECTIONS SHOWROOM (ONLY REAL DB COLLECTIONS) ── -->
+<section class="band-linen" id="liveCollectionsSec">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="section-kicker">Canlı Koleksiyon Vitrinimiz</div>
+        <h2 class="section-heading">Seçili <em>Seriler</em></h2>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">15+</div>
-        <div class="stat-label">Yıllık Ustalık</div>
-        <div class="stat-sub">CNC Membran ve Masif Ahşap Zanaati</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">5</div>
-        <div class="stat-label">Yıl Tam Garanti</div>
-        <div class="stat-sub">Gövde, Kapak ve Mekanizma Güvencesi</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">5</div>
-        <div class="stat-label">İş Gününde Üretim</div>
-        <div class="stat-sub">Özel Ölçüye Göre Hızlı Teslimat</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CHAPTER 5: INDEPENDENT FUNCTIONAL FURNITURE (SUNLIT STONE) -->
-<section class="indep-section theme-sunlit-stone">
-  <div class="luxury-container">
-    <div class="sec-header center reveal-on-scroll">
-      <span class="sec-eyebrow">FONKSİYONEL MODÜLLER</span>
-      <h2 class="sec-title" style="color:var(--text-charcoal);">Bağımsız Mobilya &amp; Depolama Modelleri</h2>
-      <p class="sec-desc">
-        Antre, giyinme odası ve yatak odalarınıza özel ölçülerle hayat veren tekil mobilya tasarımlarımız. Koleksiyon parçalarından tamamen bağımsızdır.
-      </p>
-    </div>
-
-    <div class="indep-products-grid" id="homeProductsGrid">
-      <div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--text-muted-warm);">
-        Modüller yükleniyor...
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CHAPTER 6: BOTANICAL LIVING & MATERIALITY (FRAMA / VITRA STYLE) -->
-<section class="botanical-gallery-sec theme-forest-atelier">
-  <div class="luxury-container">
-    <div class="sec-header center reveal-on-scroll">
-      <span class="sec-eyebrow">DOĞAL YAŞAM &amp; BOTANİK ESTETİK</span>
-      <h2 class="sec-title" style="color:#fff;">Işık, Yeşillik ve Doğal Ahşabın Dingin Dengesi</h2>
-      <p class="sec-desc">
-        Global Mobilya tasarımları, iç mekan bitkileri, doğal taş zeminler ve süzülen gün ışığı ile bir araya geldiğinde yaşayan, nefes alan mekanlar oluşturur.
-      </p>
-    </div>
-
-    <div class="gallery-mosaic-grid reveal-on-scroll">
-      <div class="mosaic-col-8">
-        <img src="resim/showroom/luxury_showroom.jpg" alt="Mimari Showroom Yaşam Alanı" class="mosaic-img" loading="lazy">
-        <div class="mosaic-caption">
-          <strong>Viyana Salon Kompozisyonu</strong>
-          <span>18mm E1 MDF Masif Gövde • Bronz Detaylar • Doğal Ficus Yaprakları</span>
-        </div>
-      </div>
-      <div class="mosaic-col-4">
-        <img src="resim/showroom/nordic_atelier.jpg" alt="Nordik Gün Işığı Odası" class="mosaic-img" loading="lazy">
-        <div class="mosaic-caption">
-          <strong>Doğal Işık &amp; Ahşap Dokusu</strong>
-          <span>Kopenhag &amp; Verona Serisi Uyum</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center; margin-top:40px;">
-      <a href="galeri.html" class="btn-editorial-ghost">
-        Tüm Showroom Fotoğraflarını İncele ↗
+      <a href="koleksiyon.html" class="btn-hg-wipe">
+        <span class="btn-hg-wipe-inner">
+          <span class="btn-hg-wipe-row main">Tüm Koleksiyonları Aç →</span>
+          <span class="btn-hg-wipe-row clone" aria-hidden="true">Tüm Koleksiyonları Aç →</span>
+        </span>
       </a>
     </div>
+
+    <div class="cat-filter-pills hg-reveal" id="homeCatPills" role="tablist" aria-label="Koleksiyon Alt Kategorileri">
+      <button type="button" class="cat-pill-btn active" data-cat="ALL">Tümü <span class="cat-pill-count" id="countAll">0</span></button>
+      <button type="button" class="cat-pill-btn" data-cat="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları <span class="cat-pill-count" id="countKahve">0</span></button>
+      <button type="button" class="cat-pill-btn" data-cat="Dolap Koleksiyonları">Dolap Koleksiyonları <span class="cat-pill-count" id="countDolap">0</span></button>
+      <button type="button" class="cat-pill-btn" data-cat="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları <span class="cat-pill-count" id="countYatak">0</span></button>
+    </div>
+
+    <div class="collections-lookbook-grid" id="homeCollectionsGrid">
+      <div class="empty-category-card">
+        <h3>Canlı Koleksiyonlar Yükleniyor</h3>
+        <p>Atölye vitrinimizdeki güncel koleksiyonlar getiriliyor...</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CHAPTER 7: SHOWROOM CONCIERGE & APPOINTMENT -->
-<section class="concierge-sec theme-dark-espresso">
-  <div class="luxury-container">
-    <div class="concierge-box reveal-on-scroll">
-      <div class="concierge-info">
-        <span class="sec-eyebrow">MİMARİ DANIŞMANLIK &amp; RANDEVU</span>
-        <h2>Mekanınıza Özel Ölçü ve Üretim Danışmanlığı</h2>
-        <p>
-          Odanızın planını veya mimari çizimini bize iletin. Mühendislerimiz 18mm masif MDF konstrüksiyon, renk uyumu ve tavan yüksekliğine göre en ergonomik çözümü 24 saat içinde hazırlasın.
+<!-- ── 5. ATELIER CRAFT BAND WITH MILES WAVE CLIP-PATH REVEAL ── -->
+<section class="band-light">
+  <div class="hg-wrap">
+    <div class="atelier-split">
+      <div class="miles-wave-frame atelier-wave-box hg-reveal" data-wave-delay="120">
+        <div class="miles-wave-inner">
+          <img src="resim/yonetilen/atelier-craft.jpg" alt="Global Mobilya Atölye İşçiliği" onerror="this.src='resim/anasayfa-resimleri/warm-hero.jpg'">
+        </div>
+        <div class="atelier-badge-overlay">
+          <strong id="domStatTeslimat">18–25 İş Günü</strong>
+          <span>Atölyeden Evinize Üretim &amp; Teslimat</span>
+        </div>
+      </div>
+
+      <div class="hg-reveal" data-delay="140">
+        <div class="section-kicker">Malzeme &amp; Form Felsefesi</div>
+        <h2 class="section-heading">Atölyeden Yaşama<br><em>Dengeli</em> Oranlar</h2>
+        <p style="margin-top:18px;font-size:15.5px;line-height:1.72;color:var(--ink-muted);" id="domAtelierStory">
+          Her koleksiyonumuzu standart kalıplara sığdırmak yerine mekânınızın ışık açısına, kullanım alışkanlıklarınıza ve doğal doku beklentinize göre ince işçilikle şekillendiriyoruz.
         </p>
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-          <a href="https://wa.me/905050151035?text=Merhaba%2C%20Global%20Mobilya%20mimari%20dan%C4%B1%C5%9Fmanl%C4%B1k%20ve%20%C3%B6zel%20%C3%B6l%C3%A7%C3%BC%20i%C3%A7in%20yaz%C4%B1yorum." target="_blank" class="btn-wa-pill" style="padding:14px 28px; font-size:12.5px;">
-            💬 WhatsApp ile Hemen Danış
-          </a>
-          <a href="iletisim.html" class="btn-editorial-ghost" style="padding:14px 28px;">
-            Fabrika Konumu &amp; İletişim ↗
+
+        <div class="craft-pillars-grid">
+          <div class="craft-pillar">
+            <h4>Sıcak Ahşap &amp; Mat Doku</h4>
+            <p>Doğal meşe, ceviz ve kum taşı yüzeylerle yıllarca eskimeyen sakin paletler.</p>
+          </div>
+          <div class="craft-pillar">
+            <h4>Sessiz Mekanizma</h4>
+            <p>Ağır yük taşıyan çekmecelerde ve raylarda yüksek ömürlü yavaş kapanan donanım.</p>
+          </div>
+          <div class="craft-pillar">
+            <h4>Ölçüye Özel Mimari</h4>
+            <p>Seçtiğiniz seriyi evinizin niş, duvar ve tavan ölçüsüne birebir uyarlama olanağı.</p>
+          </div>
+          <div class="craft-pillar">
+            <h4>Doğrudan Üretici Güvencesi</h4>
+            <p>Aracısız, İstanbul Bağcılar atölyemizden şeffaf fiyat ve montaj koordinasyonu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6. GALLERY & INDEPENDENT PRODUCTS PRESENTATION CENTER ── -->
+<section class="band-dark">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="section-kicker">Sunum Merkezi</div>
+        <h2 class="section-heading">Galeri &amp; <em>Bağımsız</em> Ürünler</h2>
+      </div>
+      <p class="section-lead">Galeri sayfamızı hem tüm koleksiyonları bir arada sergileyen vitrin hem de konsol, dresuar, sehpa ve tekil parçalar için bağımsız sunum merkezi olarak kurguladık.</p>
+    </div>
+
+    <div class="presentation-dual-grid hg-reveal" data-delay="120">
+      <div class="pres-panel">
+        <div>
+          <span class="section-kicker" style="margin-bottom:8px;">Bağımsız Ürünler Vitrini</span>
+          <h3 style="font-family:var(--font-hg-serif);font-size:32px;font-weight:400;margin-bottom:8px;">Tekil Parçalar &amp; Özel Modüller</h3>
+          <p style="font-size:14px;line-height:1.65;color:rgba(247,245,240,0.72);">Koleksiyonlardan bağımsız olarak tek başına sipariş edilebilen tamamlayıcı mobilyalar burada sunulur.</p>
+        </div>
+
+        <div class="indep-preview-grid" id="homeIndepGrid">
+          <!-- Populated dynamically by loadHomeShowroom() -->
+        </div>
+
+        <div>
+          <a href="galeri.html#sectionBagimsiz" class="btn-hg-wipe">
+            <span class="btn-hg-wipe-inner">
+              <span class="btn-hg-wipe-row main">Sunum Merkezine Git →</span>
+              <span class="btn-hg-wipe-row clone" aria-hidden="true">Sunum Merkezine Git →</span>
+            </span>
           </a>
         </div>
       </div>
 
-      <div class="concierge-form-wrap">
-        <h3 style="font-family:var(--font-editorial); font-size:24px; color:var(--color-gold-bright); margin-bottom:14px;">Hızlı Teklif Formu</h3>
+      <div class="pres-panel" style="padding:0;overflow:hidden;position:relative;min-height:420px;">
+        <img src="resim/anasayfa-resimleri/warm-hero.jpg" alt="Showroom Galerisi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(16,13,10,0.12) 20%, rgba(16,13,10,0.92) 100%);"></div>
+        <div style="position:relative;z-index:2;padding:34px;margin-top:auto;">
+          <span class="section-kicker" style="margin-bottom:8px;">Kürasyon &amp; Atmosfer</span>
+          <h3 style="font-family:var(--font-hg-serif);font-size:32px;font-weight:400;margin-bottom:10px;">Koleksiyon Kareleri</h3>
+          <p style="font-size:14px;line-height:1.65;color:rgba(247,245,240,0.78);margin-bottom:22px;">Kahve köşesi, dolap ve oda kombinasyonlarının yaşam alanındaki yansımalarını galeri merkezinde karşılaştırın.</p>
+          <a href="galeri.html" class="btn-hg-ghost">Tüm Galeriyi İncele →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 7. CONCIERGE & CUSTOM QUOTE ── -->
+<section class="band-light" id="hizliTeklif">
+  <div class="hg-wrap">
+    <div class="concierge-card hg-reveal">
+      <div>
+        <div class="section-kicker">Mimari Danışmanlık</div>
+        <h2 class="section-heading">Eviniz İçin <em>Özel</em> Ölçü &amp; Teklif</h2>
+        <p style="margin-top:16px;font-size:15px;line-height:1.7;color:var(--ink-muted);">
+          Beğendiğiniz koleksiyonu evinizin duvar ölçüsüne göre uyarlamak veya bağımsız bir parça için üretici fiyatı almak isterseniz ölçü notunuzu bırakın; atölye ekibimiz aynı gün dönüş yapsın.
+        </p>
+        <div style="margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya%2C%20%C3%B6zel%20%C3%B6l%C3%A7%C3%BC%20mobilya%20teklifi%20almak%20istiyorum." target="_blank" rel="noopener" class="btn-hg-wipe">
+            <span class="btn-hg-wipe-inner">
+              <span class="btn-hg-wipe-row main">WhatsApp ile Hızlı Sor →</span>
+              <span class="btn-hg-wipe-row clone" aria-hidden="true">WhatsApp ile Hızlı Sor →</span>
+            </span>
+          </a>
+          <a href="iletisim.html" style="display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(42,41,37,0.2);color:var(--ink-primary);text-decoration:none;font-size:13px;font-weight:600;">Showroom Adres &amp; İletişim</a>
+        </div>
+      </div>
+
+      <div class="concierge-form-card">
         <form onsubmit="handleQuickQuote(event)">
-          <div class="form-group">
-            <input type="text" id="hq_name" required placeholder="Adınız Soyadınız">
-          </div>
-          <div class="form-group">
-            <input type="tel" id="hq_phone" required placeholder="Telefon Numaranız">
-          </div>
-          <div class="form-group">
-            <input type="text" id="hq_model" placeholder="İlgilendiğiniz Model (Örn: Viyana, Bahar Portmanto)">
-          </div>
-          <div class="form-group">
-            <textarea id="hq_notes" rows="2" placeholder="Odanızın ölçüsü veya notlarınız..."></textarea>
-          </div>
-          <button type="submit" class="btn-editorial-gold" id="btnHqSubmit" style="width:100%; justify-content:center; padding:12px;">
-            ✦ Fabrika Teklifi İste
+          <label class="hg-field-label" for="hq_name">Adınız Soyadınız</label>
+          <input type="text" id="hq_name" class="hg-input" required placeholder="Örn. Selin Aksoy">
+
+          <label class="hg-field-label" for="hq_phone">Telefon / WhatsApp</label>
+          <input type="tel" id="hq_phone" class="hg-input" required placeholder="05XX XXX XX XX">
+
+          <label class="hg-field-label" for="hq_model">İlgilendiğiniz Koleksiyon veya Kategori</label>
+          <select id="hq_model" class="hg-input">
+            <option value="Genel Mobilya Teklifi">Seçim Yapın (Opsiyonel)</option>
+          </select>
+
+          <label class="hg-field-label" for="hq_notes">Mekân Ölçüsü &amp; Renk Notu</label>
+          <textarea id="hq_notes" rows="3" class="hg-input" style="resize:vertical;" placeholder="Örn. 165 cm genişlikte salon kahve köşesi veya ölçülü giyinme dolabı..."></textarea>
+
+          <button type="submit" id="btnHqSubmit" class="btn-hg-wipe" style="width:100%;height:48px;">
+            <span class="btn-hg-wipe-inner" style="width:100%;">
+              <span class="btn-hg-wipe-row main" style="width:100%;">✦ Atölyeden Teklif İste →</span>
+              <span class="btn-hg-wipe-row clone" style="width:100%;" aria-hidden="true">✦ Atölyeden Teklif İste →</span>
+            </span>
           </button>
+
+          <div id="hqSuccess" style="display:none;margin-top:14px;padding:12px 16px;border-radius:12px;background:#EEF5EF;border:1px solid #B7D3BC;color:#2E5436;font-size:13.5px;text-align:center;">
+            ✦ Talebiniz atölye danışmanlarımıza ulaştı. En kısa sürede iletişime geçeceğiz.
+          </div>
         </form>
-        <div id="hqSuccess" style="display:none; text-align:center; padding:14px; color:var(--color-gold-bright); font-size:13px; margin-top:10px;">
-          ✓ Talebiniz alındı! Mühendislerimiz kısa sürede dönüş yapacaktır.
-        </div>
       </div>
     </div>
   </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
+<script src="js/genel.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
+
 <script>
-// Hero Mood Switcher
-const heroLayers = [
-  document.getElementById('heroBg1'),
-  document.getElementById('heroBg2'),
-  document.getElementById('heroBg3')
+const HEROM_MOOD_MAP = { warm: 'heroBgWarm', nordic: 'heroBgNordic', evening: 'heroBgEvening' };
+const CATEGORY_LIST = [
+  'Kahve Köşesi Koleksiyonları',
+  'Dolap Koleksiyonları',
+  'Yatak Odası Koleksiyonları'
 ];
 
-function switchHeroMood(idx, btn) {
-  heroLayers.forEach((layer, i) => {
-    layer.classList.toggle('active', i === idx);
+let _liveCollections = [];
+let _selectedHomeCategory = 'ALL';
+
+function switchHeroMood(key, btnEl) {
+  document.querySelectorAll('.hg-mood-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  document.querySelectorAll('.hg-hero-bg').forEach(bg => bg.classList.remove('active'));
+  const target = document.getElementById(HEROM_MOOD_MAP[key] || 'heroBgWarm');
+  if (target) target.classList.add('active');
+}
+
+function bindHeroHotspots() {
+  const spots = document.querySelectorAll('.hg-hotspot');
+  spots.forEach(spot => {
+    const toggle = (e) => {
+      e.stopPropagation();
+      const willOpen = !spot.classList.contains('open');
+      spots.forEach(s => s.classList.remove('open'));
+      if (willOpen) spot.classList.add('open');
+    };
+    spot.querySelector('.hg-hotspot-btn')?.addEventListener('click', toggle);
+    spot.querySelector('.hg-hotspot-label')?.addEventListener('click', toggle);
   });
-  document.querySelectorAll('.mood-pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
+  document.addEventListener('click', () => spots.forEach(s => s.classList.remove('open')));
 }
 
-// Reveal on Scroll
-function initScrollReveals() {
-  const elements = document.querySelectorAll('.reveal-on-scroll');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('revealed');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  elements.forEach(el => observer.observe(el));
+function esc(str) {
+  return String(str || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
 }
 
-// Load dynamic collections & products
-async function loadHomeShowroom() {
-  syncHomeWithDatabase();
+function renderHomeCollections(category) {
+  const grid = document.getElementById('homeCollectionsGrid');
+  if (!grid) return;
 
-  // 1. Koleksiyonları yükle (Viyana 1. sırada)
-  const colGrid = document.getElementById('homeCollectionsGrid');
-  try {
-    let cols = [];
-    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollections) {
-      cols = await window.GKM_SUPABASE.getCollections();
-    }
-    if (cols && cols.length > 0) {
-      // 4 seçkin koleksiyonu asimetrik sergile (7-5 ve 6-6)
-      const topCols = cols.slice(0, 4);
-      colGrid.innerHTML = topCols.map((c, i) => {
-        const isHero = (i === 0);
-        const cardClass = isHero ? 'col-card-hero' : 'col-card-side';
-        const palHtml = (c.color_palette || []).slice(0, 3).map(p => `<span class="palette-chip">${p}</span>`).join('');
-        return `
-          <div class="${cardClass} reveal-on-scroll">
-            <div class="card-media-wrap">
-              <img src="${c.hero_image_url || 'resim/showroom/luxury_showroom.jpg'}" alt="${c.name}" class="card-media" loading="lazy">
-              <span class="card-tag-top">MİMARİ MASTER SUITE</span>
-            </div>
-            <div class="card-body">
-              <span class="card-style">${c.architecture_style || 'Modern Mimari & Masif MDF'}</span>
-              <h3 class="card-title">${c.name}</h3>
-              <p class="card-story">${c.design_story || '18mm E1 masif MDF gövde ve CNC membran işçiliğiyle üretilen seçkin yatak odası koleksiyonu.'}</p>
-              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">${palHtml}</div>
-              <div class="card-foot">
-                <a href="koleksiyon.html?id=${c.slug}" class="card-link">
-                  Tam Ekran Keşfet →
-                </a>
-                <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' koleksiyonu için mimari fiyat ve ölçü danışmak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 14px; font-size:11px;">
-                  💬 Danış
-                </a>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-      initScrollReveals();
-    }
-  } catch(e) {
-    console.error('Koleksiyon yükleme hatası:', e);
+  const filtered = category === 'ALL'
+    ? _liveCollections
+    : _liveCollections.filter(c => c.category === category);
+
+  if (!filtered.length) {
+    grid.classList.remove('balanced-row');
+    const isBedroom = category === 'Yatak Odası Koleksiyonları';
+    grid.innerHTML = `
+      <div class="empty-category-card hg-reveal">
+        <h3>${esc(category)}</h3>
+        <p>${isBedroom
+          ? 'Yatak Odası Koleksiyonları kategorisinde yeni dönem modellerimiz hazırlanıyor. Evinizin ölçüsüne göre özel başlık, komodin ve dolap tasarımı için talebinizi iletebilirsiniz.'
+          : 'Bu kategoride şu an yayınlanan seri bulunmuyor. Özel ölçü talebiniz için danışmanlarımıza ulaşabilirsiniz.'}</p>
+        <a href="#hizliTeklif" class="btn-hg-wipe">
+          <span class="btn-hg-wipe-inner">
+            <span class="btn-hg-wipe-row main">Özel Ölçü Teklifi Al →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">Özel Ölçü Teklifi Al →</span>
+          </span>
+        </a>
+      </div>
+    `;
+    window.GKM_MOTION?.refreshReveals();
+    return;
   }
 
-  // 2. Bağımsız ürünleri yükle (Koleksiyon parçaları kesinlikle süzüldü)
-  const prodGrid = document.getElementById('homeProductsGrid');
-  try {
-    let prods = [];
-    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getProducts) {
-      prods = await window.GKM_SUPABASE.getProducts();
-    }
-    const visibleProds = (prods || []).filter(p => p.web_gorunur !== false);
-    if (visibleProds && visibleProds.length > 0) {
-      prodGrid.innerHTML = visibleProds.slice(0, 3).map(p => `
-        <div class="indep-card reveal-on-scroll">
-          <div class="indep-img-frame">
-            <img src="${p.ana_resim || 'resim/logo.png'}" alt="${p.title}" class="indep-img" loading="lazy">
+  const useThreeCol = filtered.length === 1 || filtered.length >= 3;
+  grid.classList.toggle('balanced-row', filtered.length % 3 === 0);
+
+  grid.innerHTML = filtered.map((c, idx) => {
+    const useHeroSpan = (filtered.length % 3 !== 0) && (idx % 2 === 0);
+    const cls = useHeroSpan ? 'col-card-hero' : 'col-card-side';
+    const palettes = Array.isArray(c.color_palette) ? c.color_palette.slice(0, 4) : [];
+    const dotsHtml = palettes.map(hex => `<span class="col-dot" style="background:${esc(hex)}"></span>`).join('');
+    const pieceCount = Array.isArray(c.pieces) ? c.pieces.length : 0;
+
+    return `
+      <a href="koleksiyon.html?id=${encodeURIComponent(c.slug)}" class="${cls} hg-reveal" data-delay="${Math.min(idx * 75, 360)}">
+        <img src="${esc(c.hero_image_url || 'resim/showroom/warm_atelier.jpg')}" alt="${esc(c.name)}" class="col-card-img" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+        <div class="col-card-scrim"></div>
+        <div class="col-card-body">
+          <div class="col-card-meta-row">
+            <span class="col-card-cat">${esc(c.category)}</span>
+            ${pieceCount ? `<span class="col-card-pieces">${pieceCount} Modül</span>` : ''}
           </div>
-          <div class="indep-body">
-            <span class="indep-cat">${p.kategori || 'Portmanto & Depolama'}</span>
-            <h3 class="indep-title">${p.title || p.baslik}</h3>
-            <p class="indep-desc">${p.aciklama || p.description || '18mm E1 masif MDF, CNC membran kapak ve sessiz frenli mekanizma.'}</p>
-            <div class="indep-actions-row">
-              <a href="urun.html?id=${p.slug}" class="btn-indep-detail">
-                İncele &amp; Ölçüler →
-              </a>
-              <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + (p.title || p.baslik) + ' hakkında bilgi ve ölçü almak istiyorum.')}" target="_blank" class="btn-wa-pill" style="padding:8px 12px; font-size:11px;" title="WhatsApp ile Sor">
-                💬
-              </a>
-            </div>
+          <h3 class="col-card-title"><span class="miles-underline-link">${esc(c.name)}</span></h3>
+          <p class="col-card-story">${esc(c.design_story || '')}</p>
+          <div class="col-card-foot">
+            <div class="col-dots">${dotsHtml}</div>
+            <span class="col-card-cta">Seriyi İncele →</span>
           </div>
         </div>
-      `).join('');
-      initScrollReveals();
-    } else {
-      prodGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted-warm);">Ürünler hazırlanıyor.</div>';
+      </a>
+    `;
+  }).join('');
+
+  if (useThreeCol && filtered.length % 3 !== 0) {
+    // keep natural 12-col flow cleanly
+  }
+  window.GKM_MOTION?.refreshReveals();
+}
+
+function hydrateCategoryDeckAndFilters(collections) {
+  const counts = {
+    'Kahve Köşesi Koleksiyonları': 0,
+    'Dolap Koleksiyonları': 0,
+    'Yatak Odası Koleksiyonları': 0
+  };
+  const covers = {};
+
+  collections.forEach(c => {
+    const cat = c.category;
+    if (Object.prototype.hasOwnProperty.call(counts, cat)) {
+      counts[cat] += 1;
+      if (!covers[cat] && c.hero_image_url) covers[cat] = c.hero_image_url;
     }
-  } catch(e) {
-    console.error('Ürün yükleme hatası:', e);
+  });
+
+  const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setTxt('countAll', String(collections.length));
+  setTxt('countKahve', String(counts['Kahve Köşesi Koleksiyonları']));
+  setTxt('countDolap', String(counts['Dolap Koleksiyonları']));
+  setTxt('countYatak', String(counts['Yatak Odası Koleksiyonları']));
+
+  setTxt('catCountKahve', `${counts['Kahve Köşesi Koleksiyonları']} Koleksiyon`);
+  setTxt('catCountDolap', `${counts['Dolap Koleksiyonları']} Koleksiyon`);
+  setTxt('catCountYatak', counts['Yatak Odası Koleksiyonları'] ? `${counts['Yatak Odası Koleksiyonları']} Koleksiyon` : 'Özel Seri Hazırlığı');
+
+  if (covers['Kahve Köşesi Koleksiyonları']) {
+    document.getElementById('catImgKahve').src = covers['Kahve Köşesi Koleksiyonları'];
+  }
+  if (covers['Dolap Koleksiyonları']) {
+    document.getElementById('catImgDolap').src = covers['Dolap Koleksiyonları'];
+  }
+  if (covers['Yatak Odası Koleksiyonları']) {
+    document.getElementById('catImgYatak').src = covers['Yatak Odası Koleksiyonları'];
+  }
+
+  // Hydrate Quick Quote Select strictly with live user collections + 3 categories
+  const select = document.getElementById('hq_model');
+  if (select) {
+    const colOpts = collections.map(c => `<option value="${esc(c.name)}">${esc(c.name)} (${esc(c.category)})</option>`).join('');
+    const catOpts = CATEGORY_LIST.map(cat => `<option value="${esc(cat)} - Özel Ölçü">${esc(cat)} — Özel Ölçü</option>`).join('');
+    select.innerHTML = `
+      <option value="Genel Mobilya Teklifi">Koleksiyon veya Kategori Seçin</option>
+      ${colOpts ? `<optgroup label="Canlı Koleksiyonlar (${collections.length})">${colOpts}</optgroup>` : ''}
+      <optgroup label="Kategori Bazlı Özel Ölçü">${catOpts}</optgroup>
+      <option value="Bağımsız Ürün Talebi">Bağımsız Ürün Sunum Merkezi Talebi</option>
+    `;
   }
 }
 
-// Dynamic Database Sync
-async function syncHomeWithDatabase() {
-  if (!window.GKM_SUPABASE) return;
-  try {
-    const [genel, anasayfa] = await Promise.all([
-      window.GKM_SUPABASE.getSiteSetting('genel'),
-      window.GKM_SUPABASE.getSiteSetting('anasayfa')
-    ]);
+function renderIndepPreview(products) {
+  const wrap = document.getElementById('homeIndepGrid');
+  if (!wrap) return;
 
-    if (anasayfa && anasayfa.hero_baslik) {
-      const hTitle = document.getElementById('heroTitle');
-      if (hTitle) hTitle.innerHTML = anasayfa.hero_baslik.replace(/\n/g, '<br>');
+  if (!products.length) {
+    wrap.style.gridTemplateColumns = '1fr';
+    wrap.innerHTML = `
+      <div style="padding:26px;border-radius:16px;border:1px dashed rgba(247,245,240,0.22);background:rgba(255,255,255,0.03);">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#DFC793;margin-bottom:8px;">Sunum Merkezi Hazır</div>
+        <div style="font-family:var(--font-hg-serif);font-size:24px;color:#fff;margin-bottom:6px;">Bağımsız Ürünler Yakında Yayında</div>
+        <p style="font-size:13.5px;line-height:1.6;color:rgba(247,245,240,0.72);">Tekil dresuar, konsol, vitrin ve tamamlayıcı parçalar eklendiğinde Galeri altındaki Bağımsız Ürünler Sunum Merkezi'nde listelenecektir.</p>
+      </div>
+    `;
+    return;
+  }
+
+  wrap.style.gridTemplateColumns = '';
+  wrap.innerHTML = products.slice(0, 4).map(p => `
+    <a href="urun.html?id=${encodeURIComponent(p.slug)}" class="indep-card">
+      <img src="${esc(p.ana_resim || 'resim/showroom/warm_atelier.jpg')}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+      <div class="indep-card-body">
+        <div class="indep-card-title"><span class="miles-underline-link">${esc(p.title)}</span></div>
+        <div class="indep-card-meta">${esc(p.kategori || 'Bağımsız Ürün')}${p.olcu ? ' · ' + esc(p.olcu) : ''}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+async function syncHomeWithDatabaseSafe() {
+  if (!window.GKM_SUPABASE || !window.GKM_SUPABASE.client) return;
+  try {
+    const { data, error } = await window.GKM_SUPABASE.client
+      .from('site_settings')
+      .select('data')
+      .eq('id', 'anasayfa')
+      .single();
+    if (error || !data || !data.data) return;
+
+    const h = data.data;
+    const isLegacyKapak = (txt) => /(membran|\bmdf\b|vakum\s*pres|kapak\s*üretim)/i.test(String(txt || ''));
+
+    if (h.hero_baslik && !isLegacyKapak(h.hero_baslik)) {
+      const el = document.getElementById('domHeroBaslik');
+      if (el) el.innerHTML = h.hero_baslik;
     }
-    if (anasayfa && anasayfa.hero_alt_metin) {
-      const hDesc = document.getElementById('heroDesc');
-      if (hDesc) hDesc.textContent = anasayfa.hero_alt_metin;
+    if (h.hero_aciklama && !isLegacyKapak(h.hero_aciklama)) {
+      const el = document.getElementById('domHeroAciklama');
+      if (el) el.textContent = h.hero_aciklama;
+    }
+    if (h.hakkimizda_ozet && !isLegacyKapak(h.hakkimizda_ozet)) {
+      const el = document.getElementById('domAtelierStory');
+      if (el) el.textContent = h.hakkimizda_ozet;
     }
   } catch (err) {
-    console.warn('Veritabanı senkronizasyonu atlandı:', err);
+    console.warn('Ana sayfa ayarı okunamadı:', err);
+  }
+}
+
+async function loadHomeShowroom() {
+  try {
+    const [cols, prods] = await Promise.all([
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getCollections() : [],
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : []
+    ]);
+    _liveCollections = cols || [];
+    hydrateCategoryDeckAndFilters(_liveCollections);
+    renderHomeCollections(_selectedHomeCategory);
+    renderIndepPreview(prods || []);
+  } catch (err) {
+    console.error('Showroom verisi yüklenemedi:', err);
+    renderHomeCollections('ALL');
+    renderIndepPreview([]);
   }
 }
 
 async function handleQuickQuote(e) {
   e.preventDefault();
   const btn = document.getElementById('btnHqSubmit');
+  const originalHtml = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = 'İletiliyor...';
 
   const name = document.getElementById('hq_name').value.trim();
   const phone = document.getElementById('hq_phone').value.trim();
@@ -1066,48 +1219,37 @@ async function handleQuickQuote(e) {
   try {
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.createQuoteRequest) {
       await window.GKM_SUPABASE.createQuoteRequest({
-        name, phone,
-        collection_id: model || 'Genel Showroom Teklifi',
+        name,
+        phone,
+        collection_id: model || 'Genel Mobilya Teklifi',
         notes: `Model: ${model} | Not: ${notes}`
       });
     }
     document.getElementById('hqSuccess').style.display = 'block';
+    e.target.reset();
   } catch (err) {
     alert('Hata: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = '✦ Fabrika Teklifi İste';
+    btn.innerHTML = originalHtml;
   }
 }
 
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 80) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
-
-document.getElementById('btnHamburger')?.addEventListener('click', () => {
-  const nav = document.getElementById('headerNav');
-  if (nav.style.display === 'flex') nav.style.display = 'none';
-  else {
-    nav.style.display = 'flex';
-    nav.style.flexDirection = 'column';
-    nav.style.position = 'absolute';
-    nav.style.top = '100%';
-    nav.style.left = '0';
-    nav.style.right = '0';
-    nav.style.background = 'rgba(22, 18, 15, 0.98)';
-    nav.style.padding = '20px';
-    nav.style.gap = '16px';
-  }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+  bindHeroHotspots();
+  document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      _selectedHomeCategory = btn.dataset.cat || 'ALL';
+      renderHomeCollections(_selectedHomeCategory);
+    });
+  });
+
   loadHomeShowroom();
-  initScrollReveals();
+  syncHomeWithDatabaseSafe();
+  window.GKM_MOTION?.initAll();
 });
 </script>
-
-<script src="js/footer.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Genel İçerik Yükleyici & Supabase Bulut Senkronizasyonu
+ * Global Mobilya — Genel İçerik Yükleyici & Supabase Bulut Senkronizasyonu
  * Önce Supabase Cloud Database (site_settings -> 'genel' ve 'anasayfa') üzerinden,
  * bağlantı yoksa _data/ayarlar/genel.json dosyasından navbar, topbar,
  * hakkımızda resmi, kurumsal tanıtım videosu ve diğer sabit içerikleri dinamik yükler.
@@ -152,7 +152,7 @@
     const logoUrl = normalizeMedia(firma.logo, 'resim/logo.png');
     document.querySelectorAll('.nav-logo img').forEach(img => {
       img.src = logoUrl;
-      img.alt = firma.ad || 'Global Kapak Mobilya';
+      img.alt = (firma.ad && !/(membran|kapak)/i.test(firma.ad)) ? firma.ad : 'Global Mobilya';
     });
   }
 
@@ -162,6 +162,8 @@
     if (navCta.yazi)  btn.textContent = navCta.yazi;
     if (navCta.link)  btn.href = navCta.link;
   });
+
+  const containsLegacyKapakCopy = (val) => /\b(membran|mdf|kapak(?:\s+üret|ları)?)\b/i.test(String(val || ''));
 
   // ── ANASAYFA HERO VE HAKKIMIZDA (Supabase 'anasayfa' veya 'genel') ────
   if (anasayfaAyar) {
@@ -176,11 +178,11 @@
       const b2 = heroObj.baslik_2 || heroObj.hero_baslik_2;
       const altYazi = heroObj.alt_yazi || heroObj.hero_aciklama;
 
-      if (tagEl && tagText) tagEl.textContent = tagText;
-      if (h1El && (b1 || b2)) {
+      if (tagEl && tagText && !containsLegacyKapakCopy(tagText)) tagEl.textContent = tagText;
+      if (h1El && (b1 || b2) && !containsLegacyKapakCopy(`${b1} ${b2}`)) {
         h1El.innerHTML = `${b1 || ''}<br><span>${b2 || ''}</span>`;
       }
-      if (pEl && altYazi) pEl.textContent = altYazi;
+      if (pEl && altYazi && !containsLegacyKapakCopy(altYazi)) pEl.textContent = altYazi;
     }
   }
 
@@ -195,19 +197,19 @@
     aboutImg.style.backgroundImage = `url('${imgUrl}')`;
     aboutImg.style.backgroundSize = 'cover';
   }
-  if (aboutData.etiket) {
+  if (aboutData.etiket && !containsLegacyKapakCopy(aboutData.etiket)) {
     const tag = document.querySelector('.about-text .sec-tag');
     if (tag) tag.textContent = aboutData.etiket;
   }
-  if (aboutData.baslik_1 || aboutData.baslik_2) {
+  if ((aboutData.baslik_1 || aboutData.baslik_2) && !containsLegacyKapakCopy(`${aboutData.baslik_1} ${aboutData.baslik_2}`)) {
     const h2 = document.querySelector('.about-text h2');
     if (h2 && aboutData.baslik_1) {
       h2.innerHTML = `${aboutData.baslik_1} <span>${aboutData.baslik_2 || ''}</span>`;
     }
   }
-  if (aboutData.paragraf_1) {
+  if (aboutData.paragraf_1 && !containsLegacyKapakCopy(aboutData.paragraf_1)) {
     const paragraphs = document.querySelectorAll('.about-text p');
-    const texts = [aboutData.paragraf_1, aboutData.paragraf_2, aboutData.paragraf_3].filter(Boolean);
+    const texts = [aboutData.paragraf_1, aboutData.paragraf_2, aboutData.paragraf_3].filter(t => t && !containsLegacyKapakCopy(t));
     paragraphs.forEach((p, i) => { if (texts[i]) p.textContent = texts[i]; });
   }
   if (aboutData.buton_yazi) {
@@ -278,11 +280,11 @@
   // ── FOOTER SENKRONİZASYONU ────────────────────────────────────────────
   setTimeout(() => {
     const footerBrandP = document.querySelector('footer .footer-brand p');
-    if (footerBrandP && footerD.tanitim_metni) {
+    if (footerBrandP && footerD.tanitim_metni && !containsLegacyKapakCopy(footerD.tanitim_metni)) {
       footerBrandP.textContent = footerD.tanitim_metni;
     }
     const footerBrandName = document.querySelector('footer .f-brand-name');
-    if (footerBrandName && firma.ad) {
+    if (footerBrandName && firma.ad && !containsLegacyKapakCopy(firma.ad)) {
       footerBrandName.textContent = firma.ad;
     }
     const footerLinks = document.querySelectorAll('footer .footer-col a');

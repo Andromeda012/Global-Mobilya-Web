@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Supabase Cloud Database & Storage İstemcisi
+ * Global Mobilya — Supabase Cloud Database & Storage İstemcisi
  * Ürünler, tedarikçiler, galeri, blog, firma ayarları ve kurumsal videoları
  * doğrudan Supabase PostgreSQL REST API (no-store, sıfır önbellek) ve Supabase Storage'dan yükler.
  */
@@ -140,136 +140,31 @@
     }
   }
 
-  // Koleksiyon parçası ve kodu tespit deseni (Modül 2 ve 7 ile %100 uyumlu)
-  const PIECE_SLUG_REGEX = /-(?:main-bed|wardrobe|nightstand|dresser|vanity|mirror|bed|dolap|komodin|parca|part)-\d+$/i;
+  // Koleksiyon parçası ve kodu tespit deseni (Modül 2 ve Modül 7 ile %100 uyumlu)
+  const PIECE_SLUG_REGEX = /-(?:6-kapili-dolap|5-kapili-dolap|4-kapili-dolap|3-kapili-dolap|komodin|sifonyer|kucuk-kahve-kosesi|orta-kahve-kosesi|buyuk-kahve-kosesi|main-bed|wardrobe|nightstand|dresser|vanity|mirror|bed|dolap|parca|part)-\d+$/i;
   const PIECE_SKU_REGEX = /-(?:P\d+|parca|piece)$/i;
 
-  // 8 Yatak Odası Koleksiyonu (Prototip Tanımları - DB Fallback)
-  const FALLBACK_COLLECTIONS = [
-    {
-      slug: 'siena-yatak-odasi',
-      name: 'Siena Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Toskana mimarisinin sıcak toprak tonları, ipek mat kaşmir yüzeyler ve CNC dikey çıta detaylarıyla bütünleşen rafine bir dinlenme alanı.',
-      architecture_style: 'Modern İtalyan Minimalizm',
-      color_palette: ['İpek Kaşmir', 'Doğal Meşe', 'Mat Bronz', 'Fildişi'],
-      hero_image_url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Siena 6 Kapaklı Akordeon Gardırop', dimensions: '260 × 220 × 60 cm', material: '18mm E1 MDF, Füme Cam & LED' },
-        { name: 'Siena Baza & Yatak Başlığı (160×200)', dimensions: '175 × 125 × 215 cm', material: 'Dokulu Keten Döşeme & Meşe' },
-        { name: 'Siena Çekmeceli Şifonyer & Ayna', dimensions: '120 × 85 × 48 cm', material: 'Frenli Tandem Ray, CNC Çıta' },
-        { name: 'Siena Komodin (Çift)', dimensions: '55 × 48 × 42 cm', material: 'Kablosuz Şarj Entegreli Üst Tabla' }
-      ]
-    },
-    {
-      slug: 'porto-yatak-odasi',
-      name: 'Porto Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Atlantik sahil rüzgarlarından ilham alan dumanlı meşe kaplamalar ve mat antrasit detayların dengeli kontrastı.',
-      architecture_style: 'Endüstriyel Modern',
-      color_palette: ['Dumanlı Meşe', 'Mat Antrasit', 'Pirinç Vurgu'],
-      hero_image_url: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Porto Sürgülü Boy Aynalı Gardırop', dimensions: '250 × 220 × 65 cm', material: 'Hettich Üstten Asma Mekanizma' },
-        { name: 'Porto Masif Ayaklı Karyola', dimensions: '170 × 110 × 210 cm', material: 'Doğal Duman Meşe & Antrasit' },
-        { name: 'Porto 4 Çekmeceli Şifonyer', dimensions: '110 × 90 × 46 cm', material: 'Gizli Kulplu CNC Membran' },
-        { name: 'Porto Asimetrik Komodin (2 Adet)', dimensions: '50 × 45 × 40 cm', material: 'Metal Ayak & Frenli Çekmece' }
-      ]
-    },
-    {
-      slug: 'milano-yatak-odasi',
-      name: 'Milano Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Lombardiya yüksek mimarisinin geometrik düzeni; ipek lake pürüzsüzlüğünde yüzeyler ve gizli ambient aydınlatmalar.',
-      architecture_style: 'Haute Couture Modern',
-      color_palette: ['Krem Beyaz', 'Ceviz', 'Şampanya Altın'],
-      hero_image_url: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Milano Modüler Köşe Gardırop', dimensions: '300 × 230 × 60 cm', material: 'Sensörlü İç Aydınlatma, E1 MDF' },
-        { name: 'Milano Entegre Aydınlatmalı Karyola', dimensions: '180 × 130 × 220 cm', material: 'Gömme LED Başlık, Nubuk Kumaş' },
-        { name: 'Milano Boy Aynalı Makyaj Konsolu', dimensions: '135 × 82 × 50 cm', material: 'Kadeh Cam Üst Yüzey & Çekmece İçi Kadife' },
-        { name: 'Milano Yüzen Komodinler (Çift)', dimensions: '55 × 35 × 40 cm', material: 'Duvara Askılı Lake Tasarım' }
-      ]
-    },
-    {
-      slug: 'zurih-yatak-odasi',
-      name: 'Zürih Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'İsviçre mühendislik hassasiyeti; kusursuz gönye burun birleşimler, doğal taş dokulu paneller ve dingin monokrom duruş.',
-      architecture_style: 'Alpine Minimalist',
-      color_palette: ['Taş Grisi', 'Hafif Çam', 'Mat Siyah'],
-      hero_image_url: 'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Zürih Tam Boy Gömmeli Gardırop', dimensions: '240 × 225 × 60 cm', material: 'Görünmez Ray Sistemi, E1 Standart' },
-        { name: 'Zürih Düşük Profil Zen Karyola', dimensions: '165 × 95 × 210 cm', material: 'Keten Dokuma & Çam Ayaklar' },
-        { name: 'Zürih Yüksek Şifonyer', dimensions: '90 × 115 × 45 cm', material: '5 Kat Frenli Çekmece' },
-        { name: 'Zürih Minimalist Komodin (Çift)', dimensions: '48 × 42 × 38 cm', material: 'Masif Detaylı MDF' }
-      ]
-    },
-    {
-      slug: 'verona-yatak-odasi',
-      name: 'Verona Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Klasik İtalyan zanaatının modern villa yaşamına uyarlaması; kavisli hatlar ve ipeksi dokunuş.',
-      architecture_style: 'Neoklasik Çağdaş',
-      color_palette: ['Pudra Bej', 'Cappuccino', 'Açık Ceviz'],
-      hero_image_url: 'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Verona Oymalı Lake Gardırop', dimensions: '260 × 220 × 62 cm', material: 'CNC Membran İşleme, Özel Kulplar' },
-        { name: 'Verona Kapitone Yatak Başı & Baza', dimensions: '175 × 135 × 215 cm', material: 'Kadife Dokulu Kumaş Döşeme' },
-        { name: 'Verona Klasik Çekmeceli Şifonyer', dimensions: '115 × 88 × 48 cm', material: 'Ayna Dahil, Soft-Close Ray' },
-        { name: 'Verona Yuvarlak Hatlı Komodin', dimensions: '52 × 50 × 42 cm', material: 'Ahşap Ayak, Lake Boya' }
-      ]
-    },
-    {
-      slug: 'venedik-yatak-odasi',
-      name: 'Venedik Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Su kanallarının ışık oyunlarını yansıtan bronz reflekte cam kapaklar ve sıcak bal rengi ceviz gövde.',
-      architecture_style: 'Venedik Moderni',
-      color_palette: ['Bal Ceviz', 'Bronz Cam', 'Mat Vizon'],
-      hero_image_url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Venedik Bronz Camlı Vitrin Gardırop', dimensions: '270 × 225 × 60 cm', material: 'Alüminyum Çerçeve, LED Sensör' },
-        { name: 'Venedik Baza & Entegre Gece Lambası', dimensions: '170 × 120 × 215 cm', material: 'Deri Detaylı Başlık' },
-        { name: 'Venedik Makyaj Konsolu', dimensions: '125 × 80 × 48 cm', material: 'Gizli Takı Çekmecesi' },
-        { name: 'Venedik Komodin (Çift)', dimensions: '54 × 45 × 40 cm', material: 'Bronz Kulp, MDF Membran' }
-      ]
-    },
-    {
-      slug: 'kopenhag-yatak-odasi',
-      name: 'Kopenhag Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Kuzey ışığının sadeliği; doğal huş ağacı dokusu, mat adaçayı vurguları ve fonksiyonel depolama çözümleri.',
-      architecture_style: 'Skandinav Doğal',
-      color_palette: ['Doğal Huş', 'Adaçayı Yeşili', 'Kırık Beyaz'],
-      hero_image_url: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Kopenhag Çift Renkli Gardırop', dimensions: '240 × 215 × 58 cm', material: 'Huş Kaplama & Adaçayı Membran' },
-        { name: 'Kopenhag Masif Platform Yatak', dimensions: '165 × 105 × 210 cm', material: 'Latalı Taban, Ahşap Başlık' },
-        { name: 'Kopenhag 6 Çekmeceli Şifonyer', dimensions: '130 × 78 × 45 cm', material: 'Geniş Çekmeceli, Ahşap Kulp' },
-        { name: 'Kopenhag Sehpa Tipi Komodin', dimensions: '45 × 50 × 40 cm', material: 'Açık Raflı Masif Tasarım' }
-      ]
-    },
-    {
-      slug: 'lizbon-yatak-odasi',
-      name: 'Lizbon Yatak Odası Koleksiyonu',
-      category: 'Yatak Odası',
-      design_story: 'Akdeniz güneşinin neşesi; sıcak meşe hareleri, seramik kulp detayları ve geniş ferah iç mekan tasarımı.',
-      architecture_style: 'İberik Çağdaş',
-      color_palette: ['Altın Meşe', 'Mat Terracotta', 'Keten Beji'],
-      hero_image_url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85',
-      pieces: [
-        { name: 'Lizbon 5 Kapaklı Ahşap Gardırop', dimensions: '235 × 220 × 60 cm', material: '18mm E1 MDF, Doğal Meşe Doku' },
-        { name: 'Lizbon Keten Kumaş Karyola', dimensions: '170 × 115 × 215 cm', material: 'Silinebilir Dokuma Keten Başlık' },
-        { name: 'Lizbon Rustik Şifonyer', dimensions: '110 × 84 × 46 cm', material: 'Gizli Ray Sistemi' },
-        { name: 'Lizbon Komodin (2 Adet)', dimensions: '50 × 46 × 40 cm', material: 'Meşe Gövde, Frenli Çekmece' }
-      ]
-    }
+  const COLLECTION_CATEGORIES = [
+    'Kahve Köşesi Koleksiyonları',
+    'Dolap Koleksiyonları',
+    'Yatak Odası Koleksiyonları'
   ];
+
+  function normalizeCollectionCategory(rawCategory = '', title = '') {
+    const src = `${rawCategory} ${title}`.toLowerCase();
+    if (src.includes('kahve') || src.includes('coffee')) return 'Kahve Köşesi Koleksiyonları';
+    if (src.includes('dolap') || src.includes('gardırop') || src.includes('gardirop') || src.includes('wardrobe')) return 'Dolap Koleksiyonları';
+    if (src.includes('yatak') || src.includes('bedroom') || src.includes('suite')) return 'Yatak Odası Koleksiyonları';
+    return 'Kahve Köşesi Koleksiyonları';
+  }
+
+  // Sahte örnek koleksiyonlar tamamen kaldırıldı — yalnızca Modül 7 / Supabase üzerindeki gerçek koleksiyonlar gösterilir.
+  const FALLBACK_COLLECTIONS = [];
 
   window.GKM_SUPABASE = {
     normalizeMediaUrl,
+    COLLECTION_CATEGORIES,
+    normalizeCollectionCategory,
 
     isConfigured() {
       const { url, key } = getCredentials();
@@ -277,98 +172,102 @@
     },
 
     /**
-     * Tüm Yatak Odası Koleksiyonlarını Getirir.
-     * Veritabanındaki 'products' tablosunda bulunan gerçek koleksiyonları (örn. Viyana)
-     * parçalarıyla birlikte tespit edip EN ÜST SIRADA sunar.
+     * Modül 7 / Supabase üzerindeki gerçek koleksiyonları alt kategorileriyle getirir.
      */
     async getCollections() {
       // 1. Önce Faz 6 Birleşik B2C & 3D Showroom API'sinden (Modül 7 + Modül 8 .glb + Cloudflare R2) çek
       const unified = await fetchUnifiedB2CPublicCatalog();
       if (unified && Array.isArray(unified.collections) && unified.collections.length > 0) {
-        const merged = unified.collections.map(c => ({
-          ...c,
-          hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/anasayfa-resimleri/warm-hero.jpg'),
-          model_3d_url: c.model_3d_url ? normalizeMediaUrl(c.model_3d_url, '') : null,
-          pieces: (c.pieces || []).map(pc => ({
-            ...pc,
-            image_url: normalizeMediaUrl(pc.image_url, 'resim/logo.png'),
-            model_3d_url: pc.model_3d_url ? normalizeMediaUrl(pc.model_3d_url, '') : null
-          }))
-        }));
-        FALLBACK_COLLECTIONS.forEach(fb => {
-          if (!merged.some(m => m.slug === fb.slug)) merged.push(fb);
+        return unified.collections.map(c => {
+          const cat = normalizeCollectionCategory(c.category, c.name || c.title || c.slug);
+          return {
+            ...c,
+            category: cat,
+            design_story: (c.design_story || '').replace(/\b(18mm\s*E1\s*masif\s*MDF|MDF|membran(?:\s+kapak)?)\b/gi, 'E1 Sertifikalı Ahşap'),
+            hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/showroom/luxury_showroom.jpg'),
+            model_3d_url: c.model_3d_url ? normalizeMediaUrl(c.model_3d_url, '') : null,
+            pieces: (c.pieces || []).map(pc => ({
+              ...pc,
+              material: (pc.material && !/membran|mdf|kapak/i.test(pc.material)) ? pc.material : '1. Sınıf E1 Ahşap Gövde & Mimari İşçilik',
+              image_url: normalizeMediaUrl(pc.image_url, 'resim/logo.png'),
+              model_3d_url: pc.model_3d_url ? normalizeMediaUrl(pc.model_3d_url, '') : null
+            }))
+          };
         });
-        return merged;
       }
 
-      const prods = await restSelect('products?select=*&order=created_at.desc');
+      // 2. Fallback: doğrudan Supabase site_settings('module7_extended_catalog') & products tablosu
+      const [prods, extData] = await Promise.all([
+        restSelect('products?select=*&order=created_at.desc'),
+        this.getSiteSetting('module7_extended_catalog').catch(() => null)
+      ]);
       const allProds = Array.isArray(prods) ? prods : [];
+      const prodBySlug = new Map(allProds.map(p => [p.slug, p]));
+      const extCols = Array.isArray(extData?.collections) ? extData.collections : [];
+      const extLinks = Array.isArray(extData?.collection_products) ? extData.collection_products : [];
 
-      // Koleksiyon parçalarını ve üst koleksiyon slug'larını tespit et
+      if (extCols.length > 0) {
+        return extCols.filter(c => c && c.slug && c.is_visible !== false).map(c => {
+          const base = prodBySlug.get(c.slug) || {};
+          const linked = extLinks
+            .filter(cp => cp.collection_id === c.slug || cp.collection_id === c.id)
+            .map(cp => {
+              const pc = prodBySlug.get(cp.product_slug) || {};
+              return {
+                slug: cp.product_slug,
+                name: pc.title || cp.title || cp.product_slug,
+                dimensions: cp.dimensions || pc.body || 'Özel Mimari Ölçü',
+                material: '1. Sınıf E1 Ahşap Gövde & Mimari İşçilik',
+                image_url: normalizeMediaUrl(pc.ana_resim || cp.image_url || base.ana_resim, 'resim/logo.png')
+              };
+            });
+          const title = c.title || c.name || base.title || c.slug;
+          return {
+            id: c.slug,
+            slug: c.slug,
+            name: title,
+            category: normalizeCollectionCategory(c.category || base.kategori, title),
+            design_story: c.design_story || c.promo_quote || base.kisa_aciklama || base.body || 'Modern mimari anlayış ve el işçiliğiyle üretilen seçkin mobilya koleksiyonu.',
+            architecture_style: c.category || 'Modern Mimari Tasarım',
+            color_palette: Array.isArray(c.color_palette) && c.color_palette.length ? c.color_palette : (base.renkler || []),
+            hero_image_url: normalizeMediaUrl(c.hero_image || c.hero_image_url || base.ana_resim, 'resim/showroom/luxury_showroom.jpg'),
+            pieces: linked
+          };
+        });
+      }
+
       const parentSlugs = new Set();
       allProds.forEach(p => {
         if (PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '')) {
-          const parent = p.slug.replace(PIECE_SLUG_REGEX, '');
-          parentSlugs.add(parent);
+          parentSlugs.add(p.slug.replace(PIECE_SLUG_REGEX, ''));
         }
       });
 
-      // Dinamik Koleksiyonlar (Veritabanındaki gerçek setler - Viyana vb.)
       const dynamicCollections = [];
       parentSlugs.forEach(parentSlug => {
-        const parentProd = allProds.find(p => p.slug === parentSlug) || {
-          slug: parentSlug,
-          title: parentSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-          kategori: 'Yatak Odası',
-          ana_resim: null,
-          renkler: [],
-          body: ''
-        };
+        const parentProd = allProds.find(p => p.slug === parentSlug);
+        if (!parentProd) return;
         const pieces = allProds.filter(p => p.slug.startsWith(parentSlug + '-') && p.slug !== parentSlug);
-
         dynamicCollections.push({
           id: parentSlug,
           slug: parentSlug,
-          name: parentProd.title.toLowerCase().includes('koleksiyon') ? parentProd.title : `${parentProd.title} Koleksiyonu`,
-          category: parentProd.kategori || 'Yatak Odası',
-          design_story: parentProd.body || parentProd.kisa_aciklama || '18mm E1 masif MDF gövde ve CNC membran işçiliğiyle üretilen mimari yatak odası koleksiyonu.',
-          architecture_style: 'Modern Mimari & CNC Zarafeti',
-          color_palette: (parentProd.renkler && parentProd.renkler.length > 0) ? parentProd.renkler : ['Kaşmir Grej', 'Doğal Meşe', 'Antrasit'],
-          hero_image_url: normalizeMediaUrl(parentProd.ana_resim || (pieces.find(pc => pc.ana_resim)?.ana_resim), 'resim/anasayfa-resimleri/warm-hero.jpg'),
+          name: parentProd.title,
+          category: normalizeCollectionCategory(parentProd.kategori, parentProd.title),
+          design_story: parentProd.kisa_aciklama || parentProd.body || 'Modern mimari anlayışıyla üretilen seçkin koleksiyon.',
+          architecture_style: parentProd.kategori || 'Modern Mimari Tasarım',
+          color_palette: Array.isArray(parentProd.renkler) ? parentProd.renkler : [],
+          hero_image_url: normalizeMediaUrl(parentProd.ana_resim || pieces.find(pc => pc.ana_resim)?.ana_resim, 'resim/showroom/luxury_showroom.jpg'),
           pieces: pieces.map(pc => ({
             name: pc.title,
             dimensions: pc.body || pc.kisa_aciklama || 'Özel Mimari Ölçü',
-            material: '1. Sınıf 18mm E1 MDF, CNC Membran Kapak',
+            material: '1. Sınıf E1 Ahşap Gövde & Mimari İşçilik',
             image_url: normalizeMediaUrl(pc.ana_resim, 'resim/logo.png'),
             slug: pc.slug
           }))
         });
       });
 
-      // Varsa 'collections' tablosundaki aktif kayıtları ekle
-      try {
-        const data = await restSelect('collections?select=*&status=eq.active&order=created_at.asc');
-        if (Array.isArray(data) && data.length > 0) {
-          data.forEach(c => {
-            if (!dynamicCollections.some(dc => dc.slug === c.slug)) {
-              dynamicCollections.push({
-                ...c,
-                hero_image_url: normalizeMediaUrl(c.hero_image_url, 'resim/logo.png')
-              });
-            }
-          });
-        }
-      } catch (_) {}
-
-      // Birleştir: Gerçek veritabanı koleksiyonları (Viyana) en üstte!
-      const merged = [...dynamicCollections];
-      FALLBACK_COLLECTIONS.forEach(fb => {
-        if (!merged.some(m => m.slug === fb.slug)) {
-          merged.push(fb);
-        }
-      });
-
-      return merged;
+      return dynamicCollections;
     },
 
     async getCollectionBySlug(slug) {
@@ -453,15 +352,37 @@
     },
 
     /**
-     * Yalnızca BAĞIMSIZ ürünleri (Portmanto, Dresuar vb.) getirir.
+     * Yalnızca BAĞIMSIZ ürünleri (Portmanto, Dresuar, Tekil Dolap vb.) getirir.
      * Koleksiyon parçaları ve koleksiyon kök kayıtları kesinlikle süzülür.
      */
     async getProducts() {
-      const data = await restSelect('products?select=*&order=created_at.desc');
+      const unified = await fetchUnifiedB2CPublicCatalog();
+      if (unified && Array.isArray(unified.products)) {
+        return unified.products
+          .filter(p => p && !PIECE_SLUG_REGEX.test(p.slug) && !PIECE_SKU_REGEX.test(p.sku || '') && p.web_gorunur !== false)
+          .map(p => ({
+            ...p,
+            id: p.slug,
+            title: p.title || p.baslik || p.slug,
+            ana_resim: normalizeMediaUrl(p.ana_resim, 'resim/logo.png')
+          }));
+      }
+
+      const [data, extData] = await Promise.all([
+        restSelect('products?select=*&order=created_at.desc'),
+        this.getSiteSetting('module7_extended_catalog').catch(() => null)
+      ]);
       if (!Array.isArray(data)) return [];
 
+      const collectionSlugs = new Set(
+        (Array.isArray(extData?.collections) ? extData.collections : []).map(c => c?.slug).filter(Boolean)
+      );
+      const linkedPieceSlugs = new Set(
+        (Array.isArray(extData?.collection_products) ? extData.collection_products : []).map(cp => cp?.product_slug).filter(Boolean)
+      );
+
       // Koleksiyon parçalarını ve üst koleksiyon slug'larını tespit et
-      const parentSlugs = new Set();
+      const parentSlugs = new Set(collectionSlugs);
       data.forEach(p => {
         if (PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '')) {
           parentSlugs.add(p.slug.replace(PIECE_SLUG_REGEX, ''));
@@ -470,7 +391,7 @@
 
       // Koleksiyon parçası ve koleksiyon olmayan tekil bağımsız ürünler
       const independentOnly = data.filter(p => {
-        const isPiece = PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '') || p.product_type === 'collection_piece';
+        const isPiece = PIECE_SLUG_REGEX.test(p.slug) || PIECE_SKU_REGEX.test(p.sku || '') || linkedPieceSlugs.has(p.slug) || p.product_type === 'collection_piece';
         const isCollection = parentSlugs.has(p.slug) || p.product_type === 'collection';
         const isVisible = p.web_gorunur !== false;
         return !isPiece && !isCollection && isVisible;
@@ -679,7 +600,7 @@
       backdrop.innerHTML = `
         <div style="position:relative;background:#fff;border-radius:20px;padding:28px 24px 24px;max-width:460px;width:100%;box-shadow:0 30px 90px rgba(0,0,0,0.45);text-align:center;">
           <button type="button" id="gkm-clerk-modal-close" style="position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:16px;">✕</button>
-          <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#8E4631;text-transform:uppercase;margin-bottom:6px;">GLOBAL KAPAK MOBİLYA • ÖZEL TEKLİF</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#5E7462;text-transform:uppercase;margin-bottom:6px;">GLOBAL MOBİLYA • ÖZEL TEKLİF</div>
           <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#1e293b;margin:0 0 8px;">Teklif Almak İçin Hızlı Giriş Yapın</h3>
           <p style="font-size:12.5px;color:#64748b;margin:0 0 18px;line-height:1.55;">
             Size özel ölçü ve fiyat teklifimizi hazırlayıp takip edebilmemiz için hesabınızla devam edin.

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İletişim & Fabrika Showroom — Fiyat Teklifi Alın | Global Mobilya</title>
 <meta name="description" content="Global Mobilya mimari koleksiyonları ve özel ölçü projeleriniz için doğrudan üretim fabrikamızdan fiyat teklifi alın. İstanbul Bağcılar fabrika adresi, telefon ve WhatsApp danışma hattı.">
-<meta name="keywords" content="global mobilya iletişim, mobilya fabrika adresi istanbul, bağcılar mobilya üreticisi, membran kapak fiyat teklifi, mimari mobilya teklif">
+<meta name="keywords" content="global mobilya iletişim, mobilya atölyesi istanbul, bağcılar mobilya üreticisi, kahve köşesi fiyat teklifi, dolap koleksiyonu teklif">
 <meta name="author" content="Global Mobilya">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://globalkapakmobilya.com/iletisim.html">
@@ -75,6 +75,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<link rel="stylesheet" href="css/showroom-motion.css">
 
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -582,39 +583,18 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 </head>
 <body>
 
-<!-- STICKY EDITORIAL HEADER -->
-<header class="site-header" id="siteHeader">
-  <a href="index.html" class="header-logo">
-    <img src="resim/logo.png" alt="Global Mobilya">
-    <span class="header-brand-title" id="hdrBrandTitle">Global Mobilya</span>
-  </a>
-  <nav class="header-nav" id="headerNav">
-    <a href="index.html">Ana Sayfa</a>
-    <a href="index.html#koleksiyonlar">Koleksiyonlar</a>
-    <a href="galeri.html">Dijital Showroom</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="iletisim.html" class="active">İletişim</a>
-  </nav>
-  <div class="header-actions">
-    <a href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill" id="hdrWaLink">
-      💬 WhatsApp
-    </a>
-    <a href="#iletisimForm" class="btn-editorial-cta">
-      ✦ Fiyat & Teklif Al
-    </a>
-  </div>
-  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menüyü Aç">☰</button>
-</header>
+<!-- FLOATING PILL HEADER -->
+<header id="hgSiteHeader" class="site-header"></header>
 
 <!-- CINEMATIC HERO -->
-<section class="contact-hero">
+<section class="contact-hero" style="padding-top:86px;">
   <div class="contact-hero-content">
     <span class="hero-eyebrow">✦ DİREKT ÜRETİCİ İLE İLETİŞİM</span>
     <h1 class="contact-hero-title">
-      Doğrudan Üretim Tesisimizden <span>Fiyat Teklifi Alın</span>
+      Doğrudan Atölyemizden <span>Fiyat Teklifi Alın</span>
     </h1>
     <p class="contact-hero-desc">
-      İstanbul Bağcılar fabrikamızda 18mm masif MDF ve CNC membran kalitesiyle projenize özel mimari mobilya ve kapak çözümleri sunuyoruz.
+      İstanbul Bağcılar atölyemizde doğal kaplama gövde kalitesi ve özel ölçü mimarisiyle kahve köşesi, dolap ve yatak odası çözümleri sunuyoruz.
     </p>
   </div>
 </section>
@@ -655,7 +635,7 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
     <span class="section-tag">FABRİKA & ATÖLYE</span>
     <h2 class="section-heading">Bizi Ziyaret Edin veya <span>Bilgi Alın</span></h2>
     <p style="color:var(--text-muted); font-size:15px; margin-bottom:30px; line-height:1.8;">
-      İstanbul Bağcılar'daki 2.000 m² modern üretim tesisimize gelerek membran kapak modellerimizi, renk kartelalarımızı ve yatak odası showroom parçalarımızı yerinde inceleyebilirsiniz.
+      İstanbul Bağcılar'daki 2.000 m² modern üretim atölyemize gelerek kahve köşesi koleksiyonlarımızı, dolap kurgularımızı, yüzey kartelalarımızı ve yaşam alanı showroom parçalarımızı yerinde inceleyebilirsiniz.
     </p>
 
     <div class="info-detail-row">
@@ -735,13 +715,10 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
         <div class="form-field">
           <label>İlgilendiğiniz Koleksiyon / Ürün</label>
           <select id="cf_subject">
-            <option value="Siena Yatak Odası Koleksiyonu">Siena Yatak Odası Koleksiyonu</option>
-            <option value="Porto Yatak Odası Koleksiyonu">Porto Yatak Odası Koleksiyonu</option>
-            <option value="Milano Yatak Odası Koleksiyonu">Milano Yatak Odası Koleksiyonu</option>
-            <option value="Zürih Yatak Odası Koleksiyonu">Zürih Yatak Odası Koleksiyonu</option>
-            <option value="Makyaj Masası & Dresuar">Makyaj Masası & Dresuar Modelleri</option>
-            <option value="Özel Ölçü Gardırop / Dolap">Özel Ölçü Gardırop & Dolap İmalatı</option>
-            <option value="Membran Kapak Toptan Sipariş">Membran Kapak Toptan İmalat</option>
+            <option value="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları — Özel Ölçü</option>
+            <option value="Dolap Koleksiyonları">Dolap Koleksiyonları — Özel Ölçü</option>
+            <option value="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları — Özel Tasarım</option>
+            <option value="Bağımsız Ürün Talebi">Bağımsız Ürün Sunum Merkezi (Dresuar / Konsol / Sehpa)</option>
             <option value="Diğer Genel Danışma">Diğer / Genel Soru</option>
           </select>
         </div>
@@ -767,31 +744,48 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 
     <div class="faq-item">
       <h4><span>✦</span> Teslimat süreniz kaç gündür?</h4>
-      <p>Sipariş onayınızın ardından tüm parçalar CNC membran pres parkurumuzda 5 iş günü içerisinde üretilip korumalı ambalajlarla sevkiyata hazır hale getirilir.</p>
+      <p>Sipariş ve ölçü onayınızın ardından tüm mobilya modülleri atölyemizde planlı üretim takvimine alınır ve korumalı ambalajlarla sevkiyata hazır hale getirilir.</p>
     </div>
 
     <div class="faq-item">
-      <h4><span>✦</span> 5 yıl üretici garantisi neleri kapsar?</h4>
-      <p>18mm E1 masif MDF gövde sağlamlığı, membran yüzey kaplamasında kalkma veya sararma yapmama güvencesi ve kullanılan sessiz frenli mekanizmalar 5 yıl boyunca birebir garantimiz altındadır.</p>
+      <h4><span>✦</span> Üretici garantiniz neleri kapsar?</h4>
+      <p>Gövde sağlamlığı, doğal yüzey bütünlüğü ve kullanılan sessiz frenli mekanizmalar birebir üretici garantimiz altındadır.</p>
     </div>
 
     <div class="faq-item">
-      <h4><span>✦</span> Özel ölçüye göre dolap veya makyaj masası üretimi yapıyor musunuz?</h4>
-      <p>Evet. Kendi modern üretim fabrikamız olduğu için oda ölçülerinize ve tavan yüksekliğinize göre milimetrik CNC özel imalat yapabiliyoruz.</p>
+      <h4><span>✦</span> Özel ölçüye göre kahve köşesi veya dolap üretimi yapıyor musunuz?</h4>
+      <p>Evet. Kendi modern üretim atölyemiz olduğu için oda ölçülerinize ve niş genişliğinize göre milimetrik özel mobilya üretimi yapabiliyoruz.</p>
     </div>
   </div>
 </section>
 
 <!-- SCRIPTS & DATABASE SYNC -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
+<script src="js/genel.js"></script>
 <script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
 <script>
-// Header scroll effect
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 40) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+// Sync select options dynamically with live user collections
+async function hydrateContactCollections() {
+  const sel = document.getElementById('cf_subject');
+  if (!sel || !window.GKM_SUPABASE?.getCollections) return;
+  try {
+    const cols = await window.GKM_SUPABASE.getCollections();
+    if (Array.isArray(cols) && cols.length) {
+      const grp = document.createElement('optgroup');
+      grp.label = `Canlı Koleksiyonlar (${cols.length})`;
+      cols.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.name;
+        opt.textContent = `${c.name} (${c.category})`;
+        grp.appendChild(opt);
+      });
+      sel.insertBefore(grp, sel.firstChild);
+    }
+  } catch (_) {}
+}
 
 // Form Submission (Saves to Supabase quote_requests table)
 async function submitMainContact(e) {
@@ -833,8 +827,9 @@ async function syncContactInfo() {
     const firma = genel.firma || {};
     const iletisim = genel.iletisim || {};
 
-    if (firma.ad) {
-      document.getElementById('hdrBrandTitle').textContent = firma.ad;
+    const hdrBrandEl = document.getElementById('hdrBrandTitle');
+    if (hdrBrandEl && firma.ad && !/(membran|kapak)/i.test(firma.ad)) {
+      hdrBrandEl.textContent = firma.ad;
     }
     if (iletisim.telefon) {
       const telEl = document.getElementById('c_telLink');
@@ -871,6 +866,7 @@ async function syncContactInfo() {
 
 document.addEventListener('DOMContentLoaded', () => {
   syncContactInfo();
+  hydrateContactCollections();
 });
 </script>
 </body>

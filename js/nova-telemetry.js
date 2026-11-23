@@ -1,5 +1,5 @@
 // ============================================================================
-// GLOBAL KAPAK MOBİLYA & NOVA FURNITURE — B2C VİTRİN TELEMETRİ MODÜLÜ
+// GLOBAL MOBİLYA & NOVA FURNITURE — B2C VİTRİN TELEMETRİ MODÜLÜ
 // Faz 4: PostHog EU (Ürün, Koleksiyon, 3D Model & Teklif Hunisi Analitiği)
 //        + Sentry EU (nova-b2c-web — JS & WebGL/3D Hata İzleme)
 // ============================================================================

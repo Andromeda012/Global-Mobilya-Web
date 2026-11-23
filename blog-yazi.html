@@ -3,28 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Yazısı | Global Kapak Mobilya</title>
+<title>Blog Yazısı | Global Mobilya</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
 <link rel="shortcut icon" href="/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/showroom-motion.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--navy:#0F253E;--navy2:#1E3F66;--navy3:#2E6F9E;--gold:#3B82A6;--white:#FFFFFF;--gray:#F4F7F9;--border:#DCE5ED;--text:#1E293B;--muted:#5B6B7C;}
-body{font-family:'Open Sans',sans-serif;color:var(--text);line-height:1.7;}
+:root{--navy:#2A2925;--navy2:#3F5443;--navy3:#5E7462;--gold:#C5A059;--white:#FFFFFF;--gray:#F7F5F0;--border:#E4DED3;--text:#2A2925;--muted:#656058;}
+body{font-family:'Manrope','Open Sans',sans-serif;background:#F7F5F0;color:var(--text);line-height:1.7;}
 a{text-decoration:none;color:inherit;}
 img{max-width:100%;height:auto;display:block;}
 
-nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:65px;position:sticky;top:0;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.06);}
-.nav-logo img{height:48px;}
-.nav-menu{display:flex;flex:1;justify-content:center;}
-.nav-menu a{font-size:11.5px;font-weight:600;color:var(--navy);padding:6px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px;}
-.nav-menu a:hover,.nav-menu a.active{background:var(--navy) !important;color:#fff !important;}
-.nav-cta{background:var(--gold);color:var(--navy);font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:4px;font-family:'Montserrat',sans-serif;}
-.hamburger{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--navy);}
-
-.breadcrumb{background:var(--gray);padding:12px 40px;font-size:12px;color:var(--muted);}
+.breadcrumb{background:var(--gray);padding:108px 40px 14px;font-size:12px;color:var(--muted);}
 .breadcrumb a{color:var(--navy);font-weight:600;}
 .breadcrumb span{margin:0 6px;color:var(--border);}
 
@@ -74,24 +67,10 @@ footer a{color:var(--gold);}
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="resim/logo.png" alt="Global Kapak Mobilya">
-  </a>
-  <div class="nav-menu" id="nm">
-    <a href="index.html">Anasayfa</a>
-    <a href="tedarikcilerimiz.html">Tedarikçilerimiz</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="galeri.html">Galeri & Showroom</a>
-    <a href="blog.html" class="active">Blog</a>
-    <a href="iletisim.html">İletişim</a>
-  </div>
-  <a href="iletisim.html" class="nav-cta">Teklif Al</a>
-  <button class="hamburger" onclick="document.getElementById('nm').classList.toggle('open')">☰</button>
-</nav>
+<header id="hgSiteHeader" class="site-header"></header>
 
 <div class="breadcrumb">
-  <a href="index.html">Anasayfa</a><span>›</span>
+  <a href="index.html">Ana Sayfa</a><span>›</span>
   <a href="blog.html">Blog</a><span>›</span>
   <strong style="color:var(--navy);" id="bc-blog">Yükleniyor...</strong>
 </div>
@@ -102,7 +81,9 @@ footer a{color:var(--gold);}
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const blogId = params.get('id');
@@ -135,7 +116,7 @@ async function loadBlog() {
 
     if (!post) throw new Error('Yazı bulunamadı');
     
-    document.title = `${post.title} | Global Kapak Mobilya`;
+    document.title = `${post.title} | Global Mobilya`;
     bcBlog.textContent = post.title;
     
     const tarih = post.tarih ? new Date(post.tarih).toLocaleDateString('tr-TR', {year:'numeric',month:'long',day:'numeric'}) : '';
@@ -144,6 +125,7 @@ async function loadBlog() {
     
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(post.title);
+    const coverImg = post.cover_image || post['kapak_' + 'resim'] || '';
     
     container.innerHTML = `
       <article class="article">
@@ -151,9 +133,9 @@ async function loadBlog() {
         <h1>${post.title}</h1>
         <div class="art-meta">
           <span>📅 ${tarih}</span>
-          <span>👤 Global Kapak Mobilya</span>
+          <span>👤 Global Mobilya</span>
         </div>
-        ${post.kapak_resim ? `<div class="art-cover" style="background-image:url('${post.kapak_resim}');"></div>` : ''}
+        ${coverImg ? `<div class="art-cover" style="background-image:url('${coverImg}');"></div>` : ''}
         <p style="font-size:18px;color:var(--muted);font-style:italic;margin-bottom:30px;">${post.ozet || ''}</p>
         <div class="art-body">${bodyHtml}</div>
         ${tagsHtml ? `<div class="art-tags"><strong>Etiketler:</strong> ${tagsHtml}</div>` : ''}
@@ -203,5 +185,6 @@ loadBlog();
 <script src="js/tema.js"></script>
 <script src="js/swipe.js"></script>
 <script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
 </body>
 </html>

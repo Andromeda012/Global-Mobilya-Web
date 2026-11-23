@@ -3,866 +3,782 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İmmersive Koleksiyonlar | Global Mobilya — Dijital Showroom</title>
-<meta name="description" content="Global Mobilya mimari yatak odası koleksiyonları: Viyana, Verona, Siena, Milano ve daha fazlası. 18mm E1 masif MDF, CNC membran işçiliği ve tam ekran dijital showroom deneyimi.">
-<link rel="icon" type="image/png" sizes="32x32" href="/resim/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/resim/logo.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/resim/logo.png">
-<link rel="shortcut icon" href="/favicon.ico">
+<title>Koleksiyonlar | Global Mobilya — Mimari Mobilya Serileri</title>
+<meta name="description" content="Global Mobilya koleksiyonları: Kahve Köşesi Koleksiyonları, Dolap Koleksiyonları ve Yatak Odası Koleksiyonları için mimari seriler ve üretici teklifleri.">
+<link rel="canonical" href="https://globalkapakmobilya.com/koleksiyon.html">
+<link rel="icon" type="image/png" href="resim/logo.png">
 
-<!-- FONTS: Cormorant Garamond (Editorial Serif) & Plus Jakarta Sans (Clean Sans) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<link rel="stylesheet" href="css/showroom-motion.css">
+
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
-/* ── IMMERSIVE COLLECTIONS STYLES ── */
-body {
-  background-color: var(--bg-espresso);
-  color: var(--text-cream);
-  overflow-x: hidden;
-}
+  html { scroll-behavior: smooth; }
+  body {
+    background: #14110E;
+    color: #F7F5F0;
+    font-family: var(--font-hg-sans);
+    overflow-x: hidden;
+  }
 
-/* Fixed Multi-dimensional Ambient Canvas */
-#collectionCanvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-color: #140F0C;
-  background-image: radial-gradient(circle at 75% 25%, rgba(31, 46, 36, 0.6), transparent 50%),
-                    radial-gradient(circle at 20% 80%, rgba(142, 70, 49, 0.25), transparent 45%);
-  transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-              background-image 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: background-color, background-image;
-}
+  /* Ambient Canvas synced via IntersectionObserver */
+  #collectionCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 75% 24%, rgba(94, 116, 98, 0.16), transparent 55%), #14110E;
+    transition: background-color 1.1s cubic-bezier(0.16, 1, 0.3, 1), background 1.1s ease;
+    pointer-events: none;
+  }
 
-/* Sticky Collection Index Navigator (Cassina / Poliform Lookbook Nav) */
-.col-index-nav {
-  position: fixed;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: rgba(20, 16, 13, 0.45);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 18px 16px;
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: opacity 0.4s ease;
-}
-.col-index-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  transition: all 0.3s var(--ease-editorial);
-  padding: 4px 6px;
-  border-radius: 20px;
-}
-.col-index-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  transition: all 0.3s var(--ease-editorial);
-}
-.col-index-label {
-  display: none;
-  white-space: nowrap;
-}
-.col-index-item:hover {
-  color: #fff;
-}
-.col-index-item:hover .col-index-dot {
-  background: var(--color-gold-bright);
-  transform: scale(1.4);
-}
-.col-index-item.active {
-  color: #fff;
-}
-.col-index-item.active .col-index-dot {
-  background: var(--color-gold-bright);
-  box-shadow: 0 0 12px var(--color-gold-bright);
-  transform: scale(1.6);
-}
-.col-index-item.active .col-index-label {
-  display: inline-block;
-  color: var(--color-gold-bright);
-}
+  /* Intro Banner & Subcategory Sticky Filter Bar */
+  .col-top-intro {
+    padding: 138px 36px 42px;
+    max-width: 1380px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .col-top-kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #DFC793;
+    margin-bottom: 12px;
+  }
+  .col-top-title {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(42px, 5.2vw, 72px);
+    font-weight: 400;
+    line-height: 1.02;
+    color: #fff;
+  }
+  .col-top-title em { font-style: italic; color: #DFC793; }
+  .col-top-sub {
+    max-width: 470px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(247, 245, 240, 0.72);
+  }
 
-/* Full-Screen Collection Stage */
-.collection-stage {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 120px 60px 80px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
+  .col-filter-sticky {
+    position: sticky;
+    top: 86px;
+    z-index: 900;
+    padding: 14px 36px;
+    background: rgba(20, 17, 14, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .col-filter-inner {
+    max-width: 1308px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .col-cat-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .col-cat-tab {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(247, 245, 240, 0.85);
+    font-family: var(--font-hg-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s var(--ease-hg);
+  }
+  .col-cat-tab:hover {
+    border-color: rgba(223, 199, 147, 0.65);
+    color: #fff;
+  }
+  .col-cat-tab.active {
+    background: #F7F5F0;
+    color: #2A2925;
+    border-color: #F7F5F0;
+  }
+  .col-cat-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .col-cat-tab.active .col-cat-badge {
+    background: rgba(42, 41, 37, 0.12);
+  }
 
-.stage-inner {
-  max-width: 1540px;
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-  z-index: 3;
-}
+  /* Right Index Navigation Dots */
+  .col-index-nav {
+    position: fixed;
+    right: 26px;
+    top: 52%;
+    transform: translateY(-50%);
+    z-index: 800;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 14px 9px;
+    background: rgba(20, 17, 14, 0.62);
+    backdrop-filter: blur(12px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .col-index-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.28s var(--ease-hg);
+    border: none;
+  }
+  .col-index-dot.active {
+    background: #DFC793;
+    transform: scale(1.45);
+    box-shadow: 0 0 12px rgba(223, 199, 147, 0.7);
+  }
+  .col-index-dot::before {
+    content: attr(data-name);
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    background: rgba(20, 17, 14, 0.94);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.22s ease;
+    border: 1px solid rgba(223, 199, 147, 0.28);
+  }
+  .col-index-dot:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
 
-.stage-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 1.15fr;
-  gap: 60px;
-  align-items: center;
-}
+  /* Individual Collection Stage */
+  .collection-stage {
+    padding: 74px 0 88px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+  }
+  .stage-inner {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+  .stage-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.12fr;
+    gap: 54px;
+    align-items: center;
+  }
+  .stage-chapter {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #DFC793;
+    margin-bottom: 14px;
+  }
+  .stage-title {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(38px, 4.4vw, 62px);
+    font-weight: 400;
+    line-height: 1.04;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .stage-style {
+    font-size: 14px;
+    font-weight: 600;
+    color: #A7BEAA;
+    margin-bottom: 18px;
+  }
+  .stage-story {
+    font-size: 15.5px;
+    line-height: 1.72;
+    max-width: 580px;
+    color: rgba(247, 245, 240, 0.84);
+    margin-bottom: 26px;
+  }
+  .stage-palettes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .palette-chip {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .palette-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+  }
+  .stage-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-stage-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.06);
+    color: #F7F5F0;
+    font-family: var(--font-hg-sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.28s var(--ease-hg);
+  }
+  .btn-stage-secondary:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: #DFC793;
+  }
 
-/* Left: Narrative Content */
-.stage-narrative {
-  position: relative;
-  z-index: 4;
-}
+  .stage-img-frame {
+    position: relative;
+    border-radius: 24px;
+    aspect-ratio: 16 / 11;
+    box-shadow: 0 32px 76px -20px rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #1B1714;
+  }
+  .stage-badge-float {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 3;
+    background: rgba(20, 17, 14, 0.78);
+    backdrop-filter: blur(12px);
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #DFC793;
+  }
 
-.stage-chapter {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-gold-muted);
-  margin-bottom: 18px;
-}
-.stage-chapter::after {
-  content: '';
-  width: 40px;
-  height: 1.5px;
-  background: currentColor;
-}
+  /* Pieces Drawer */
+  .stage-pieces-tray {
+    margin-top: 44px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .pieces-tray-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pieces-tray-title {
+    font-family: var(--font-hg-serif);
+    font-size: 26px;
+    font-weight: 400;
+  }
+  .pieces-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+  }
+  .piece-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s var(--ease-hg), border-color 0.3s ease, background 0.3s ease;
+  }
+  .piece-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(223, 199, 147, 0.55);
+    transform: translateY(-3px);
+  }
+  .piece-thumb {
+    height: 150px;
+    border-radius: 11px;
+    overflow: hidden;
+    background: #100D0B;
+    margin-bottom: 12px;
+  }
+  .piece-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .piece-name {
+    font-family: var(--font-hg-serif);
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+  .piece-dim {
+    font-size: 12px;
+    font-weight: 700;
+    color: #DFC793;
+    margin-bottom: 4px;
+  }
+  .piece-mat {
+    font-size: 11.5px;
+    color: rgba(247, 245, 240, 0.65);
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+  .piece-action {
+    margin-top: auto;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #DFC793;
+    text-decoration: none;
+  }
 
-.stage-title {
-  font-family: var(--font-editorial);
-  font-size: clamp(44px, 5.5vw, 84px);
-  font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-}
+  /* Empty Subcategory Card */
+  .col-empty-stage {
+    max-width: 920px;
+    margin: 72px auto;
+    padding: 54px 36px;
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(223, 199, 147, 0.32);
+    text-align: center;
+  }
+  .col-empty-stage h2 {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(32px, 3.8vw, 48px);
+    font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .col-empty-stage p {
+    max-width: 560px;
+    margin: 0 auto 28px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(247, 245, 240, 0.74);
+  }
 
-.stage-style {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-sage-light);
-  margin-bottom: 16px;
-  display: block;
-}
+  /* Quote Modal & 3D Modal */
+  .quote-modal-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 1600;
+    background: rgba(14, 11, 9, 0.85);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .quote-modal-wrap.open { display: flex; }
+  .quote-modal {
+    background: #1B1714;
+    border: 1px solid rgba(223, 199, 147, 0.35);
+    border-radius: 22px;
+    width: min(560px, 100%);
+    padding: 36px;
+    position: relative;
+    color: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  }
+  .quote-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .quote-modal-close:hover { color: #fff; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #DFC793;
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    color: #fff;
+    font-family: var(--font-hg-sans);
+    font-size: 14px;
+    outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: #DFC793; }
 
-.stage-story {
-  font-size: clamp(15px, 1.25vw, 18px);
-  line-height: 1.7;
-  max-width: 620px;
-  margin-bottom: 30px;
-  opacity: 0.88;
-}
-
-/* Color Chips */
-.stage-palettes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 36px;
-}
-.palette-chip {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.palette-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.stage-actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-/* Right: Visual Showcase Composition */
-.stage-visual {
-  position: relative;
-  z-index: 3;
-}
-
-.stage-img-frame {
-  position: relative;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  aspect-ratio: 16 / 11;
-  background: #181512;
-}
-
-.stage-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.02);
-  transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
-}
-.collection-stage:hover .stage-img {
-  transform: scale(1.06);
-}
-
-.stage-badge-float {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  background: rgba(20, 16, 13, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 10px 18px;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-gold-bright);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Components Drawer / Piece Cards Grid inside Stage */
-.stage-pieces-tray {
-  margin-top: 50px;
-  padding-top: 36px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-.pieces-tray-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-.pieces-tray-title {
-  font-family: var(--font-editorial);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.pieces-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-}
-.piece-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 16px;
-  transition: all 0.3s var(--ease-editorial);
-  display: flex;
-  flex-direction: column;
-}
-.piece-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--color-gold-muted);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-.piece-thumb {
-  height: 150px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #110e0c;
-  margin-bottom: 14px;
-}
-.piece-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.piece-card:hover .piece-thumb img {
-  transform: scale(1.05);
-}
-.piece-name {
-  font-family: var(--font-editorial);
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: #fff;
-}
-.piece-dim {
-  font-size: 12px;
-  color: var(--color-gold-muted);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.piece-mat {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-.piece-action {
-  margin-top: auto;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--color-gold-bright);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.piece-action:hover {
-  color: #fff;
-}
-
-/* Light Theme Stage Variant (Verona) */
-.stage-light-theme {
-  color: var(--text-charcoal) !important;
-}
-.stage-light-theme .stage-chapter {
-  color: var(--color-terracotta);
-}
-.stage-light-theme .stage-style {
-  color: var(--color-olive);
-}
-.stage-light-theme .stage-story {
-  color: var(--text-muted-warm);
-}
-.stage-light-theme .palette-chip {
-  background: rgba(36, 29, 24, 0.06);
-  border-color: rgba(36, 29, 24, 0.15);
-  color: var(--text-charcoal);
-}
-.stage-light-theme .stage-pieces-tray {
-  border-top-color: rgba(36, 29, 24, 0.12);
-}
-.stage-light-theme .piece-card {
-  background: rgba(255, 255, 255, 0.65);
-  border-color: rgba(36, 29, 24, 0.1);
-}
-.stage-light-theme .piece-card:hover {
-  background: #fff;
-  border-color: var(--color-terracotta);
-}
-.stage-light-theme .piece-name {
-  color: var(--text-charcoal);
-}
-.stage-light-theme .piece-dim {
-  color: var(--color-terracotta);
-}
-.stage-light-theme .piece-mat {
-  color: var(--text-muted-warm);
-}
-.stage-light-theme .piece-action {
-  color: var(--color-terracotta);
-}
-
-/* Quote Modal */
-.quote-modal-wrap {
-  position: fixed;
-  inset: 0;
-  z-index: 100010;
-  background: rgba(14, 11, 9, 0.85);
-  backdrop-filter: blur(12px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.quote-modal-wrap.open {
-  display: flex;
-}
-.quote-modal {
-  background: #181310;
-  border: 1px solid rgba(197, 160, 89, 0.35);
-  border-radius: 20px;
-  width: 580px;
-  max-width: 100%;
-  padding: 40px;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-  color: #fff;
-}
-.quote-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 26px;
-  cursor: pointer;
-}
-.quote-modal-close:hover { color: #fff; }
-.form-group { margin-bottom: 18px; }
-.form-group label {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--color-gold-muted);
-  margin-bottom: 6px;
-}
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--color-gold-bright);
-}
-
-@media (max-width: 1100px) {
-  .stage-grid { grid-template-columns: 1fr; gap: 40px; }
-  .col-index-nav { display: none; }
-  .collection-stage { padding: 100px 30px 60px; }
-}
-@media (max-width: 640px) {
-  .collection-stage { padding: 90px 20px 50px; }
-  .stage-title { font-size: 38px; }
-  .stage-actions { flex-direction: column; align-items: stretch; }
-  .stage-actions a, .stage-actions button { text-align: center; justify-content: center; }
-}
+  @media (max-width: 1100px) {
+    .col-index-nav { display: none; }
+    .stage-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 640px) {
+    .col-top-intro, .col-filter-sticky, .stage-inner { padding-left: 20px; padding-right: 20px; }
+    .col-top-intro { padding-top: 112px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- FIXED AMBIENT CANVAS (SMOOTH COLOR TRANSITIONS) -->
 <div id="collectionCanvas"></div>
+<header id="hgSiteHeader" class="site-header"></header>
 
-<!-- STICKY COLLECTION INDEX NAVIGATOR -->
-<nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Gezintisi">
-  <!-- Dynamic Chapter Buttons Injected via JS -->
-</nav>
-
-<!-- EDITORIAL HEADER -->
-<header class="site-header" id="siteHeader">
-  <a href="index.html" class="header-logo">
-    <img src="/resim/logo.png" alt="Global Mobilya" onerror="this.src='resim/logo.png'">
-    <div>
-      <span class="header-brand-title">GLOBAL MOBİLYA</span>
-      <span class="header-brand-sub">EST. 2011 • DİJİTAL SHOWROOM</span>
-    </div>
-  </a>
-
-  <nav class="header-nav" id="headerNav">
-    <a href="index.html">Ana Sayfa</a>
-    <a href="koleksiyon.html" class="active">Koleksiyonlar</a>
-    <a href="galeri.html">Galeri</a>
-    <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="iletisim.html">İletişim</a>
-  </nav>
-
-  <div class="header-actions">
-    <button type="button" class="btn-editorial-gold" onclick="openQuoteModal()">
-      ✦ Mimari Fiyat Al
-    </button>
-    <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya,%20koleksiyonlar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="btn-wa-pill" id="navWaBtn">
-      💬 Danışman
-    </a>
-    <button type="button" class="hamburger" id="btnHamburger" aria-label="Menü">☰</button>
+<section class="col-top-intro">
+  <div class="hg-reveal">
+    <span class="col-top-kicker">Alt Kategorilere Ayrılmış Vitrin</span>
+    <h1 class="col-top-title">Mobilya <em>Koleksiyonları</em></h1>
   </div>
-</header>
+  <p class="col-top-sub hg-reveal" data-delay="100">
+    Tüm serilerimizi kullanım alanına göre <strong>Kahve Köşesi</strong>, <strong>Dolap</strong> ve <strong>Yatak Odası</strong> koleksiyonları olarak ayırdık. Tekil ürünler için <a href="galeri.html#sectionBagimsiz" style="color:#DFC793;text-decoration:underline;">Galeri Sunum Merkezi</a>’ni ziyaret edebilirsiniz.
+  </p>
+</section>
 
-<!-- MAIN STAGES CONTAINER -->
+<div class="col-filter-sticky">
+  <div class="col-filter-inner">
+    <div class="col-cat-tabs" id="colCatTabs" role="tablist" aria-label="Koleksiyon Kategorisi">
+      <button type="button" class="col-cat-tab active" data-cat="ALL">Tümü <span class="col-cat-badge" id="colCountAll">0</span></button>
+      <button type="button" class="col-cat-tab" data-cat="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları <span class="col-cat-badge" id="colCountKahve">0</span></button>
+      <button type="button" class="col-cat-tab" data-cat="Dolap Koleksiyonları">Dolap Koleksiyonları <span class="col-cat-badge" id="colCountDolap">0</span></button>
+      <button type="button" class="col-cat-tab" data-cat="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları <span class="col-cat-badge" id="colCountYatak">0</span></button>
+    </div>
+    <a href="galeri.html#sectionBagimsiz" style="font-size:12.5px;font-weight:700;color:#DFC793;text-decoration:none;letter-spacing:0.04em;">
+      Bağımsız Ürünler Sunum Merkezi →
+    </a>
+  </div>
+</div>
+
+<nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Hızlı Geçiş"></nav>
+
 <main id="stagesContainer">
-  <div style="text-align:center; padding:180px 20px; font-family:var(--font-editorial); font-size:28px; color:var(--color-gold-muted);">
-    Showroom Koleksiyonları Yükleniyor...
+  <div style="text-align:center;padding:120px 24px;color:rgba(247,245,240,0.6);">
+    Canlı koleksiyonlar yükleniyor...
   </div>
 </main>
 
-<!-- QUOTE REQUEST MODAL -->
+<!-- Quote Request Modal -->
 <div class="quote-modal-wrap" id="quoteModal">
   <div class="quote-modal">
-    <button type="button" class="quote-modal-close" onclick="closeQuoteModal()">&times;</button>
-    <h3 style="font-family:var(--font-editorial); font-size:32px; font-weight:700; color:var(--color-gold-bright); margin-bottom:8px;">Mimari Fiyat &amp; Ölçü Danışma</h3>
-    <p style="font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:24px;">Global Mobilya üretim mühendisleri 18mm E1 masif MDF gövde ve özel projelendirme için sizinle iletişime geçer.</p>
-    
-    <form id="quoteForm" onsubmit="submitCollectionQuote(event)">
-      <div class="form-group">
-        <label>Seçilen Koleksiyon</label>
-        <input type="text" id="q_model" readonly style="background:rgba(255,255,255,0.1); cursor:not-allowed;">
-      </div>
-      <div class="form-group">
-        <label>Adınız Soyadınız *</label>
-        <input type="text" id="q_name" required placeholder="Örn: Ahmet Yılmaz">
-      </div>
-      <div class="form-group">
-        <label>Telefon Numaranız *</label>
-        <input type="tel" id="q_phone" required placeholder="Örn: 05xx xxx xx xx">
-      </div>
-      <div class="form-group">
-        <label>İl / İlçe</label>
-        <input type="text" id="q_city" placeholder="Örn: İstanbul / Kadıköy">
-      </div>
-      <div class="form-group">
-        <label>Özel Ölçü / Notlar</label>
-        <textarea id="q_notes" rows="3" placeholder="Odanızın net ölçüleri veya tercih ettiğiniz kapak renkleri..."></textarea>
-      </div>
-      <button type="submit" class="btn-editorial-gold" id="btnQuoteSubmit" style="width:100%; justify-content:center; padding:14px; font-size:12px;">
-        ✦ Talebi Fabrikaya İlet
-      </button>
-    </form>
+    <button type="button" class="quote-modal-close" onclick="closeQuoteModal()" aria-label="Kapat">×</button>
+    <div id="quoteFormWrap">
+      <span style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#DFC793;">Mimari Atölye Talebi</span>
+      <h2 id="quoteModalTitle" style="font-family:var(--font-hg-serif);font-size:34px;font-weight:400;margin:8px 0 22px;">Özel Üretim Teklifi İste</h2>
+      <form id="quoteForm" onsubmit="submitCollectionQuote(event)">
+        <input type="hidden" id="q_model" value="">
+        <div class="form-group">
+          <label for="q_name">Adınız Soyadınız</label>
+          <input type="text" id="q_name" required placeholder="Örn. Emre Karahan">
+        </div>
+        <div class="form-group">
+          <label for="q_phone">Telefon / WhatsApp</label>
+          <input type="tel" id="q_phone" required placeholder="05XX XXX XX XX">
+        </div>
+        <div class="form-group">
+          <label for="q_city">İl / İlçe</label>
+          <input type="text" id="q_city" placeholder="Örn. İstanbul / Kadıköy">
+        </div>
+        <div class="form-group">
+          <label for="q_notes">Ölçü ve Tasarım Notunuz</label>
+          <textarea id="q_notes" rows="3" placeholder="Duvar genişliği, yükseklik ve renk tercihinizi paylaşabilirsiniz..."></textarea>
+        </div>
+        <button type="submit" id="btnQuoteSubmit" class="btn-hg-wipe" style="width:100%;height:48px;">
+          <span class="btn-hg-wipe-inner" style="width:100%;">
+            <span class="btn-hg-wipe-row main" style="width:100%;">✦ Talebi Atölyeye İlet →</span>
+            <span class="btn-hg-wipe-row clone" style="width:100%;" aria-hidden="true">✦ Talebi Atölyeye İlet →</span>
+          </span>
+        </button>
+      </form>
+    </div>
 
-    <div id="quoteSuccess" style="display:none; text-align:center; padding:30px 10px;">
-      <div style="font-size:40px; margin-bottom:12px;">✨</div>
-      <h4 style="font-family:var(--font-editorial); font-size:26px; color:var(--color-gold-bright); margin-bottom:10px;">Talebiniz Alındı!</h4>
-      <p style="font-size:13.5px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:16px;">
-        Referans Kodunuz: <strong id="refCodeDisplay" style="color:#fff; background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:4px;"></strong><br>
-        Showroom ekibimiz en kısa sürede özel projelendirme ile dönüş yapacaktır.
-      </p>
-      <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex;">
-        💬 WhatsApp ile Hızlı Teyit Al
-      </a>
+    <div id="quoteSuccess" style="display:none;text-align:center;padding:12px 0;">
+      <div style="font-size:36px;color:#DFC793;margin-bottom:10px;">✦</div>
+      <h3 style="font-family:var(--font-hg-serif);font-size:30px;font-weight:400;margin-bottom:10px;">Talebiniz Alındı</h3>
+      <p style="font-size:14px;color:rgba(247,245,240,0.78);margin-bottom:18px;">Referans kodunuz aşağıdadır. Ekibimiz en kısa sürede ölçü ve fiyat bilgisiyle dönüş yapacaktır.</p>
+      <div id="refCodeDisplay" style="display:inline-block;padding:10px 22px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(223,199,147,0.4);font-weight:700;letter-spacing:0.12em;margin-bottom:22px;"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a id="successWaBtn" href="#" target="_blank" rel="noopener" class="btn-hg-wipe">
+          <span class="btn-hg-wipe-inner">
+            <span class="btn-hg-wipe-row main">WhatsApp'ta Paylaş →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">WhatsApp'ta Paylaş →</span>
+          </span>
+        </a>
+        <button type="button" class="btn-stage-secondary" onclick="closeQuoteModal()">Kapat</button>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- 3D Model Viewer Modal -->
+<div class="quote-modal-wrap" id="col3dModal">
+  <div class="quote-modal" style="width:min(760px,100%);padding:24px;">
+    <button type="button" class="quote-modal-close" onclick="closeCol3dModal()" aria-label="3D Görünümü Kapat">×</button>
+    <h3 id="col3dTitle" style="font-family:var(--font-hg-serif);font-size:26px;font-weight:400;margin-bottom:14px;">3D / AR İnceleme</h3>
+    <div id="col3dMount" style="width:100%;height:430px;border-radius:14px;overflow:hidden;background:#0e1217;"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
+<script src="js/genel.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
+
 <script>
-// ATMOSPHERIC DEFINITIONS FOR EACH COLLECTION
 const COLLECTION_ATMOSPHERES = {
-  'viyana': {
-    theme: 'vienna',
-    isLight: false,
-    watermark: 'VIENNA MASTER SUITE',
-    canvasBg: '#140F0C',
-    canvasGradient: 'radial-gradient(circle at 75% 25%, rgba(31, 46, 36, 0.6), transparent 50%), radial-gradient(circle at 20% 80%, rgba(142, 70, 49, 0.25), transparent 45%)',
-    badgeText: '🏛️ Modern Mimari & CNC Zarafeti',
-    paletteColors: { 'Kaşmir Grej': '#D7CCC8', 'Doğal Meşe': '#A1887F', 'Antrasit': '#37474F', '24K Altın Detay': '#D4AF37' }
-  },
-  'verona': {
-    theme: 'verona',
-    isLight: true,
-    watermark: 'VERONA NEOCLASSIC',
-    canvasBg: '#E5DFD4',
-    canvasGradient: 'radial-gradient(circle at 20% 20%, rgba(138, 154, 134, 0.4), transparent 55%), radial-gradient(circle at 80% 80%, rgba(189, 122, 99, 0.25), transparent 50%)',
-    badgeText: '☀️ Gün Işığı Villa Neoklasiği',
-    paletteColors: { 'Pudra Bej': '#E0D6CE', 'Cappuccino': '#8D7B68', 'Açık Ceviz': '#6D4C41', 'Adaçayı Yeşili': '#81C784' }
-  },
-  'siena': {
-    theme: 'siena',
-    isLight: false,
-    watermark: 'SIENA ATELIER',
-    canvasBg: '#241A14',
-    canvasGradient: 'radial-gradient(circle at 80% 30%, rgba(197, 160, 89, 0.3), transparent 50%), radial-gradient(circle at 10% 70%, rgba(96, 74, 61, 0.5), transparent 45%)',
-    badgeText: '🇮🇹 Modern İtalyan Minimalizm',
-    paletteColors: { 'İpek Kaşmir': '#D7CCC8', 'Doğal Meşe': '#A1887F', 'Mat Bronz': '#8D6E63', 'Fildişi': '#FFF8E1' }
-  },
-  'porto': {
-    theme: 'porto',
-    isLight: false,
-    watermark: 'PORTO INDUSTRIAL',
-    canvasBg: '#1B1816',
-    canvasGradient: 'radial-gradient(circle at 30% 20%, rgba(184, 151, 88, 0.25), transparent 45%), radial-gradient(circle at 70% 80%, rgba(31, 35, 39, 0.8), transparent 50%)',
-    badgeText: '⚙️ Endüstriyel Modern Loft',
-    paletteColors: { 'Dumanlı Meşe': '#5D4037', 'Mat Antrasit': '#37474F', 'Pirinç Vurgu': '#D4AF37' }
-  },
-  'milano': {
-    theme: 'milano',
-    isLight: false,
-    watermark: 'MILANO PALAZZO',
-    canvasBg: '#2D0F16',
-    canvasGradient: 'radial-gradient(circle at 70% 20%, rgba(197, 160, 89, 0.35), transparent 45%), radial-gradient(circle at 20% 70%, rgba(82, 31, 39, 0.4), transparent 50%)',
-    badgeText: '👑 Haute Couture Palazzo',
-    paletteColors: { 'Krem Beyaz': '#FAFAFA', 'Ceviz': '#4E342E', 'Şampanya Altın': '#F5E0A9' }
-  },
-  'zurih': {
-    theme: 'zurih',
-    isLight: false,
-    watermark: 'ZÜRIH ALPINE',
-    canvasBg: '#1D2226',
-    canvasGradient: 'radial-gradient(circle at 20% 30%, rgba(140, 146, 151, 0.25), transparent 45%), radial-gradient(circle at 80% 70%, rgba(18, 20, 19, 0.8), transparent 50%)',
-    badgeText: '🏔️ Alpine Minimalist Taş & Çam',
-    paletteColors: { 'Taş Grisi': '#9E9E9E', 'Hafif Çam': '#D7CCC8', 'Mat Siyah': '#212121' }
-  },
-  'kopenhag': {
-    theme: 'kopenhag',
-    isLight: false,
-    watermark: 'KOPENHAG BOTANICAL',
-    canvasBg: '#1B2920',
-    canvasGradient: 'radial-gradient(circle at 80% 20%, rgba(48, 64, 53, 0.55), transparent 50%), radial-gradient(circle at 20% 80%, rgba(214, 221, 212, 0.2), transparent 40%)',
-    badgeText: '🌿 Skandinav Doğal Botanik',
-    paletteColors: { 'Doğal Huş': '#EFEBE9', 'Adaçayı Yeşili': '#81C784', 'Kırık Beyaz': '#F5F5F5' }
-  },
-  'lizbon': {
-    theme: 'lizbon',
-    isLight: false,
-    watermark: 'LİZBON CONTEMPORARY',
-    canvasBg: '#5E2619',
-    canvasGradient: 'radial-gradient(circle at 30% 30%, rgba(197, 160, 89, 0.35), transparent 45%), radial-gradient(circle at 70% 70%, rgba(110, 50, 33, 0.6), transparent 50%)',
-    badgeText: '🏺 İberik Terracotta & Meşe',
-    paletteColors: { 'Altın Meşe': '#D7CCC8', 'Mat Terracotta': '#D84315', 'Keten Beji': '#EFEBE9' }
-  },
-  'venedik': {
-    theme: 'venedik',
-    isLight: false,
-    watermark: 'VENEDİK PALATIAL',
-    canvasBg: '#231710',
-    canvasGradient: 'radial-gradient(circle at 75% 25%, rgba(132, 104, 77, 0.35), transparent 50%), radial-gradient(circle at 25% 75%, rgba(45, 31, 23, 0.7), transparent 45%)',
-    badgeText: '🎭 Venedik Moderni & Bronz Cam',
-    paletteColors: { 'Bal Ceviz': '#A98274', 'Bronz Cam': '#5D4037', 'Mat Vizon': '#795548' }
-  }
+  bergamo: { bg: '#161310', grad: 'radial-gradient(circle at 75% 25%, rgba(197, 160, 89, 0.16), transparent 60%)' },
+  lahey:   { bg: '#131614', grad: 'radial-gradient(circle at 25% 30%, rgba(94, 116, 98, 0.2), transparent 60%)' },
+  marsilya:{ bg: '#171412', grad: 'radial-gradient(circle at 70% 30%, rgba(182, 134, 96, 0.17), transparent 60%)' },
+  palermo: { bg: '#151210', grad: 'radial-gradient(circle at 30% 60%, rgba(212, 175, 118, 0.16), transparent 60%)' },
+  toronto: { bg: '#111517', grad: 'radial-gradient(circle at 75% 35%, rgba(124, 152, 166, 0.16), transparent 60%)' },
+  troyes:  { bg: '#161311', grad: 'radial-gradient(circle at 35% 25%, rgba(168, 132, 92, 0.17), transparent 60%)' },
+  bohem:   { bg: '#171510', grad: 'radial-gradient(circle at 72% 28%, rgba(180, 152, 98, 0.18), transparent 60%)' },
+  fallback:{ bg: '#14110E', grad: 'radial-gradient(circle at 70% 30%, rgba(94, 116, 98, 0.16), transparent 60%)' }
 };
 
-let allCollectionsData = [];
-let activeCollectionIndex = 0;
+let _allCollections = [];
+let _activeCategory = 'ALL';
 
-function getAtmosphere(slug) {
-  const s = (slug || '').toLowerCase();
-  for (const key of Object.keys(COLLECTION_ATMOSPHERES)) {
-    if (s.includes(key)) return COLLECTION_ATMOSPHERES[key];
-  }
-  return COLLECTION_ATMOSPHERES['siena'];
+function escHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
 }
 
-async function initCollectionsPage() {
+function getAtmosphere(slug) {
+  const s = String(slug || '').toLowerCase();
+  const key = Object.keys(COLLECTION_ATMOSPHERES).find(k => k !== 'fallback' && s.includes(k));
+  return COLLECTION_ATMOSPHERES[key || 'fallback'];
+}
+
+function updateCategoryCounts(cols) {
+  const counts = {
+    'Kahve Köşesi Koleksiyonları': 0,
+    'Dolap Koleksiyonları': 0,
+    'Yatak Odası Koleksiyonları': 0
+  };
+  cols.forEach(c => {
+    if (Object.prototype.hasOwnProperty.call(counts, c.category)) counts[c.category] += 1;
+  });
+  document.getElementById('colCountAll').textContent = String(cols.length);
+  document.getElementById('colCountKahve').textContent = String(counts['Kahve Köşesi Koleksiyonları']);
+  document.getElementById('colCountDolap').textContent = String(counts['Dolap Koleksiyonları']);
+  document.getElementById('colCountYatak').textContent = String(counts['Yatak Odası Koleksiyonları']);
+}
+
+function renderStages(category) {
   const container = document.getElementById('stagesContainer');
-  const indexNav = document.getElementById('colIndexNav');
+  const nav = document.getElementById('colIndexNav');
+  const list = category === 'ALL'
+    ? _allCollections
+    : _allCollections.filter(c => c.category === category);
 
-  try {
-    if (window.GKM_SUPABASE && window.GKM_SUPABASE.getCollections) {
-      allCollectionsData = await window.GKM_SUPABASE.getCollections();
-    }
-  } catch (e) {
-    console.error('Koleksiyonlar yüklenemedi:', e);
-  }
-
-  if (!allCollectionsData || allCollectionsData.length === 0) {
-    container.innerHTML = '<div style="text-align:center; padding:140px; color:#fff;">Koleksiyonlar hazırlanıyor...</div>';
+  if (!list.length) {
+    nav.innerHTML = '';
+    const isBedroom = category === 'Yatak Odası Koleksiyonları';
+    container.innerHTML = `
+      <div class="col-empty-stage hg-reveal">
+        <span class="col-top-kicker">${escHtml(category)}</span>
+        <h2>${isBedroom ? 'Yeni Sezon Yatak Odası Serileri Hazırlanıyor' : 'Bu Kategoride Seri Bulunmuyor'}</h2>
+        <p>${isBedroom
+          ? 'Yatak Odası Koleksiyonları alt kategorisi için ilk seri modellerimiz hazırlanmaktadır. Mekânınıza özel karyola, komodin ve dolap kurgusu için doğrudan atölye teklifi talep edebilirsiniz.'
+          : 'Seçili kategoride henüz seri yayınlanmadı.'}</p>
+        <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(category)} Özel Tasarım')">
+          <span class="btn-hg-wipe-inner">
+            <span class="btn-hg-wipe-row main">✦ Özel Ölçü Teklifi İste →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Özel Ölçü Teklifi İste →</span>
+          </span>
+        </button>
+      </div>
+    `;
+    window.GKM_MOTION?.refreshReveals();
     return;
   }
 
-  // 1. Build Stages HTML
-  container.innerHTML = allCollectionsData.map((c, i) => {
-    const atmo = getAtmosphere(c.slug);
-    const chapterNum = String(i + 1).padStart(2, '0');
-    const totalChapters = String(allCollectionsData.length).padStart(2, '0');
-    const isLightClass = atmo.isLight ? 'stage-light-theme' : '';
-    const watermarkColorClass = atmo.isLight ? 'watermark-light' : 'watermark-dark';
+  nav.innerHTML = list.map((c, idx) => `
+    <button type="button" class="col-index-dot ${idx === 0 ? 'active' : ''}"
+      data-name="${escHtml(c.name)}"
+      aria-label="${escHtml(c.name)}"
+      onclick="document.getElementById('stage-${escHtml(c.slug)}').scrollIntoView({behavior:'smooth'})">
+    </button>
+  `).join('');
 
-    // Palettes
-    const palHtml = (c.color_palette || []).map(cp => {
-      const dotCol = atmo.paletteColors?.[cp] || '#BCAAA4';
-      return `<span class="palette-chip"><span class="palette-dot" style="background:${dotCol};"></span>${cp}</span>`;
-    }).join('');
+  container.innerHTML = list.map((c, idx) => {
+    const palettes = Array.isArray(c.color_palette) ? c.color_palette : [];
+    const pieces = Array.isArray(c.pieces) ? c.pieces : [];
 
-    // Pieces Tray
-    const pieces = c.pieces || [];
-    const piecesHtml = pieces.map(p => `
-      <div class="piece-card">
-        <div class="piece-thumb">
-          <img src="${p.image_url || 'resim/logo.png'}" alt="${p.name}" loading="lazy" onerror="this.src='resim/logo.png'">
-        </div>
-        <h4 class="piece-name">${p.name}</h4>
-        <div class="piece-dim">📐 ${p.dimensions || 'Özel Mimari Ölçü'}</div>
-        <div class="piece-mat">${p.material || '18mm E1 Masif MDF, CNC Membran'}</div>
-        <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' içerisindeki ' + p.name + ' için fiyat ve ölçü danışmak istiyorum.')}" target="_blank" class="piece-action">
-          Fiyat &amp; Ölçü Danış →
-        </a>
-      </div>
+    const paletteHtml = palettes.map(hex => `
+      <span class="palette-chip">
+        <span class="palette-dot" style="background:${escHtml(hex)}"></span>${escHtml(hex)}
+      </span>
     `).join('');
 
-    return `
-      <section class="collection-stage ${isLightClass}" id="stage-${c.slug}" data-slug="${c.slug}" data-index="${i}">
-        <div class="watermark-text ${watermarkColorClass}">
-          ${atmo.watermark}
+    const piecesHtml = pieces.length ? `
+      <div class="stage-pieces-tray hg-reveal">
+        <div class="pieces-tray-header">
+          <h3 class="pieces-tray-title">Seri Modülleri (${pieces.length} Parça)</h3>
+          <span style="font-size:12px;color:rgba(247,245,240,0.6);">Detaylar ve ölçü uyarlaması için parçayı inceleyebilirsiniz</span>
         </div>
-
-        <div class="stage-inner">
-          <div class="stage-grid">
-            
-            <!-- Left: Story & Specification -->
-            <div class="stage-narrative">
-              <div class="stage-chapter">CHAPTER ${chapterNum} / ${totalChapters}</div>
-              <span class="stage-style">${c.architecture_style || atmo.badgeText}</span>
-              <h2 class="stage-title">${c.name}</h2>
-              <p class="stage-story">${c.design_story || '18mm E1 masif MDF gövde, CNC membran zarafeti ve sessiz frenli ray donanımıyla üretilen çağdaş mimari master suite.'}</p>
-              
-              <div class="stage-palettes">
-                ${palHtml}
+        <div class="pieces-grid">
+          ${pieces.map(p => `
+            <div class="piece-card">
+              <div class="piece-thumb">
+                <img src="${escHtml(p.ana_resim || c.hero_image_url || 'resim/showroom/warm_atelier.jpg')}" alt="${escHtml(p.title)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
               </div>
+              <div class="piece-name">${escHtml(p.title)}</div>
+              ${p.olcu ? `<div class="piece-dim">${escHtml(p.olcu)}</div>` : ''}
+              ${p.malzeme ? `<div class="piece-mat">${escHtml(p.malzeme)}</div>` : ''}
+              <a href="urun.html?id=${encodeURIComponent(p.slug)}" class="piece-action miles-underline-link">Detayı İncele →</a>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '';
 
+    return `
+      <section class="collection-stage" id="stage-${escHtml(c.slug)}" data-slug="${escHtml(c.slug)}">
+        <div class="stage-inner">
+          <div class="stage-hero-grid">
+            <div class="hg-reveal">
+              <span class="stage-chapter">SERİ ${String(idx + 1).padStart(2, '0')} · ${escHtml(c.category)}</span>
+              <h2 class="stage-title">${escHtml(c.name)}</h2>
+              ${c.architecture_style ? `<div class="stage-style">${escHtml(c.architecture_style)}</div>` : ''}
+              <p class="stage-story">${escHtml(c.design_story || '')}</p>
+              ${paletteHtml ? `<div class="stage-palettes">${paletteHtml}</div>` : ''}
               <div class="stage-actions">
-                <button type="button" class="btn-editorial-gold" onclick="openQuoteForCollection('${c.name}')">
-                  ✦ Bu Koleksiyon İçin Fiyat Al
+                <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(c.name)}')">
+                  <span class="btn-hg-wipe-inner">
+                    <span class="btn-hg-wipe-row main">✦ Bu Koleksiyon İçin Teklif İste</span>
+                    <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Bu Koleksiyon İçin Teklif İste</span>
+                  </span>
                 </button>
                 ${c.model_3d_url ? `
-                  <button type="button" class="btn-editorial-gold" style="background:rgba(15,23,42,0.85);color:#fde68a;border:1px solid #d4af37;" onclick="openCollection3DModal('${c.name}', '${c.model_3d_url}')">
-                    🧊 3D &amp; AR Showroom
-                  </button>
-                ` : ''}
-                <a href="https://wa.me/905050151035?text=${encodeURIComponent('Merhaba, ' + c.name + ' koleksiyonu hakkında detaylı bilgi ve özel mimari ölçü teklifi almak istiyorum.')}" target="_blank" class="btn-wa-pill">
-                  💬 WhatsApp ile Danış
-                </a>
+                  <button type="button" class="btn-stage-secondary" onclick="openCollection3DModal('${escHtml(c.name)}', '${escHtml(c.model_3d_url)}')">
+                    3D / AR İncele
+                  </button>` : ''}
+                <a href="galeri.html" class="btn-stage-secondary">Galeri Vitrini</a>
               </div>
             </div>
 
-            <!-- Right: Architectural Photography -->
-            <div class="stage-visual">
-              <div class="stage-img-frame">
-                <img src="${c.hero_image_url || 'resim/anasayfa-resimleri/warm-hero.jpg'}" alt="${c.name}" class="stage-img" loading="${i===0?'eager':'lazy'}">
-                <div class="stage-badge-float">
-                  <span>🏛️</span>
-                  <span>18mm E1 Masif MDF • CNC Membran</span>
-                </div>
+            <div class="stage-img-frame miles-wave-frame hg-reveal" data-wave-delay="${(idx % 2) * 120}">
+              <div class="miles-wave-inner">
+                <img src="${escHtml(c.hero_image_url || 'resim/showroom/warm_atelier.jpg')}" alt="${escHtml(c.name)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
               </div>
-            </div>
-
-          </div>
-
-          <!-- Component Pieces Tray -->
-          <div class="stage-pieces-tray">
-            <div class="pieces-tray-header">
-              <h3 class="pieces-tray-title">
-                <span>🗄️</span>
-                <span>Koleksiyon Parçaları &amp; Mimari Modüller (${pieces.length} Parça)</span>
-              </h3>
-            </div>
-            <div class="pieces-grid">
-              ${piecesHtml}
+              <div class="stage-badge-float">${escHtml(c.category)}</div>
             </div>
           </div>
+          ${piecesHtml}
         </div>
       </section>
     `;
   }).join('');
 
-  // 2. Build Sticky Navigator
-  indexNav.innerHTML = allCollectionsData.map((c, i) => {
-    const shortName = c.name.replace(/ Yatak Odası.*/i, '').replace(/ Koleksiyonu.*/i, '');
-    const num = String(i + 1).padStart(2, '0');
-    return `
-      <button type="button" class="col-index-item ${i===0?'active':''}" onclick="scrollToStage('${c.slug}')" title="${c.name}">
-        <span class="col-index-dot"></span>
-        <span class="col-index-label">${num} ${shortName}</span>
-      </button>
-    `;
-  }).join('');
-
-  // 3. Setup IntersectionObserver for Smooth Transitions
   setupAtmosphereObserver();
-
-  // 4. If URL has ?id=slug, scroll to it immediately
-  const params = new URLSearchParams(window.location.search);
-  const targetSlug = params.get('id') || params.get('collection');
-  if (targetSlug) {
-    setTimeout(() => {
-      const match = allCollectionsData.find(c => c.slug === targetSlug || c.slug.startsWith(targetSlug) || targetSlug.startsWith(c.slug));
-      if (match) scrollToStage(match.slug);
-    }, 300);
-  }
-}
-
-function scrollToStage(slug) {
-  const el = document.getElementById(`stage-${slug}`);
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' });
-  }
+  window.GKM_MOTION?.initAll();
 }
 
 function setupAtmosphereObserver() {
-  const canvas = document.getElementById('collectionCanvas');
-  const navItems = document.querySelectorAll('.col-index-item');
   const stages = document.querySelectorAll('.collection-stage');
+  const canvas = document.getElementById('collectionCanvas');
+  const dots = document.querySelectorAll('.col-index-dot');
+  if (!stages.length) return;
 
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const slug = entry.target.dataset.slug;
-        const index = parseInt(entry.target.dataset.index, 10);
         const atmo = getAtmosphere(slug);
-
-        // Smooth background morph
-        canvas.style.backgroundColor = atmo.canvasBg;
-        canvas.style.backgroundImage = atmo.canvasGradient;
-
-        // Update active index nav
-        navItems.forEach((btn, idx) => {
-          btn.classList.toggle('active', idx === index);
-        });
-
-        // Update header scrolled appearance
-        const header = document.getElementById('siteHeader');
-        if (atmo.isLight) {
-          header.classList.add('on-light-stage');
-        } else {
-          header.classList.remove('on-light-stage');
+        if (canvas) {
+          canvas.style.backgroundColor = atmo.bg;
+          canvas.style.backgroundImage = atmo.grad;
         }
+        const all = Array.from(stages);
+        const idx = all.indexOf(entry.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.35 });
 
-  stages.forEach(s => observer.observe(s));
+  stages.forEach(s => obs.observe(s));
 }
 
-// Quote Modal Handlers
-let currentQuoteModel = '';
-function openQuoteForCollection(name) {
-  currentQuoteModel = name;
-  document.getElementById('q_model').value = name;
+function selectCategoryTab(cat) {
+  _activeCategory = cat;
+  document.querySelectorAll('#colCatTabs .col-cat-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  renderStages(cat);
+}
+
+function openQuoteForCollection(colName) {
+  const modal = document.getElementById('quoteModal');
+  document.getElementById('quoteModalTitle').textContent = `${colName} — Özel Teklif`;
+  document.getElementById('q_model').value = colName;
+  document.getElementById('quoteFormWrap').style.display = 'block';
   document.getElementById('quoteSuccess').style.display = 'none';
-  document.getElementById('quoteForm').style.display = 'block';
-  document.getElementById('quoteModal').classList.add('open');
-}
-
-function openQuoteModal() {
-  openQuoteForCollection(allCollectionsData[0]?.name || 'Viyana Yatak Odası Koleksiyonu');
+  modal.classList.add('open');
 }
 
 function closeQuoteModal() {
@@ -870,37 +786,24 @@ function closeQuoteModal() {
 }
 
 function openCollection3DModal(name, modelUrl) {
-  let modal = document.getElementById('col3dViewerModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'col3dViewerModal';
-    modal.style.cssText = 'position:fixed;inset:0;z-index:999998;background:rgba(10,12,18,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;';
-    modal.innerHTML = `
-      <div style="position:relative;width:min(960px,100%);height:min(680px,86vh);background:#0f172a;border:1px solid rgba(212,175,55,0.45);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08);">
-          <strong id="col3dTitle" style="color:#fde68a;font-size:15px;">🧊 3D Dijital Showroom</strong>
-          <button type="button" onclick="document.getElementById('col3dViewerModal').style.display='none'" style="background:#1e293b;color:#fff;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;">✕</button>
-        </div>
-        <div id="col3dMount" style="flex:1;width:100%;height:100%;"></div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-  }
-  modal.style.display = 'flex';
-  document.getElementById('col3dTitle').textContent = `🧊 ${name} — 3D & AR İnceleme`;
+  const modal = document.getElementById('col3dModal');
+  document.getElementById('col3dTitle').textContent = `${name} — 3D / AR İnceleme`;
   document.getElementById('col3dMount').innerHTML = `
-    <model-viewer src="${modelUrl}" alt="${name}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" style="width:100%;height:100%;background:#0b1120;"></model-viewer>
+    <model-viewer src="${escHtml(modelUrl)}" alt="${escHtml(name)}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" style="width:100%;height:100%;"></model-viewer>
   `;
-  if (window.NOVA_TELEMETRY?.trackEvent) {
-    window.NOVA_TELEMETRY.trackEvent('3d_model_interacted', { model_name: name, model_src: modelUrl });
-  }
+  modal.classList.add('open');
+}
+
+function closeCol3dModal() {
+  document.getElementById('col3dModal').classList.remove('open');
+  document.getElementById('col3dMount').innerHTML = '';
 }
 
 async function submitCollectionQuote(e) {
   e.preventDefault();
   const btn = document.getElementById('btnQuoteSubmit');
+  const orig = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = 'İletiliyor...';
 
   const model = document.getElementById('q_model').value;
   const name = document.getElementById('q_name').value.trim();
@@ -914,53 +817,57 @@ async function submitCollectionQuote(e) {
       res = await window.GKM_SUPABASE.createQuoteRequest({
         name, phone, city,
         collection_id: model,
-        notes: `Model: ${model} | Notlar: ${notes}`
+        notes: `Koleksiyon: ${model} | Notlar: ${notes}`
       });
     }
-
     const ref = res?.reference_code || ('GM-2026-' + Math.floor(1000 + Math.random() * 9000));
     document.getElementById('refCodeDisplay').textContent = ref;
-
-    const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" koleksiyonu için teklif talebi bıraktım. Bilgilerim: ${name} (${phone} - ${city}). Notum: ${notes}`;
+    const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" için teklif talebi bıraktım. Adım: ${name} (${phone}${city ? ' - ' + city : ''}). Not: ${notes}`;
     document.getElementById('successWaBtn').href = `https://wa.me/905050151035?text=${encodeURIComponent(waMsg)}`;
-
-    document.getElementById('quoteForm').style.display = 'none';
+    document.getElementById('quoteFormWrap').style.display = 'none';
     document.getElementById('quoteSuccess').style.display = 'block';
-  } catch(err) {
+  } catch (err) {
     alert('Hata: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = '✦ Talebi Fabrikaya İlet';
+    btn.innerHTML = orig;
   }
 }
 
-// Window scroll header shadow
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 80) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+async function initCollectionsPage() {
+  document.querySelectorAll('#colCatTabs .col-cat-tab').forEach(btn => {
+    btn.addEventListener('click', () => selectCategoryTab(btn.dataset.cat || 'ALL'));
+  });
 
-// Mobile hamburger toggle
-document.getElementById('btnHamburger')?.addEventListener('click', () => {
-  const nav = document.getElementById('headerNav');
-  if (nav.style.display === 'flex') nav.style.display = 'none';
-  else {
-    nav.style.display = 'flex';
-    nav.style.flexDirection = 'column';
-    nav.style.position = 'absolute';
-    nav.style.top = '100%';
-    nav.style.left = '0';
-    nav.style.right = '0';
-    nav.style.background = 'rgba(20,16,13,0.98)';
-    nav.style.padding = '20px';
-    nav.style.gap = '16px';
+  try {
+    _allCollections = window.GKM_SUPABASE ? await window.GKM_SUPABASE.getCollections() : [];
+  } catch (e) {
+    _allCollections = [];
   }
-});
+  updateCategoryCounts(_allCollections);
+
+  const params = new URLSearchParams(window.location.search);
+  const paramCat = params.get('kategori');
+  const paramSlug = params.get('id');
+
+  if (paramCat) {
+    const matchedBtn = Array.from(document.querySelectorAll('#colCatTabs .col-cat-tab')).find(
+      b => b.dataset.cat.toLowerCase() === paramCat.toLowerCase()
+    );
+    selectCategoryTab(matchedBtn ? matchedBtn.dataset.cat : 'ALL');
+  } else {
+    renderStages('ALL');
+  }
+
+  if (paramSlug) {
+    setTimeout(() => {
+      const target = document.getElementById(`stage-${paramSlug}`);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }, 240);
+  }
+}
 
 document.addEventListener('DOMContentLoaded', initCollectionsPage);
 </script>
-
-<script src="js/footer.js"></script>
 </body>
 </html>

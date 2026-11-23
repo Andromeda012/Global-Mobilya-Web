@@ -15,7 +15,7 @@
   --bg-charcoal: #181B1A;
   --bg-obsidian: #121413;
 
-  /* Earthy, Terracotta & Warm Tonalities (Atelier, Woodwork, Iberian Lizbon) */
+  /* Earthy, Terracotta & Warm Tonalities (Atelier, Woodwork, Natural Clay) */
   --color-terracotta: #8E4631;
   --color-terracotta-dark: #6E3221;
   --color-burnt-orange: #B35936;
@@ -34,7 +34,7 @@
   --color-moss: #354737;
   --color-forest-rich: #1E3827;
 
-  /* Warm Architectural Neutrals (Verona, Sunlit Villa, Editorial Canvas) */
+  /* Warm Architectural Neutrals (Sunlit Villa, Editorial Canvas) */
   --bg-stone: #E8E2D8;
   --bg-stone-light: #F0ECE4;
   --bg-sand: #DDD6CA;
@@ -139,7 +139,7 @@ img {
   z-index: 0;
 }
 
-/* Theme: Sunlit Stone & Muted Sage (Verona / Italian Daylight Villa) */
+/* Theme: Sunlit Stone & Muted Sage (Architectural Daylight Villa) */
 .theme-sunlit-stone {
   background-color: var(--bg-stone) !important;
   color: var(--text-charcoal) !important;
@@ -155,7 +155,7 @@ img {
   z-index: 0;
 }
 
-/* Theme: Warm Terracotta & Sand (Lizbon / Craftsmanship & Joinery) */
+/* Theme: Warm Terracotta & Sand (Craftsmanship & Joinery) */
 .theme-warm-terracotta {
   background: linear-gradient(135deg, #7A3D2B 0%, #52271A 100%) !important;
   color: var(--text-cream) !important;
@@ -170,7 +170,7 @@ img {
   z-index: 0;
 }
 
-/* Theme: Deep Burgundy & Dark Walnut (Milano / Bespoke Haute Couture) */
+/* Theme: Deep Burgundy & Dark Walnut (Bespoke Evening Suite) */
 .theme-deep-burgundy {
   background: linear-gradient(135deg, #3A141A 0%, #200E12 100%) !important;
   color: var(--text-cream) !important;

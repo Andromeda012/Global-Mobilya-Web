@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════
-// GLOBAL KAPAK MOBILYA - DİNAMİK SİTE YÜKLEYİCİ
+// GLOBAL MOBİLYA - DİNAMİK SİTE YÜKLEYİCİ
 // ════════════════════════════════════════════════
 // Her sayfada çalışır, _data/ayarlar/genel.json'dan
 // header, topbar, footer ve genel ayarları yükler.

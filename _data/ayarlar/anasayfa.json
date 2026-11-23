@@ -1,29 +1,29 @@
 {
   "hero": {
-    "tag": "Premium Membran Kapak",
-    "baslik_1": "Kalite ve Estetiğin",
-    "baslik_2": "Buluştuğu Yer",
-    "alt_yazi": "Sektörde 15+ yıllık tecrübemiz ve uzman kadromuzla, mobilyalarınız için yüksek kalite membran kapak üretim çözümleri sunuyoruz.",
-    "buton_1_yazi": "Ürünleri Keşfet",
-    "buton_1_link": "urunler.html",
+    "tag": "Mimari Mobilya Atölyesi",
+    "baslik_1": "Zamansız Formlar,",
+    "baslik_2": "Sıcak Yaşam Alanları",
+    "alt_yazi": "Kahve köşesi koleksiyonlarından modüler dolap sistemlerine ve yatak odası kurgularına kadar mekanınıza özel mobilyalar üretiyoruz.",
+    "buton_1_yazi": "Koleksiyonları Keşfet",
+    "buton_1_link": "koleksiyon.html",
     "buton_2_yazi": "Teklif Al",
     "buton_2_link": "iletisim.html"
   },
   "slider": [
     {
       "resim": "/resim/anasayfa-resimleri/warm-hero.jpg",
-      "baslik": "Modern Mutfak",
-      "alt_yazi": "Yeni nesil membran kapaklarla hayalinizdeki mutfak"
+      "baslik": "Kahve Köşesi Serileri",
+      "alt_yazi": "Yaşam alanınız için sıcak, modüler kahve istasyonları"
     },
     {
       "resim": "/resim/showroom/luxury_showroom.jpg",
-      "baslik": "Şık Tasarım",
-      "alt_yazi": "Estetik ve dayanıklılığı bir arada"
+      "baslik": "Dolap Koleksiyonları",
+      "alt_yazi": "Mimari oranlara sahip çoklu gardırop sistemleri"
     },
     {
       "resim": "/resim/showroom/nordic_atelier.jpg",
-      "baslik": "Özel Ölçü",
-      "alt_yazi": "İhtiyacınıza özel boyutlarda üretim"
+      "baslik": "Ölçüye Özel Üretim",
+      "alt_yazi": "Mekanınızın ölçülerine göre atölyeden doğrudan teslim"
     }
   ],
   "neden_biz": {
@@ -36,26 +36,26 @@
       },
       {
         "ikon": "🏭",
-        "baslik": "Modern Fabrika",
-        "aciklama": "2.000 m² modern üretim tesisi"
+        "baslik": "Modern Atölye",
+        "aciklama": "2.000 m² modern üretim atölyesi"
       },
       {
         "ikon": "🛡️",
-        "baslik": "5 Yıl Garanti",
-        "aciklama": "Tüm ürünlerimizde 5 yıl garanti"
+        "baslik": "Üretici Güvencesi",
+        "aciklama": "Tüm koleksiyonlarda yüksek kalite standardı"
       },
       {
         "ikon": "🚚",
-        "baslik": "Hızlı Teslimat",
-        "aciklama": "5 iş gününde teslim"
+        "baslik": "Planlı Teslimat",
+        "aciklama": "Korumalı ambalaj ve özenli sevkiyat"
       }
     ]
   },
   "yesil_bant": {
     "baslik": "DOĞAYI SEVİYORUZ",
     "alt_baslik": "Sürdürülebilir Üretim",
-    "metin": "Çevre dostu üretim süreçlerimiz, geri dönüştürülebilir ambalajlarımız ve enerji verimli fabrikamızla yeşil bir gelecek için çalışıyoruz."
+    "metin": "Çevre dostu üretim süreçlerimiz, geri dönüştürülebilir ambalajlarımız ve enerji verimli atölyemizle yeşil bir gelecek için çalışıyoruz."
   },
-  "galeri_baslik": "Çalışmalarımızdan",
-  "galeri_alt_baslik": "Üretim ve montaj örneklerimiz"
+  "galeri_baslik": "Bağımsız Ürünler & Koleksiyonlar",
+  "galeri_alt_baslik": "Showroom ve atölye kurgularımız"
 }

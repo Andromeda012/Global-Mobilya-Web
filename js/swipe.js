@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Mobil Swipe Slider
+ * Global Mobilya — Mobil Swipe Slider
  * Hero slider ve ürün slider'ı için touch/swipe desteği ekler.
  * Tüm sayfalarda kullanılabilir, sayfa bazlı çalışır.
  */

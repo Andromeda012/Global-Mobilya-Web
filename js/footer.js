@@ -1,5 +1,5 @@
 /**
- * Global Kapak Mobilya — Dinamik Nordic Blue, Slate & Sage Luxury Footer
+ * Global Mobilya — Dinamik Luxury Atelier Footer
  * Tüm sayfalarda bu dosya include edilir, footer ve sabit iletişim araçları otomatik eklenir.
  */
 
@@ -10,8 +10,8 @@
     <div class="footer-cta-inner">
       <div class="footer-cta-text">
         <span class="footer-cta-tag">✦ MİMARİ PROJE & ÖZEL ÖLÇÜ İMALAT</span>
-        <h3>Hayalinizdeki Kapak Tasarımını Birlikte Üretelim</h3>
-        <p>2.000 m² modern CNC üretim tesisimizde, projenize özel ölçü ve renk seçenekleriyle 5 iş gününde teslimat.</p>
+        <h3>Hayalinizdeki Yaşam Alanını Birlikte Üretelim</h3>
+        <p>2.000 m² modern üretim tesisimizde, projenize özel ölçü ve ahşap dokusu seçenekleriyle 5 iş gününde teslimat.</p>
       </div>
       <div class="footer-cta-actions">
         <a href="iletisim.html" class="f-btn-primary">Hemen Teklif Alın →</a>
@@ -22,10 +22,10 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="f-logo-wrap">
-        <img src="resim/logo.png" alt="Global Kapak Mobilya" style="height:76px;width:auto;background:#FFFFFF;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+        <img src="resim/logo.png" alt="Global Mobilya" style="height:76px;width:auto;background:#FFFFFF;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
       </div>
-      <div class="f-brand-name">Global Kapak Mobilya</div>
-      <p>Membran kapak üretiminde uzman kadromuz ve modern CNC parkurumuzla mekanlarınıza modern mimari, doğallık ve zamansız estetik katıyoruz.</p>
+      <div class="f-brand-name">Global Mobilya</div>
+      <p>Yüksek işçilik standartları, E1 sertifikalı ahşap gövdeler ve modern mimari tasarım anlayışıyla mekanlarınıza zamansız estetik katıyoruz.</p>
       <div class="f-badges">
         <span>🛡️ 5 Yıl Garanti</span>
         <span>🌿 Doğa Dostu Üretim</span>
@@ -47,16 +47,16 @@
       <h4>Kurumsal Menü</h4>
       <a href="index.html">Ana Sayfa</a>
       <a href="koleksiyon.html">Koleksiyonlar (Showroom)</a>
-      <a href="galeri.html">Dijital Galeri</a>
+      <a href="galeri.html">Galeri &amp; Bağımsız Ürünler</a>
       <a href="hakkimizda.html">Hakkımızda</a>
       <a href="iletisim.html">İletişim</a>
     </div>
     <div class="footer-col">
-      <h4>Showroom & Koleksiyon</h4>
-      <a href="galeri.html">8 Yatak Odası Koleksiyonu</a>
-      <a href="galeri.html">Makyaj Masası & Dresuar</a>
-      <a href="galeri.html">Portmanto & Vestiyer</a>
-      <a href="galeri.html">Özel Ölçü Mimari Üretim</a>
+      <h4>Showroom Kategorileri</h4>
+      <a href="koleksiyon.html?kategori=kahve-kosesi">Kahve Köşesi Koleksiyonları</a>
+      <a href="koleksiyon.html?kategori=dolap">Dolap Koleksiyonları</a>
+      <a href="koleksiyon.html?kategori=yatak-odasi">Yatak Odası Koleksiyonları</a>
+      <a href="galeri.html">Bağımsız Ürünler Sunum Merkezi</a>
       <a href="takip.html">Sipariş Durum Sorgulama</a>
     </div>
     <div class="footer-col">
@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Global Kapak Mobilya — Tüm hakları saklıdır. | <a href="kvkk.html" style="color:#7CC2E6;text-decoration:none;">KVKK Aydınlatma Metni</a></p>
+    <p>© 2026 Global Mobilya — Tüm hakları saklıdır. | <a href="kvkk.html" style="color:#7CC2E6;text-decoration:none;">KVKK Aydınlatma Metni</a></p>
     <div class="f-craft-note">İstanbul Fabrika İmalatı • %100 Yerli & Doğa Dostu Üretim</div>
     <div class="socials" style="display:none"></div>
   </div>

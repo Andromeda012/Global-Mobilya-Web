@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hakkımızda & Zanaat Hikâyemiz — Global Mobilya | Premium Showroom</title>
-<meta name="description" content="Global Mobilya, 2.000 m² modern üretim tesisi ve 15+ yıllık sektör tecrübesiyle Türkiye'nin güvenilir mobilya ve membran kapak üreticisidir. 1. sınıf 18mm E1 MDF, 5 yıl garanti ve hızlı teslimat.">
-<meta name="keywords" content="global mobilya hakkımızda, mobilya üreticisi istanbul, membran kapak fabrikası, mimari mobilya imalatı, yatak odası üreticisi">
+<meta name="description" content="Global Mobilya: Kahve köşesi koleksiyonları, dolap sistemleri ve yatak odası kurguları üreten İstanbul merkezli mimari mobilya atölyesi.">
+<meta name="keywords" content="global mobilya hakkımızda, mobilya üreticisi istanbul, kahve köşesi üretimi, dolap koleksiyonları, yatak odası mobilya, mimari mobilya atölyesi">
 <meta name="author" content="Global Mobilya">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://globalkapakmobilya.com/hakkimizda.html">
@@ -69,6 +69,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
+<link rel="stylesheet" href="css/showroom-motion.css">
 
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -784,29 +785,8 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 </head>
 <body>
 
-<!-- STICKY EDITORIAL HEADER -->
-<header class="site-header" id="siteHeader">
-  <a href="index.html" class="header-logo">
-    <img src="resim/logo.png" alt="Global Mobilya">
-    <span class="header-brand-title" id="hdrBrandTitle">Global Mobilya</span>
-  </a>
-  <nav class="header-nav" id="headerNav">
-    <a href="index.html">Ana Sayfa</a>
-    <a href="index.html#koleksiyonlar">Koleksiyonlar</a>
-    <a href="galeri.html">Dijital Showroom</a>
-    <a href="hakkimizda.html" class="active">Hakkımızda</a>
-    <a href="iletisim.html">İletişim</a>
-  </nav>
-  <div class="header-actions">
-    <a href="https://wa.me/905050151035" target="_blank" class="btn-wa-pill" id="hdrWaLink">
-      💬 WhatsApp
-    </a>
-    <button class="btn-editorial-cta" onclick="openAboutQuoteModal()">
-      ✦ Fiyat & Teklif Al
-    </button>
-  </div>
-  <button class="hamburger" onclick="document.getElementById('headerNav').classList.toggle('open')" aria-label="Menüyü Aç">☰</button>
-</header>
+<!-- FLOATING PILL HEADER -->
+<header id="hgSiteHeader" class="site-header"></header>
 
 <!-- CINEMATIC HERO -->
 <section class="about-hero" id="aboutHeroSection">
@@ -816,7 +796,7 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
       Yaşam Alanlarına Karakter Katan <span>Zanaat Hikâyemiz</span>
     </h1>
     <p class="about-hero-desc" id="heroSubtitle">
-      2.000 m² modern üretim tesisi, 18mm E1 masif MDF gövde, CNC membran zarafeti ve 15 yılı aşkın tecrübeyle Türkiye'nin güven veren mobilya üreticisiyiz.
+      2.000 m² modern üretim atölyesi, doğal ahşap kaplama gövde mimarisi ve 15 yılı aşkın zanaat tecrübesiyle zamansız yaşam alanları tasarlıyoruz.
     </p>
   </div>
 </section>
@@ -844,18 +824,18 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
       Kalite ve Güvenin <span>Doğal Zarafeti</span>
     </h2>
     <p class="craft-p lead" id="aboutParaLead">
-      Global Mobilya, sektörde 15 yılı aşkın deneyime sahip uzman kadrosuyla mobilya ve membran kapak üretiminde fark yaratan mimari bir markadır.
+      Global Mobilya, sektörde 15 yılı aşkın deneyime sahip uzman kadrosuyla kahve köşesi, modüler dolap ve yatak odası mobilyaları üretiminde fark yaratan mimari bir markadır.
     </p>
     <p class="craft-p" id="aboutPara1">
-      2.000 m²'yi aşan modern fabrikamızda, son teknoloji CNC ve vakum pres hatlarımızla yaşam alanlarına özel yatak odası koleksiyonları, makyaj masaları, portmantolar ve özel ölçü mimari mobilyalar üretiyoruz.
+      2.000 m²'yi aşan modern atölyemizde incelikli ahşap işçiliği ve modern kesim teknolojileriyle yaşam alanlarına özel kahve köşesi koleksiyonları, modüler dolap sistemleri ve yatak odası mobilyaları üretiyoruz.
     </p>
     <p class="craft-p" id="aboutPara2">
       Müşteri memnuniyetini en üst düzeyde tutarak; her tasarımımızda sağlamlık, ergonomi ve estetiği bir arada sunuyoruz. 5 yıl üretici garantisi ve 5 iş gününde hızlı üretim teslimat kapasitemizle sektörde güvenin simgesiyiz.
     </p>
 
     <div class="craft-features-list">
-      <div class="craft-feature-item"><span class="icon">✓</span> 18mm E1 Masif MDF Gövde</div>
-      <div class="craft-feature-item"><span class="icon">✓</span> CNC İşlemeli Membran Kapak</div>
+      <div class="craft-feature-item"><span class="icon">✓</span> Doğal Ahşap Kaplama Gövde</div>
+      <div class="craft-feature-item"><span class="icon">✓</span> Ölçüye Özel Modüler Tasarım</div>
       <div class="craft-feature-item"><span class="icon">✓</span> 5 Yıl Kapsamlı Üretici Garantisi</div>
       <div class="craft-feature-item"><span class="icon">✓</span> 5 İş Gününde Hızlı Üretim</div>
       <div class="craft-feature-item"><span class="icon">✓</span> Çevreye Duyarlı Sürdürülebilir Üretim</div>
@@ -876,7 +856,7 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
     <div class="value-card">
       <div class="value-icon-box">✦</div>
       <h3>Tavizsiz Kalite</h3>
-      <p>1. sınıf 18mm E1 masif MDF gövde, ithal membran folyo ve sessiz frenli ray sistemleri ile her parçada en yüksek zarafet ve dayanıklılık standardını koruyoruz.</p>
+      <p>1. sınıf doğal kaplama yüzeyler, sağlam gövde birleşimleri ve sessiz frenli ray sistemleri ile her parçada en yüksek zarafet ve dayanıklılık standardını koruyoruz.</p>
     </div>
     <div class="value-card">
       <div class="value-icon-box">🛡️</div>
@@ -897,14 +877,14 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
     <div class="num">01</div>
     <h3 id="misyonTitle">Misyonumuz</h3>
     <p id="misyonText">
-      Müşterilerimize en kaliteli membran kapak ve mimari mobilya tasarımlarını, ulaşılabilir lüks anlayışıyla ve hızlı teslimat güvencesiyle sunarak yaşam alanlarına değer katmak. Sürdürülebilir üretim ilkelerimizle çevreye ve gelecek nesillere saygılı bir zanaat mirası bırakmak.
+      Müşterilerimize özgün kahve köşesi, dolap ve yatak odası mobilya tasarımlarını, doğrudan üretici kalitesi ve planlı teslimat güvencesiyle sunarak yaşam alanlarına değer katmak. Sürdürülebilir üretim ilkelerimizle uzun ömürlü bir zanaat mirası bırakmak.
     </p>
   </div>
   <div class="mv-box">
     <div class="num">02</div>
     <h3 id="vizyonTitle">Vizyonumuz</h3>
     <p id="vizyonText">
-      Türkiye'nin önde gelen mimari mobilya ve membran kapak üreticisi olmak; kalite, inovasyon ve estetik mükemmellikte sektörün ulusal ve uluslararası referans noktası haline gelmek. Özgün koleksiyonlarımızla modern yaşam alanlarına yön veren küresel bir marka vizyonu taşımak.
+      Türkiye'nin önde gelen mimari mobilya üreticilerinden biri olarak; tasarım, malzeme kalitesi ve özgün koleksiyon yaklaşımıyla modern yaşam alanlarına değer katmak. Kahve köşesinden dolap ve yatak odasına uzanan özgün serilerimizle uzun soluklu bir marka vizyonu taşımak.
     </p>
   </div>
 </section>
@@ -936,21 +916,21 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
   <div style="text-align:center; max-width:700px; margin:0 auto;">
     <span class="section-tag">ÜRETİM STANDARTLARI</span>
     <h2 class="section-heading">İleri Teknoloji & <span>Usta İşçilik</span></h2>
-    <p style="color:var(--text-muted); font-size:14.5px;">CNC membran kaplama, pürüzsüz gönye birleşim ve entegre mekanizma mühendisliği.</p>
+    <p style="color:var(--text-muted); font-size:14.5px;">Hassas ölçü mühendisliği, pürüzsüz gönye birleşim ve sessiz donanım entegrasyonu.</p>
   </div>
 
   <div class="tech-grid">
     <div class="tech-tile">
       <h4><span>⚙️</span> Yüksek Hassasiyetli CNC</h4>
-      <p>Milimetrik hassasiyetle çalışan CNC rotalama makinelerimizle kapak ve taç detaylarında kusursuz hatlar elde ediyoruz.</p>
+      <p>Milimetrik hassasiyetle çalışan işleme hatlarımızla dolap ve mobilya hatlarında kusursuz birleşimler elde ediyoruz.</p>
     </div>
     <div class="tech-tile">
-      <h4><span>🛡️</span> 3D Membran Pres Hattı</h4>
-      <p>Alman ve İtalyan standartlarında vakum membran pres teknolojisi ile neme, buhara ve darbelere karşı maksimum yüzey direnci sağlıyoruz.</p>
+      <h4><span>🪵</span> Doğal Yüzey &amp; Mat Cila Hattı</h4>
+      <p>Doğal meşe, ceviz kaplama ve düşük yansımalı mat lake yüzey uygulamalarıyla sıcak, dokunsal mobilya cepheleri hazırlıyoruz.</p>
     </div>
     <div class="tech-tile">
-      <h4><span>🌱</span> E1 Sertifikalı Masif MDF</h4>
-      <p>İnsan sağlığına zararsız, düşük emisyonlu ve antibakteriyel 18mm masif MDF levhalar kullanarak ömür boyu formunu koruyan yapılar kuruyoruz.</p>
+      <h4><span>🌱</span> E1 Sertifikalı Çevre Dostu Gövde</h4>
+      <p>İnsan sağlığına dost, düşük emisyonlu 1. sınıf ahşap esaslı gövde malzemeleriyle ömür boyu formunu koruyan yapılar kuruyoruz.</p>
     </div>
   </div>
 </section>
@@ -1002,15 +982,13 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 </div>
 
 <!-- SCRIPTS & DYNAMIC DATA SYNCHRONIZATION -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/header.js"></script>
+<script src="js/genel.js"></script>
 <script src="js/footer.js"></script>
+<script src="js/showroom-motion.js"></script>
 <script>
-// Header scroll effect
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('siteHeader');
-  if (window.scrollY > 40) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
 
 // Modal Logic
 function openAboutQuoteModal() {
@@ -1064,12 +1042,15 @@ async function syncAboutPageWithDatabase() {
       window.GKM_SUPABASE.getSiteSetting('hakkimizda')
     ]);
 
+    const isLegacyKapak = (txt) => /(membran|\bmdf\b|kapak\s*üret|vakum\s*pres)/i.test(String(txt || ''));
+
     // 1. Firma Genel Bilgileri
     if (genel) {
       const firma = genel.firma || {};
       const iletisim = genel.iletisim || {};
-      if (firma.ad) {
-        document.getElementById('hdrBrandTitle').textContent = firma.ad;
+      const hdrBrand = document.getElementById('hdrBrandTitle');
+      if (hdrBrand && firma.ad && !isLegacyKapak(firma.ad)) {
+        hdrBrand.textContent = firma.ad;
       }
       if (iletisim.whatsapp) {
         const cleanWa = iletisim.whatsapp.replace(/\D/g, '');
@@ -1084,15 +1065,15 @@ async function syncAboutPageWithDatabase() {
       }
     }
 
-    // 2. Hakkımızda Özel Ayarları
+    // 2. Hakkımızda Özel Ayarları (eski kapak/membran metinlerini geçersiz say)
     if (hakkimizda) {
-      if (hakkimizda.hero?.baslik) document.getElementById('heroMainTitle').textContent = hakkimizda.hero.baslik;
-      if (hakkimizda.hero?.alt_yazi) document.getElementById('heroSubtitle').textContent = hakkimizda.hero.alt_yazi;
-      if (hakkimizda.ana_metin?.paragraf_1) document.getElementById('aboutPara1').textContent = hakkimizda.ana_metin.paragraf_1;
-      if (hakkimizda.ana_metin?.paragraf_2) document.getElementById('aboutPara2').textContent = hakkimizda.ana_metin.paragraf_2;
+      if (hakkimizda.hero?.baslik && !isLegacyKapak(hakkimizda.hero.baslik)) document.getElementById('heroMainTitle').textContent = hakkimizda.hero.baslik;
+      if (hakkimizda.hero?.alt_yazi && !isLegacyKapak(hakkimizda.hero.alt_yazi)) document.getElementById('heroSubtitle').textContent = hakkimizda.hero.alt_yazi;
+      if (hakkimizda.ana_metin?.paragraf_1 && !isLegacyKapak(hakkimizda.ana_metin.paragraf_1)) document.getElementById('aboutPara1').textContent = hakkimizda.ana_metin.paragraf_1;
+      if (hakkimizda.ana_metin?.paragraf_2 && !isLegacyKapak(hakkimizda.ana_metin.paragraf_2)) document.getElementById('aboutPara2').textContent = hakkimizda.ana_metin.paragraf_2;
 
-      if (hakkimizda.misyon_vizyon?.misyon_metin) document.getElementById('misyonText').textContent = hakkimizda.misyon_vizyon.misyon_metin;
-      if (hakkimizda.misyon_vizyon?.vizyon_metin) document.getElementById('vizyonText').textContent = hakkimizda.misyon_vizyon.vizyon_metin;
+      if (hakkimizda.misyon_vizyon?.misyon_metin && !isLegacyKapak(hakkimizda.misyon_vizyon.misyon_metin)) document.getElementById('misyonText').textContent = hakkimizda.misyon_vizyon.misyon_metin;
+      if (hakkimizda.misyon_vizyon?.vizyon_metin && !isLegacyKapak(hakkimizda.misyon_vizyon.vizyon_metin)) document.getElementById('vizyonText').textContent = hakkimizda.misyon_vizyon.vizyon_metin;
 
       if (Array.isArray(hakkimizda.rakamlar) && hakkimizda.rakamlar.length >= 4) {
         document.getElementById('statExp').textContent = hakkimizda.rakamlar[0].sayi || '15+';
