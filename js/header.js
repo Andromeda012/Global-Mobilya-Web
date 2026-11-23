@@ -52,7 +52,7 @@
             <a href="index.html" ${navClass('home')}>Ana Sayfa</a>
             <a href="koleksiyon.html" ${navClass('koleksiyon')}>Koleksiyonlar</a>
             <a href="galeri.html" ${navClass('galeri')}>Galeri</a>
-            <a href="hakkimizda.html" ${navClass('hakkimizda')}>Hakkımızda</a>
+            <a href="index.html#hakkimizda" ${navClass('hakkimizda')}>Hakkımızda</a>
             <a href="iletisim.html" ${navClass('iletisim')}>İletişim</a>
             <a href="/kvkk-ve-gizlilik" ${navClass('kvkk-ve-gizlilik')} style="font-size:12px;opacity:0.82;">KVKK</a>
           </nav>
@@ -79,7 +79,7 @@
               <li><a href="index.html">Ana Sayfa <span class="arrow">→</span></a></li>
               <li><a href="koleksiyon.html">Koleksiyonlar <span class="arrow">→</span></a></li>
               <li><a href="galeri.html">Galeri &amp; Bağımsız Ürünler <span class="arrow">→</span></a></li>
-              <li><a href="hakkimizda.html">Hakkımızda <span class="arrow">→</span></a></li>
+              <li><a href="index.html#hakkimizda">Hakkımızda <span class="arrow">→</span></a></li>
               <li><a href="iletisim.html">İletişim &amp; Teklif <span class="arrow">→</span></a></li>
               <li><a href="/kvkk-ve-gizlilik">KVKK &amp; Gizlilik <span class="arrow">→</span></a></li>
             </ul>

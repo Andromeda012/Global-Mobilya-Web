@@ -515,10 +515,16 @@
     margin-top: 30px;
   }
   .craft-pillar {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(42, 41, 37, 0.08);
     border-radius: 16px;
     padding: 20px;
+    transition: transform 0.45s var(--ease-hg), box-shadow 0.4s ease, border-color 0.35s ease;
+  }
+  .craft-pillar:hover {
+    transform: translateY(-4px);
+    border-color: rgba(74, 100, 80, 0.32);
+    box-shadow: 0 18px 36px -22px rgba(42, 41, 37, 0.32);
   }
   .craft-pillar h4 {
     font-size: 14px;
@@ -530,6 +536,114 @@
     font-size: 13px;
     line-height: 1.55;
     color: var(--ink-muted);
+  }
+
+  /* ── 3B. ANIMATED ATELIER METRICS & MISSION / VISION ── */
+  .stats-band {
+    background: var(--surface-espresso);
+    color: #F7F5F0;
+    padding: 84px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .stats-arch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .stat-arch-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(223, 199, 147, 0.16);
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: center;
+    transition: transform 0.45s var(--ease-hg), border-color 0.35s ease, background-color 0.35s ease;
+  }
+  .stat-arch-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(223, 199, 147, 0.5);
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .stat-arch-num {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(40px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1;
+    color: #DFC793;
+    margin-bottom: 10px;
+  }
+  .stat-arch-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(247, 245, 240, 0.8);
+  }
+
+  .mv-dual-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .mv-card {
+    position: relative;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 24px;
+    padding: 40px 38px;
+    box-shadow: 0 20px 48px -28px rgba(42, 41, 37, 0.24);
+    transition: transform 0.5s var(--ease-hg), box-shadow 0.45s ease;
+  }
+  .mv-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sage-dark), #C5A059);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.65s var(--ease-hg);
+  }
+  .mv-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 60px -26px rgba(42, 41, 37, 0.34);
+  }
+  .mv-card:hover::before {
+    transform: scaleX(1);
+  }
+  .mv-card-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    margin-bottom: 12px;
+  }
+  .mv-card h3 {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(30px, 3vw, 40px);
+    font-weight: 400;
+    color: var(--ink-primary);
+    margin-bottom: 14px;
+  }
+  .mv-card p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .stats-arch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mv-dual-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .stats-arch-grid { grid-template-columns: 1fr; }
   }
 
   /* ── 4. GALLERY & INDEPENDENT PRODUCTS PREVIEW BAND ── */
@@ -824,46 +938,197 @@
   </div>
 </section>
 
-<!-- ── 5. ATELIER CRAFT BAND WITH MILES WAVE CLIP-PATH REVEAL ── -->
-<section class="band-light">
+<!-- ── 5. ATELIER CRAFT & HAKKIMIZDA (MILES WAVE REVEAL + STORY) ── -->
+<section class="band-light" id="hakkimizda" style="scroll-margin-top:96px;">
   <div class="hg-wrap">
     <div class="atelier-split">
-      <div class="miles-wave-frame atelier-wave-box hg-reveal" data-wave-delay="120">
+      <div class="miles-wave-frame atelier-wave-box hg-reveal" data-wave-delay="100">
         <div class="miles-wave-inner">
           <img src="resim/yonetilen/atelier-craft.jpg" alt="Global Mobilya Atölye İşçiliği" onerror="this.src='resim/anasayfa-resimleri/warm-hero.jpg'">
         </div>
         <div class="atelier-badge-overlay">
-          <strong id="domStatTeslimat">18–25 İş Günü</strong>
-          <span>Atölyeden Evinize Üretim &amp; Teslimat</span>
+          <strong id="domStatTeslimat">15+ Yıl Zanaat</strong>
+          <span>2.000 m² İstanbul Üretim Atölyesi</span>
         </div>
       </div>
 
-      <div class="hg-reveal" data-delay="140">
-        <div class="section-kicker">Malzeme &amp; Form Felsefesi</div>
-        <h2 class="section-heading">Atölyeden Yaşama<br><em>Dengeli</em> Oranlar</h2>
-        <p style="margin-top:18px;font-size:15.5px;line-height:1.72;color:var(--ink-muted);" id="domAtelierStory">
-          Her koleksiyonumuzu standart kalıplara sığdırmak yerine mekânınızın ışık açısına, kullanım alışkanlıklarınıza ve doğal doku beklentinize göre ince işçilikle şekillendiriyoruz.
+      <div>
+        <div class="section-kicker hg-reveal">Malzeme, Form Felsefesi &amp; Hakkımızda</div>
+        <h2 class="section-heading hg-reveal" data-delay="80">Atölyeden Yaşama<br><em>Dengeli</em> Oranlar</h2>
+        <p class="hg-reveal" data-delay="140" style="margin-top:18px;font-size:15.5px;line-height:1.75;color:var(--ink-muted);" id="domAtelierStory">
+          Global Mobilya olarak, 15 yılı aşkın deneyime sahip uzman kadromuzla İstanbul Bağcılar’daki 2.000 m² modern atölyemizde kahve köşesi koleksiyonları, modüler dolap sistemleri ve yatak odası mobilyaları üretiyoruz. Her tasarımı standart kalıplara sığdırmak yerine mekânınızın ışık açısına ve doğal doku beklentinize göre ince işçilikle şekillendiriyoruz.
         </p>
 
         <div class="craft-pillars-grid">
-          <div class="craft-pillar">
+          <div class="craft-pillar hg-reveal" data-delay="160">
             <h4>Sıcak Ahşap &amp; Mat Doku</h4>
             <p>Doğal meşe, ceviz ve kum taşı yüzeylerle yıllarca eskimeyen sakin paletler.</p>
           </div>
-          <div class="craft-pillar">
+          <div class="craft-pillar hg-reveal" data-delay="220">
             <h4>Sessiz Mekanizma</h4>
             <p>Ağır yük taşıyan çekmecelerde ve raylarda yüksek ömürlü yavaş kapanan donanım.</p>
           </div>
-          <div class="craft-pillar">
+          <div class="craft-pillar hg-reveal" data-delay="280">
             <h4>Ölçüye Özel Mimari</h4>
             <p>Seçtiğiniz seriyi evinizin niş, duvar ve tavan ölçüsüne birebir uyarlama olanağı.</p>
           </div>
-          <div class="craft-pillar">
+          <div class="craft-pillar hg-reveal" data-delay="340">
             <h4>Doğrudan Üretici Güvencesi</h4>
             <p>Aracısız, İstanbul Bağcılar atölyemizden şeffaf fiyat ve montaj koordinasyonu.</p>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5B. ANIMATED ATELIER STATS BAND (FROM HAKKIMIZDA) ── -->
+<section class="stats-band" aria-label="Atölye Rakamları">
+  <div class="hg-wrap">
+    <div class="stats-arch-grid">
+      <div class="stat-arch-card hg-reveal" data-delay="0">
+        <div class="stat-arch-num" data-count-target="15" data-count-suffix="+">15+</div>
+        <div class="stat-arch-label">Yıl Sektör Deneyimi</div>
+      </div>
+      <div class="stat-arch-card hg-reveal" data-delay="90">
+        <div class="stat-arch-num" data-count-target="2000" data-count-format="dot" data-count-suffix=" m²">2.000 m²</div>
+        <div class="stat-arch-label">Modern Üretim Atölyesi</div>
+      </div>
+      <div class="stat-arch-card hg-reveal" data-delay="180">
+        <div class="stat-arch-num" data-count-target="5" data-count-suffix=" Yıl">5 Yıl</div>
+        <div class="stat-arch-label">Üretici Garantisi</div>
+      </div>
+      <div class="stat-arch-card hg-reveal" data-delay="270">
+        <div class="stat-arch-num" data-count-target="100" data-count-prefix="%">%100</div>
+        <div class="stat-arch-label">Özel Ölçü &amp; Memnuniyet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5C. ÇALIŞMA VE ZANAAT İLKELERİMİZ (MILES RADIAL ORBIT ANIMATION) ── -->
+<section class="band-linen" id="ilkelerimiz">
+  <div class="hg-wrap">
+    <div class="miles-orbit-stage" id="principlesOrbitStage">
+      <div class="miles-orbit-center hg-reveal">
+        <div class="miles-eyebrow-dots">İlkelerimiz &amp; Standartlar</div>
+        <h2 class="section-heading" style="margin-bottom:12px;">Çalışma ve Zanaat<br><em>İlkelerimiz.</em></h2>
+        <p style="font-size:14.5px;line-height:1.65;color:var(--ink-muted);margin:0;">
+          Her koleksiyonumuzda taviz vermediğimiz kalite, hassas mühendislik ve güven prensipleri.
+        </p>
+      </div>
+
+      <article class="miles-orbit-card pos-top">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.4L20.5 9l-4.3 4.1 1 5.9L12 16.2 6.8 19l1-5.9L3.5 9l5.9-.6L12 3z"/></svg>
+        </div>
+        <div>
+          <h4>Tavizsiz Kalite</h4>
+          <p>1. sınıf doğal kaplama yüzeyler, sağlam gövde birleşimleri ve sessiz frenli ray sistemleri.</p>
+        </div>
+      </article>
+
+      <article class="miles-orbit-card pos-tl">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h4>Güven ve Sorumluluk</h4>
+          <p>15 yılı aşkın köklü sektör birikimi, 5 yıl üretici garantisi ve şeffaf müşteri iletişimi.</p>
+        </div>
+      </article>
+
+      <article class="miles-orbit-card pos-tr">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div>
+          <h4>Hız ve Hassasiyet</h4>
+          <p>Modern işleme parkurumuzla planlı üretim takvimi ve Türkiye geneli korumalı sevkiyat.</p>
+        </div>
+      </article>
+
+      <article class="miles-orbit-card pos-bl">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div>
+          <h4>Yüksek Hassasiyetli CNC</h4>
+          <p>Milimetrik kesim ve gönye birleşim teknolojisiyle dolap ve nişlerde sıfır boşluk uyumu.</p>
+        </div>
+      </article>
+
+      <article class="miles-orbit-card pos-br">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <h4>Doğal Yüzey &amp; Mat Cila</h4>
+          <p>Doğal meşe, ceviz kaplama ve düşük yansımalı mat lake yüzeylerle dokunsal cepheler.</p>
+        </div>
+      </article>
+
+      <article class="miles-orbit-card pos-bottom">
+        <div class="miles-orbit-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        </div>
+        <div>
+          <h4>E1 Çevre Dostu Gövde</h4>
+          <p>İnsan sağlığına dost, düşük emisyonlu 1. sınıf ahşap esaslı gövde malzemeleriyle uzun ömür.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5D. MİSYONUMUZ & VİZYONUMUZ (FROM HAKKIMIZDA) ── -->
+<section class="band-light" id="misyonVizyon">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="section-kicker">Kurumsal Perspektif</div>
+        <h2 class="section-heading">Misyonumuz &amp; <em>Vizyonumuz</em></h2>
+      </div>
+      <p class="section-lead">Sürdürülebilir malzeme seçimi ve özgün mimari çizgimizle yaşam alanlarınıza kalıcı değer katıyoruz.</p>
+    </div>
+
+    <div class="mv-dual-grid">
+      <article class="mv-card hg-reveal" data-delay="60">
+        <span class="mv-card-tag">01 · Misyonumuz</span>
+        <h3>Ulaşılabilir Mimari Zanaat</h3>
+        <p id="homeMisyonText">
+          Müşterilerimize özgün kahve köşesi, dolap ve yatak odası mobilya tasarımlarını, doğrudan üretici kalitesi ve planlı teslimat güvencesiyle sunarak yaşam alanlarına değer katmak. Sürdürülebilir üretim ilkelerimizle uzun ömürlü bir zanaat mirası bırakmak.
+        </p>
+      </article>
+
+      <article class="mv-card hg-reveal" data-delay="180">
+        <span class="mv-card-tag">02 · Vizyonumuz</span>
+        <h3>Özgün Koleksiyonların Referans Atölyesi</h3>
+        <p id="homeVizyonText">
+          Türkiye'nin önde gelen mimari mobilya üreticilerinden biri olarak; tasarım, malzeme kalitesi ve özgün koleksiyon yaklaşımıyla modern yaşam alanlarına yön vermek. Kahve köşesinden dolap ve yatak odasına uzanan serilerimizle uzun soluklu bir marka vizyonu taşımak.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5E. TEDARİKÇİLERİMİZ & İŞ ORTAKLARIMIZ (MILES SPLIT-IMAGE MARQUEE) ── -->
+<section class="band-linen" id="tedarikcilerimiz" style="scroll-margin-top:96px;overflow:hidden;">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="miles-eyebrow-dots" style="margin-bottom:10px;">Tedarikçilerimiz</div>
+        <h2 class="section-heading">Güvenilir Tedarik &amp;<br><em>İş Ortakları.</em></h2>
+      </div>
+      <p class="section-lead">
+        Koleksiyonlarımızın kalitesini belirleyen ahşap gövde, doğal kaplama, sessiz donanım ve korumalı sevkiyat iş ortaklarımızla uzun soluklu iş birlikleri yürütüyoruz.
+      </p>
+    </div>
+  </div>
+
+  <div class="miles-split-viewport hg-reveal" data-delay="100" aria-label="Tedarikçilerimiz ve İş Ortaklarımız">
+    <div class="miles-split-track" id="homePartnersTrack" data-duration="46000">
+      <!-- Hydrated dynamically by renderPartnersMarquee() -->
     </div>
   </div>
 </section>
@@ -879,8 +1144,8 @@
       <p class="section-lead">Galeri sayfamızı hem tüm koleksiyonları bir arada sergileyen vitrin hem de konsol, dresuar, sehpa ve tekil parçalar için bağımsız sunum merkezi olarak kurguladık.</p>
     </div>
 
-    <div class="presentation-dual-grid hg-reveal" data-delay="120">
-      <div class="pres-panel">
+    <div class="presentation-dual-grid">
+      <div class="pres-panel hg-reveal" data-delay="60">
         <div>
           <span class="section-kicker" style="margin-bottom:8px;">Bağımsız Ürünler Vitrini</span>
           <h3 style="font-family:var(--font-hg-serif);font-size:32px;font-weight:400;margin-bottom:8px;">Tekil Parçalar &amp; Özel Modüller</h3>
@@ -901,8 +1166,10 @@
         </div>
       </div>
 
-      <div class="pres-panel" style="padding:0;overflow:hidden;position:relative;min-height:420px;">
-        <img src="resim/anasayfa-resimleri/warm-hero.jpg" alt="Showroom Galerisi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="pres-panel miles-wave-frame hg-reveal" data-delay="160" data-wave-delay="140" style="padding:0;overflow:hidden;position:relative;min-height:420px;">
+        <div class="miles-wave-inner" style="position:absolute;inset:0;">
+          <img src="resim/anasayfa-resimleri/warm-hero.jpg" alt="Showroom Galerisi" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(16,13,10,0.12) 20%, rgba(16,13,10,0.92) 100%);"></div>
         <div style="position:relative;z-index:2;padding:34px;margin-top:auto;">
           <span class="section-kicker" style="margin-bottom:8px;">Kürasyon &amp; Atmosfer</span>
@@ -1188,20 +1455,99 @@ async function syncHomeWithDatabaseSafe() {
   }
 }
 
+const CURATED_PARTNERS = [
+  {
+    name: 'Doğal Kaplama & Ahşap Yüzeyler',
+    role: 'Yüzey & Doku İş Ortağı',
+    badge: 'Doğal Doku',
+    img: 'resim/showroom/warm_atelier.jpg',
+    quote: '“Doğal meşe, ceviz ve sıcak kum tonlarında yüksek damar bütünlüğü sunan seçkin kaplama yüzey tedarikçilerimizle her seride aynı dokunsal kaliteyi koruyoruz.”'
+  },
+  {
+    name: 'E1 Sertifikalı Gövde Sistemleri',
+    role: 'Sağlıklı Gövde & Levha',
+    badge: 'E1 Standart',
+    img: 'resim/yonetilen/atelier-craft.jpg',
+    quote: '“İnsan sağlığına dost, düşük emisyonlu ve yıllarca formunu koruyan yüksek yoğunluklu ahşap esaslı gövde malzemeleriyle sağlam iskeletler kuruyoruz.”'
+  },
+  {
+    name: 'Sessiz Mekanizma & Donanım',
+    role: 'Frenli Ray & Menteşe',
+    badge: 'Soft-Close',
+    img: 'resim/showroom/nordic_atelier.jpg',
+    quote: '“Yüksek taşıma kapasiteli gizli çekmece rayları ve yumuşak kapanan menteşe sistemleriyle her açılışta sessiz ve akıcı kullanım deneyimi sağlıyoruz.”'
+  },
+  {
+    name: 'Mat Lake & Koruyucu Cila',
+    role: 'Yüzey Koruma Teknolojisi',
+    badge: 'Mat Yüzey',
+    img: 'resim/showroom/luxury_showroom.jpg',
+    quote: '“Düşük yansımalı, parmak izine dirençli ve çevre dostu boya-vernik gruplarıyla kahve köşesi ve dolap yüzeylerini uzun yıllar koruma altına alıyoruz.”'
+  },
+  {
+    name: 'Korumalı Lojistik & Kurulum Ağı',
+    role: 'Türkiye Geneli Sevkiyat',
+    badge: 'Güvenli Teslim',
+    img: 'resim/anasayfa-resimleri/warm-hero.jpg',
+    quote: '“Çok katmanlı darbe koruyucu ambalaj ve planlı sevkiyat iş ortaklarımızla atölyemizden çıkan her mobilyayı evinize hasarsız ulaştırıyoruz.”'
+  }
+];
+
+function renderPartnersMarquee(liveSuppliers) {
+  const track = document.getElementById('homePartnersTrack');
+  if (!track) return;
+
+  const cleanLive = (liveSuppliers || [])
+    .filter(s => !/(membran|\bmdf\b|kapak)/i.test(`${s.ad || ''} ${s.kategori || ''} ${s.aciklama || ''}`))
+    .map((s, idx) => ({
+      name: s.ad || 'İş Ortağımız',
+      role: s.kategori || 'Tedarik İş Ortağı',
+      badge: s.kategori || 'İş Ortağı',
+      img: s.logo || CURATED_PARTNERS[idx % CURATED_PARTNERS.length].img,
+      quote: `“${s.aciklama || 'Yüksek kalite standartlarımızı destekleyen uzun soluklu malzeme ve üretim iş ortağımız.'}”`
+    }));
+
+  const cards = cleanLive.length >= 3 ? cleanLive : [...cleanLive, ...CURATED_PARTNERS];
+  const cardMarkup = cards.map(item => `
+    <article class="miles-split-card">
+      <div class="miles-split-media">
+        <img src="${esc(item.img)}" alt="${esc(item.name)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+        <span class="miles-split-media-badge">${esc(item.badge)}</span>
+      </div>
+      <div class="miles-split-body">
+        <p class="miles-split-quote">${esc(item.quote)}</p>
+        <div>
+          <div class="miles-stars" aria-label="5 üzerinden 5 kalite standardı">★★★★★</div>
+          <div class="miles-split-name">${esc(item.name)}</div>
+          <div class="miles-split-role">${esc(item.role)}</div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // Duplicate track once for seamless infinite WAAPI loop
+  track.innerHTML = cardMarkup + cardMarkup;
+  track.dataset.marqueeBound = '0';
+  window.GKM_MOTION?.initAll();
+}
+
 async function loadHomeShowroom() {
   try {
-    const [cols, prods] = await Promise.all([
+    const [cols, prods, sups] = await Promise.all([
       window.GKM_SUPABASE ? window.GKM_SUPABASE.getCollections() : [],
-      window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : []
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : [],
+      window.GKM_SUPABASE?.getSuppliers ? window.GKM_SUPABASE.getSuppliers().catch(() => []) : []
     ]);
     _liveCollections = cols || [];
     hydrateCategoryDeckAndFilters(_liveCollections);
     renderHomeCollections(_selectedHomeCategory);
     renderIndepPreview(prods || []);
+    renderPartnersMarquee(sups || []);
   } catch (err) {
     console.error('Showroom verisi yüklenemedi:', err);
     renderHomeCollections('ALL');
     renderIndepPreview([]);
+    renderPartnersMarquee([]);
   }
 }
 
