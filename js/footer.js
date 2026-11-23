@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Global Mobilya — Tüm hakları saklıdır. | <a href="kvkk.html" style="color:#7CC2E6;text-decoration:none;">KVKK Aydınlatma Metni</a></p>
+    <p>© 2026 Global Mobilya — Tüm hakları saklıdır. | <a href="/kvkk-ve-gizlilik" style="color:#DFC793;text-decoration:none;font-weight:600;">KVKK ve Gizlilik</a></p>
     <div class="f-craft-note">İstanbul Fabrika İmalatı • %100 Yerli & Doğa Dostu Üretim</div>
     <div class="socials" style="display:none"></div>
   </div>

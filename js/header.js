@@ -5,7 +5,7 @@
  */
 (function () {
   const PAGE = document.documentElement.dataset.page || '';
-  const DARK_SURFACE_PAGES = new Set(['home', 'koleksiyon', 'galeri', 'hakkimizda', 'iletisim']);
+  const DARK_SURFACE_PAGES = new Set(['home', 'koleksiyon', 'galeri', 'hakkimizda', 'iletisim', 'kvkk-ve-gizlilik']);
   const isDarkSurface = DARK_SURFACE_PAGES.has(PAGE);
 
   function ensureHeaderCssLoaded() {

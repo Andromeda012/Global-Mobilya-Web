@@ -3,6 +3,8 @@
   "framework": null,
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/kvkk-ve-gizlilik", "destination": "/kvkk-ve-gizlilik.html" },
+    { "source": "/kvkk-ve-gizlilik/", "destination": "/kvkk-ve-gizlilik.html" },
     { "source": "/siparis-paneli", "destination": "/takip.html" },
     { "source": "/siparis-paneli/(.*)", "destination": "/takip.html" },
     { "source": "/takip", "destination": "/takip.html" },
