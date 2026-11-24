@@ -17,6 +17,7 @@
 <link rel="preload" as="image" href="/hero/bg.jpg">
 <link rel="preload" as="image" href="/hero/bergamo-final.jpg">
 
+<script type="module" src="js/heroConfig.js"></script>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
@@ -1367,6 +1368,12 @@ const CATEGORY_COPY = {
     aurora: { base: '#1A1120', c1: '#A855F7', c2: '#F59E0B', c3: '#EC4899', c4: '#14B8A6', accent: '#F0ABFC' }
   }
 };
+
+function escHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
 
 // `collectionsConfig` -> `window.GKM_HERO_CONFIG.collectionsConfig` kaynağından beslenir (js/heroConfig.js)
 function getWorldTheme(slug) {
