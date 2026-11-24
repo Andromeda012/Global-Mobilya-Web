@@ -128,7 +128,7 @@ function SkyElevatorOverlay({ activeFlight }) {
         initial: { opacity: 0 },
         animate: { opacity: isFadeOut ? 0 : 1 },
         transition: {
-          duration: isFadeOut ? 0.85 : 0.42,
+          duration: isFadeOut ? 0.92 : 0.42,
           ease: [0.22, 1, 0.36, 1],
         },
         'aria-hidden': 'true',
@@ -263,13 +263,13 @@ function SkyElevatorController() {
         }, 1120)
       );
 
-      // 1.32s: Gökyüzü perdesi alçalırken kadife gibi erir -> inen oda + mobilyalar görünür olur
+      // 1.16s: Gökyüzü perdesi alçalmayla eş zamanlı erimeye başlar -> inen oda + mobilyalar görünür
       timers.push(
         setTimeout(() => {
           setActiveFlight((prev) =>
             prev && prev.key === flightKey ? { ...prev, phase: 'fadeout' } : prev
           );
-        }, 1320)
+        }, 1160)
       );
 
       // 2.18s: İniş ve erime tamamlandı -> kilit açılır

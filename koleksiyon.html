@@ -173,7 +173,7 @@
   .sky-elev-curtain {
     position: fixed;
     inset: 0;
-    z-index: 950;
+    z-index: 1200;
     pointer-events: none;
     overflow: hidden;
   }
@@ -1588,6 +1588,7 @@ function flyCameraToSlide(targetIdx, instant = false) {
   const started = window.GKM_SKY_ELEVATOR.startFlight({
     label: clamped === 0 ? 'Başlangıç Ekranına Dönülüyor' : 'Diğer Koleksiyona Geçiliyor',
     onAscendStart() {
+      window.GKM_HEADER?.setForceHidden(clamped > 0);
       prevEl.classList.add('is-transitioning');
       if (fromSlug) {
         window.GKM_COLLECTION_STAGE?.exitSlide(fromSlug);

@@ -20,9 +20,31 @@ import { resolveCollectionSceneConfig } from './heroConfig.js';
 
 const h = React.createElement;
 const STAGE_ENTRIES = new Map();
+const PRELOADED_URLS = new Set();
 let _collectionsList = [];
 let _activeSlug = '';
 let _exitingSlug = '';
+
+function preloadSceneAssets(scene) {
+  if (!scene || typeof Image === 'undefined') return;
+  const urls = [];
+  if (scene.background?.src) urls.push(scene.background.src);
+  if (scene.finalMaster?.src) urls.push(scene.finalMaster.src);
+  (scene.modules || []).forEach((m) => { if (m?.src) urls.push(m.src); });
+  (scene.decors || []).forEach((d) => { if (d?.src) urls.push(d.src); });
+  urls.forEach((src) => {
+    if (!src || PRELOADED_URLS.has(src)) return;
+    PRELOADED_URLS.add(src);
+    try {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+      if (typeof img.decode === 'function') {
+        img.decode().catch(() => {});
+      }
+    } catch (_) {}
+  });
+}
 
 function DroppingModuleVisual({ item, phase }) {
   const isEntering = phase === 'entering';
@@ -42,14 +64,14 @@ function DroppingModuleVisual({ item, phase }) {
     : {
         y: {
           type: 'spring',
-          stiffness: 76,
+          stiffness: 74,
           damping: 16,
           mass: 1.0,
-          delay: item.entranceDelaySec ?? 0.08,
+          delay: item.entranceDelaySec ?? 0.04,
         },
         opacity: {
-          duration: 0.36,
-          delay: item.entranceDelaySec ?? 0.08,
+          duration: 0.34,
+          delay: item.entranceDelaySec ?? 0.04,
           ease: [0.22, 1, 0.36, 1],
         },
       };
@@ -164,11 +186,11 @@ function StaticAnchoredDecorLayer({ decor, phase }) {
           type: 'spring',
           stiffness: 88,
           damping: 17,
-          delay: decor.entranceDelaySec ?? 0.8,
+          delay: decor.entranceDelaySec ?? 0.88,
         },
         opacity: {
           duration: 0.38,
-          delay: decor.entranceDelaySec ?? 0.8,
+          delay: decor.entranceDelaySec ?? 0.88,
         },
       };
 
@@ -209,13 +231,12 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
       h(
         'div',
         {
-          key: `stage-${activationKey}`,
           className: 'scase-stage',
           style: { aspectRatio: scene.stageAspectRatio || '1024 / 571' },
           onMouseLeave: () => setHoveredId(null),
           onClick: () => setHoveredId(null),
         },
-        // Katman 1 (z-10): Temiz Arka Plan Mekânı
+        // Katman 1 (z-10): Kalıcı Ön-Yüklü Mekân Duvarı (remount olmaz -> sıfır karanlık flaş)
         h(
           'div',
           { className: 'scase-layer-bg' },
@@ -223,7 +244,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
             src: scene.background.src,
             alt: scene.background.alt,
             className: 'scase-bg-img',
-            initial: { scale: scene.background.initialScale ?? 1.04 },
+            initial: false,
             animate: isEntering ? { scale: scene.background.targetScale ?? 1.0 } : { scale: 1.03 },
             transition: {
               duration: 0.9,
@@ -236,7 +257,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
         // Katman 2 (z-20): Dolaplar kamerayla aynı hızda yukarıdan iner; çıkışta aşağı iner
         h(
           'div',
-          { className: 'scase-layer-modules', 'aria-hidden': 'true' },
+          { key: `modules-${activationKey}`, className: 'scase-layer-modules', 'aria-hidden': 'true' },
           modules.map((mod, idx) =>
             h(DroppingModuleVisual, { key: mod.id || idx, item: mod, phase })
           )
@@ -245,7 +266,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
         // Katman 3 (z-30): Ürünler yerleşince kısa farkla dekorlar sağdan/soldan gelir
         h(
           'div',
-          { className: 'scase-layer-decors', 'aria-hidden': 'true' },
+          { key: `decors-${activationKey}`, className: 'scase-layer-decors', 'aria-hidden': 'true' },
           decors.map((d) =>
             h(StaticAnchoredDecorLayer, { key: d.id, decor: d, phase })
           )
@@ -257,6 +278,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
         // Katman 4 (z-36): En sonda nihai stüdyo fotoğrafı oturur; çıkışta kesilmiş parçalara yer açar
         finalMaster
           ? h(motion.img, {
+              key: `master-${activationKey}`,
               src: finalMaster.src,
               alt: finalMaster.alt,
               className: 'scase-master-overlay',
@@ -266,7 +288,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
                 ? { duration: 0.14 }
                 : {
                     duration: finalMaster.fadeDurationSec ?? 0.56,
-                    delay: finalMaster.revealDelaySec ?? 1.38,
+                    delay: finalMaster.revealDelaySec ?? 1.48,
                     ease: [0.22, 1, 0.36, 1],
                   },
               draggable: false,
@@ -356,6 +378,7 @@ export function mountAllCollectionScenes(collections = [], activeSlug = _activeS
     const matchedCol = _collectionsList.find((c) => String(c.slug || '') === slug) || { slug };
     const scene = resolveCollectionSceneConfig(matchedCol);
     if (!scene) return;
+    preloadSceneAssets(scene);
 
     let entry = STAGE_ENTRIES.get(node);
     if (!entry) {
