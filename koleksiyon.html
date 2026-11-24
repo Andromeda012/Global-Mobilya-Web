@@ -1337,15 +1337,16 @@
     <div id="quoteSuccess" style="display:none;text-align:center;padding:12px 0;">
       <div style="font-size:36px;color:#DFC793;margin-bottom:10px;">✦</div>
       <h3 style="font-family:var(--font-hg-serif);font-size:30px;font-weight:400;margin-bottom:10px;">Talebiniz Alındı</h3>
-      <p style="font-size:14px;color:rgba(247,245,240,0.78);margin-bottom:18px;">Referans kodunuz aşağıdadır. Ekibimiz en kısa sürede ölçü ve fiyat bilgisiyle dönüş yapacaktır.</p>
-      <div id="refCodeDisplay" style="display:inline-block;padding:10px 22px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(223,199,147,0.4);font-weight:700;letter-spacing:0.12em;margin-bottom:22px;"></div>
+      <p style="font-size:14px;color:rgba(247,245,240,0.85);margin-bottom:16px;line-height:1.55;">Talebiniz alındı! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.</p>
+      <div id="refCodeDisplay" style="display:inline-block;padding:10px 22px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(223,199,147,0.4);font-weight:700;letter-spacing:0.12em;margin-bottom:20px;"></div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a id="successWaBtn" href="#" target="_blank" rel="noopener" class="btn-hg-wipe">
+        <a id="successTrackBtn" href="/hesabim/tekliflerim" class="btn-hg-wipe">
           <span class="btn-hg-wipe-inner">
-            <span class="btn-hg-wipe-row main">WhatsApp'ta Paylaş →</span>
-            <span class="btn-hg-wipe-row clone" aria-hidden="true">WhatsApp'ta Paylaş →</span>
+            <span class="btn-hg-wipe-row main">Hesabımı Oluştur / Takip Et →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">Hesabımı Oluştur / Takip Et →</span>
           </span>
         </a>
+        <a id="successWaBtn" href="#" target="_blank" rel="noopener" class="btn-stage-secondary" style="text-decoration:none;display:inline-flex;align-items:center;">WhatsApp'ta Paylaş</a>
         <button type="button" class="btn-stage-secondary" onclick="closeQuoteModal()">Kapat</button>
       </div>
     </div>
@@ -1890,6 +1891,10 @@ async function submitCollectionQuote(e) {
     }
     const ref = res?.reference_code || ('GM-2026-' + Math.floor(1000 + Math.random() * 9000));
     document.getElementById('refCodeDisplay').textContent = ref;
+    const trackBtn = document.getElementById('successTrackBtn');
+    if (trackBtn) {
+      trackBtn.href = `/hesabim/tekliflerim?phone=${encodeURIComponent(phone)}&ref=${encodeURIComponent(ref)}`;
+    }
     const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" için teklif talebi bıraktım. Adım: ${name} (${phone}${city ? ' - ' + city : ''}). Not: ${notes}`;
     document.getElementById('successWaBtn').href = `https://wa.me/905050151035?text=${encodeURIComponent(waMsg)}`;
     document.getElementById('quoteFormWrap').style.display = 'none';

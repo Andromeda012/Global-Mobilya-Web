@@ -8,6 +8,8 @@
     { "source": "/siparis-paneli", "destination": "/takip.html" },
     { "source": "/siparis-paneli/(.*)", "destination": "/takip.html" },
     { "source": "/takip", "destination": "/takip.html" },
-    { "source": "/takip/(.*)", "destination": "/takip.html" }
+    { "source": "/takip/(.*)", "destination": "/takip.html" },
+    { "source": "/hesabim/tekliflerim", "destination": "/hesabim/tekliflerim.html" },
+    { "source": "/hesabim/tekliflerim/", "destination": "/hesabim/tekliflerim.html" }
   ]
 }

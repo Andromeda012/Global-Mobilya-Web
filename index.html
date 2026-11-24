@@ -1617,6 +1617,9 @@
           <label class="hg-field-label" for="hq_phone">Telefon / WhatsApp</label>
           <input type="tel" id="hq_phone" class="hg-input" required placeholder="05XX XXX XX XX">
 
+          <label class="hg-field-label" for="hq_city">İl / İlçe</label>
+          <input type="text" id="hq_city" class="hg-input" placeholder="Örn. İstanbul / Kadıköy">
+
           <label class="hg-field-label" for="hq_model">İlgilendiğiniz Koleksiyon veya Kategori</label>
           <select id="hq_model" class="hg-input">
             <option value="Genel Mobilya Teklifi">Seçim Yapın (Opsiyonel)</option>
@@ -2186,19 +2189,28 @@ async function handleQuickQuote(e) {
 
   const name = document.getElementById('hq_name').value.trim();
   const phone = document.getElementById('hq_phone').value.trim();
+  const city = document.getElementById('hq_city')?.value?.trim() || '';
   const model = document.getElementById('hq_model').value.trim();
   const notes = document.getElementById('hq_notes').value.trim();
 
   try {
+    let refCode = '';
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.createQuoteRequest) {
-      await window.GKM_SUPABASE.createQuoteRequest({
+      const res = await window.GKM_SUPABASE.createQuoteRequest({
         name,
         phone,
+        city,
         collection_id: model || 'Genel Mobilya Teklifi',
         notes: `Model: ${model} | Not: ${notes}`
       });
+      refCode = res?.reference_code || '';
     }
-    document.getElementById('hqSuccess').style.display = 'block';
+    const box = document.getElementById('hqSuccess');
+    if (box) {
+      const trackHref = `/hesabim/tekliflerim?phone=${encodeURIComponent(phone)}&ref=${encodeURIComponent(refCode)}`;
+      box.innerHTML = `✦ Talebiniz alındı${refCode ? ` (<strong>${refCode}</strong>)` : ''}! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.<div style="margin-top:10px;"><a href="${trackHref}" style="display:inline-block;padding:8px 16px;border-radius:999px;background:#2E5436;color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;">Hesabımı Oluştur / Takip Et →</a></div>`;
+      box.style.display = 'block';
+    }
     e.target.reset();
   } catch (err) {
     alert('Hata: ' + err.message);

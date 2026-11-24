@@ -389,14 +389,20 @@ img { max-width: 100%; height: auto; display: block; }
       Bu model için ölçü ve iletişim bilgilerinizi iletin; 2 saat içinde özel teklifinizi hazırlayalım.
     </p>
 
-    <div id="quoteSuccess" style="display:none; background:#EAF5ED; border:1px solid #25D366; padding:18px; border-radius:10px; text-align:center; margin-bottom:14px;">
+    <div id="quoteSuccess" style="display:none; background:#EAF5ED; border:1px solid #25D366; padding:18px; border-radius:12px; text-align:center; margin-bottom:14px;">
       <strong style="color:#1EBE5D; font-size:15px; display:block;">Talebiniz Alındı!</strong>
-      <p style="font-size:12px; color:#272522; margin-top:4px;">
+      <p style="font-size:12.5px; color:#272522; margin-top:6px; line-height:1.5;">
+        Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.<br>
         Referans Kodunuz: <span id="refCodeDisplay" style="font-weight:700; font-family:monospace; background:#fff; padding:2px 8px; border-radius:4px;"></span>
       </p>
-      <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex; margin-top:12px;">
-        💬 WhatsApp'tan Başlat
-      </a>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
+        <a id="successTrackBtn" href="/hesabim/tekliflerim" style="display:inline-flex;align-items:center;padding:9px 16px;border-radius:999px;background:#272522;color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;">
+          Hesabımı Oluştur / Takip Et →
+        </a>
+        <a id="successWaBtn" href="#" target="_blank" class="btn-wa-pill" style="display:inline-flex;">
+          💬 WhatsApp'tan Başlat
+        </a>
+      </div>
     </div>
 
     <form id="quoteForm" onsubmit="submitQuote(event)">
@@ -607,12 +613,18 @@ async function submitQuote(e) {
       res = await window.GKM_SUPABASE.createQuoteRequest({
         name, phone, city,
         collection_id: model,
+        selected_pieces: [currentProduct?.title || currentProduct?.baslik || model].filter(Boolean),
+        category: currentProduct?.kategori || '',
         notes: `Model: ${model} | Notlar: ${notes}`
       });
     }
 
     const ref = res?.reference_code || ('GM-2026-' + Math.floor(1000 + Math.random() * 9000));
     document.getElementById('refCodeDisplay').textContent = ref;
+    const trackBtn = document.getElementById('successTrackBtn');
+    if (trackBtn) {
+      trackBtn.href = `/hesabim/tekliflerim?phone=${encodeURIComponent(phone)}&ref=${encodeURIComponent(ref)}`;
+    }
 
     const waMsg = `Merhaba Global Mobilya, ${ref} referans kodu ile "${model}" için teklif talebinde bulundum. Bilgilerim: ${name} (${phone} - ${city}). Notum: ${notes}`;
     document.getElementById('successWaBtn').href = `https://wa.me/905050151035?text=${encodeURIComponent(waMsg)}`;

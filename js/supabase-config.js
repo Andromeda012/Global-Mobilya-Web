@@ -277,78 +277,111 @@
     },
 
     async createQuoteRequest(quoteData) {
-      const refCode = 'GM-' + (new Date().getFullYear()) + '-' + Math.floor(1000 + Math.random() * 9000);
+      const fallbackRef = 'GM-' + (new Date().getFullYear()) + '-' + Math.floor(1000 + Math.random() * 9000);
       const clerkUser = window.Clerk?.user || null;
-      const clerkUserId = clerkUser?.id || quoteData.clerk_user_id || null;
       const primaryEmail = clerkUser?.primaryEmailAddress?.emailAddress || quoteData.email || null;
-      const fullName = quoteData.name || [clerkUser?.firstName, clerkUser?.lastName].filter(Boolean).join(' ') || 'Müşteri';
-      const phone = quoteData.phone || clerkUser?.phoneNumbers?.[0]?.phoneNumber || '';
+      const fullName = String(quoteData.name || quoteData.full_name || [clerkUser?.firstName, clerkUser?.lastName].filter(Boolean).join(' ') || '').trim();
+      const phone = String(quoteData.phone || clerkUser?.phoneNumbers?.[0]?.phoneNumber || '').trim();
+      const collectionName = String(quoteData.collection_id || quoteData.collection_name || '').trim();
 
-      const payload = {
-        reference_code: refCode,
-        customer_name: fullName,
-        customer_phone: phone,
-        customer_email: primaryEmail,
-        customer_city: quoteData.city || null,
-        collection_id: quoteData.collection_id || null,
-        selected_pieces: quoteData.selected_pieces || [],
-        custom_dimensions_note: quoteData.notes || '',
-        status: 'new'
-      };
+      let token = '';
+      try {
+        if (window.Clerk?.session) {
+          token = await window.Clerk.session.getToken();
+        }
+      } catch (_) {}
 
-      // 1. Müşteriyi organizasyona eklemeden doğrudan Supabase crm_customers tablosuna kaydet
-      await restInsert('crm_customers', {
-        clerk_user_id: clerkUserId,
-        email: primaryEmail,
+      const bodyPayload = {
         full_name: fullName,
         phone,
+        email: primaryEmail,
         city: quoteData.city || null,
-        interested_model: quoteData.collection_id || null,
-        latest_quote_ref: refCode,
-        notes: quoteData.notes || '',
-        source: 'b2c_lazy_quote',
-        stage: 'Yeni Teklif Talebi'
-      }).catch(() => null);
+        source: 'web',
+        collection_name: collectionName,
+        product_details: {
+          modules: Array.isArray(quoteData.selected_pieces)
+            ? quoteData.selected_pieces
+            : Array.isArray(quoteData.modules)
+            ? quoteData.modules
+            : [],
+          dimensions: quoteData.dimensions || '',
+          finish_color: quoteData.finish_color || '',
+          notes: quoteData.notes || '',
+          category: quoteData.category || '',
+          page_url: window.location.pathname + window.location.search
+        }
+      };
 
-      // 2. ERP /api/b2c-lazy-quote uç noktasına da senkronize et
-      try {
-        const token = window.Clerk?.session ? await window.Clerk.session.getToken() : '';
-        const erpEndpoints = [
-          'https://erp.globalkapakmobilya.com/api/b2c-lazy-quote',
-          'https://insta-deployment-rho.vercel.app/api/b2c-lazy-quote'
-        ];
-        for (const ep of erpEndpoints) {
+      const erpEndpoints = [
+        'https://erp.globalkapakmobilya.com/api/b2c-lazy-quote',
+        'https://insta-deployment-rho.vercel.app/api/b2c-lazy-quote'
+      ];
+
+      let apiResult = null;
+      let lastError = '';
+      for (const ep of erpEndpoints) {
+        try {
           const r = await fetch(ep, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               ...(token ? { Authorization: `Bearer ${token}` } : {})
             },
-            body: JSON.stringify({
-              clerk_user_id: clerkUserId,
-              email: primaryEmail,
-              name: fullName,
-              phone,
-              city: quoteData.city || '',
-              collection_id: quoteData.collection_id || '',
-              notes: quoteData.notes || '',
-              reference_code: refCode
-            })
-          }).catch(() => null);
-          if (r && r.ok) break;
+            body: JSON.stringify(bodyPayload)
+          });
+          const json = await r.json().catch(() => null);
+          if (r.ok && json && json.ok) {
+            apiResult = json;
+            break;
+          }
+          if (json && json.error) lastError = json.error;
+        } catch (err) {
+          lastError = err?.message || '';
         }
-      } catch (_) {}
+      }
 
-      const inserted = await restInsert('quote_requests', payload);
+      if (!apiResult) {
+        // Ağ veya CORS kesintisi durumunda klasik yedek tablo
+        const inserted = await restInsert('quote_requests', {
+          reference_code: fallbackRef,
+          customer_name: fullName || 'Müşteri',
+          customer_phone: phone,
+          customer_email: primaryEmail,
+          customer_city: quoteData.city || null,
+          collection_id: collectionName || null,
+          selected_pieces: bodyPayload.product_details.modules,
+          custom_dimensions_note: quoteData.notes || '',
+          status: 'new'
+        }).catch(() => null);
+        if (!inserted) {
+          throw new Error(lastError || 'Teklif talebi gönderilemedi. Lütfen tekrar deneyin.');
+        }
+        apiResult = {
+          ok: true,
+          reference_code: fallbackRef,
+          customer: { full_name: fullName, phone },
+          lead: { reference_code: fallbackRef, status: 'yeni_talep' },
+          message: 'Talebiniz alındı! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.'
+        };
+      }
+
+      const finalRef = apiResult.reference_code || fallbackRef;
       if (window.NOVA_TELEMETRY?.trackEvent) {
         window.NOVA_TELEMETRY.trackEvent('quote_or_order_submitted', {
-          reference_code: refCode,
-          model_name: quoteData.collection_id || 'Özel Ölçü Mobilya',
+          reference_code: finalRef,
+          model_name: collectionName || 'Özel Ölçü Mobilya',
           city: quoteData.city || '',
-          clerk_user_id: clerkUserId || undefined
+          clerk_user_id: clerkUser?.id || undefined
         });
       }
-      return { ok: true, reference_code: refCode, data: inserted };
+
+      return {
+        ok: true,
+        reference_code: finalRef,
+        customer: apiResult.customer || null,
+        lead: apiResult.lead || null,
+        message: apiResult.message || 'Talebiniz alındı! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.'
+      };
     },
 
     /**
@@ -470,15 +503,30 @@
   };
 
   // ==========================================================================
-  // FAZ 2: VİTRİN (BETA) CLERK LAZY REGISTRATION (<SignIn routing="virtual"/>)
-  // Katalog, ürün detay ve 3D showroom sayfaları herkese açıktır.
-  // Sadece kullanıcı "Teklif Al" butonuna bastığında Clerk <SignIn routing="virtual"/>
-  // modalı açılır ve giriş yapan müşteri organizasyona eklenmeden doğrudan
-  // Supabase `crm_customers` tablosuna kaydedilir.
+  // ==========================================================================
+  // CLERK OPT-IN HESAP SAHİPLENME & MÜŞTERİ TEKLİF PORTALI (/hesabim/tekliflerim)
+  // NOT: Hiçbir teklif formu öncesinde login duvarı uygulanmaz! Misafir kullanıcılar
+  // Ad Soyad + Telefon + Şehir ile özgürce teklif alabilir (Lazy Register).
+  // Dileyen müşteri sonradan Clerk hesabını açıp aynı telefonla taleplerini devralır.
   // ==========================================================================
   const CLERK_PK = 'pk_live_Y2xlcmsuZ2xvYmFsa2FwYWttb2JpbHlhLmNvbSQ';
+  const ERP_API_BASES = [
+    'https://erp.globalkapakmobilya.com',
+    'https://insta-deployment-rho.vercel.app'
+  ];
   let clerkLoadPromise = null;
-  const syncedClerkUserIds = new Set();
+
+  function normalizeTurkishPhone(rawPhone) {
+    if (!rawPhone) return '';
+    let digits = String(rawPhone).trim().replace(/\D/g, '');
+    if (!digits) return '';
+    if (digits.startsWith('00')) digits = digits.slice(2);
+    if (digits.length === 10 && digits.startsWith('5')) digits = '90' + digits;
+    else if (digits.length === 11 && digits.startsWith('05')) digits = '9' + digits;
+    else if (digits.length === 11 && digits.startsWith('0')) digits = '90' + digits.slice(1);
+    else if (digits.length === 10) digits = '90' + digits;
+    return '+' + digits;
+  }
 
   async function ensureClerkLoaded() {
     if (window.Clerk && window.Clerk.loaded) return window.Clerk;
@@ -533,65 +581,68 @@
     return clerkLoadPromise;
   }
 
-  async function syncB2CCustomerToSupabase(clerkUser, interestedModel = '') {
-    if (!clerkUser || !clerkUser.id) return;
-    const primaryEmail = clerkUser.primaryEmailAddress?.emailAddress || clerkUser.emailAddresses?.[0]?.emailAddress || '';
-    const primaryPhone = clerkUser.phoneNumbers?.[0]?.phoneNumber || '';
-    const fullName = [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(' ').trim()
-      || clerkUser.username
-      || primaryEmail
-      || 'Vitrin Müşterisi';
+  async function callAuthenticatedCustomerApi(path, { method = 'GET', body = null } = {}) {
+    const clerk = await ensureClerkLoaded();
+    if (!clerk || !clerk.session) {
+      throw new Error('Oturum açık değil.');
+    }
+    const token = await clerk.session.getToken();
+    if (!token) {
+      throw new Error('Clerk oturum anahtarı alınamadı.');
+    }
 
-    // Teklif formundaki Ad Soyad ve Telefon alanlarını otomatik doldur
-    const nameInput = document.getElementById('q_name');
-    const phoneInput = document.getElementById('q_phone');
-    if (nameInput && !nameInput.value && fullName !== 'Vitrin Müşterisi') nameInput.value = fullName;
-    if (phoneInput && !phoneInput.value && primaryPhone) phoneInput.value = primaryPhone;
-
-    const syncKey = `${clerkUser.id}:${interestedModel}`;
-    if (syncedClerkUserIds.has(syncKey)) return;
-    syncedClerkUserIds.add(syncKey);
-
-    // 1. Doğrudan Supabase crm_customers tablosuna kaydet (organizasyona eklemeden!)
-    await restInsert('crm_customers', {
-      clerk_user_id: clerkUser.id,
-      email: primaryEmail,
-      full_name: fullName,
-      phone: primaryPhone || null,
-      interested_model: interestedModel || document.getElementById('q_model')?.value || null,
-      source: 'b2c_lazy_quote',
-      stage: 'Teklif Modalı Açıldı'
-    }).catch(() => null);
-
-    // 2. ERP /api/b2c-lazy-quote uç noktasına bildir
-    try {
-      const token = window.Clerk?.session ? await window.Clerk.session.getToken() : '';
-      const endpoints = [
-        'https://erp.globalkapakmobilya.com/api/b2c-lazy-quote',
-        'https://insta-deployment-rho.vercel.app/api/b2c-lazy-quote'
-      ];
-      for (const ep of endpoints) {
-        const res = await fetch(ep, {
-          method: 'POST',
+    let lastErr = '';
+    for (const base of ERP_API_BASES) {
+      try {
+        const res = await fetch(`${base}${path}`, {
+          method,
           headers: {
             'Content-Type': 'application/json',
-            ...(token ? { Authorization: `Bearer ${token}` } : {})
+            Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify({
-            clerk_user_id: clerkUser.id,
-            email: primaryEmail,
-            name: fullName,
-            phone: primaryPhone,
-            collection_id: interestedModel || document.getElementById('q_model')?.value || '',
-            source: 'b2c_lazy_quote'
-          })
-        }).catch(() => null);
-        if (res && res.ok) break;
+          ...(body !== null ? { body: JSON.stringify(body) } : {})
+        });
+        const json = await res.json().catch(() => null);
+        if (res.ok && json) return json;
+        lastErr = json?.error || `HTTP ${res.status}`;
+      } catch (e) {
+        lastErr = e?.message || 'Ağ hatası';
       }
-    } catch (_) {}
+    }
+    throw new Error(lastErr || 'Sunucuya ulaşılamadı.');
   }
 
-  function openVirtualClerkSignInModal(onAuthenticated, interestedModel = '') {
+  async function claimMyLeadsWithClerk({ phone = '', ref = '' } = {}) {
+    return callAuthenticatedCustomerApi('/api/b2c-claim-leads', {
+      method: 'POST',
+      body: {
+        ...(phone ? { phone } : {}),
+        ...(ref ? { reference_code: ref } : {})
+      }
+    });
+  }
+
+  async function fetchMyLeads({ phone = '' } = {}) {
+    const qs = phone ? `?phone=${encodeURIComponent(phone)}` : '';
+    return callAuthenticatedCustomerApi(`/api/b2c-my-leads${qs}`, { method: 'GET' });
+  }
+
+  async function respondToLeadPrice(leadId, decision) {
+    return callAuthenticatedCustomerApi('/api/b2c-my-leads', {
+      method: 'PATCH',
+      body: { lead_id: leadId, decision }
+    });
+  }
+
+  async function openCustomerAuthModal({ onAuthenticated, phone = '', ref = '' } = {}) {
+    const clerk = await ensureClerkLoaded();
+    if (!clerk) return;
+    if (clerk.user) {
+      const claimed = await claimMyLeadsWithClerk({ phone, ref }).catch(() => null);
+      if (typeof onAuthenticated === 'function') onAuthenticated(claimed);
+      return;
+    }
+
     let backdrop = document.getElementById('gkm-clerk-virtual-modal');
     if (!backdrop) {
       backdrop = document.createElement('div');
@@ -600,10 +651,10 @@
       backdrop.innerHTML = `
         <div style="position:relative;background:#fff;border-radius:20px;padding:28px 24px 24px;max-width:460px;width:100%;box-shadow:0 30px 90px rgba(0,0,0,0.45);text-align:center;">
           <button type="button" id="gkm-clerk-modal-close" style="position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:16px;">✕</button>
-          <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#5E7462;text-transform:uppercase;margin-bottom:6px;">GLOBAL MOBİLYA • ÖZEL TEKLİF</div>
-          <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#1e293b;margin:0 0 8px;">Teklif Almak İçin Hızlı Giriş Yapın</h3>
+          <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#5E7462;text-transform:uppercase;margin-bottom:6px;">GLOBAL MOBİLYA • MÜŞTERİ PORTALI</div>
+          <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;color:#1e293b;margin:0 0 8px;">Tekliflerinizi Takip Etmek İçin Giriş Yapın</h3>
           <p style="font-size:12.5px;color:#64748b;margin:0 0 18px;line-height:1.55;">
-            Size özel ölçü ve fiyat teklifimizi hazırlayıp takip edebilmemiz için hesabınızla devam edin.
+            Talebinizi oluşturduğunuz telefon numarası veya e-posta ile giriş yaptığınızda tüm teklifleriniz hesabınıza otomatik aktarılır.
           </p>
           <div id="gkm-clerk-signin-mount" style="display:flex;justify-content:center;min-height:320px;"></div>
         </div>
@@ -621,94 +672,49 @@
     }
 
     const mountEl = document.getElementById('gkm-clerk-signin-mount');
-    if (mountEl && window.Clerk) {
+    if (mountEl) {
       mountEl.innerHTML = '';
-      // <SignIn routing="virtual" />
-      window.Clerk.mountSignIn(mountEl, {
-        routing: 'virtual'
-      });
-
-      const unsub = window.Clerk.addListener(async ({ user }) => {
+      clerk.mountSignIn(mountEl, { routing: 'virtual' });
+      const unsub = clerk.addListener(async ({ user }) => {
         if (user) {
-          try { window.Clerk.unmountSignIn(mountEl); } catch (_) {}
+          try { clerk.unmountSignIn(mountEl); } catch (_) {}
           backdrop.style.display = 'none';
           if (typeof unsub === 'function') unsub();
-          await syncB2CCustomerToSupabase(user, interestedModel);
-          if (typeof onAuthenticated === 'function') onAuthenticated();
+          const claimed = await claimMyLeadsWithClerk({ phone, ref }).catch(() => null);
+          if (typeof onAuthenticated === 'function') onAuthenticated(claimed);
         }
       });
     }
   }
 
-  async function requireSignInForQuote(proceedCallback, interestedModel = '') {
-    const clerk = await ensureClerkLoaded();
-    if (!clerk) {
-      if (typeof proceedCallback === 'function') proceedCallback();
-      return;
-    }
-    if (clerk.user) {
-      await syncB2CCustomerToSupabase(clerk.user, interestedModel);
-      if (typeof proceedCallback === 'function') proceedCallback();
-      return;
-    }
-    openVirtualClerkSignInModal(proceedCallback, interestedModel);
-  }
-
-  window.GKM_CLERK_LAZY = {
+  window.GKM_CLERK_PORTAL = {
     ensureClerkLoaded,
-    requireSignInForQuote,
-    syncB2CCustomerToSupabase
+    normalizeTurkishPhone,
+    openCustomerAuthModal,
+    claimMyLeadsWithClerk,
+    fetchMyLeads,
+    respondToLeadPrice
   };
 
-  // Sayfadaki mevcut `openQuoteModal` / `openQuoteForCollection` fonksiyonlarını ve "Teklif Al" butonlarını Lazy Registration ile sarmala
+  // Geriye dönük uyumluluk için zararsız no-op köprü (login duvarı YOK)
+  window.GKM_CLERK_LAZY = {
+    ensureClerkLoaded,
+    requireSignInForQuote(proceedCallback) {
+      if (typeof proceedCallback === 'function') proceedCallback();
+    },
+    syncB2CCustomerToSupabase: async () => {}
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    if (typeof window.openQuoteModal === 'function' && !window.openQuoteModal._clerkWrapped) {
-      const origOpenQuote = window.openQuoteModal;
-      const wrapped = function (...args) {
-        const modelName = document.getElementById('q_model')?.value || document.getElementById('prodTitle')?.textContent || '';
-        requireSignInForQuote(() => origOpenQuote.apply(this, args), modelName);
-      };
-      wrapped._clerkWrapped = true;
-      window.openQuoteModal = wrapped;
+    // Sayfada login varsa otomatik arka planda sahiplen (kullanıcıyı engellemeden)
+    if (window.location.pathname.includes('/hesabim/')) {
+      ensureClerkLoaded().catch(() => null);
     }
 
-    if (typeof window.openQuoteForCollection === 'function' && !window.openQuoteForCollection._clerkWrapped) {
-      const origOpenColQuote = window.openQuoteForCollection;
-      const wrappedCol = function (name, ...rest) {
-        requireSignInForQuote(() => origOpenColQuote.call(this, name, ...rest), name || '');
-      };
-      wrappedCol._clerkWrapped = true;
-      window.openQuoteForCollection = wrappedCol;
-    }
-
-    // Üst menü ve sayfa içi "Teklif Al" (.nav-cta, .f-btn-primary) linklerini de yakala
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.nav-cta, .f-btn-primary, [data-lazy-quote]');
-      if (!btn) return;
-      const text = (btn.textContent || '').toLowerCase();
-      if (!text.includes('teklif')) return;
-
-      if (window.Clerk?.user) {
-        syncB2CCustomerToSupabase(window.Clerk.user);
-        return;
-      }
-      e.preventDefault();
-      const targetHref = btn.getAttribute('href');
-      requireSignInForQuote(() => {
-        if (typeof window.openQuoteModal === 'function') {
-          window.openQuoteModal();
-        } else if (targetHref) {
-          window.location.href = targetHref;
-        }
-      });
-    });
-
-    // Faz 4: B2C Vitrin PostHog EU + Sentry EU Telemetri Modülünü Otomatik Yükle
+    // B2C Vitrin PostHog EU + Sentry EU Telemetri Modülünü Otomatik Yükle
     if (!window.__NOVA_TELEMETRY_LOADED__) {
       const ts = document.createElement('script');
-      ts.src = (window.location.pathname.includes('/urun/') || window.location.pathname.includes('/blog/'))
-        ? '../js/nova-telemetry.js'
-        : 'js/nova-telemetry.js';
+      ts.src = '/js/nova-telemetry.js';
       ts.async = true;
       document.head.appendChild(ts);
     }

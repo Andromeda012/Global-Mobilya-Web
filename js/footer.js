@@ -14,7 +14,7 @@
         <p>2.000 m² modern üretim tesisimizde, projenize özel ölçü ve ahşap dokusu seçenekleriyle 5 iş gününde teslimat.</p>
       </div>
       <div class="footer-cta-actions">
-        <a href="iletisim.html" class="f-btn-primary">Hemen Teklif Alın →</a>
+        <a href="/iletisim.html" class="f-btn-primary">Hemen Teklif Alın →</a>
         <a href="https://wa.me/905050151035" target="_blank" class="f-btn-wa">WhatsApp Hattı</a>
       </div>
     </div>
@@ -22,7 +22,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="f-logo-wrap">
-        <img src="resim/logo.png" alt="Global Mobilya" style="height:76px;width:auto;background:#FFFFFF;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+        <img src="/resim/logo.png" alt="Global Mobilya" style="height:76px;width:auto;background:#FFFFFF;padding:8px 12px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
       </div>
       <div class="f-brand-name">Global Mobilya</div>
       <p>Yüksek işçilik standartları, E1 sertifikalı ahşap gövdeler ve modern mimari tasarım anlayışıyla mekanlarınıza zamansız estetik katıyoruz.</p>
@@ -45,25 +45,25 @@
     </div>
     <div class="footer-col">
       <h4>Kurumsal Menü</h4>
-      <a href="index.html">Ana Sayfa</a>
-      <a href="koleksiyon.html">Koleksiyonlar (Showroom)</a>
-      <a href="galeri.html">Galeri &amp; Bağımsız Ürünler</a>
-      <a href="hakkimizda.html">Hakkımızda</a>
-      <a href="iletisim.html">İletişim</a>
+      <a href="/index.html">Ana Sayfa</a>
+      <a href="/koleksiyon.html">Koleksiyonlar (Showroom)</a>
+      <a href="/galeri.html">Galeri &amp; Bağımsız Ürünler</a>
+      <a href="/hakkimizda.html">Hakkımızda</a>
+      <a href="/iletisim.html">İletişim</a>
     </div>
     <div class="footer-col">
-      <h4>Showroom Kategorileri</h4>
-      <a href="koleksiyon.html?kategori=kahve-kosesi">Kahve Köşesi Koleksiyonları</a>
-      <a href="koleksiyon.html?kategori=dolap">Dolap Koleksiyonları</a>
-      <a href="koleksiyon.html?kategori=yatak-odasi">Yatak Odası Koleksiyonları</a>
-      <a href="galeri.html">Bağımsız Ürünler Sunum Merkezi</a>
-      <a href="takip.html">Sipariş Durum Sorgulama</a>
+      <h4>Showroom &amp; Takip</h4>
+      <a href="/koleksiyon.html?kategori=kahve-kosesi">Kahve Köşesi Koleksiyonları</a>
+      <a href="/koleksiyon.html?kategori=dolap">Dolap Koleksiyonları</a>
+      <a href="/koleksiyon.html?kategori=yatak-odasi">Yatak Odası Koleksiyonları</a>
+      <a href="/hesabim/tekliflerim">Tekliflerim (Müşteri Portalı)</a>
+      <a href="/takip.html">Sipariş Durum Sorgulama</a>
     </div>
     <div class="footer-col">
       <h4>Fabrika & İletişim</h4>
       <a href="tel:05050151035">📞 0 (505) 015 1035</a>
       <a href="mailto:info@globalkapakmobilya.com">✉️ info@globalkapakmobilya.com</a>
-      <a href="iletisim.html">📍 Yalçın Koreş Cad. Bağlar Mah. No:6B<br>Bağcılar / İstanbul, Türkiye</a>
+      <a href="/iletisim.html">📍 Yalçın Koreş Cad. Bağlar Mah. No:6B<br>Bağcılar / İstanbul, Türkiye</a>
       <div class="f-hours">🕒 Pzt - Cmt: 08:00 – 18:00</div>
     </div>
   </div>

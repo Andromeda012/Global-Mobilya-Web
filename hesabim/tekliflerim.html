@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="tr" data-page="tekliflerim">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tekliflerim &amp; Müşteri Portalı | Global Mobilya</title>
+  <meta name="description" content="Global Mobilya teklif taleplerinizi görüntüleyin, verilen özel fiyatları inceleyin ve sipariş sürecini takip edin." />
+  <link rel="icon" type="image/png" href="/resim/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/showroom-motion.css" />
+  <style>
+    :root {
+      --bg-ink: #121110;
+      --bg-card: rgba(28, 26, 23, 0.88);
+      --border-soft: rgba(226, 206, 174, 0.16);
+      --gold-warm: #e4c694;
+      --sage-accent: #7da185;
+      --text-main: #f5efe6;
+      --text-muted: #b4aba0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(94, 116, 98, 0.16), transparent 46%),
+        radial-gradient(circle at 86% 24%, rgba(228, 198, 148, 0.12), transparent 42%),
+        var(--bg-ink);
+      color: var(--text-main);
+      font-family: 'Manrope', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .portal-shell {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 132px 24px 80px;
+      flex: 1;
+    }
+    .portal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-warm);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(228, 198, 148, 0.08);
+      border: 1px solid rgba(228, 198, 148, 0.24);
+      margin-bottom: 16px;
+    }
+    .portal-title {
+      font-family: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.1rem, 4.4vw, 3.35rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .portal-subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 680px;
+      margin-bottom: 30px;
+    }
+    .portal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 22px;
+      padding: 26px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+    }
+    .auth-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .auth-grid { grid-template-columns: 1fr; }
+    }
+    .prefill-banner {
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: rgba(125, 161, 133, 0.14);
+      border: 1px solid rgba(125, 161, 133, 0.35);
+      color: #d9efe0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .user-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .claim-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-soft);
+    }
+    .portal-input {
+      background: rgba(10, 10, 9, 0.55);
+      border: 1px solid rgba(228, 198, 148, 0.24);
+      border-radius: 12px;
+      color: #fff;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      min-width: 220px;
+    }
+    .portal-input:focus {
+      outline: none;
+      border-color: var(--gold-warm);
+    }
+    .portal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+    .portal-btn:hover { transform: translateY(-1px); }
+    .portal-btn-primary {
+      background: linear-gradient(135deg, #d8b57d, #b88c4a);
+      color: #15120d;
+    }
+    .portal-btn-approve {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+    }
+    .portal-btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+    .leads-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .lead-card {
+      background: rgba(22, 20, 18, 0.92);
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .lead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .lead-ref {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold-warm);
+      letter-spacing: 0.04em;
+    }
+    .lead-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 28px;
+      line-height: 1.15;
+      margin-top: 4px;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .st-yeni_talep { background: rgba(245, 158, 11, 0.16); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .st-inceleniyor { background: rgba(99, 102, 241, 0.16); color: #c7d2fe; border: 1px solid rgba(99, 102, 241, 0.35); }
+    .st-fiyat_verildi { background: rgba(56, 189, 248, 0.16); color: #bae6fd; border: 1px solid rgba(56, 189, 248, 0.38); }
+    .st-onaylandi { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .st-iptal { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .quote-offer-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .detail-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .detail-meta-row strong { color: var(--text-main); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="hgSiteHeader"></header>
+
+  <main class="portal-shell">
+    <div class="portal-kicker">✦ MÜŞTERİ TEKLİF &amp; SİPARİŞ PORTALI</div>
+    <h1 class="portal-title">Tekliflerim &amp; Hesabım</h1>
+    <p class="portal-subtitle">
+      Üyeliksiz oluşturduğunuz teklif taleplerini ve WhatsApp / Instagram görüşmelerinizi telefon numaranızla hesabınıza bağlayın; atölyemizin hazırladığı fiyat tekliflerini buradan onaylayın.
+    </p>
+
+    <div id="portalAuthLoading" class="portal-card" style="text-align:center;padding:42px;color:var(--text-muted);">
+      Oturum bilgileri yükleniyor...
+    </div>
+
+    <div id="portalLoggedOutView" style="display:none;" class="auth-grid">
+      <div class="portal-card">
+        <div id="portalPrefillBanner" class="prefill-banner" style="display:none;"></div>
+        <h2 style="font-family:'Instrument Serif',Georgia,serif;font-size:28px;font-weight:400;margin-bottom:8px;">Hesabınıza Giriş Yapın veya Oluşturun</h2>
+        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:18px;">
+          Teklif istediğiniz telefon numarasıyla giriş yaptığınız anda tüm açık ve sonuçlanmış talepleriniz otomatik olarak karşınıza çıkar.
+        </p>
+        <div id="portalClerkMount" style="display:flex;justify-content:center;background:#fff;border-radius:16px;padding:12px;"></div>
+      </div>
+
+      <div class="portal-card" style="display:flex;flex-direction:column;gap:16px;">
+        <h3 style="font-family:'Instrument Serif',Georgia,serif;font-size:24px;font-weight:400;">Nasıl Çalışır?</h3>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.65;">
+          <strong style="color:var(--text-main);">1. Üyeliksiz Hızlı Teklif:</strong> Koleksiyon veya ürün sayfalarından yalnızca Ad, Telefon ve Şehir belirterek talebinizi iletirsiniz.
+        </div>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.65;">
+          <strong style="color:var(--text-main);">2. Otomatik Eşleşme:</strong> Buradan giriş yaptığınızda aynı telefon veya e-posta ile açılmış tüm web ve sosyal medya talepleriniz hesabınıza tanımlanır.
+        </div>
+        <div style="font-size:13.5px;color:var(--text-muted);line-height:1.65;">
+          <strong style="color:var(--text-main);">3. Fiyat Onayı &amp; Üretim Takibi:</strong> Mimari ekibimiz fiyatı yayınladığında teklifinizi tek tıkla onaylayıp atölye üretim aşamalarını canlı izleyebilirsiniz.
+        </div>
+        <div style="padding-top:10px;border-top:1px solid var(--border-soft);display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="/koleksiyon.html" class="portal-btn portal-btn-primary">Koleksiyonları İncele →</a>
+          <a href="/takip.html" class="portal-btn portal-btn-ghost">Referans Koduyla Sorgula</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="portalLoggedInView" style="display:none;">
+      <div class="portal-card">
+        <div class="user-bar">
+          <div>
+            <div style="font-size:12px;color:var(--gold-warm);text-transform:uppercase;letter-spacing:0.12em;font-weight:700;">HOŞ GELDİNİZ</div>
+            <div id="portalUserName" style="font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:1.15;">Müşteri Hesabı</div>
+            <div id="portalUserMeta" style="font-size:13px;color:var(--text-muted);margin-top:4px;"></div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="/koleksiyon.html" class="portal-btn portal-btn-ghost">+ Yeni Teklif İste</a>
+            <button type="button" id="portalSignOutBtn" class="portal-btn portal-btn-ghost">Çıkış Yap</button>
+          </div>
+        </div>
+
+        <form id="portalClaimPhoneForm" class="claim-bar">
+          <span style="font-size:13px;color:var(--text-muted);">Farklı bir telefon numarasıyla verdiğiniz misafir teklifiniz varsa buradan hesabınıza bağlayın:</span>
+          <input type="tel" id="portalClaimPhoneInput" class="portal-input" placeholder="05XX XXX XX XX" />
+          <button type="submit" id="portalClaimBtn" class="portal-btn portal-btn-primary">Taleplerimi Bağla / Yenile</button>
+        </form>
+        <div id="portalClaimFeedback" style="display:none;margin-top:12px;font-size:13px;"></div>
+      </div>
+
+      <div id="portalLeadsContainer" class="leads-list"></div>
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/footer.js"></script>
+  <script>
+    (function () {
+      const STATUS_LABELS = {
+        yeni_talep: 'Yeni Talep Alındı',
+        inceleniyor: 'Tasarım & Ölçü İnceleniyor',
+        fiyat_verildi: 'Fiyat Teklifi Hazır',
+        onaylandi: 'Onaylandı / Üretimde',
+        iptal: 'İptal Edildi'
+      };
+      const SOURCE_LABELS = {
+        web: 'Web Sitesi',
+        whatsapp: 'WhatsApp',
+        instagram: 'Instagram',
+        facebook: 'Facebook',
+        tiktok_youtube: 'TikTok / YouTube'
+      };
+
+      function esc(val) {
+        return String(val ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const urlPhone = params.get('phone') || '';
+      const urlRef = params.get('ref') || '';
+
+      const loadingEl = document.getElementById('portalAuthLoading');
+      const loggedOutEl = document.getElementById('portalLoggedOutView');
+      const loggedInEl = document.getElementById('portalLoggedInView');
+      const prefillBanner = document.getElementById('portalPrefillBanner');
+      const claimInput = document.getElementById('portalClaimPhoneInput');
+      const claimFeedback = document.getElementById('portalClaimFeedback');
+      const leadsContainer = document.getElementById('portalLeadsContainer');
+
+      if (urlPhone && claimInput) claimInput.value = urlPhone;
+      if (urlPhone && prefillBanner) {
+        prefillBanner.style.display = 'block';
+        prefillBanner.innerHTML =
+          'Talebiniz oluşturuldu' +
+          (urlRef ? ` (<strong>${esc(urlRef)}</strong>)` : '') +
+          `. <strong>${esc(urlPhone)}</strong> telefon numaranızla giriş yaptığınızda teklifiniz otomatik olarak aşağıda görünecektir.`;
+      }
+
+      function renderLeads(leads) {
+        if (!Array.isArray(leads) || leads.length === 0) {
+          leadsContainer.innerHTML = `
+            <div class="portal-card" style="text-align:center;padding:42px;">
+              <div style="font-size:28px;margin-bottom:8px;">📋</div>
+              <h3 style="font-family:'Instrument Serif',Georgia,serif;font-size:26px;font-weight:400;margin-bottom:8px;">Henüz Bağlı Bir Teklif Talebiniz Yok</h3>
+              <p style="font-size:14px;color:var(--text-muted);max-width:520px;margin:0 auto 18px;">
+                Daha önce üyeliksiz teklif istediyseniz yukarıdaki kutuya o sırada kullandığınız telefon numarasını yazıp <strong>Taleplerimi Bağla</strong> butonuna tıklayabilirsiniz.
+              </p>
+              <a href="/koleksiyon.html" class="portal-btn portal-btn-primary">Koleksiyonları Keşfet →</a>
+            </div>
+          `;
+          return;
+        }
+
+        leadsContainer.innerHTML = leads
+          .map((lead) => {
+            const stLabel = STATUS_LABELS[lead.status] || lead.status;
+            const srcLabel = SOURCE_LABELS[lead.source] || lead.source || 'Web';
+            const d = lead.product_details || {};
+            const modules = Array.isArray(d.modules) ? d.modules.join(', ') : (d.module || '');
+            const priceText =
+              lead.quoted_price !== null && lead.quoted_price !== undefined
+                ? '₺' + Number(lead.quoted_price).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+                : '';
+
+            const offerSection = priceText
+              ? `
+                <div class="quote-offer-box">
+                  <div>
+                    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:#7dd3fc;font-weight:700;">SIZE ÖZEL HAZIRLANAN TEKLİF</div>
+                    <div style="font-size:26px;font-weight:700;color:#fff;margin-top:2px;">${esc(priceText)}</div>
+                    ${lead.staff_note ? `<div style="font-size:13px;color:#e2e8f0;margin-top:4px;">${esc(lead.staff_note)}</div>` : ''}
+                  </div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    ${
+                      lead.status === 'fiyat_verildi'
+                        ? `<button type="button" class="portal-btn portal-btn-approve" data-approve-id="${esc(lead.id)}">✓ Teklifi Onayla</button>
+                           <button type="button" class="portal-btn portal-btn-ghost" data-cancel-id="${esc(lead.id)}">Vazgeç</button>`
+                        : ''
+                    }
+                    ${
+                      lead.erp_order_id
+                        ? `<a href="/takip.html?kod=${encodeURIComponent(lead.erp_order_id)}" class="portal-btn portal-btn-primary">🏭 Üretim Durumunu İzle (${esc(lead.erp_order_id)})</a>`
+                        : ''
+                    }
+                  </div>
+                </div>
+              `
+              : `
+                <div style="font-size:13px;color:var(--text-muted);background:rgba(255,255,255,0.03);padding:12px 16px;border-radius:12px;">
+                  ${lead.staff_note ? esc(lead.staff_note) : 'Mimari ve imalat ekibimiz ölçülerinizi inceliyor. Fiyat teklifiniz hazırlandığında burada görünecektir.'}
+                </div>
+              `;
+
+            return `
+              <article class="lead-card">
+                <div class="lead-top">
+                  <div>
+                    <div class="lead-ref">${esc(lead.reference_code)} • ${esc(srcLabel)}</div>
+                    <h2 class="lead-name">${esc(lead.collection_name || 'Özel Ölçü Mobilya Talebi')}</h2>
+                  </div>
+                  <span class="status-pill st-${esc(lead.status)}">${esc(stLabel)}</span>
+                </div>
+
+                <div class="detail-meta-row">
+                  <span>Tarih: <strong>${new Date(lead.created_at).toLocaleDateString('tr-TR', { day: '2-digit', month: 'long', year: 'numeric' })}</strong></span>
+                  ${modules ? `<span>Modüller: <strong>${esc(modules)}</strong></span>` : ''}
+                  ${d.dimensions ? `<span>Ölçü: <strong>${esc(d.dimensions)}</strong></span>` : ''}
+                  ${d.finish_color ? `<span>Renk: <strong>${esc(d.finish_color)}</strong></span>` : ''}
+                </div>
+
+                ${d.notes ? `<div style="font-size:13px;color:#d6cfc6;">Notunuz: ${esc(d.notes)}</div>` : ''}
+                ${offerSection}
+              </article>
+            `;
+          })
+          .join('');
+
+        leadsContainer.querySelectorAll('[data-approve-id]').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            btn.disabled = true;
+            btn.textContent = 'Onaylanıyor...';
+            try {
+              await window.GKM_CLERK_PORTAL.respondToLeadPrice(btn.dataset.approveId, 'onaylandi');
+              await loadAuthenticatedView();
+            } catch (err) {
+              alert(err.message || 'İşlem başarısız.');
+              btn.disabled = false;
+              btn.textContent = '✓ Teklifi Onayla';
+            }
+          });
+        });
+
+        leadsContainer.querySelectorAll('[data-cancel-id]').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            btn.disabled = true;
+            try {
+              await window.GKM_CLERK_PORTAL.respondToLeadPrice(btn.dataset.cancelId, 'iptal');
+              await loadAuthenticatedView();
+            } catch (err) {
+              alert(err.message || 'İşlem başarısız.');
+              btn.disabled = false;
+            }
+          });
+        });
+      }
+
+      async function loadAuthenticatedView(overridePhone = '') {
+        loadingEl.style.display = 'none';
+        loggedOutEl.style.display = 'none';
+        loggedInEl.style.display = 'block';
+
+        const clerk = window.Clerk;
+        const user = clerk?.user;
+        const nameEl = document.getElementById('portalUserName');
+        const metaEl = document.getElementById('portalUserMeta');
+        const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.username || 'Müşterimiz';
+        if (nameEl) nameEl.textContent = fullName;
+
+        leadsContainer.innerHTML = '<div class="portal-card" style="text-align:center;color:var(--text-muted);">Teklifleriniz getiriliyor...</div>';
+        try {
+          const phoneToClaim = overridePhone || urlPhone || user?.phoneNumbers?.[0]?.phoneNumber || '';
+          const res = await window.GKM_CLERK_PORTAL.fetchMyLeads({ phone: phoneToClaim });
+          const cust = res.customer || {};
+          if (metaEl) {
+            metaEl.textContent = [
+              cust.phone || user?.phoneNumbers?.[0]?.phoneNumber,
+              cust.email || user?.primaryEmailAddress?.emailAddress,
+              cust.city
+            ]
+              .filter(Boolean)
+              .join(' • ');
+          }
+          if (res.claimed_now && claimFeedback) {
+            claimFeedback.style.display = 'block';
+            claimFeedback.style.color = '#6ee7b7';
+            claimFeedback.textContent = '✓ Önceki misafir talepleriniz hesabınızla otomatik eşleştirildi.';
+          }
+          renderLeads(res.leads || []);
+        } catch (err) {
+          leadsContainer.innerHTML = `<div class="portal-card" style="color:#fca5a5;">Talepler yüklenirken bir sorun oluştu: ${esc(err.message)}</div>`;
+        }
+      }
+
+      document.getElementById('portalClaimPhoneForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const phoneVal = claimInput?.value?.trim() || '';
+        const btn = document.getElementById('portalClaimBtn');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Eşleştiriliyor...';
+        }
+        try {
+          const res = await window.GKM_CLERK_PORTAL.claimMyLeadsWithClerk({ phone: phoneVal, ref: urlRef });
+          if (claimFeedback) {
+            claimFeedback.style.display = 'block';
+            claimFeedback.style.color = '#6ee7b7';
+            claimFeedback.textContent = `✓ Hesap güncellendi (${res.claimed_count || 0} talep bağlı).`;
+          }
+          renderLeads(res.leads || []);
+        } catch (err) {
+          if (claimFeedback) {
+            claimFeedback.style.display = 'block';
+            claimFeedback.style.color = '#fca5a5';
+            claimFeedback.textContent = 'Hata: ' + (err.message || 'Eşleştirme yapılamadı.');
+          }
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Taleplerimi Bağla / Yenile';
+          }
+        }
+      });
+
+      document.getElementById('portalSignOutBtn')?.addEventListener('click', async () => {
+        if (window.Clerk?.signOut) {
+          await window.Clerk.signOut();
+          window.location.reload();
+        }
+      });
+
+      async function bootPortal() {
+        try {
+          const clerk = await window.GKM_CLERK_PORTAL.ensureClerkLoaded();
+          if (!clerk) {
+            loadingEl.textContent = 'Kimlik servisi başlatılamadı. Lütfen sayfayı yenileyin.';
+            return;
+          }
+          if (clerk.user) {
+            await loadAuthenticatedView();
+          } else {
+            loadingEl.style.display = 'none';
+            loggedOutEl.style.display = 'grid';
+            const mount = document.getElementById('portalClerkMount');
+            if (mount) {
+              clerk.mountSignIn(mount, { routing: 'virtual' });
+              const unsub = clerk.addListener(async ({ user }) => {
+                if (user) {
+                  try { clerk.unmountSignIn(mount); } catch (_) {}
+                  if (typeof unsub === 'function') unsub();
+                  await loadAuthenticatedView();
+                }
+              });
+            }
+          }
+        } catch (err) {
+          loadingEl.textContent = 'Bağlantı hatası: ' + (err?.message || 'Bilinmeyen hata');
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootPortal);
+      } else {
+        bootPortal();
+      }
+    })();
+  </script>
+</body>
+</html>

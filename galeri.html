@@ -768,6 +768,7 @@
         <input type="hidden" id="gq_item" value="Bağımsız Ürün Talebi">
         <input type="text" id="gq_name" class="gal-input" required placeholder="Adınız Soyadınız">
         <input type="tel" id="gq_phone" class="gal-input" required placeholder="Telefon / WhatsApp (05XX XXX XX XX)">
+        <input type="text" id="gq_city" class="gal-input" placeholder="İl / İlçe (Örn. İstanbul / Kadıköy)">
         <textarea id="gq_notes" rows="3" class="gal-input" placeholder="İstediğiniz ürün tipi (dresuar, konsol, sehpa vb.), genişlik ve renk tercihiniz..."></textarea>
         <button type="submit" id="btnGqSubmit" class="btn-hg-wipe" style="width:100%;height:46px;">
           <span class="btn-hg-wipe-inner" style="width:100%;">
@@ -780,8 +781,12 @@
     <div id="gqSuccess" style="display:none;text-align:center;padding:18px 0;">
       <div style="font-size:32px;color:var(--gal-sage-dark);margin-bottom:8px;">✦</div>
       <h4 style="font-family:var(--font-hg-serif);font-size:28px;font-weight:400;margin-bottom:8px;">Talebiniz Alındı</h4>
-      <p style="font-size:14px;color:var(--gal-muted);margin-bottom:18px;">Atölye ekibimiz ölçü ve fiyat değerlendirmesiyle size dönüş yapacaktır.</p>
-      <button type="button" class="gal-tab active" onclick="closeGalQuoteModal()">Tamam</button>
+      <p style="font-size:14px;color:var(--gal-muted);margin-bottom:14px;line-height:1.55;">Talebiniz alındı! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.</p>
+      <div id="gqRefCode" style="display:none;margin-bottom:16px;font-family:monospace;font-weight:700;color:var(--gal-ink);font-size:14px;"></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <a id="gqTrackBtn" href="/hesabim/tekliflerim" class="gal-tab active" style="text-decoration:none;">Hesabımı Oluştur / Takip Et →</a>
+        <button type="button" class="gal-tab" onclick="closeGalQuoteModal()">Tamam</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1053,15 +1058,30 @@ async function submitGalQuote(e) {
   const item = document.getElementById('gq_item').value;
   const name = document.getElementById('gq_name').value.trim();
   const phone = document.getElementById('gq_phone').value.trim();
+  const city = document.getElementById('gq_city')?.value?.trim() || '';
   const notes = document.getElementById('gq_notes').value.trim();
 
   try {
+    let refCode = '';
     if (window.GKM_SUPABASE?.createQuoteRequest) {
-      await window.GKM_SUPABASE.createQuoteRequest({
-        name, phone,
+      const res = await window.GKM_SUPABASE.createQuoteRequest({
+        name,
+        phone,
+        city,
         collection_id: item,
+        selected_pieces: [item],
         notes: `Bağımsız Ürün Talebi: ${item} | Not: ${notes}`
       });
+      refCode = res?.reference_code || '';
+    }
+    const refEl = document.getElementById('gqRefCode');
+    if (refEl && refCode) {
+      refEl.textContent = 'Referans: ' + refCode;
+      refEl.style.display = 'block';
+    }
+    const trackBtn = document.getElementById('gqTrackBtn');
+    if (trackBtn) {
+      trackBtn.href = `/hesabim/tekliflerim?phone=${encodeURIComponent(phone)}&ref=${encodeURIComponent(refCode)}`;
     }
     document.getElementById('gqFormWrap').style.display = 'none';
     document.getElementById('gqSuccess').style.display = 'block';

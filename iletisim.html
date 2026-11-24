@@ -929,11 +929,18 @@ async function submitMainContact(e) {
   };
 
   try {
+    let res = null;
     if (window.GKM_SUPABASE && window.GKM_SUPABASE.createQuoteRequest) {
-      await window.GKM_SUPABASE.createQuoteRequest(payload);
+      res = await window.GKM_SUPABASE.createQuoteRequest(payload);
+    }
+    const refCode = res?.reference_code || '';
+    const msgEl = document.getElementById('contactSuccessMsg');
+    if (msgEl) {
+      const trackHref = `/hesabim/tekliflerim?phone=${encodeURIComponent(payload.phone)}&ref=${encodeURIComponent(refCode)}`;
+      msgEl.innerHTML = `✦ Talebiniz alındı${refCode ? ` (<strong>${refCode}</strong>)` : ''}! Teklif durumunuzu dilediğiniz zaman bu telefon numarasıyla giriş yaparak takip edebilirsiniz.<div style="margin-top:12px;"><a href="${trackHref}" style="display:inline-block;padding:10px 20px;border-radius:999px;background:#047857;color:#fff;font-size:13px;font-weight:700;text-decoration:none;">Hesabımı Oluştur / Takip Et →</a></div>`;
+      msgEl.style.display = 'block';
     }
     document.getElementById('mainContactForm').style.display = 'none';
-    document.getElementById('contactSuccessMsg').style.display = 'block';
   } catch (err) {
     alert('Mesajınız kaydedilirken bir hata oluştu: ' + err.message);
   } finally {
