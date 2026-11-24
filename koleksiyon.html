@@ -73,19 +73,50 @@
       --orb-c4 1.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* ── CANLI DANS EDEN ÇOK RENKLİ AURORA MESH ARKA PLANI ── */
+  /* ── BULANIK MEKÂN ARKA PLANI + DANS EDEN AURORA MESH ── */
   #collectionCanvas {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
+    isolation: isolate;
     background-color: var(--aurora-base);
     overflow: hidden;
     pointer-events: none;
     transition: background-color 1.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .ambient-photo-layer {
+    position: absolute;
+    inset: -38px;
+    width: calc(100% + 76px);
+    height: calc(100% + 76px);
+    object-fit: cover;
+    object-position: center;
+    filter: blur(22px) saturate(1.25) brightness(0.56);
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .ambient-photo-layer.active {
+    opacity: 0.72;
+  }
+
+  .ambient-tint-wash {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(135deg, var(--orb-c1) 0%, var(--orb-c2) 55%, var(--aurora-base) 100%);
+    mix-blend-mode: color;
+    opacity: 0.56;
+    transition: opacity 1s ease;
+  }
+
   .chroma-orb {
     position: absolute;
+    z-index: 3;
     border-radius: 50%;
     filter: blur(88px);
     mix-blend-mode: screen;
@@ -97,7 +128,7 @@
     height: min(64vw, 900px);
     top: -18vh;
     left: -12vw;
-    opacity: 0.62;
+    opacity: 0.56;
     background: radial-gradient(circle, var(--orb-c1) 0%, transparent 68%);
     animation: auroraDance1 15s ease-in-out infinite alternate;
   }
@@ -106,7 +137,7 @@
     height: min(62vw, 860px);
     bottom: -22vh;
     right: -12vw;
-    opacity: 0.58;
+    opacity: 0.52;
     background: radial-gradient(circle, var(--orb-c2) 0%, transparent 68%);
     animation: auroraDance2 18s ease-in-out infinite alternate;
   }
@@ -115,7 +146,7 @@
     height: min(52vw, 720px);
     top: 22vh;
     right: 6vw;
-    opacity: 0.48;
+    opacity: 0.44;
     background: radial-gradient(circle, var(--orb-c3) 0%, transparent 68%);
     animation: auroraDance3 21s ease-in-out infinite alternate;
   }
@@ -124,16 +155,27 @@
     height: min(54vw, 740px);
     bottom: 6vh;
     left: 10vw;
-    opacity: 0.46;
+    opacity: 0.42;
     background: radial-gradient(circle, var(--orb-c4) 0%, transparent 68%);
     animation: auroraDance4 17s ease-in-out infinite alternate;
   }
   .chroma-vignette {
     position: absolute;
     inset: 0;
+    z-index: 4;
     background:
-      radial-gradient(ellipse at 50% 48%, rgba(8, 6, 10, 0.08) 0%, rgba(8, 6, 10, 0.42) 100%),
-      linear-gradient(180deg, rgba(8, 6, 10, 0.24) 0%, transparent 28%, transparent 72%, rgba(8, 6, 10, 0.34) 100%);
+      radial-gradient(ellipse at 50% 48%, rgba(8, 6, 10, 0.14) 0%, rgba(8, 6, 10, 0.52) 100%),
+      linear-gradient(180deg, rgba(8, 6, 10, 0.28) 0%, transparent 25%, transparent 75%, rgba(8, 6, 10, 0.36) 100%);
+  }
+
+  #cloudFlightCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 650;
+    pointer-events: none;
+    display: none;
   }
 
   @keyframes auroraDance1 {
@@ -356,20 +398,19 @@
     50%      { transform: translateY(4px); }
   }
 
-  /* ── SLIDES 1..N: TEK KUTUDA BİREBİR HİZALI SUNUM KOLONU ── */
+  /* ── SLIDES 1..N: DAHA BÜYÜK & FERAH SUNUM KOLONU (SOL & SAĞ KENARLAR BİREBİR HİZALI) ── */
   .cam-col-slide {
-    padding: clamp(14px, 2vh, 22px) clamp(18px, 3.2vw, 56px) clamp(16px, 2.2vh, 24px);
+    padding: clamp(8px, 1.3vh, 14px) clamp(16px, 2.8vw, 48px) clamp(10px, 1.4vh, 16px);
   }
-  /* Hem üst başlık satırı hem sahne görseli AYNI genişlik kutusunu paylaşır -> Sol & sağ kenarlar birebir hizalı */
   .cam-stage-column {
-    width: min(1140px, 90vw, calc((100svh - 335px) * 1.7933));
+    width: min(1320px, 92vw, calc((100svh - 224px) * 1.7933));
     height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    gap: clamp(10px, 1.3vh, 16px);
+    gap: clamp(6px, 0.9vh, 11px);
   }
 
   .cam-top-nav {
@@ -1009,7 +1050,7 @@
 
   @media (max-width: 960px) {
     .cam-stage-column {
-      width: min(92vw, calc((100svh - 365px) * 1.7933));
+      width: min(92vw, calc((100svh - 285px) * 1.7933));
     }
     .cam-col-head {
       flex-direction: column;
@@ -1085,12 +1126,17 @@
 <body>
 
 <div id="collectionCanvas">
+  <img id="ambientBgImgA" class="ambient-photo-layer active" src="/hero/bergamo-final.jpg" alt="" aria-hidden="true">
+  <img id="ambientBgImgB" class="ambient-photo-layer" src="" alt="" aria-hidden="true">
+  <div class="ambient-tint-wash"></div>
   <div class="chroma-orb chroma-orb-1"></div>
   <div class="chroma-orb chroma-orb-2"></div>
   <div class="chroma-orb chroma-orb-3"></div>
   <div class="chroma-orb chroma-orb-4"></div>
   <div class="chroma-vignette"></div>
 </div>
+
+<canvas id="cloudFlightCanvas" aria-hidden="true"></canvas>
 
 <header id="hgSiteHeader" class="site-header"></header>
 
@@ -1177,6 +1223,7 @@
 <script src="js/header.js"></script>
 <script src="js/genel.js"></script>
 <script src="js/showroom-motion.js"></script>
+<script src="js/cloudFlight.js"></script>
 
 <script>
 const CATEGORIES = [
@@ -1344,6 +1391,28 @@ function closeColLightbox() {
   document.getElementById('colLightbox').classList.remove('open');
 }
 
+let _ambientActiveSlot = 'A';
+
+function setAmbientBackdropPhoto(url) {
+  const imgA = document.getElementById('ambientBgImgA');
+  const imgB = document.getElementById('ambientBgImgB');
+  if (!imgA || !imgB) return;
+  const targetUrl = url || '/hero/bergamo-final.jpg';
+  const curImg = _ambientActiveSlot === 'A' ? imgA : imgB;
+  const nextImg = _ambientActiveSlot === 'A' ? imgB : imgA;
+
+  if (curImg.getAttribute('data-src') === targetUrl) {
+    curImg.classList.add('active');
+    return;
+  }
+
+  nextImg.setAttribute('data-src', targetUrl);
+  nextImg.src = targetUrl;
+  nextImg.classList.add('active');
+  curImg.classList.remove('active');
+  _ambientActiveSlot = _ambientActiveSlot === 'A' ? 'B' : 'A';
+}
+
 function applyAuroraPalette(theme) {
   const rootStyle = document.documentElement.style;
   rootStyle.setProperty('--aurora-base', theme.base);
@@ -1358,14 +1427,17 @@ function applySlideAurora(slideIdx) {
   if (slideIdx <= 0) {
     const meta = CATEGORY_COPY[_activeCategory] || CATEGORY_COPY[CATEGORIES[0]];
     applyAuroraPalette(meta.aurora);
+    const introPhoto = _visibleList[0]?.hero_image_url || '/hero/bergamo-final.jpg';
+    setAmbientBackdropPhoto(introPhoto);
     return;
   }
   const col = _visibleList[slideIdx - 1];
   applyAuroraPalette(getWorldTheme(col?.slug));
+  setAmbientBackdropPhoto(col?.hero_image_url || '/hero/bergamo-final.jpg');
 }
 
 /**
- * Dünyanın farklı noktaları arasında 3B kamera uçuşu (pull-back -> lateral world flight -> dolly-zoom in)
+ * Dünyadan yukarı bulutlara çıkış -> bulut denizi geçişi -> yukarıdan yeni koleksiyona iniş
  */
 function flyCameraToSlide(targetIdx, instant = false) {
   const maxSlide = _visibleList.length;
@@ -1378,7 +1450,6 @@ function flyCameraToSlide(targetIdx, instant = false) {
   const prevEl = prevIdx >= 0 && prevIdx < slides.length && prevIdx !== clamped ? slides[prevIdx] : null;
   _activeSlideIdx = clamped;
 
-  // Aktif animasyonları iptal et ve temizle
   _flightAnims.forEach(a => { try { a.cancel(); } catch (_) {} });
   _flightAnims = [];
 
@@ -1399,62 +1470,66 @@ function flyCameraToSlide(targetIdx, instant = false) {
   if (instant || !prevEl) {
     nextEl.classList.add('is-current');
   } else {
-    const goingForward = clamped > prevIdx;
     const world = clamped > 0
       ? getWorldTheme(_visibleList[clamped - 1]?.slug)
-      : { vec: { x: 0, y: -14, rotY: 0 } };
-    const v = world.vec;
-    const exitX = -v.x * 1.1;
-    const exitY = goingForward ? -8 : 10;
-    const enterX = v.x;
-    const enterY = goingForward ? v.y : -v.y;
-    const rotY = goingForward ? v.rotY : -v.rotY;
+      : CATEGORY_COPY[_activeCategory].aurora;
+
+    // WebGL prosedürel FBM bulut uçuş katmanını başlat
+    window.GKM_CLOUDS?.playFlight({ durationMs: 1550, tintHex: world.c1 || '#93C5FD' });
 
     prevEl.classList.add('is-transitioning');
     nextEl.classList.add('is-current', 'is-transitioning');
 
+    // Aşama 1 (0 -> %48): Kamera odadan hızla GÖKYÜZÜNE & BULUTLARA tırmanır (mekân aşağıda küçülür)
     const exitAnim = prevEl.animate([
       {
-        transform: 'translate3d(0, 0, 0) scale(1) rotateY(0deg)',
+        transform: 'translate3d(0, 0, 0) scale(1) rotateX(0deg)',
         filter: 'blur(0px)',
         opacity: 1
       },
       {
-        transform: `translate3d(${exitX * 0.45}vw, ${exitY * 0.45}vh, -280px) scale(0.82) rotateY(${rotY * 0.7}deg)`,
-        filter: 'blur(6px)',
-        opacity: 0.45,
-        offset: 0.42
+        transform: 'translate3d(0, 18vh, -380px) scale(0.72) rotateX(-14deg)',
+        filter: 'blur(4px)',
+        opacity: 0.72,
+        offset: 0.28
       },
       {
-        transform: `translate3d(${exitX}vw, ${exitY}vh, -640px) scale(0.68) rotateY(${rotY}deg)`,
-        filter: 'blur(12px)',
+        transform: 'translate3d(0, 48vh, -1100px) scale(0.32) rotateX(-28deg)',
+        filter: 'blur(14px)',
         opacity: 0
       }
     ], {
-      duration: 820,
-      easing: 'cubic-bezier(0.32, 0, 0.24, 1)',
+      duration: 780,
+      easing: 'cubic-bezier(0.38, 0, 0.24, 1)',
       fill: 'forwards'
     });
 
+    // Aşama 2 (%32 -> %100): Bulutların arasından YUKARIDAN AŞAĞI hedef koleksiyona süzülerek iniş
     const enterAnim = nextEl.animate([
       {
-        transform: `translate3d(${enterX}vw, ${enterY}vh, -580px) scale(0.72) rotateY(${-rotY}deg) rotateX(5deg)`,
-        filter: 'blur(12px)',
+        transform: 'translate3d(0, -44vh, -1050px) scale(0.36) rotateX(24deg)',
+        filter: 'blur(14px)',
         opacity: 0
       },
       {
-        transform: `translate3d(${enterX * 0.28}vw, ${enterY * 0.28}vh, -160px) scale(0.9) rotateY(${-rotY * 0.3}deg) rotateX(1.5deg)`,
-        filter: 'blur(3px)',
-        opacity: 0.85,
-        offset: 0.55
+        transform: 'translate3d(0, -40vh, -980px) scale(0.42) rotateX(20deg)',
+        filter: 'blur(12px)',
+        opacity: 0,
+        offset: 0.34
       },
       {
-        transform: 'translate3d(0, 0, 0) scale(1) rotateY(0deg) rotateX(0deg)',
+        transform: 'translate3d(0, -10vh, -220px) scale(0.84) rotateX(6deg)',
+        filter: 'blur(3px)',
+        opacity: 0.88,
+        offset: 0.72
+      },
+      {
+        transform: 'translate3d(0, 0, 0) scale(1) rotateX(0deg)',
         filter: 'blur(0px)',
         opacity: 1
       }
     ], {
-      duration: 1120,
+      duration: 1550,
       easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
       fill: 'forwards'
     });
@@ -1477,7 +1552,7 @@ function flyCameraToSlide(targetIdx, instant = false) {
     }).catch(() => {});
   }
 
-  // Aktif koleksiyon sahnesini uçuş konduğunda tetikle
+  // Aktif koleksiyon sahnesi bulutların içinden inildiğinde belirginleşir (1020ms)
   if (_sceneTriggerTimer) clearTimeout(_sceneTriggerTimer);
   const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
   const activeSlug = activeCol ? String(activeCol.slug || '') : '';
@@ -1490,7 +1565,7 @@ function flyCameraToSlide(targetIdx, instant = false) {
 
   _sceneTriggerTimer = setTimeout(() => {
     window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
-  }, instant ? 120 : 520);
+  }, instant ? 120 : 1020);
 }
 
 // Geriye uyumluluk takma adı
