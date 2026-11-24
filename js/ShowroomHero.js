@@ -44,13 +44,15 @@ function DroppingModuleVisual({ item, isActive }) {
         : { y: item.entranceY ?? -145, opacity: 0 },
       transition: {
         y: {
-          duration: item.entranceDurationSec ?? 1.42,
-          delay: item.entranceDelaySec ?? 0.22,
-          ease: SILK_EASE,
+          type: 'spring',
+          stiffness: 46,
+          damping: 14,
+          mass: 1.15,
+          delay: item.entranceDelaySec ?? 0.15,
         },
         opacity: {
-          duration: 0.65,
-          delay: item.entranceDelaySec ?? 0.22,
+          duration: 0.45,
+          delay: item.entranceDelaySec ?? 0.15,
           ease: [0.22, 1, 0.36, 1],
         },
       },
@@ -144,13 +146,15 @@ function StaticAnchoredDecorLayer({ decor, isActive }) {
       animate: isActive ? { x: 0, opacity: 1 } : { x: initX, opacity: 0 },
       transition: {
         x: {
-          duration: decor.entranceDurationSec ?? 1.3,
-          delay: decor.entranceDelaySec ?? 0.28,
-          ease: SILK_EASE,
+          type: 'spring',
+          stiffness: 50,
+          damping: 15,
+          mass: 1.1,
+          delay: decor.entranceDelaySec ?? 0.22,
         },
         opacity: {
-          duration: 0.65,
-          delay: decor.entranceDelaySec ?? 0.28,
+          duration: 0.48,
+          delay: decor.entranceDelaySec ?? 0.22,
         },
       },
     },

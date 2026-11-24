@@ -168,14 +168,130 @@
       linear-gradient(180deg, rgba(8, 6, 10, 0.28) 0%, transparent 25%, transparent 75%, rgba(8, 6, 10, 0.36) 100%);
   }
 
-  #cloudFlightCanvas {
+  /* ── DİKEY GÖKYÜZÜ & BULUT ASANSÖRÜ (ROTASYONSUZ TAM DİKEY EKSEN) ── */
+  .sky-elev-curtain {
     position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 650;
+    z-index: 950;
     pointer-events: none;
-    display: none;
+    overflow: hidden;
+  }
+  .sky-elev-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #38bdf8 0%, #bae6fd 54%, #ffffff 100%);
+    transition: filter 0.55s ease;
+  }
+  .sky-elev-gradient.is-peak {
+    filter: saturate(1.18) brightness(1.04);
+  }
+  .sky-elev-lens-flare {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: min(86vw, 880px);
+    height: min(86vw, 880px);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(254, 249, 195, 0.72) 22%,
+      rgba(186, 230, 253, 0.34) 48%,
+      transparent 74%
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  .sky-cloud-layer {
+    position: absolute;
+    left: -12%;
+    width: 124%;
+    height: 115%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .sky-cloud-back {
+    z-index: 2;
+    filter: blur(36px);
+  }
+  .sky-cloud-mid {
+    z-index: 4;
+    filter: blur(18px);
+  }
+  .sky-cloud-front {
+    z-index: 6;
+    filter: blur(8px);
+  }
+  .sky-cloud-svg {
+    width: 100%;
+    height: 52vh;
+    display: block;
+  }
+  .sky-flight-hud-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    pointer-events: none;
+  }
+  .sky-flight-hud-card {
+    min-width: min(400px, 88vw);
+    padding: 22px 30px;
+    border-radius: 22px;
+    background: rgba(10, 22, 38, 0.42);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    box-shadow: 0 28px 64px rgba(14, 42, 74, 0.28);
+    text-align: center;
+    color: #ffffff;
+  }
+  .sky-flight-kicker-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .sky-flight-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fef08a;
+    box-shadow: 0 0 12px #fef08a;
+  }
+  .sky-flight-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .sky-flight-country {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #bae6fd;
+    margin-bottom: 4px;
+  }
+  .sky-flight-main {
+    display: block;
+    font-family: var(--font-hg-serif);
+    font-size: clamp(24px, 2.8vw, 34px);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
+    color: #ffffff;
   }
 
   @keyframes auroraDance1 {
@@ -199,14 +315,16 @@
     100% { transform: translate3d(14vw, 14vh, 0) scale(1.22); }
   }
 
-  /* ── 3B UZAMSAL KAMERA SAHNE DEKORTATÖRÜ ("DÜNYANIN FARKLI KÖŞELERİNE UÇUŞ") ── */
+  /* ── DİMDİK DİKEY KAMERA TAŞIYICI (ROTASYON / EĞİM YOK) ── */
   .cam-deck {
     position: fixed;
     inset: 0;
     overflow: hidden;
     z-index: 5;
-    perspective: 1450px;
-    transform-style: preserve-3d;
+  }
+  .cam-deck.is-locked,
+  .col-index-nav.is-locked {
+    pointer-events: none;
   }
   .cam-slide {
     position: absolute;
@@ -221,9 +339,7 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transform-origin: center center;
-    backface-visibility: hidden;
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
   }
   .cam-slide.is-current {
     opacity: 1;
@@ -1136,7 +1252,7 @@
   <div class="chroma-vignette"></div>
 </div>
 
-<canvas id="cloudFlightCanvas" aria-hidden="true"></canvas>
+<div id="skyElevatorMount"></div>
 
 <header id="hgSiteHeader" class="site-header"></header>
 
@@ -1223,7 +1339,6 @@
 <script src="js/header.js"></script>
 <script src="js/genel.js"></script>
 <script src="js/showroom-motion.js"></script>
-<script src="js/cloudFlight.js"></script>
 
 <script>
 const CATEGORIES = [
@@ -1253,116 +1368,41 @@ const CATEGORY_COPY = {
   }
 };
 
-// Her şehir koleksiyonuna özgü canlı Aurora renk dansı & dünya koordinatı
-const COLLECTION_WORLDS = {
-  bergamo: {
-    place: 'Bergamo, İtalya · 45°41′K 09°40′D',
-    vec: { x: -10, y: 8, rotY: -7 },
-    base: '#231309',
-    c1: '#F59E0B',
-    c2: '#EA580C',
-    c3: '#FBBF24',
-    c4: '#B45309',
-    accent: '#F6C86E',
-    swatches: ['#543C24', '#8E765E', '#CC9C3C', '#E4DAD0']
-  },
-  lahey: {
-    place: 'Lahey, Hollanda · 52°04′K 04°18′D',
-    vec: { x: 14, y: -6, rotY: 8 },
-    base: '#0B241D',
-    c1: '#10B981',
-    c2: '#FACC15',
-    c3: '#06B6D4',
-    c4: '#84CC16',
-    accent: '#9AE6B4',
-    swatches: ['#6C6C54', '#84846C', '#CCB484', '#EFE9DF']
-  },
-  marsilya: {
-    place: 'Marsilya, Fransa · 43°17′K 05°22′D',
-    vec: { x: -16, y: -5, rotY: -9 },
-    base: '#081F37',
-    c1: '#0EA5E9',
-    c2: '#FACC15',
-    c3: '#2563EB',
-    c4: '#FBBF24',
-    accent: '#FDE047',
-    swatches: ['#1E88E5', '#FACC15', '#6C543C', '#F3EFEA']
-  },
-  palermo: {
-    place: 'Palermo, Sicilya · 38°06′K 13°21′D',
-    vec: { x: 16, y: 10, rotY: 9 },
-    base: '#281014',
-    c1: '#F97316',
-    c2: '#FBBF24',
-    c3: '#14B8A6',
-    c4: '#F43F5E',
-    accent: '#FDBA74',
-    swatches: ['#6C543C', '#B49C84', '#CC843C', '#E9DFD7']
-  },
-  toronto: {
-    place: 'Toronto, Kanada · 43°39′K 79°23′B',
-    vec: { x: -14, y: 12, rotY: -8 },
-    base: '#0A162B',
-    c1: '#3B82F6',
-    c2: '#06B6D4',
-    c3: '#EAB308',
-    c4: '#8B5CF6',
-    accent: '#93C5FD',
-    swatches: ['#543C3C', '#848484', '#B4B4B4', '#B48424']
-  },
-  troyes: {
-    place: 'Troyes, Fransa · 48°17′K 04°04′D',
-    vec: { x: 12, y: -10, rotY: 7 },
-    base: '#270D19',
-    c1: '#E11D48',
-    c2: '#F59E0B',
-    c3: '#D946EF',
-    c4: '#EA580C',
-    accent: '#FDA4AF',
-    swatches: ['#3C2424', '#6C543C', '#9C5424', '#B48454']
-  },
-  bohem: {
-    place: 'Atölye Akdeniz · Ege Esintisi',
-    vec: { x: -12, y: 6, rotY: -6 },
-    base: '#231024',
-    c1: '#EC4899',
-    c2: '#14B8A6',
-    c3: '#F59E0B',
-    c4: '#A855F7',
-    accent: '#F9A8D4',
-    swatches: ['#242424', '#543C3C', '#6C5454', '#B49C9C']
-  },
-  fallback: {
-    place: 'İstanbul Atölye · Mimari Tasarım',
-    vec: { x: 8, y: 8, rotY: 6 },
-    base: '#0E1C26',
-    c1: '#0EA5E9',
-    c2: '#F59E0B',
-    c3: '#10B981',
-    c4: '#8B5CF6',
-    accent: '#DFC793',
-    swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
+// `collectionsConfig` -> `window.GKM_HERO_CONFIG.collectionsConfig` kaynağından beslenir (js/heroConfig.js)
+function getWorldTheme(slug) {
+  if (window.GKM_HERO_CONFIG?.getCollectionWorldEntry) {
+    const entry = window.GKM_HERO_CONFIG.getCollectionWorldEntry(slug);
+    return {
+      city: entry.city,
+      country: entry.country,
+      coords: entry.coords,
+      place: `${entry.city} • ${entry.coords}`,
+      ...entry.aurora,
+    };
   }
+  const fb = COLLECTION_WORLDS_FALLBACK;
+  return { ...fb, place: `${fb.city} • ${fb.coords}` };
+}
+
+const COLLECTION_WORLDS_FALLBACK = {
+  city: 'İSTANBUL',
+  country: 'TÜRKİYE',
+  coords: '41.0082° K, 28.9784° D',
+  base: '#16110D',
+  c1: '#F59E0B',
+  c2: '#0EA5E9',
+  c3: '#FACC15',
+  c4: '#EA580C',
+  accent: '#E2B761',
+  swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
 };
 
 let _allCollections = [];
 let _visibleList = [];
 let _activeCategory = 'Kahve Köşesi Koleksiyonları';
 let _activeSlideIdx = -1;
-let _sceneTriggerTimer = 0;
+let _isTransitioning = false;
 let _flightAnims = [];
-
-function escHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, m => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[m]));
-}
-
-function getWorldTheme(slug) {
-  const s = String(slug || '').toLowerCase();
-  const key = Object.keys(COLLECTION_WORLDS).find(k => k !== 'fallback' && s.includes(k));
-  return COLLECTION_WORLDS[key || 'fallback'];
-}
 
 function formatPieceTitle(p, collectionName) {
   const rawName = String(p.name || p.title || '').trim();
@@ -1436,142 +1476,146 @@ function applySlideAurora(slideIdx) {
   setAmbientBackdropPhoto(col?.hero_image_url || '/hero/bergamo-final.jpg');
 }
 
+function setTransitionLock(locked) {
+  _isTransitioning = Boolean(locked);
+  document.getElementById('cameraDeck')?.classList.toggle('is-locked', _isTransitioning);
+  document.getElementById('colIndexNav')?.classList.toggle('is-locked', _isTransitioning);
+}
+
 /**
- * Dünyadan yukarı bulutlara çıkış -> bulut denizi geçişi -> yukarıdan yeni koleksiyona iniş
+ * Dikey Gökyüzü ve Bulut Asansörü (0.0s yükseliş -> bulut denizi -> 1.38s veri değişimi + iniş)
  */
 function flyCameraToSlide(targetIdx, instant = false) {
+  if (_isTransitioning && !instant) return;
+
   const maxSlide = _visibleList.length;
   const clamped = Math.max(0, Math.min(maxSlide, targetIdx));
   const slides = Array.from(document.querySelectorAll('#cameraDeck .cam-slide'));
   if (!slides.length) return;
 
   const prevIdx = _activeSlideIdx;
+  if (prevIdx === clamped && !instant) return;
+
   const nextEl = slides[clamped];
   const prevEl = prevIdx >= 0 && prevIdx < slides.length && prevIdx !== clamped ? slides[prevIdx] : null;
-  _activeSlideIdx = clamped;
+  const fromCol =
+    prevIdx > 0
+      ? _visibleList[prevIdx - 1]
+      : { isIntro: true, city: 'İSTANBUL', country: 'GLOBAL MOBİLYA VİTRİNİ', coords: '41.0082° K, 28.9784° D' };
+  const toCol =
+    clamped > 0
+      ? _visibleList[clamped - 1]
+      : { isIntro: true, city: _activeCategory.replace(' Koleksiyonları', '').toUpperCase(), country: 'KATEGORİ BAŞLANGICI', coords: '41.0082° K, 28.9784° D' };
+
+  const commitSlideVisuals = (idxToActivate, playSceneAnim) => {
+    _activeSlideIdx = idxToActivate;
+    slides.forEach((el, idx) => {
+      el.classList.remove('is-transitioning');
+      el.classList.toggle('is-current', idx === idxToActivate);
+      if (idx !== idxToActivate) {
+        el.style.transform = '';
+        el.style.opacity = '';
+      }
+    });
+    document.querySelectorAll('#colIndexNav .col-index-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idxToActivate);
+    });
+    window.GKM_HEADER?.setForceHidden(idxToActivate > 0);
+    applySlideAurora(idxToActivate);
+
+    const activeCol = idxToActivate > 0 ? _visibleList[idxToActivate - 1] : null;
+    const activeSlug = activeCol ? String(activeCol.slug || '') : '';
+    window.__GKM_ACTIVE_SCENE_SLUG = activeSlug;
+    if (playSceneAnim) {
+      window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
+    }
+  };
+
+  if (instant || !prevEl || !window.GKM_SKY_ELEVATOR) {
+    commitSlideVisuals(clamped, true);
+    return;
+  }
 
   _flightAnims.forEach(a => { try { a.cancel(); } catch (_) {} });
   _flightAnims = [];
+  setTransitionLock(true);
 
-  slides.forEach(el => {
-    el.classList.remove('is-current', 'is-transitioning');
-    el.style.transform = '';
-    el.style.opacity = '';
-    el.style.filter = '';
-  });
+  const started = window.GKM_SKY_ELEVATOR.startFlight({
+    fromCollection: fromCol,
+    toCollection: toCol,
+    onAscendStart() {
+      prevEl.classList.add('is-transitioning');
+      // 0.0s - 0.5s: Mevcut koleksiyon dimdik aşağı doğru kayar (y: 100vh, opacity: 0)
+      const ascendOut = prevEl.animate(
+        [
+          { transform: 'translate3d(0, 0, 0)', opacity: 1 },
+          { transform: 'translate3d(0, 100vh, 0)', opacity: 0 },
+        ],
+        {
+          duration: 500,
+          easing: 'cubic-bezier(0.5, 0, 0.85, 0.38)',
+          fill: 'forwards',
+        }
+      );
+      _flightAnims.push(ascendOut);
+    },
+    onSwapContent() {
+      // İnişin son 0.4 saniyesi: hedef koleksiyon aktif olur ve y: -30% -> 0% oturur
+      commitSlideVisuals(clamped, false);
+      nextEl.classList.add('is-current', 'is-transitioning');
 
-  document.querySelectorAll('#colIndexNav .col-index-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === clamped);
-  });
+      const descendIn = nextEl.animate(
+        [
+          { transform: 'translate3d(0, -30%, 0)', opacity: 0 },
+          { transform: 'translate3d(0, 0%, 0)', opacity: 1 },
+        ],
+        {
+          duration: 560,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          fill: 'forwards',
+        }
+      );
+      _flightAnims.push(descendIn);
 
-  window.GKM_HEADER?.setForceHidden(clamped > 0);
-  applySlideAurora(clamped);
+      // Yeni koleksiyon mobilyalarını yay fiziğiyle sahneye indir
+      const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
+      const activeSlug = activeCol ? String(activeCol.slug || '') : '';
+      window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
 
-  if (instant || !prevEl) {
-    nextEl.classList.add('is-current');
-  } else {
-    const world = clamped > 0
-      ? getWorldTheme(_visibleList[clamped - 1]?.slug)
-      : CATEGORY_COPY[_activeCategory].aurora;
-
-    // WebGL prosedürel FBM bulut uçuş katmanını başlat
-    window.GKM_CLOUDS?.playFlight({ durationMs: 1550, tintHex: world.c1 || '#93C5FD' });
-
-    prevEl.classList.add('is-transitioning');
-    nextEl.classList.add('is-current', 'is-transitioning');
-
-    // Aşama 1 (0 -> %48): Kamera odadan hızla GÖKYÜZÜNE & BULUTLARA tırmanır (mekân aşağıda küçülür)
-    const exitAnim = prevEl.animate([
-      {
-        transform: 'translate3d(0, 0, 0) scale(1) rotateX(0deg)',
-        filter: 'blur(0px)',
-        opacity: 1
-      },
-      {
-        transform: 'translate3d(0, 18vh, -380px) scale(0.72) rotateX(-14deg)',
-        filter: 'blur(4px)',
-        opacity: 0.72,
-        offset: 0.28
-      },
-      {
-        transform: 'translate3d(0, 48vh, -1100px) scale(0.32) rotateX(-28deg)',
-        filter: 'blur(14px)',
-        opacity: 0
-      }
-    ], {
-      duration: 780,
-      easing: 'cubic-bezier(0.38, 0, 0.24, 1)',
-      fill: 'forwards'
-    });
-
-    // Aşama 2 (%32 -> %100): Bulutların arasından YUKARIDAN AŞAĞI hedef koleksiyona süzülerek iniş
-    const enterAnim = nextEl.animate([
-      {
-        transform: 'translate3d(0, -44vh, -1050px) scale(0.36) rotateX(24deg)',
-        filter: 'blur(14px)',
-        opacity: 0
-      },
-      {
-        transform: 'translate3d(0, -40vh, -980px) scale(0.42) rotateX(20deg)',
-        filter: 'blur(12px)',
-        opacity: 0,
-        offset: 0.34
-      },
-      {
-        transform: 'translate3d(0, -10vh, -220px) scale(0.84) rotateX(6deg)',
-        filter: 'blur(3px)',
-        opacity: 0.88,
-        offset: 0.72
-      },
-      {
-        transform: 'translate3d(0, 0, 0) scale(1) rotateX(0deg)',
-        filter: 'blur(0px)',
-        opacity: 1
-      }
-    ], {
-      duration: 1550,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      fill: 'forwards'
-    });
-
-    _flightAnims.push(exitAnim, enterAnim);
-
-    enterAnim.finished.then(() => {
-      if (_activeSlideIdx !== clamped) return;
-      try {
-        exitAnim.cancel();
-        enterAnim.cancel();
-      } catch (_) {}
+      descendIn.finished
+        .then(() => {
+          try {
+            descendIn.cancel();
+          } catch (_) {}
+          nextEl.style.transform = '';
+          nextEl.style.opacity = '';
+          nextEl.classList.remove('is-transitioning');
+        })
+        .catch(() => {});
+    },
+    onComplete() {
+      _flightAnims.forEach(a => { try { a.cancel(); } catch (_) {} });
+      _flightAnims = [];
       slides.forEach((s, idx) => {
         s.classList.remove('is-transitioning');
         s.classList.toggle('is-current', idx === clamped);
         s.style.transform = '';
         s.style.opacity = '';
-        s.style.filter = '';
       });
-    }).catch(() => {});
+      setTransitionLock(false);
+    },
+  });
+
+  if (!started) {
+    commitSlideVisuals(clamped, true);
+    setTransitionLock(false);
   }
-
-  // Aktif koleksiyon sahnesi bulutların içinden inildiğinde belirginleşir (1020ms)
-  if (_sceneTriggerTimer) clearTimeout(_sceneTriggerTimer);
-  const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
-  const activeSlug = activeCol ? String(activeCol.slug || '') : '';
-  window.__GKM_ACTIVE_SCENE_SLUG = activeSlug;
-
-  if (!activeSlug) {
-    window.GKM_COLLECTION_STAGE?.activateSlide('');
-    return;
-  }
-
-  _sceneTriggerTimer = setTimeout(() => {
-    window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
-  }, instant ? 120 : 1020);
 }
 
-// Geriye uyumluluk takma adı
 window.glideToSlide = flyCameraToSlide;
 
 function selectCategory(cat, initialSlideIdx = 0) {
+  if (_isTransitioning) return;
   _activeCategory = CATEGORIES.includes(cat) ? cat : CATEGORIES[0];
   _activeSlideIdx = -1;
   renderCategoryDeck(_activeCategory, initialSlideIdx);
@@ -1748,7 +1792,7 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
 
           <div class="cam-bottom-nav">
             ${hasNext
-              ? `<button type="button" class="cam-nav-pill primary" onclick="flyCameraToSlide(${slideNum + 1})">Diğer Koleksiyon: ${escHtml(nextCol.name)} ↗</button>`
+              ? `<button type="button" class="cam-nav-pill primary" onclick="flyCameraToSlide(${slideNum + 1})">Diğer Koleksiyon: ${escHtml(nextCol.name)} ↓</button>`
               : `<button type="button" class="cam-nav-pill primary" onclick="flyCameraToSlide(0)">↑ Kategori Başlangıcına Dön</button>`}
           </div>
         </div>
@@ -1868,6 +1912,7 @@ async function initCollectionsPage() {
 
 document.addEventListener('DOMContentLoaded', initCollectionsPage);
 </script>
+<script type="module" src="js/SkyElevatorTransition.js"></script>
 <script type="module" src="js/ShowroomHero.js"></script>
 </body>
 </html>
