@@ -24,6 +24,7 @@ const PRELOADED_URLS = new Set();
 let _collectionsList = [];
 let _activeSlug = '';
 let _exitingSlug = '';
+let _flightDelaySec = 0.06;
 
 function preloadSceneAssets(scene) {
   if (!scene || typeof Image === 'undefined') return;
@@ -46,15 +47,16 @@ function preloadSceneAssets(scene) {
   });
 }
 
-function DroppingModuleVisual({ item, phase }) {
+function DroppingModuleVisual({ item, phase, flightDelaySec = 0 }) {
   const isEntering = phase === 'entering';
   const isExiting = phase === 'exiting';
+  const enterDelay = (item.entranceDelaySec ?? 0.04) + flightDelaySec;
 
   const target = isExiting
     ? { y: '125%', opacity: 0 }
     : isEntering
       ? { y: 0, opacity: 1 }
-      : { y: item.entranceY ?? -135, opacity: 0 };
+      : { y: item.entranceY ?? -210, opacity: 0 };
 
   const transition = isExiting
     ? {
@@ -67,11 +69,11 @@ function DroppingModuleVisual({ item, phase }) {
           stiffness: 74,
           damping: 16,
           mass: 1.0,
-          delay: item.entranceDelaySec ?? 0.04,
+          delay: enterDelay,
         },
         opacity: {
-          duration: 0.34,
-          delay: item.entranceDelaySec ?? 0.04,
+          duration: 0.32,
+          delay: enterDelay,
           ease: [0.22, 1, 0.36, 1],
         },
       };
@@ -87,7 +89,7 @@ function DroppingModuleVisual({ item, phase }) {
         height: `${item.heightPct}%`,
         zIndex: item.zIndex,
       },
-      initial: { y: item.entranceY ?? -135, opacity: 0 },
+      initial: { y: item.entranceY ?? -210, opacity: 0 },
       animate: target,
       transition,
     },
@@ -159,7 +161,7 @@ function InteractiveHotspotZone({ item, isActive, isDimmed, onActivate, onDeacti
   );
 }
 
-function StaticAnchoredDecorLayer({ decor, phase }) {
+function StaticAnchoredDecorLayer({ decor, phase, flightDelaySec = 0 }) {
   const posStyle = {
     bottom: `${decor.bottomPct}%`,
     width: `${decor.widthPct}%`,
@@ -169,9 +171,10 @@ function StaticAnchoredDecorLayer({ decor, phase }) {
   if (decor.side === 'left') posStyle.left = `${decor.leftPct ?? 0}%`;
   else posStyle.right = `${decor.rightPct ?? 0}%`;
 
-  const initX = decor.entranceX ?? (decor.side === 'left' ? -85 : 85);
+  const initX = decor.entranceX ?? (decor.side === 'left' ? -115 : 115);
   const isEntering = phase === 'entering';
   const isExiting = phase === 'exiting';
+  const enterDelay = (decor.entranceDelaySec ?? 0.88) + flightDelaySec;
 
   const target = isExiting
     ? { x: initX * 1.1, y: 50, opacity: 0 }
@@ -184,13 +187,13 @@ function StaticAnchoredDecorLayer({ decor, phase }) {
     : {
         x: {
           type: 'spring',
-          stiffness: 88,
+          stiffness: 86,
           damping: 17,
-          delay: decor.entranceDelaySec ?? 0.88,
+          delay: enterDelay,
         },
         opacity: {
-          duration: 0.38,
-          delay: decor.entranceDelaySec ?? 0.88,
+          duration: 0.36,
+          delay: enterDelay,
         },
       };
 
@@ -213,7 +216,7 @@ function StaticAnchoredDecorLayer({ decor, phase }) {
   );
 }
 
-function CollectionShowcaseStage({ scene, phase, activationKey }) {
+function CollectionShowcaseStage({ scene, phase, activationKey, flightDelaySec = 0 }) {
   const [hoveredId, setHoveredId] = useState(null);
   const modules = scene.modules || [];
   const decors = scene.decors || [];
@@ -259,7 +262,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
           'div',
           { key: `modules-${activationKey}`, className: 'scase-layer-modules', 'aria-hidden': 'true' },
           modules.map((mod, idx) =>
-            h(DroppingModuleVisual, { key: mod.id || idx, item: mod, phase })
+            h(DroppingModuleVisual, { key: mod.id || idx, item: mod, phase, flightDelaySec })
           )
         ),
 
@@ -268,7 +271,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
           'div',
           { key: `decors-${activationKey}`, className: 'scase-layer-decors', 'aria-hidden': 'true' },
           decors.map((d) =>
-            h(StaticAnchoredDecorLayer, { key: d.id, decor: d, phase })
+            h(StaticAnchoredDecorLayer, { key: d.id, decor: d, phase, flightDelaySec })
           )
         ),
 
@@ -288,7 +291,7 @@ function CollectionShowcaseStage({ scene, phase, activationKey }) {
                 ? { duration: 0.14 }
                 : {
                     duration: finalMaster.fadeDurationSec ?? 0.56,
-                    delay: finalMaster.revealDelaySec ?? 1.48,
+                    delay: (finalMaster.revealDelaySec ?? 1.48) + flightDelaySec,
                     ease: [0.22, 1, 0.36, 1],
                   },
               draggable: false,
@@ -356,6 +359,7 @@ function renderEntry(node, entry) {
       scene: entry.scene,
       phase,
       activationKey: entry.playCount,
+      flightDelaySec: phase === 'entering' ? _flightDelaySec : 0,
     })
   );
 }
@@ -395,9 +399,10 @@ export function mountAllCollectionScenes(collections = [], activeSlug = _activeS
   });
 }
 
-export function activateSceneSlide(slug = '') {
+export function activateSceneSlide(slug = '', options = {}) {
   _exitingSlug = '';
   _activeSlug = slug;
+  _flightDelaySec = options?.fromFlight ? 0.72 : 0.06;
   for (const [node, entry] of STAGE_ENTRIES.entries()) {
     if (entry.slug === slug) {
       entry.playCount += 1;

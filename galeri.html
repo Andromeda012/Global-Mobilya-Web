@@ -672,11 +672,46 @@ let _galColFilter = 'ALL';
 let _galIndepFilter = 'ALL';
 
 const CLEAN_LOCAL_TILES = [
-  { image_url: 'resim/showroom/warm_atelier.jpg', title: 'Sıcak Meşe Kahve Köşesi Atölyesi' },
-  { image_url: 'resim/showroom/nordic_atelier.jpg', title: 'Minimalist İskandinav Yaşam Modülü' },
-  { image_url: 'resim/showroom/luxury_showroom.jpg', title: 'Mimari Showroom Perspektifi' },
-  { image_url: 'resim/yonetilen/atelier-craft.jpg', title: 'İnce Marangozluk ve Birleşim Detayı' }
+  { image_url: 'resim/showroom/hero_marsilya.jpg', title: 'Marsilya Aydınlık Kahve Köşesi' },
+  { image_url: 'resim/showroom/hero_bergamo.jpg', title: 'Bergamo Vitrinli Kahve Köşesi Atölyesi' },
+  { image_url: 'resim/showroom/hero_dolap.jpg', title: 'Ölçüye Özel Modüler Dolap Sistemleri' },
+  { image_url: 'resim/showroom/hero_portmanto.jpg', title: 'Portmanto & Şifonyer Mimari Sunumu' }
 ];
+
+const GAL_CATEGORY_SHOWCASES = {
+  'Kahve Köşeleri': {
+    kicker: 'Mimari İkram & Barista Köşeleri',
+    title: 'Kahve Köşesi Tasarımları',
+    desc: 'Cam vitrin aydınlatması, gizli kablo kanalları ve doğal kaplama yüzeylerle evinizin odak noktasına dönüşen kahve köşesi modülleri.',
+    img: 'resim/showroom/hero_marsilya.jpg',
+    href: 'koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1',
+    cta: 'Kahve Köşesi Koleksiyonlarına Git →'
+  },
+  'Dolaplar': {
+    kicker: 'Modüler Gardırop & Giyinme Alanları',
+    title: 'Özel Ölçü Dolap Sistemleri',
+    desc: 'Fluted camlı vitrin kapaklar, sessiz soft-close ray sistemleri ve mekana özel tam boy dolap kurguları.',
+    img: 'resim/showroom/hero_dolap.jpg',
+    href: 'koleksiyon.html?kategori=Dolap%20Koleksiyonlar%C4%B1',
+    cta: 'Dolap Koleksiyonlarını İncele →'
+  },
+  'Portmantolar': {
+    kicker: 'Giriş Holü & Karşılama Mimarisi',
+    title: 'Modern Antre & Portmantolar',
+    desc: 'Dikey ahşap çıtalı duvar panelleri, entegre oturma bankı, gizli ayakkabılık ve pirinç askı detaylı antre portmanto çözümleri.',
+    img: 'resim/showroom/hero_portmanto.jpg',
+    href: null,
+    cta: '✦ Özel Ölçü Portmanto Teklifi İste →'
+  },
+  'Şifonyerler': {
+    kicker: 'Yatak Odası & Bağımsız Saklama',
+    title: 'Doğal Ahşap & Lake Şifonyerler',
+    desc: 'Pürüzsüz mat lake çekmeceler, doğal ceviz/meşe gövde birleşimleri ve yatak odanıza uyum sağlayan dengeli hacimler.',
+    img: 'resim/showroom/hero_portmanto.jpg',
+    href: null,
+    cta: '✦ Şifonyer Tasarım Teklifi İste →'
+  }
+};
 
 function esc(s) {
   return String(s || '').replace(/[&<>"']/g, m => ({
@@ -689,20 +724,68 @@ function isLegacyKapakEntry(item) {
   return /(membran|\bmdf\b|kapak|cnc\s*vakum)/i.test(blob);
 }
 
+function matchIndepCategory(productCat, selectedFilter) {
+  if (selectedFilter === 'ALL') return true;
+  const src = String(productCat || '').toLowerCase();
+  const sel = String(selectedFilter || '').toLowerCase();
+  if (src === sel) return true;
+  if (sel.includes('kahve') && src.includes('kahve')) return true;
+  if (sel.includes('dolap') && (src.includes('dolap') || src.includes('gard'))) return true;
+  if (sel.includes('portmanto') && src.includes('portmanto')) return true;
+  if ((sel.includes('şifonyer') || sel.includes('sifonyer')) && (src.includes('şifonyer') || src.includes('sifonyer'))) return true;
+  return false;
+}
+
 function renderIndependentHub() {
   const mount = document.getElementById('indepProductsContainer');
   const chipsEl = document.getElementById('indepFilterChips');
   document.getElementById('tabCntIndep').textContent = String(_galProducts.length);
 
-  if (!_galProducts.length) {
-    chipsEl.style.display = 'none';
+  const baseCats = ['Kahve Köşeleri', 'Dolaplar', 'Portmantolar', 'Şifonyerler'];
+  const dbCats = Array.from(new Set(_galProducts.map(p => p.kategori || '').filter(Boolean)));
+  const cats = [...baseCats];
+  dbCats.forEach(c => {
+    if (!cats.some(b => matchIndepCategory(c, b))) cats.push(c);
+  });
+
+  chipsEl.style.display = 'flex';
+  chipsEl.innerHTML = ['ALL', ...cats].map(cat => `
+    <button type="button" class="sub-chip ${_galIndepFilter === cat ? 'active' : ''}" onclick="setIndepFilter('${esc(cat)}')">
+      ${cat === 'ALL' ? 'Tümü' : esc(cat)}
+    </button>
+  `).join('');
+
+  const items = _galProducts.filter(p => matchIndepCategory(p.kategori, _galIndepFilter));
+
+  if (!items.length) {
+    const showcase = GAL_CATEGORY_SHOWCASES[_galIndepFilter];
+    if (showcase) {
+      mount.innerHTML = `
+        <div class="presentation-empty-hub hg-reveal" style="grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);align-items:center;">
+          <div>
+            <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">${esc(showcase.kicker)}</span>
+            <h3>${esc(showcase.title)}</h3>
+            <p style="font-size:14.5px;line-height:1.7;color:var(--gal-muted);margin-bottom:24px;">${esc(showcase.desc)}</p>
+            ${showcase.href
+              ? `<a href="${showcase.href}" class="btn-hg-wipe"><span class="btn-hg-wipe-inner"><span class="btn-hg-wipe-row main">${esc(showcase.cta)}</span><span class="btn-hg-wipe-row clone" aria-hidden="true">${esc(showcase.cta)}</span></span></a>`
+              : `<button type="button" class="btn-hg-wipe" onclick="openGalQuoteModal('${esc(showcase.title)}')"><span class="btn-hg-wipe-inner"><span class="btn-hg-wipe-row main">${esc(showcase.cta)}</span><span class="btn-hg-wipe-row clone" aria-hidden="true">${esc(showcase.cta)}</span></span></button>`}
+          </div>
+          <div style="border-radius:18px;overflow:hidden;border:1px solid rgba(42,41,37,0.12);box-shadow:0 20px 44px -22px rgba(42,41,37,0.32);">
+            <img src="${esc(showcase.img)}" alt="${esc(showcase.title)}" style="width:100%;aspect-ratio:16/10;object-fit:cover;display:block;cursor:pointer;" onclick="openLightbox('${esc(showcase.img)}', '${esc(showcase.title)}')">
+          </div>
+        </div>
+      `;
+      window.GKM_MOTION?.refreshReveals();
+      return;
+    }
+
     mount.innerHTML = `
       <div class="presentation-empty-hub hg-reveal">
         <div>
           <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:8px;">Sunum Merkezi Aktif</span>
           <h3>Bağımsız Ürünler Burada Sergilenecek</h3>
           <p style="font-size:14.5px;line-height:1.7;color:var(--gal-muted);margin-bottom:24px;">
-            Koleksiyon setlerinden ayrı olarak tekil sipariş edilebilen tamamlayıcı mobilyalar yayınlandığında burada kategori bazlı kartlarla listelenir. Özel bir tekil parça tasarımına ihtiyacınız varsa şimdi talep oluşturabilirsiniz.
+            Koleksiyon setlerinden ayrı olarak tekil sipariş edilebilen portmanto, şifonyer ve özel dolap modülleri yayınlandığında burada kategori bazlı listelenir. Özel bir parça tasarımına ihtiyacınız varsa şimdi talep oluşturabilirsiniz.
           </p>
           <button type="button" class="btn-hg-wipe" onclick="openGalQuoteModal('Bağımsız Özel Tasarım Parça')">
             <span class="btn-hg-wipe-inner">
@@ -712,10 +795,10 @@ function renderIndependentHub() {
           </button>
         </div>
         <div class="presentation-pillars">
-          <div class="pres-slot"><strong>Konsol &amp; Dresuar</strong><span>Giriş ve salon aksı için zarif tekil hacimler.</span></div>
-          <div class="pres-slot"><strong>Yan &amp; Orta Sehpalar</strong><span>Masif ve doğal doku odaklı serbest formlar.</span></div>
-          <div class="pres-slot"><strong>Tekil Dolap Modülleri</strong><span>Dar niş ve koridorlara özel ölçülü üniteler.</span></div>
-          <div class="pres-slot"><strong>Vitrin &amp; Kitaplıklar</strong><span>Açık raf ve aydınlatmalı sergileme üniteleri.</span></div>
+          <div class="pres-slot"><strong>Kahve Köşeleri</strong><span>Cam vitrinli ve bar tezgâhlı özel ikram istasyonları.</span></div>
+          <div class="pres-slot"><strong>Dolaplar</strong><span>Meşe, ceviz ve fluted camlı modüler giyinme dolapları.</span></div>
+          <div class="pres-slot"><strong>Portmantolar</strong><span>Dar antre ve giriş hollerine özel çıtalı karşılama üniteleri.</span></div>
+          <div class="pres-slot"><strong>Şifonyerler</strong><span>Yatak odalarına uyumlu çekmeceli tamamlayıcı formlar.</span></div>
         </div>
       </div>
     `;
@@ -723,22 +806,10 @@ function renderIndependentHub() {
     return;
   }
 
-  const cats = Array.from(new Set(_galProducts.map(p => p.kategori || 'Diğer')));
-  chipsEl.style.display = 'flex';
-  chipsEl.innerHTML = ['ALL', ...cats].map(cat => `
-    <button type="button" class="sub-chip ${_galIndepFilter === cat ? 'active' : ''}" onclick="setIndepFilter('${esc(cat)}')">
-      ${cat === 'ALL' ? 'Tümü (' + _galProducts.length + ')' : esc(cat)}
-    </button>
-  `).join('');
-
-  const items = _galIndepFilter === 'ALL'
-    ? _galProducts
-    : _galProducts.filter(p => (p.kategori || 'Diğer') === _galIndepFilter);
-
   mount.innerHTML = `<div class="indep-hub-grid">` + items.map((p, idx) => `
     <article class="indep-item hg-reveal" data-delay="${Math.min(idx * 65, 320)}">
-      <div class="ii-thumb" onclick="openLightbox('${esc(p.ana_resim || 'resim/showroom/warm_atelier.jpg')}', '${esc(p.title)}')">
-        <img src="${esc(p.ana_resim || 'resim/showroom/warm_atelier.jpg')}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+      <div class="ii-thumb" onclick="openLightbox('${esc(p.ana_resim || 'resim/showroom/hero_bergamo.jpg')}', '${esc(p.title)}')">
+        <img src="${esc(p.ana_resim || 'resim/showroom/hero_bergamo.jpg')}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='resim/showroom/hero_bergamo.jpg'">
         <span class="ii-badge">${esc(p.kategori || 'Bağımsız Ürün')}</span>
       </div>
       <div class="ii-body">
@@ -898,6 +969,24 @@ async function initGalleryPage() {
     });
   });
 
+  const urlCat = new URLSearchParams(window.location.search).get('kategori') || '';
+  if (urlCat) {
+    if (/kahve/i.test(urlCat)) {
+      _galIndepFilter = 'Kahve Köşeleri';
+      _galColFilter = 'Kahve Köşesi Koleksiyonları';
+    } else if (/dolap/i.test(urlCat)) {
+      _galIndepFilter = 'Dolaplar';
+      _galColFilter = 'Dolap Koleksiyonları';
+    } else if (/portmanto/i.test(urlCat)) {
+      _galIndepFilter = 'Portmantolar';
+    } else if (/(şifonyer|sifonyer)/i.test(urlCat)) {
+      _galIndepFilter = 'Şifonyerler';
+    }
+    document.querySelectorAll('#colSubChips .sub-chip').forEach(b => {
+      b.classList.toggle('active', (b.dataset.colcat || 'ALL') === _galColFilter);
+    });
+  }
+
   try {
     const [prods, cols] = await Promise.all([
       window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : [],
@@ -914,6 +1003,13 @@ async function initGalleryPage() {
   renderGalleryCollections();
   await renderFactoryTiles();
   window.GKM_MOTION?.initAll();
+
+  if (urlCat) {
+    const targetSec = (/kahve/i.test(urlCat) && !_galProducts.some(p => matchIndepCategory(p.kategori, 'Kahve Köşeleri')))
+      ? document.getElementById('sectionKoleksiyonlar')
+      : document.getElementById('sectionBagimsiz');
+    setTimeout(() => targetSec?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 160);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', initGalleryPage);

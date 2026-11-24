@@ -69,7 +69,29 @@
                 </div>
               </div>
             </div>
-            <a href="galeri.html" ${navClass('galeri')}>Galeri</a>
+            <div class="hg-nav-dropdown-wrap">
+              <a href="galeri.html" ${navClass('galeri')} aria-haspopup="true">Galeri <span class="hg-caret" aria-hidden="true">▾</span></a>
+              <div class="hg-nav-dropdown" role="menu" aria-label="Galeri Kategorileri">
+                <div class="hg-nav-dropdown-panel">
+                  <a href="galeri.html?kategori=Kahve%20K%C3%B6%C5%9Feleri" class="hg-nav-drop-item" role="menuitem">
+                    <span>Kahve Köşeleri</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                  <a href="galeri.html?kategori=Dolaplar" class="hg-nav-drop-item" role="menuitem">
+                    <span>Dolaplar</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                  <a href="galeri.html?kategori=Portmantolar" class="hg-nav-drop-item" role="menuitem">
+                    <span>Portmantolar</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                  <a href="galeri.html?kategori=%C5%9Eifonyerler" class="hg-nav-drop-item" role="menuitem">
+                    <span>Şifonyerler</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href="iletisim.html" ${navClass('iletisim')}>İletişim</a>
             <a href="/kvkk-ve-gizlilik" ${navClass('kvkk-ve-gizlilik')} style="font-size:12px;opacity:0.82;">KVKK</a>
           </nav>
@@ -97,7 +119,11 @@
               <li><a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1">Kahve Köşesi Koleksiyonları <span class="arrow">→</span></a></li>
               <li><a href="koleksiyon.html?kategori=Dolap%20Koleksiyonlar%C4%B1">Dolap Koleksiyonları <span class="arrow">→</span></a></li>
               <li><a href="koleksiyon.html?kategori=Yatak%20Odas%C4%B1%20Koleksiyonlar%C4%B1">Yatak Odası Koleksiyonları <span class="arrow">→</span></a></li>
-              <li><a href="galeri.html">Galeri &amp; Bağımsız Ürünler <span class="arrow">→</span></a></li>
+              <li><a href="galeri.html">Galeri — Tümü <span class="arrow">→</span></a></li>
+              <li><a href="galeri.html?kategori=Kahve%20K%C3%B6%C5%9Feleri">Galeri · Kahve Köşeleri <span class="arrow">→</span></a></li>
+              <li><a href="galeri.html?kategori=Dolaplar">Galeri · Dolaplar <span class="arrow">→</span></a></li>
+              <li><a href="galeri.html?kategori=Portmantolar">Galeri · Portmantolar <span class="arrow">→</span></a></li>
+              <li><a href="galeri.html?kategori=%C5%9Eifonyerler">Galeri · Şifonyerler <span class="arrow">→</span></a></li>
               <li><a href="iletisim.html">İletişim &amp; Teklif <span class="arrow">→</span></a></li>
               <li><a href="/kvkk-ve-gizlilik">KVKK &amp; Gizlilik <span class="arrow">→</span></a></li>
             </ul>

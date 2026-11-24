@@ -1627,10 +1627,10 @@ function flyCameraToSlide(targetIdx, instant = false) {
       );
       _flightAnims.push(descendIn);
 
-      // Yeni koleksiyon mobilyalarını kamera inişiyle uyumlu şekilde yukarıdan sahneye indir
+      // Yeni koleksiyon mobilyalarını kamera inişinden hemen sonra yukarıdan sahneye indir
       const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
       const activeSlug = activeCol ? String(activeCol.slug || '') : '';
-      window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
+      window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug, { fromFlight: true });
 
       descendIn.finished
         .then(() => {
@@ -1687,17 +1687,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
     </button>
   `).join('');
 
-  const catSwitchHtml = CATEGORIES.map(catName => {
-    const cnt = _allCollections.filter(c => c.category === catName).length;
-    const isSel = catName === category;
-    return `
-      <button type="button" class="cam-cat-btn${isSel ? ' active' : ''}"
-        onclick="selectCategory('${escHtml(catName)}', 0)">
-        ${escHtml(catName)} (${cnt})
-      </button>
-    `;
-  }).join('');
-
   const seriesPreviewHtml = _visibleList.length ? `
     <div class="cam-intro-series-list">
       ${_visibleList.map((c, idx) => `
@@ -1725,9 +1714,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
         <h1 class="cam-intro-title">${meta.titleHtml}</h1>
         <p class="cam-intro-desc">${escHtml(meta.desc)}</p>
         ${seriesPreviewHtml}
-        <div class="cam-cat-switcher" role="tablist" aria-label="Koleksiyon Kategorisi Seçimi">
-          ${catSwitchHtml}
-        </div>
       </div>
       <div class="cam-intro-bottom">
         ${introCtaHtml}
@@ -1739,10 +1725,8 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
     const slideNum = idx + 1;
     const hasNext = slideNum < _visibleList.length;
     const nextCol = hasNext ? _visibleList[idx + 1] : null;
-    const world = getWorldTheme(c.slug);
-    const dbPalettes = Array.isArray(c.color_palette) && c.color_palette.length ? c.color_palette : world.swatches;
     const pieces = Array.isArray(c.pieces) ? c.pieces : [];
-    const heroUrl = c.hero_image_url || 'resim/showroom/warm_atelier.jpg';
+    const heroUrl = c.hero_image_url || 'resim/showroom/hero_bergamo.jpg';
 
     const hasInteractiveScene = Boolean(
       window.GKM_COLLECTION_STAGE?.resolveScene?.(c) ||
@@ -1750,12 +1734,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
       c.scene_config ||
       /bergamo/i.test(String(c.slug || c.name || ''))
     );
-
-    const paletteHtml = dbPalettes.slice(0, 4).map(hex => `
-      <span class="palette-chip" title="Seri Renk Tonu: ${escHtml(hex)}">
-        <span class="palette-dot" style="background:${escHtml(hex)}"></span>${escHtml(hex)}
-      </span>
-    `).join('');
 
     const visualBlockHtml = hasInteractiveScene
       ? `
@@ -1803,10 +1781,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
                 ? `<button type="button" class="cam-nav-pill" onclick="flyCameraToSlide(${slideNum - 1})">← Önceki</button>`
                 : ''}
             </div>
-            <div class="cam-geo-badge">
-              <span class="cam-geo-dot"></span>
-              <span>${escHtml(world.place)}</span>
-            </div>
             <span class="cam-slide-counter">SERİ ${String(slideNum).padStart(2, '0')} / ${String(_visibleList.length).padStart(2, '0')}</span>
           </div>
 
@@ -1818,7 +1792,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
                 <p class="stage-story">${escHtml(c.design_story || '')}</p>
               </div>
               <div class="cam-col-head-right">
-                ${paletteHtml ? `<div class="stage-palettes">${paletteHtml}</div>` : ''}
                 <div class="stage-actions">
                   <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(c.name)}')">
                     <span class="btn-hg-wipe-inner">
@@ -1830,7 +1803,6 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
                     <button type="button" class="btn-stage-secondary" onclick="openCollection3DModal('${escHtml(c.name)}', '${escHtml(c.model_3d_url)}')">
                       3D / AR
                     </button>` : ''}
-                  <a href="galeri.html" class="btn-stage-secondary">Galeri Vitrini</a>
                 </div>
               </div>
             </div>

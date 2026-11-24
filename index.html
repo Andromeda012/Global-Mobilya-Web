@@ -68,19 +68,22 @@
     background: var(--surface-ivory);
     color: var(--ink-primary);
     font-family: var(--font-hg-sans);
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
-  /* ── 1. ARCHITECTURAL HERO STAGE ── */
+  /* ── 1. ARCHITECTURAL HERO STAGE (CENTERED, BRIGHT 5-SCENE AUTO-ROTATION) ── */
   .hg-hero {
     position: relative;
     min-height: 100svh;
     display: flex;
-    align-items: flex-end;
-    padding: 150px 0 88px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 132px 0 88px;
     background: var(--surface-espresso);
     overflow: hidden;
     color: #F7F5F0;
+    text-align: center;
   }
   .hg-hero-bg {
     position: absolute;
@@ -88,106 +91,136 @@
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transform: scale(1.06);
-    transition: opacity 1.3s var(--ease-hg), transform 7s var(--ease-hg);
+    transform: scale(1.07);
+    transition: opacity 1.55s var(--ease-hg), transform 7.2s ease-out;
   }
   .hg-hero-bg.active {
     opacity: 1;
     transform: scale(1);
+    z-index: 1;
   }
   .hg-hero-scrim {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 2;
     background:
-      linear-gradient(95deg, rgba(16, 13, 10, 0.88) 0%, rgba(16, 13, 10, 0.56) 48%, rgba(16, 13, 10, 0.25) 100%),
-      linear-gradient(180deg, rgba(16, 13, 10, 0.45) 0%, rgba(16, 13, 10, 0.1) 42%, rgba(16, 13, 10, 0.88) 100%);
+      radial-gradient(ellipse at 50% 48%, rgba(16, 13, 10, 0.72) 0%, rgba(16, 13, 10, 0.44) 56%, rgba(16, 13, 10, 0.72) 100%),
+      linear-gradient(180deg, rgba(16, 13, 10, 0.48) 0%, rgba(16, 13, 10, 0.24) 45%, rgba(16, 13, 10, 0.68) 100%);
   }
   .hg-hero-container {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     width: 100%;
-    max-width: 1380px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 0 36px;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) auto;
-    gap: 40px;
-    align-items: end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .hg-hero-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 7px 15px;
+    padding: 8px 18px;
     border-radius: 999px;
-    background: rgba(247, 245, 240, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 11px;
+    background: rgba(18, 15, 12, 0.46);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-gold-bright);
-    margin-bottom: 22px;
+    margin: 0 auto 24px;
   }
   .hg-hero-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(46px, 6.4vw, 90px);
+    font-size: clamp(54px, 7.6vw, 112px);
     font-weight: 400;
-    line-height: 0.98;
+    line-height: 0.97;
     letter-spacing: -0.02em;
     color: #fff;
-    margin-bottom: 24px;
-    max-width: 780px;
+    margin: 0 auto 26px;
+    max-width: 980px;
+    text-shadow: 0 10px 40px rgba(10, 8, 6, 0.42);
   }
   .hg-hero-title em {
     font-style: italic;
-    color: #DFC793;
+    color: #F3DC9E;
   }
   .hg-hero-desc {
-    font-size: clamp(15px, 1.3vw, 18px);
+    font-size: clamp(16.5px, 1.5vw, 21px);
     line-height: 1.72;
-    color: rgba(247, 245, 240, 0.86);
-    max-width: 600px;
-    margin-bottom: 34px;
+    color: rgba(255, 252, 246, 0.94);
+    max-width: 720px;
+    margin: 0 auto 38px;
+    text-shadow: 0 4px 20px rgba(10, 8, 6, 0.4);
   }
   .hg-hero-cta-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    gap: 18px;
     flex-wrap: wrap;
+  }
+  .hg-hero .btn-hg-wipe {
+    height: 50px;
+    padding: 0 28px;
+    font-size: 14px;
   }
   .btn-hg-ghost {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    height: 44px;
-    padding: 0 22px;
+    height: 50px;
+    padding: 0 26px;
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.34);
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    background: rgba(18, 15, 12, 0.34);
+    backdrop-filter: blur(10px);
     color: #F7F5F0;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.02em;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-hg);
   }
   .btn-hg-ghost:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
   }
-
-  .hg-mood-dock {
+  .hg-hero-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px;
-    border-radius: 9999px;
-    background: rgba(21, 18, 15, 0.65);
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(14, 12, 10, 0.42);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .hg-hero-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    border: none;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.36);
+    cursor: pointer;
+    transition: width 0.38s var(--ease-hg), background-color 0.3s ease;
+  }
+  .hg-hero-dot.active {
+    width: 24px;
+    background: #F3DC9E;
+  }
     backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.16);
   }
@@ -746,7 +779,320 @@
     background: #fff;
   }
 
+  /* ── 4B. DOĞAYI SEVİYORUZ (SCROLL-PINNED 4-CORNER GROWING IVY FRAME) ── */
+  .nature-lock-track {
+    position: relative;
+    height: 270vh;
+    background: linear-gradient(158deg, #052919 0%, #0D5533 48%, #093E25 100%);
+    color: #F4FDF6;
+  }
+  .nature-sticky-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px;
+  }
+  .nature-aura-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .nature-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(95px);
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  .nature-orb-1 {
+    width: min(58vw, 720px);
+    height: min(58vw, 720px);
+    top: -18%;
+    left: -12%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.56) 0%, transparent 70%);
+    animation: natureFloatA 14s ease-in-out infinite alternate;
+  }
+  .nature-orb-2 {
+    width: min(54vw, 680px);
+    height: min(54vw, 680px);
+    bottom: -18%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(74, 222, 128, 0.46) 0%, transparent 70%);
+    animation: natureFloatB 17s ease-in-out infinite alternate;
+  }
+  .nature-orb-3 {
+    width: min(44vw, 540px);
+    height: min(44vw, 540px);
+    top: 28%;
+    left: 34%;
+    background: radial-gradient(circle, rgba(132, 204, 22, 0.28) 0%, transparent 72%);
+    animation: natureFloatA 19s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes natureFloatA {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(4vw, 4vh, 0) scale(1.12); }
+  }
+  @keyframes natureFloatB {
+    0% { transform: translate3d(0, 0, 0) scale(1.05); }
+    100% { transform: translate3d(-4vw, -3vh, 0) scale(0.95); }
+  }
+  .nature-corner-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .nature-floating-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .nature-mote {
+    position: absolute;
+    bottom: -30px;
+    border-radius: 100% 0 100% 0;
+    background: linear-gradient(135deg, rgba(134, 239, 172, 0.72), rgba(22, 163, 74, 0.22));
+    animation: natureLeafDrift linear infinite;
+    opacity: 0;
+  }
+  @keyframes natureLeafDrift {
+    0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(0.8); opacity: 0; }
+    14% { opacity: 0.78; }
+    85% { opacity: 0.5; }
+    100% { transform: translate3d(45px, -110vh, 0) rotate(240deg) scale(1.15); opacity: 0; }
+  }
+  .nature-frame-shell {
+    position: relative;
+    z-index: 4;
+    width: min(920px, 100%);
+    padding: clamp(32px, 4.4vw, 56px) clamp(26px, 4vw, 54px);
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(8, 48, 28, 0.78) 0%, rgba(10, 62, 36, 0.66) 100%);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(74, 222, 128, 0.26);
+    box-shadow: 0 32px 84px -22px rgba(2, 20, 11, 0.72);
+    text-align: center;
+    transition: border-color 0.55s ease, box-shadow 0.55s ease;
+  }
+  .nature-frame-shell.is-framed {
+    border-color: rgba(134, 239, 172, 0.72);
+    box-shadow: 0 0 60px rgba(34, 197, 94, 0.34), 0 32px 84px -20px rgba(2, 20, 11, 0.8);
+  }
+  .nature-frame-svg {
+    position: absolute;
+    inset: -26px;
+    width: calc(100% + 52px);
+    height: calc(100% + 52px);
+    pointer-events: none;
+    overflow: visible;
+    z-index: 6;
+  }
+  .ivy-stem-path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.45));
+  }
+  .ivy-leaf-node {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.38s ease;
+  }
+  .nature-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 15px;
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.16);
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #86EFAC;
+    margin-bottom: 16px;
+  }
+  .nature-heading {
+    font-family: var(--font-hg-serif);
+    font-size: clamp(38px, 4.8vw, 68px);
+    font-weight: 400;
+    line-height: 1.04;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .nature-heading em {
+    font-style: italic;
+    color: #4ADE80;
+  }
+  .nature-lead {
+    font-size: clamp(14.5px, 1.3vw, 17px);
+    line-height: 1.7;
+    color: rgba(236, 253, 245, 0.88);
+    max-width: 680px;
+    margin: 0 auto 28px;
+  }
+  .nature-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .nature-pillar {
+    padding: 18px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.24);
+    transition: transform 0.35s var(--ease-hg), background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .nature-pillar:hover {
+    transform: translateY(-3px);
+    background: rgba(34, 197, 94, 0.14);
+    border-color: rgba(134, 239, 172, 0.56);
+  }
+  .nature-pillar strong {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #86EFAC;
+    margin-bottom: 6px;
+  }
+  .nature-pillar p {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: rgba(220, 252, 231, 0.82);
+    margin: 0;
+  }
+  .nature-scroll-meter {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(6, 40, 24, 0.72);
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #BBF7D0;
+  }
+  .nature-scroll-bar {
+    width: 72px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    overflow: hidden;
+  }
+  .nature-scroll-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22C55E, #A3E635);
+  }
+
+  /* ── 4C. HOMEPAGE BLOGS BAND (MATCHING İLKELERİMİZ & MİSYON) ── */
+  .home-blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .home-blog-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    border-radius: 22px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 18px 42px -26px rgba(42, 41, 37, 0.22);
+    transition: transform 0.45s var(--ease-hg), box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .home-blog-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(74, 100, 80, 0.3);
+    box-shadow: 0 28px 60px -24px rgba(42, 41, 37, 0.32);
+  }
+  .home-blog-thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    position: relative;
+    background: var(--surface-linen);
+  }
+  .home-blog-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s var(--ease-hg);
+  }
+  .home-blog-card:hover .home-blog-thumb img {
+    transform: scale(1.06);
+  }
+  .home-blog-cat {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(16, 13, 10, 0.7);
+    backdrop-filter: blur(8px);
+    color: #F7F5F0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .home-blog-body {
+    padding: 24px 26px 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-blog-title {
+    font-family: var(--font-hg-serif);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--ink-primary);
+    margin-bottom: 10px;
+  }
+  .home-blog-excerpt {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-muted);
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .home-blog-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(42, 41, 37, 0.08);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sage-dark);
+  }
+
   @media (max-width: 1024px) {
+    .nature-pillars-grid,
+    .home-blogs-grid {
+      grid-template-columns: 1fr;
+    }
     .hg-hero-container { grid-template-columns: 1fr; }
     .col-card-hero, .col-card-side,
     .collections-lookbook-grid.balanced-row .col-card-hero,
@@ -772,75 +1118,40 @@
 
 <header id="hgSiteHeader" class="site-header"></header>
 
-<!-- ── 1. ARCHITECTURAL HERO STAGE WITH INTERACTIVE HOTSPOTS ── -->
+<!-- ── 1. CENTERED BRIGHT 5-SCENE AUTO-ROTATING ARCHITECTURAL HERO ── -->
 <section class="hg-hero" id="heroStage">
-  <div class="hg-hero-bg active" id="heroBgWarm" style="background-image:url('resim/showroom/warm_atelier.jpg')"></div>
-  <div class="hg-hero-bg" id="heroBgNordic" style="background-image:url('resim/showroom/nordic_atelier.jpg')"></div>
-  <div class="hg-hero-bg" id="heroBgEvening" style="background-image:url('resim/showroom/luxury_showroom.jpg')"></div>
+  <div class="hg-hero-bg active" style="background-image:url('resim/showroom/hero_marsilya.jpg')"></div>
+  <div class="hg-hero-bg" style="background-image:url('resim/showroom/hero_bergamo.jpg')"></div>
+  <div class="hg-hero-bg" style="background-image:url('resim/showroom/hero_dolap.jpg')"></div>
+  <div class="hg-hero-bg" style="background-image:url('resim/showroom/hero_portmanto.jpg')"></div>
+  <div class="hg-hero-bg" style="background-image:url('resim/showroom/hero_atolye.jpg')"></div>
   <div class="hg-hero-scrim"></div>
 
-  <!-- Interactive Pulsing Room Hotspots (Desktop) -->
-  <div class="hg-hotspot" style="left:61%;top:37%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Doğal ahşap gövde detayı">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Doğal Ahşap Doku</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Yüzey &amp; Gövde Bütünlüğü</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Mekânın ışığına göre ton alan ceviz, meşe ve mat lake mobilya yüzeyleri.</p>
-    </div>
-  </div>
-
-  <div class="hg-hotspot" style="left:75%;top:53%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Kahve köşesi modülleri">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Kahve İstasyonu</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Kahve Köşesi Mimarisi</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Fincan rafları, gizli kablo kanalları ve geniş servis tezgâhlı özel seriler.</p>
-    </div>
-  </div>
-
-  <div class="hg-hotspot left" style="left:67%;top:71%;">
-    <button type="button" class="hg-hotspot-btn" aria-label="Kişiye özel modüler ölçü">
-      <span class="hg-hotspot-ring"></span>
-      <span class="hg-hotspot-core"></span>
-    </button>
-    <span class="hg-hotspot-label">Ölçüye Özel Üretim</span>
-    <div class="hg-hotspot-popover">
-      <strong style="display:block;font-size:14px;margin-bottom:4px;">Atölyeden Doğrudan Kurulum</strong>
-      <p style="font-size:12.5px;line-height:1.5;color:#656058;">Dolap ve oda nişlerinize milimetrik uyarlanan mimari mobilya çözümleri.</p>
-    </div>
-  </div>
-
   <div class="hg-hero-container">
-    <div>
-      <div class="hg-hero-eyebrow hg-reveal" data-delay="40">İstanbul Atölyeden Mimari Yaşam Alanları</div>
-      <h1 class="hg-hero-title hg-reveal" id="domHeroBaslik" data-delay="140">
-        Zamansız Formlar,<br><em>Sıcak</em> Yaşam Alanları
-      </h1>
-      <p class="hg-hero-desc hg-reveal" id="domHeroAciklama" data-delay="240">
-        Kahve köşesi koleksiyonlarından modüler dolap sistemlerine ve özel yatak odası kurgularına kadar her parçayı mekânınızın oranlarına göre üretiyoruz.
-      </p>
-      <div class="hg-hero-cta-row hg-reveal" data-delay="340">
-        <a href="koleksiyon.html" class="btn-hg-wipe">
-          <span class="btn-hg-wipe-inner">
-            <span class="btn-hg-wipe-row main">Koleksiyonları Keşfet →</span>
-            <span class="btn-hg-wipe-row clone" aria-hidden="true">Koleksiyonları Keşfet →</span>
-          </span>
-        </a>
-        <a href="galeri.html#sectionBagimsiz" class="btn-hg-ghost">Bağımsız Ürünler Merkezi</a>
-      </div>
+    <div class="hg-hero-eyebrow hg-reveal" data-delay="40">İstanbul Atölyeden Mimari Yaşam Alanları</div>
+    <h1 class="hg-hero-title hg-reveal" id="domHeroBaslik" data-delay="120">
+      Zamansız Formlar,<br><em>Sıcak</em> Yaşam Alanları
+    </h1>
+    <p class="hg-hero-desc hg-reveal" id="domHeroAciklama" data-delay="220">
+      Kahve köşesi koleksiyonlarından modüler dolap sistemlerine, portmanto ve şifonyerlere kadar her parçayı mekânınızın oranlarına göre üretiyoruz.
+    </p>
+    <div class="hg-hero-cta-row hg-reveal" data-delay="320">
+      <a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1" class="btn-hg-wipe">
+        <span class="btn-hg-wipe-inner">
+          <span class="btn-hg-wipe-row main">Koleksiyonları Keşfet →</span>
+          <span class="btn-hg-wipe-row clone" aria-hidden="true">Koleksiyonları Keşfet →</span>
+        </span>
+      </a>
+      <a href="galeri.html#sectionBagimsiz" class="btn-hg-ghost">Bağımsız Ürünler Merkezi</a>
     </div>
+  </div>
 
-    <div class="hg-mood-dock hg-reveal" data-delay="380" role="group" aria-label="Atmosfer Seçimi">
-      <button type="button" class="hg-mood-btn active" onclick="switchHeroMood('warm', this)">Warm Atölye</button>
-      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('nordic', this)">Nordic Meşe</button>
-      <button type="button" class="hg-mood-btn" onclick="switchHeroMood('evening', this)">Akşam Pirinç</button>
-    </div>
+  <div class="hg-hero-dots" id="heroCarouselDots" aria-label="Vitrin Görselleri">
+    <button type="button" class="hg-hero-dot active" onclick="goHeroSlide(0)" aria-label="Sahne 1: Marsilya Kahve Köşesi"></button>
+    <button type="button" class="hg-hero-dot" onclick="goHeroSlide(1)" aria-label="Sahne 2: Bergamo Vitrin Serisi"></button>
+    <button type="button" class="hg-hero-dot" onclick="goHeroSlide(2)" aria-label="Sahne 3: Modüler Dolap Sistemleri"></button>
+    <button type="button" class="hg-hero-dot" onclick="goHeroSlide(3)" aria-label="Sahne 4: Portmanto ve Şifonyerler"></button>
+    <button type="button" class="hg-hero-dot" onclick="goHeroSlide(4)" aria-label="Sahne 5: Atölye ve Zanaat Süreci"></button>
   </div>
 </section>
 
@@ -1112,6 +1423,106 @@
   </div>
 </section>
 
+<!-- ── 5D2. DOĞAYI SEVİYORUZ (SCROLL-PINNED 4-CORNER GROWING IVY VINE FRAME) ── -->
+<section class="nature-lock-track" id="dogayiSeviyoruz" aria-label="Doğayı Seviyoruz ve Sürdürülebilir Üretim">
+  <div class="nature-sticky-stage">
+    <div class="nature-aura-bg" aria-hidden="true">
+      <div class="nature-orb nature-orb-1"></div>
+      <div class="nature-orb nature-orb-2"></div>
+      <div class="nature-orb nature-orb-3"></div>
+    </div>
+
+    <div class="nature-floating-particles" id="natureParticles" aria-hidden="true"></div>
+
+    <!-- 4 Screen Corner Botanical Tendrils -->
+    <svg class="nature-corner-svg" style="top:0;left:0;width:clamp(190px,26vw,410px);height:clamp(190px,34vh,360px);" viewBox="0 0 400 360" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="ivyVineGradTL" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#16A34A"/>
+          <stop offset="55%" stop-color="#22C55E"/>
+          <stop offset="100%" stop-color="#86EFAC"/>
+        </linearGradient>
+      </defs>
+      <path id="cVineTL" class="ivy-stem-path" data-sprout-start="0.0" data-sprout-end="0.68" stroke="url(#ivyVineGradTL)" stroke-width="5" d="M -8 -8 C 48 62, 118 32, 178 108 C 228 172, 266 154, 344 252 C 368 282, 384 316, 396 346"/>
+      <path id="cVineTLSub" class="ivy-stem-path" data-sprout-start="0.12" data-sprout-end="0.72" stroke="#4ADE80" stroke-width="3.2" d="M 96 54 C 165 44, 240 84, 318 66"/>
+      <g id="cLeavesTL"></g>
+    </svg>
+
+    <svg class="nature-corner-svg" style="top:0;left:auto;right:0;width:clamp(190px,26vw,410px);height:clamp(190px,34vh,360px);" viewBox="0 0 400 360" fill="none" aria-hidden="true">
+      <path id="cVineTR" class="ivy-stem-path" data-sprout-start="0.0" data-sprout-end="0.68" stroke="url(#ivyVineGradTL)" stroke-width="5" d="M 408 -8 C 350 66, 280 34, 222 108 C 174 170, 134 152, 58 250 C 32 284, 18 316, 6 346"/>
+      <path id="cVineTRSub" class="ivy-stem-path" data-sprout-start="0.12" data-sprout-end="0.72" stroke="#4ADE80" stroke-width="3.2" d="M 304 54 C 234 46, 158 84, 82 66"/>
+      <g id="cLeavesTR"></g>
+    </svg>
+
+    <svg class="nature-corner-svg" style="top:auto;bottom:0;left:0;width:clamp(190px,26vw,410px);height:clamp(190px,34vh,360px);" viewBox="0 0 400 360" fill="none" aria-hidden="true">
+      <path id="cVineBL" class="ivy-stem-path" data-sprout-start="0.0" data-sprout-end="0.68" stroke="url(#ivyVineGradTL)" stroke-width="5" d="M -8 368 C 52 296, 122 326, 182 252 C 230 190, 272 206, 344 108 C 368 74, 384 42, 396 14"/>
+      <path id="cVineBLSub" class="ivy-stem-path" data-sprout-start="0.12" data-sprout-end="0.72" stroke="#4ADE80" stroke-width="3.2" d="M 96 306 C 166 314, 240 276, 318 294"/>
+      <g id="cLeavesBL"></g>
+    </svg>
+
+    <svg class="nature-corner-svg" style="top:auto;bottom:0;left:auto;right:0;width:clamp(190px,26vw,410px);height:clamp(190px,34vh,360px);" viewBox="0 0 400 360" fill="none" aria-hidden="true">
+      <path id="cVineBR" class="ivy-stem-path" data-sprout-start="0.0" data-sprout-end="0.68" stroke="url(#ivyVineGradTL)" stroke-width="5" d="M 408 368 C 348 296, 278 326, 218 252 C 170 190, 128 206, 56 108 C 32 74, 18 42, 6 14"/>
+      <path id="cVineBRSub" class="ivy-stem-path" data-sprout-start="0.12" data-sprout-end="0.72" stroke="#4ADE80" stroke-width="3.2" d="M 304 306 C 234 314, 158 276, 82 294"/>
+      <g id="cLeavesBR"></g>
+    </svg>
+
+    <!-- Central Typography + Living Perimeter Ivy Frame -->
+    <div class="nature-frame-shell" id="natureFrameShell">
+      <svg class="nature-frame-svg" id="natureFrameSvg" viewBox="0 0 1000 580" preserveAspectRatio="none" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="frameIvyGrad" x1="0" y1="0" x2="1000" y2="580" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#16A34A"/>
+            <stop offset="35%" stop-color="#4ADE80"/>
+            <stop offset="65%" stop-color="#22C55E"/>
+            <stop offset="100%" stop-color="#86EFAC"/>
+          </linearGradient>
+        </defs>
+        <!-- 8 interlocking organic frame vines growing from all 4 corners to enclose the card -->
+        <path id="fVineTL_H" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M -24 -12 C 18 18, 86 6, 175 16 C 268 26, 360 4, 514 14"/>
+        <path id="fVineTL_V" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M -18 -20 C 18 44, 6 122, 16 198 C 24 252, 8 282, 14 306"/>
+
+        <path id="fVineTR_H" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M 1024 -12 C 982 18, 914 6, 825 16 C 732 26, 640 4, 486 14"/>
+        <path id="fVineTR_V" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M 1018 -20 C 982 44, 994 122, 984 198 C 976 252, 992 282, 986 306"/>
+
+        <path id="fVineBL_H" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M -24 592 C 18 562, 86 574, 175 564 C 268 554, 360 576, 514 566"/>
+        <path id="fVineBL_V" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M -18 600 C 18 536, 6 458, 16 382 C 24 328, 8 298, 14 274"/>
+
+        <path id="fVineBR_H" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M 1024 592 C 982 562, 914 574, 825 564 C 732 554, 640 576, 486 566"/>
+        <path id="fVineBR_V" class="ivy-stem-path" data-sprout-start="0.22" data-sprout-end="0.96" stroke="url(#frameIvyGrad)" stroke-width="5.5" d="M 1018 600 C 982 536, 994 458, 984 382 C 976 328, 992 298, 986 274"/>
+
+        <g id="frameLeavesLayer"></g>
+      </svg>
+
+      <div class="nature-kicker">🌱 Sürdürülebilir Üretim &amp; Yaşam Manifestosu</div>
+      <h2 class="nature-heading">Doğayı Seviyoruz,<br><em>Geleceği</em> İşliyoruz.</h2>
+      <p class="nature-lead">
+        Ürettiğimiz her kahve köşesi, dolap ve portmanto tasarımında yalnızca zamansız çizgiyi değil, ekosistemin dengesini de koruyoruz. E1 sertifikalı çevre dostu gövdeler ve su bazlı cilalarla gelecek nesillere nefes alan yaşam alanları bırakıyoruz.
+      </p>
+
+      <div class="nature-pillars-grid">
+        <div class="nature-pillar">
+          <strong>🌿 E1 &amp; FSC Sertifikalı Gövde</strong>
+          <p>Düşük emisyonlu, yönetilebilir orman kaynaklarından elde edilen 1. sınıf ahşap esaslı yapılar.</p>
+        </div>
+        <div class="nature-pillar">
+          <strong>💧 Su Bazlı Ekolojik Cila</strong>
+          <p>Çözücü oranı minimize edilmiş, insan sağlığına ve doğaya saygılı uzun ömürlü mat kaplamalar.</p>
+        </div>
+        <div class="nature-pillar">
+          <strong>♻️ Sıfır İsraf Kesim &amp; Paket</strong>
+          <p>Akıllı CNC plaka optimizasyonu ile en düşük atık oranı ve geri dönüştürülebilir korumalı ambalaj.</p>
+        </div>
+      </div>
+
+      <div class="nature-scroll-meter" id="natureScrollMeter">
+        <span id="natureMeterLabel">Sarmaşık Çerçevesini Örmek İçin Kaydırın ↓</span>
+        <div class="nature-scroll-bar"><div class="nature-scroll-bar-fill" id="natureMeterFill"></div></div>
+        <span id="natureMeterPct">%0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── 5E. TEDARİKÇİLERİMİZ & İŞ ORTAKLARIMIZ (MILES SPLIT-IMAGE MARQUEE) ── -->
 <section class="band-linen" id="tedarikcilerimiz" style="scroll-margin-top:96px;overflow:hidden;">
   <div class="hg-wrap">
@@ -1129,6 +1540,33 @@
   <div class="miles-split-viewport hg-reveal" data-delay="100" aria-label="Tedarikçilerimiz ve İş Ortaklarımız">
     <div class="miles-split-track" id="homePartnersTrack" data-duration="46000">
       <!-- Hydrated dynamically by renderPartnersMarquee() -->
+    </div>
+  </div>
+</section>
+
+<!-- ── 5F. BLOGLAR & DEKORASYON REHBERİ ── -->
+<section class="band-light" id="bloglar" style="scroll-margin-top:96px;">
+  <div class="hg-wrap">
+    <div class="section-head-split hg-reveal">
+      <div>
+        <div class="miles-eyebrow-dots" style="margin-bottom:10px;">Bloglar &amp; Rehber</div>
+        <h2 class="section-heading">Atölyeden Yazılar &amp;<br><em>Tasarım</em> Rehberi.</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;">
+        <p class="section-lead" style="margin:0;">
+          Ev içi kahve istasyonu kurgusundan modüler dolap ergonomi önerilerine, ahşap bakımından doğal renk uyumlarına uzanan güncel yazılarımız.
+        </p>
+        <a href="blog.html" class="btn-hg-wipe">
+          <span class="btn-hg-wipe-inner">
+            <span class="btn-hg-wipe-row main">Tüm Yazıları Gör →</span>
+            <span class="btn-hg-wipe-row clone" aria-hidden="true">Tüm Yazıları Gör →</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="home-blogs-grid" id="homeBlogsGrid">
+      <!-- Hydrated dynamically by loadHomeBlogs() -->
     </div>
   </div>
 </section>
@@ -1243,7 +1681,6 @@
 <script src="js/showroom-motion.js"></script>
 
 <script>
-const HEROM_MOOD_MAP = { warm: 'heroBgWarm', nordic: 'heroBgNordic', evening: 'heroBgEvening' };
 const CATEGORY_LIST = [
   'Kahve Köşesi Koleksiyonları',
   'Dolap Koleksiyonları',
@@ -1252,28 +1689,250 @@ const CATEGORY_LIST = [
 
 let _liveCollections = [];
 let _selectedHomeCategory = 'ALL';
+let _heroIdx = 0;
+let _heroTimer = 0;
 
-function switchHeroMood(key, btnEl) {
-  document.querySelectorAll('.hg-mood-btn').forEach(b => b.classList.remove('active'));
-  if (btnEl) btnEl.classList.add('active');
-  document.querySelectorAll('.hg-hero-bg').forEach(bg => bg.classList.remove('active'));
-  const target = document.getElementById(HEROM_MOOD_MAP[key] || 'heroBgWarm');
-  if (target) target.classList.add('active');
+function goHeroSlide(idx) {
+  const bgs = document.querySelectorAll('#heroStage .hg-hero-bg');
+  const dots = document.querySelectorAll('#heroCarouselDots .hg-hero-dot');
+  if (!bgs.length) return;
+  _heroIdx = ((idx % bgs.length) + bgs.length) % bgs.length;
+  bgs.forEach((bg, i) => bg.classList.toggle('active', i === _heroIdx));
+  dots.forEach((d, i) => d.classList.toggle('active', i === _heroIdx));
 }
 
-function bindHeroHotspots() {
-  const spots = document.querySelectorAll('.hg-hotspot');
-  spots.forEach(spot => {
-    const toggle = (e) => {
-      e.stopPropagation();
-      const willOpen = !spot.classList.contains('open');
-      spots.forEach(s => s.classList.remove('open'));
-      if (willOpen) spot.classList.add('open');
-    };
-    spot.querySelector('.hg-hotspot-btn')?.addEventListener('click', toggle);
-    spot.querySelector('.hg-hotspot-label')?.addEventListener('click', toggle);
-  });
-  document.addEventListener('click', () => spots.forEach(s => s.classList.remove('open')));
+function startHeroAutoCarousel() {
+  if (_heroTimer) clearInterval(_heroTimer);
+  const bgs = document.querySelectorAll('#heroStage .hg-hero-bg');
+  if (bgs.length < 2) return;
+  _heroTimer = setInterval(() => goHeroSlide(_heroIdx + 1), 5200);
+}
+
+function initNatureIvyScrollScene() {
+  const track = document.getElementById('dogayiSeviyoruz');
+  const frameShell = document.getElementById('natureFrameShell');
+  const meterFill = document.getElementById('natureMeterFill');
+  const meterPct = document.getElementById('natureMeterPct');
+  const meterLabel = document.getElementById('natureMeterLabel');
+  const particlesWrap = document.getElementById('natureParticles');
+  if (!track || !frameShell) return;
+
+  // Spawn ambient rising green leaf motes inside nature canopy
+  if (particlesWrap && !particlesWrap.childElementCount) {
+    for (let i = 0; i < 16; i++) {
+      const mote = document.createElement('span');
+      mote.className = 'nature-mote';
+      const sz = 8 + (i % 4) * 4;
+      mote.style.width = `${sz}px`;
+      mote.style.height = `${Math.round(sz * 1.4)}px`;
+      mote.style.left = `${(i * 6.3 + 3) % 96}%`;
+      mote.style.animationDuration = `${8 + (i % 5) * 2.4}s`;
+      mote.style.animationDelay = `${-(i * 1.15)}s`;
+      particlesWrap.appendChild(mote);
+    }
+  }
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const leafPalette = ['#22C55E', '#4ADE80', '#16A34A', '#86EFAC', '#15803D'];
+  const stemEntries = [];
+  const leafEntries = [];
+
+  const registerStemLeaves = (pathId, targetGroupId, count, leafScale) => {
+    const pathEl = document.getElementById(pathId);
+    const groupEl = document.getElementById(targetGroupId);
+    if (!pathEl || !groupEl || typeof pathEl.getTotalLength !== 'function') return;
+    const len = pathEl.getTotalLength();
+    if (!len) return;
+
+    pathEl.style.strokeDasharray = `${len}`;
+    pathEl.style.strokeDashoffset = `${len}`;
+
+    const s0 = parseFloat(pathEl.dataset.sproutStart || '0');
+    const s1 = parseFloat(pathEl.dataset.sproutEnd || '1');
+    stemEntries.push({ el: pathEl, len, s0, s1 });
+
+    for (let i = 1; i <= count; i++) {
+      const t = i / (count + 0.6);
+      const pt = pathEl.getPointAtLength(t * len);
+      const ptNext = pathEl.getPointAtLength(Math.min(len, t * len + 4));
+      const baseAngle = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x) * (180 / Math.PI);
+      const side = i % 2 === 0 ? 1 : -1;
+      const rot = baseAngle + side * (46 + (i % 3) * 8);
+      const sc = leafScale * (0.76 + (i % 3) * 0.16);
+
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('transform', `translate(${pt.x.toFixed(1)}, ${pt.y.toFixed(1)}) rotate(${rot.toFixed(1)})`);
+      const leaf = document.createElementNS(NS, 'path');
+      leaf.setAttribute('class', 'ivy-leaf-node');
+      leaf.setAttribute('d', 'M 0 0 C 8 -14, 24 -16, 32 0 C 24 16, 8 14, 0 0 Z');
+      leaf.setAttribute('fill', leafPalette[i % leafPalette.length]);
+      leaf.setAttribute('stroke', '#14532D');
+      leaf.setAttribute('stroke-width', '0.9');
+      leaf.style.transform = 'scale(0)';
+      leaf.style.opacity = '0';
+
+      const vein = document.createElementNS(NS, 'path');
+      vein.setAttribute('class', 'ivy-leaf-node');
+      vein.setAttribute('d', 'M 2 0 L 24 0');
+      vein.setAttribute('stroke', '#BBF7D0');
+      vein.setAttribute('stroke-width', '0.8');
+      vein.style.transform = 'scale(0)';
+      vein.style.opacity = '0';
+
+      g.appendChild(leaf);
+      g.appendChild(vein);
+      groupEl.appendChild(g);
+
+      const threshold = s0 + t * (s1 - s0);
+      leafEntries.push({ leaf, vein, threshold, sc });
+    }
+  };
+
+  registerStemLeaves('cVineTL', 'cLeavesTL', 10, 0.96);
+  registerStemLeaves('cVineTLSub', 'cLeavesTL', 6, 0.72);
+  registerStemLeaves('cVineTR', 'cLeavesTR', 10, 0.96);
+  registerStemLeaves('cVineTRSub', 'cLeavesTR', 6, 0.72);
+  registerStemLeaves('cVineBL', 'cLeavesBL', 10, 0.96);
+  registerStemLeaves('cVineBLSub', 'cLeavesBL', 6, 0.72);
+  registerStemLeaves('cVineBR', 'cLeavesBR', 10, 0.96);
+  registerStemLeaves('cVineBRSub', 'cLeavesBR', 6, 0.72);
+
+  ['fVineTL_H', 'fVineTL_V', 'fVineTR_H', 'fVineTR_V', 'fVineBL_H', 'fVineBL_V', 'fVineBR_H', 'fVineBR_V']
+    .forEach(fid => registerStemLeaves(fid, 'frameLeavesLayer', fid.endsWith('_H') ? 9 : 6, 0.9));
+
+  let smoothP = 0;
+  let targetP = 0;
+  let rafOn = false;
+
+  const paintProgress = (p) => {
+    stemEntries.forEach(({ el, len, s0, s1 }) => {
+      const local = Math.max(0, Math.min(1, (p - s0) / Math.max(0.05, s1 - s0)));
+      el.style.strokeDashoffset = `${(len * (1 - local)).toFixed(1)}`;
+    });
+    leafEntries.forEach(({ leaf, vein, threshold, sc }) => {
+      const bloom = Math.max(0, Math.min(1, (p - threshold + 0.04) / 0.14));
+      const tr = `scale(${(bloom * sc).toFixed(3)})`;
+      leaf.style.transform = tr;
+      leaf.style.opacity = bloom > 0.04 ? '1' : '0';
+      vein.style.transform = tr;
+      vein.style.opacity = bloom > 0.12 ? '0.85' : '0';
+    });
+
+    const pct = Math.round(p * 100);
+    if (meterFill) meterFill.style.width = `${pct}%`;
+    if (meterPct) meterPct.textContent = `%${pct}`;
+    if (meterLabel) {
+      meterLabel.textContent = pct >= 95
+        ? '✓ Doğa Çerçevesi Tamamlandı — Devam Et ↓'
+        : 'Sarmaşık Çerçevesini Örmek İçin Kaydırın ↓';
+    }
+    frameShell.classList.toggle('is-framed', p >= 0.92);
+  };
+
+  const computeScrollTarget = () => {
+    const rect = track.getBoundingClientRect();
+    const scrollable = Math.max(1, rect.height - window.innerHeight);
+    return Math.max(0, Math.min(1, -rect.top / scrollable));
+  };
+
+  const tick = () => {
+    const diff = targetP - smoothP;
+    if (Math.abs(diff) < 0.0018) {
+      smoothP = targetP;
+      paintProgress(smoothP);
+      rafOn = false;
+      return;
+    }
+    smoothP += diff * 0.18;
+    paintProgress(smoothP);
+    requestAnimationFrame(tick);
+  };
+
+  const onScroll = () => {
+    targetP = computeScrollTarget();
+    if (!rafOn) {
+      rafOn = true;
+      requestAnimationFrame(tick);
+    }
+  };
+
+  targetP = computeScrollTarget();
+  smoothP = targetP;
+  paintProgress(smoothP);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+}
+
+const CURATED_HOME_BLOGS = [
+  {
+    id: null,
+    kategori: 'Kahve Köşesi',
+    title: 'Evde Profesyonel Kahve Köşesi Kurgulamanın 5 Mimarî İpucu',
+    ozet: 'Aydınlatmalı vitrinlerden gizli kablo yönetimine ve doğru tezgâh yüksekliğine kadar yaşam alanınızda keyifli bir barista istasyonu kurmanın püf noktaları.',
+    cover_image: 'resim/showroom/hero_marsilya.jpg',
+    tarih: '2026-11-12',
+  },
+  {
+    id: null,
+    kategori: 'Dolap & Ölçü',
+    title: 'Modüler Dolap Sistemlerinde Doğal Meşe ve Mat Lake Uyumu',
+    ozet: 'Farklı oda ölçülerine kusursuz uyum sağlayan gardırop ve gömme dolap tasarımlarında doku, ışık geçirgenliği ve sessiz donanım seçimi.',
+    cover_image: 'resim/showroom/hero_dolap.jpg',
+    tarih: '2026-11-04',
+  },
+  {
+    id: null,
+    kategori: 'Antre & Depolama',
+    title: 'Giriş Holünde Ferahlık: Portmanto ve Şifonyer Seçimi Rehberi',
+    ozet: 'İlk izlenimi belirleyen antrelerde fonksiyonel oturma banklı portmantolar ve yatak odalarında ergonomik şifonyer ölçüleri üzerine notlar.',
+    cover_image: 'resim/showroom/hero_portmanto.jpg',
+    tarih: '2026-10-28',
+  }
+];
+
+async function loadHomeBlogs() {
+  const grid = document.getElementById('homeBlogsGrid');
+  if (!grid) return;
+
+  let posts = [];
+  try {
+    if (window.GKM_SUPABASE?.getBlogs) {
+      const sbPosts = await window.GKM_SUPABASE.getBlogs();
+      if (Array.isArray(sbPosts)) {
+        posts = sbPosts.filter(p => !/(membran|\bmdf\b|kapak\s*nedir|kapak\s*bakım)/i.test(`${p.title || ''} ${p.kategori || ''} ${p.ozet || ''}`));
+      }
+    }
+  } catch (_) {}
+
+  if (posts.length < 3) {
+    const needed = CURATED_HOME_BLOGS.slice(0, 3 - posts.length);
+    posts = [...posts, ...needed];
+  }
+
+  grid.innerHTML = posts.slice(0, 3).map((p, idx) => {
+    const href = p.id ? `blog-yazi.html?id=${encodeURIComponent(p.id)}` : 'blog.html';
+    const img = p.cover_image || p.resim || CURATED_HOME_BLOGS[idx % CURATED_HOME_BLOGS.length].cover_image;
+    const dateLabel = p.tarih
+      ? new Date(p.tarih).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })
+      : 'Güncel Rehber';
+    return `
+      <a href="${href}" class="home-blog-card hg-reveal" data-delay="${idx * 90}">
+        <div class="home-blog-thumb">
+          <img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='resim/showroom/hero_atolye.jpg'">
+          <span class="home-blog-cat">${esc(p.kategori || 'Mobilya Rehberi')}</span>
+        </div>
+        <div class="home-blog-body">
+          <h3 class="home-blog-title"><span class="miles-underline-link">${esc(p.title)}</span></h3>
+          <p class="home-blog-excerpt">${esc(p.ozet || '')}</p>
+          <div class="home-blog-foot">
+            <span>${esc(dateLabel)}</span>
+            <span>Yazıyı Oku →</span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+  window.GKM_MOTION?.refreshReveals();
 }
 
 function esc(str) {
@@ -1582,7 +2241,8 @@ async function handleQuickQuote(e) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  bindHeroHotspots();
+  startHeroAutoCarousel();
+  initNatureIvyScrollScene();
   document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('#homeCatPills .cat-pill-btn').forEach(b => b.classList.remove('active'));
@@ -1593,6 +2253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   loadHomeShowroom();
+  loadHomeBlogs();
   syncHomeWithDatabaseSafe();
   window.GKM_MOTION?.initAll();
 });
