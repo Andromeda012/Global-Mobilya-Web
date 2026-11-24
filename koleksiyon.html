@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Koleksiyonlar | Global Mobilya — Mimari Mobilya Serileri</title>
-<meta name="description" content="Global Mobilya koleksiyonları: Kahve Köşesi Koleksiyonları, Dolap Koleksiyonları ve Yatak Odası Koleksiyonları için kamera geçişli mimari sunum.">
+<meta name="description" content="Global Mobilya koleksiyonları: Kahve Köşesi Koleksiyonları, Dolap Koleksiyonları ve Yatak Odası Koleksiyonları için 3B uzamsal kamera geçişli mimari vitrin.">
 <link rel="canonical" href="https://globalkapakmobilya.com/koleksiyon.html">
 <link rel="icon" type="image/png" href="resim/logo.png">
 
@@ -20,87 +20,155 @@
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
+  /* Yerel renk interpolasyonu için @property kayıtları (Aurora Mesh Engine) */
+  @property --aurora-base {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #1c120a;
+  }
+  @property --orb-c1 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #f59e0b;
+  }
+  @property --orb-c2 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #ea580c;
+  }
+  @property --orb-c3 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #fbbf24;
+  }
+  @property --orb-c4 {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #0ea5e9;
+  }
+
+  :root {
+    --stage-accent: #E2B761;
+    --aurora-base: #1c120a;
+    --orb-c1: #f59e0b;
+    --orb-c2: #ea580c;
+    --orb-c3: #fbbf24;
+    --orb-c4: #0ea5e9;
+  }
+
   * { box-sizing: border-box; }
   html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #14110E;
+    background: var(--aurora-base);
     color: #F7F5F0;
     font-family: var(--font-hg-sans);
+    transition:
+      --aurora-base 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+      --orb-c1 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+      --orb-c2 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+      --orb-c3 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+      --orb-c4 1.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Sürekli Kromatik Ortam Arka Planı */
-  :root {
-    --stage-accent: #E2B761;
-  }
-
+  /* ── CANLI DANS EDEN ÇOK RENKLİ AURORA MESH ARKA PLANI ── */
   #collectionCanvas {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background-color: #1D150F;
+    background-color: var(--aurora-base);
     overflow: hidden;
     pointer-events: none;
-    transition: background-color 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: background-color 1.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .chroma-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.42;
-    transition: background-color 1.05s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform, background-color;
+    filter: blur(88px);
+    mix-blend-mode: screen;
+    will-change: transform;
+    pointer-events: none;
   }
-  .chroma-orb-a {
-    width: min(68vw, 960px);
-    height: min(68vw, 960px);
+  .chroma-orb-1 {
+    width: min(64vw, 900px);
+    height: min(64vw, 900px);
     top: -18vh;
-    right: -14vw;
-    background-color: #CC9C3C;
-    animation: chromaDriftA 18s ease-in-out infinite alternate;
+    left: -12vw;
+    opacity: 0.62;
+    background: radial-gradient(circle, var(--orb-c1) 0%, transparent 68%);
+    animation: auroraDance1 15s ease-in-out infinite alternate;
   }
-  .chroma-orb-b {
-    width: min(60vw, 840px);
-    height: min(60vw, 840px);
+  .chroma-orb-2 {
+    width: min(62vw, 860px);
+    height: min(62vw, 860px);
     bottom: -22vh;
-    left: -14vw;
-    background-color: #7A5236;
-    animation: chromaDriftB 22s ease-in-out infinite alternate;
+    right: -12vw;
+    opacity: 0.58;
+    background: radial-gradient(circle, var(--orb-c2) 0%, transparent 68%);
+    animation: auroraDance2 18s ease-in-out infinite alternate;
+  }
+  .chroma-orb-3 {
+    width: min(52vw, 720px);
+    height: min(52vw, 720px);
+    top: 22vh;
+    right: 6vw;
+    opacity: 0.48;
+    background: radial-gradient(circle, var(--orb-c3) 0%, transparent 68%);
+    animation: auroraDance3 21s ease-in-out infinite alternate;
+  }
+  .chroma-orb-4 {
+    width: min(54vw, 740px);
+    height: min(54vw, 740px);
+    bottom: 6vh;
+    left: 10vw;
+    opacity: 0.46;
+    background: radial-gradient(circle, var(--orb-c4) 0%, transparent 68%);
+    animation: auroraDance4 17s ease-in-out infinite alternate;
   }
   .chroma-vignette {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 50% 45%, transparent 28%, rgba(10, 8, 6, 0.58) 100%),
-      linear-gradient(180deg, rgba(10, 8, 6, 0.25) 0%, rgba(10, 8, 6, 0.5) 100%);
+      radial-gradient(ellipse at 50% 48%, rgba(8, 6, 10, 0.08) 0%, rgba(8, 6, 10, 0.42) 100%),
+      linear-gradient(180deg, rgba(8, 6, 10, 0.24) 0%, transparent 28%, transparent 72%, rgba(8, 6, 10, 0.34) 100%);
   }
 
-  @keyframes chromaDriftA {
+  @keyframes auroraDance1 {
     0%   { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(-6vw, 8vh, 0) scale(1.12); }
+    50%  { transform: translate3d(22vw, 18vh, 0) scale(1.22); }
+    100% { transform: translate3d(42vw, 6vh, 0) scale(0.95); }
   }
-  @keyframes chromaDriftB {
+  @keyframes auroraDance2 {
     0%   { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(7vw, -7vh, 0) scale(1.15); }
+    50%  { transform: translate3d(-24vw, -16vh, 0) scale(1.2); }
+    100% { transform: translate3d(-44vw, -8vh, 0) scale(1.04); }
+  }
+  @keyframes auroraDance3 {
+    0%   { transform: translate3d(0, 0, 0) scale(0.96); }
+    50%  { transform: translate3d(-28vw, 14vh, 0) scale(1.18); }
+    100% { transform: translate3d(-12vw, -22vh, 0) scale(1.05); }
+  }
+  @keyframes auroraDance4 {
+    0%   { transform: translate3d(0, 0, 0) scale(1.02); }
+    50%  { transform: translate3d(26vw, -20vh, 0) scale(0.9); }
+    100% { transform: translate3d(14vw, 14vh, 0) scale(1.22); }
   }
 
-  /* Kamera Sahne Taşıyıcı (%100 Viewport Tek Ekran Geçişleri) */
+  /* ── 3B UZAMSAL KAMERA SAHNE DEKORTATÖRÜ ("DÜNYANIN FARKLI KÖŞELERİNE UÇUŞ") ── */
   .cam-deck {
     position: fixed;
     inset: 0;
     overflow: hidden;
     z-index: 5;
-  }
-  .cam-track {
-    width: 100%;
-    will-change: transform;
-    transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+    perspective: 1450px;
+    transform-style: preserve-3d;
   }
   .cam-slide {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100svh;
     overflow: hidden;
@@ -108,6 +176,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: center center;
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
+  }
+  .cam-slide.is-current {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 3;
+    transform: none;
+    filter: none;
+  }
+  .cam-slide.is-transitioning {
+    visibility: visible;
+    pointer-events: none;
+    z-index: 4;
   }
 
   /* ── SLIDE 0: KATEGORİ AÇILIŞ EKRANI ── */
@@ -129,13 +216,14 @@
     gap: 10px;
     padding: 7px 18px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(223, 199, 147, 0.34);
+    background: rgba(16, 14, 18, 0.45);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #DFC793;
+    color: var(--stage-accent);
     animation: introRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cam-intro-title {
@@ -145,17 +233,18 @@
     line-height: 1.0;
     color: #FFFFFF;
     margin: 0;
+    text-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
     animation: introRise 0.95s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .cam-intro-title em {
     font-style: italic;
-    color: #DFC793;
+    color: var(--stage-accent);
   }
   .cam-intro-desc {
     max-width: 660px;
     font-size: clamp(14px, 1.35vw, 17px);
     line-height: 1.65;
-    color: rgba(247, 245, 240, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     margin: 0;
     animation: introRise 1.05s 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
@@ -173,23 +262,24 @@
     gap: 7px;
     padding: 6px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    color: rgba(247, 245, 240, 0.86);
+    background: rgba(16, 14, 18, 0.44);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.92);
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s ease;
   }
   .cam-series-chip:hover {
-    background: rgba(223, 199, 147, 0.16);
-    border-color: #DFC793;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--stage-accent);
     color: #FFFFFF;
     transform: translateY(-2px);
   }
   .cam-series-chip span {
     font-size: 10px;
-    color: #DFC793;
+    color: var(--stage-accent);
     font-weight: 700;
   }
   .cam-cat-switcher {
@@ -203,9 +293,10 @@
   .cam-cat-btn {
     padding: 7px 15px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(247, 245, 240, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(16, 14, 18, 0.36);
+    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.8);
     font-family: var(--font-hg-sans);
     font-size: 11.5px;
     font-weight: 600;
@@ -213,13 +304,13 @@
     transition: all 0.25s ease;
   }
   .cam-cat-btn:hover {
-    border-color: rgba(223, 199, 147, 0.55);
+    border-color: rgba(255, 255, 255, 0.55);
     color: #FFFFFF;
   }
   .cam-cat-btn.active {
-    background: rgba(223, 199, 147, 0.16);
-    border-color: #DFC793;
-    color: #DFC793;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--stage-accent);
+    color: var(--stage-accent);
   }
   .cam-intro-bottom {
     animation: introRise 1.15s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -231,10 +322,10 @@
     height: 52px;
     padding: 0 30px;
     border-radius: 999px;
-    border: 1px solid rgba(223, 199, 147, 0.65);
-    background: linear-gradient(135deg, rgba(223, 199, 147, 0.24) 0%, rgba(223, 199, 147, 0.1) 100%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    background: rgba(16, 14, 18, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: #FFFFFF;
     font-family: var(--font-hg-sans);
     font-size: 14px;
@@ -242,14 +333,14 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 18px 42px -12px rgba(0, 0, 0, 0.7), 0 0 28px rgba(223, 199, 147, 0.16);
-    transition: transform 0.32s var(--ease-hg), background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 18px 42px -12px rgba(0, 0, 0, 0.72);
+    transition: transform 0.32s var(--ease-hg), background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   .cam-start-btn:hover {
     transform: translateY(-3px);
-    background: #DFC793;
+    background: #FFFFFF;
     color: #16110D;
-    box-shadow: 0 22px 48px -12px rgba(223, 199, 147, 0.45);
+    border-color: #FFFFFF;
   }
   .cam-start-arrow {
     display: inline-block;
@@ -265,28 +356,56 @@
     50%      { transform: translateY(4px); }
   }
 
-  /* ── SLIDES 1..N: TEK EKRANDA KOLEKSİYON SUNUMU ── */
+  /* ── SLIDES 1..N: TEK KUTUDA BİREBİR HİZALI SUNUM KOLONU ── */
   .cam-col-slide {
-    padding: clamp(12px, 1.8vh, 22px) clamp(18px, 3.2vw, 56px) clamp(12px, 1.8vh, 22px);
+    padding: clamp(14px, 2vh, 22px) clamp(18px, 3.2vw, 56px) clamp(16px, 2.2vh, 24px);
   }
-  .cam-slide-shell {
-    width: min(1240px, 100%);
+  /* Hem üst başlık satırı hem sahne görseli AYNI genişlik kutusunu paylaşır -> Sol & sağ kenarlar birebir hizalı */
+  .cam-stage-column {
+    width: min(1140px, 90vw, calc((100svh - 335px) * 1.7933));
     height: 100%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    gap: clamp(8px, 1.2vh, 14px);
+    align-items: stretch;
+    gap: clamp(10px, 1.3vh, 16px);
   }
 
-  /* Üst Kamera Butonu (Başa Dön) */
   .cam-top-nav {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 12px;
     flex-shrink: 0;
+  }
+  .cam-top-nav-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cam-geo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(14, 12, 16, 0.56);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--stage-accent);
+  }
+  .cam-geo-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--stage-accent);
+    box-shadow: 0 0 10px var(--stage-accent);
   }
   .cam-nav-pill {
     display: inline-flex;
@@ -295,13 +414,13 @@
     height: 36px;
     padding: 0 18px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(18, 14, 11, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(14, 12, 16, 0.62);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: #F7F5F0;
     font-family: var(--font-hg-sans);
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -309,44 +428,44 @@
     transition: all 0.26s var(--ease-hg);
   }
   .cam-nav-pill:hover {
-    border-color: #DFC793;
-    background: rgba(223, 199, 147, 0.16);
+    border-color: var(--stage-accent);
+    background: rgba(255, 255, 255, 0.14);
     color: #FFFFFF;
     transform: translateY(-2px);
   }
   .cam-nav-pill.primary {
-    border-color: rgba(223, 199, 147, 0.55);
-    background: rgba(223, 199, 147, 0.15);
-    color: #DFC793;
+    border-color: rgba(255, 255, 255, 0.36);
+    background: rgba(14, 12, 16, 0.72);
+    color: var(--stage-accent);
   }
   .cam-nav-pill.primary:hover {
-    background: #DFC793;
-    color: #16110D;
+    background: var(--stage-accent);
+    border-color: var(--stage-accent);
+    color: #14100C;
   }
   .cam-slide-counter {
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.16em;
-    color: rgba(247, 245, 240, 0.58);
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.68);
   }
 
-  /* Orta Alan: Başlık + Tanıtım + Sahne Birlikte %100 Ekrana Sığar */
   .cam-slide-core {
     flex: 1;
     min-height: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: clamp(8px, 1.3vh, 16px);
+    gap: clamp(10px, 1.3vh, 16px);
   }
+  /* Başlık + Tanıtım + Palet + Butonlar — SOL & SAĞ KENARLARI GÖRSELLE BİREBİR HİZALI */
   .cam-col-head {
     width: 100%;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 18px 28px;
+    gap: 16px 26px;
     flex-shrink: 0;
   }
   .cam-col-head-left {
@@ -355,7 +474,7 @@
   }
   .stage-chapter {
     display: inline-block;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -364,22 +483,20 @@
   }
   .stage-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(26px, 3vw, 42px);
+    font-size: clamp(26px, 2.75vw, 40px);
     font-weight: 400;
-    line-height: 1.04;
+    line-height: 1.03;
     color: #fff;
     margin: 0 0 6px;
+    text-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
   }
+  /* Tam metin okunur — kesilme (...) YOK */
   .stage-story {
-    font-size: clamp(12.5px, 1.08vw, 14px);
-    line-height: 1.5;
-    max-width: 620px;
-    color: rgba(247, 245, 240, 0.82);
+    font-size: clamp(12px, 1.02vw, 13.5px);
+    line-height: 1.48;
+    max-width: 640px;
+    color: rgba(255, 255, 255, 0.88);
     margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
   .cam-col-head-right {
     display: flex;
@@ -401,8 +518,9 @@
     text-transform: uppercase;
     padding: 4px 10px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(14, 12, 16, 0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -420,7 +538,7 @@
     align-items: center;
   }
   .stage-actions .btn-hg-wipe {
-    height: 38px;
+    height: 36px;
     padding: 0 18px;
     font-size: 12px;
   }
@@ -428,11 +546,12 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    height: 38px;
+    height: 36px;
     padding: 0 16px;
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(14, 12, 16, 0.45);
+    backdrop-filter: blur(8px);
     color: #F7F5F0;
     font-family: var(--font-hg-sans);
     font-size: 12px;
@@ -446,11 +565,18 @@
     border-color: var(--stage-accent);
   }
 
-  /* Çerçeveli Sahne Kutusu — Viewport Yükseklik Matematiği (%100 Ölçekte Tam Sığma) */
   .cam-visual-frame-wrap {
-    width: min(1160px, 100%, calc((100svh - 290px) * 1.7933));
-    margin: 0 auto;
+    width: 100%;
     flex-shrink: 0;
+  }
+
+  .cam-bottom-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding-top: 2px;
   }
 
   /* Etkileşimli Çok Katmanlı Showroom Çerçevesi */
@@ -458,9 +584,9 @@
     width: 100%;
     border-radius: 18px;
     overflow: hidden;
-    border: 1px solid rgba(223, 199, 147, 0.26);
-    box-shadow: 0 28px 72px -20px rgba(0, 0, 0, 0.84);
-    background: #140F0B;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 30px 76px -18px rgba(0, 0, 0, 0.8);
+    background: rgba(16, 13, 10, 0.92);
   }
   .scase-stage {
     position: relative;
@@ -671,8 +797,8 @@
     flex-wrap: wrap;
     gap: 8px 14px;
     padding: 10px 18px;
-    background: rgba(18, 14, 10, 0.96);
-    border-top: 1px solid rgba(223, 199, 147, 0.14);
+    background: rgba(16, 13, 10, 0.94);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
   .scase-dock-label {
     font-size: 11px;
@@ -712,16 +838,15 @@
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #DFC793;
+    color: var(--stage-accent);
   }
   .scase-dock-pill:hover,
   .scase-dock-pill.is-active {
-    background: rgba(223, 199, 147, 0.15);
-    border-color: #DFC793;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: var(--stage-accent);
     transform: translateY(-1px);
   }
 
-  /* Standart Koleksiyon Görseli için Tek Ekranlı Çerçeve */
   .cam-static-img-wrap {
     position: relative;
     aspect-ratio: 1024 / 571;
@@ -752,17 +877,17 @@
     flex-direction: column;
     gap: 13px;
     padding: 14px 9px;
-    background: rgba(20, 17, 14, 0.72);
+    background: rgba(14, 12, 16, 0.65);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
   }
   .col-index-dot {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     position: relative;
     transition: all 0.3s var(--ease-hg);
@@ -770,9 +895,9 @@
     padding: 0;
   }
   .col-index-dot.active {
-    background: #DFC793;
+    background: var(--stage-accent);
     transform: scale(1.45);
-    box-shadow: 0 0 12px rgba(223, 199, 147, 0.75);
+    box-shadow: 0 0 12px var(--stage-accent);
   }
   .col-index-dot::before {
     content: attr(data-name);
@@ -780,7 +905,7 @@
     right: 22px;
     top: 50%;
     transform: translateY(-50%) translateX(6px);
-    background: rgba(20, 17, 14, 0.94);
+    background: rgba(16, 13, 16, 0.94);
     color: #fff;
     padding: 5px 12px;
     border-radius: 999px;
@@ -790,7 +915,7 @@
     opacity: 0;
     pointer-events: none;
     transition: all 0.22s ease;
-    border: 1px solid rgba(223, 199, 147, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.24);
   }
   .col-index-dot:hover::before {
     opacity: 1;
@@ -882,7 +1007,10 @@
   }
   .form-group input:focus, .form-group textarea:focus { border-color: #DFC793; }
 
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
+    .cam-stage-column {
+      width: min(92vw, calc((100svh - 365px) * 1.7933));
+    }
     .cam-col-head {
       flex-direction: column;
       align-items: flex-start;
@@ -893,9 +1021,6 @@
     }
     .stage-palettes {
       justify-content: flex-start;
-    }
-    .cam-visual-frame-wrap {
-      width: min(100%, calc((100svh - 335px) * 1.7933));
     }
   }
 
@@ -912,22 +1037,26 @@
     .cam-col-slide {
       padding: 10px 36px 12px 12px;
     }
+    .cam-stage-column {
+      width: 100%;
+      gap: 8px;
+    }
+    .cam-geo-badge {
+      display: none;
+    }
     .cam-intro-slide {
       padding: 84px 18px 24px;
     }
     .stage-title {
-      font-size: 25px;
+      font-size: 24px;
       margin-bottom: 3px;
     }
     .stage-story {
-      font-size: 12px;
-      -webkit-line-clamp: 2;
+      font-size: 11.5px;
+      line-height: 1.42;
     }
     .stage-palettes {
       display: none;
-    }
-    .cam-visual-frame-wrap {
-      width: 100%;
     }
     .scase-dock-bar {
       padding: 8px 10px;
@@ -956,8 +1085,10 @@
 <body>
 
 <div id="collectionCanvas">
-  <div class="chroma-orb chroma-orb-a" id="chromaOrbA"></div>
-  <div class="chroma-orb chroma-orb-b" id="chromaOrbB"></div>
+  <div class="chroma-orb chroma-orb-1"></div>
+  <div class="chroma-orb chroma-orb-2"></div>
+  <div class="chroma-orb chroma-orb-3"></div>
+  <div class="chroma-orb chroma-orb-4"></div>
   <div class="chroma-vignette"></div>
 </div>
 
@@ -966,11 +1097,9 @@
 <nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Kamera Geçişi"></nav>
 
 <main class="cam-deck" id="cameraDeck">
-  <div class="cam-track" id="cameraTrack">
-    <section class="cam-slide cam-intro-slide" style="justify-content:center;">
-      <div style="color:rgba(247,245,240,0.65);font-size:15px;">Canlı koleksiyonlar yükleniyor...</div>
-    </section>
-  </div>
+  <section class="cam-slide is-current cam-intro-slide">
+    <div style="margin:auto;color:rgba(255,255,255,0.7);font-size:15px;">Canlı koleksiyonlar yükleniyor...</div>
+  </section>
 </main>
 
 <!-- Quote Request Modal -->
@@ -1060,60 +1189,121 @@ const CATEGORY_COPY = {
   'Kahve Köşesi Koleksiyonları': {
     kicker: 'Mimari Kahve Köşesi Vitrini',
     titleHtml: 'Kahve Köşesi <em>Koleksiyonları</em>',
-    desc: 'Sıcak iç aydınlatmalı cam vitrinleri, barista ekipmanlarına özel geniş tezgâh açıklıkları ve 80 cm’den 160 cm’ye kadar uyarlanan modüler kahve köşesi serilerimizi sabit kamera geçişleriyle adım adım keşfedin.'
+    desc: 'Dünyanın farklı mimari esintilerinden ilham alan; sıcak iç aydınlatmalı vitrinleri ve ergonomik barista tezgâhlarıyla her mekâna özgün kimlik katan kahve köşesi serilerimizi keşfedin.',
+    aurora: { base: '#16110D', c1: '#F59E0B', c2: '#0EA5E9', c3: '#FACC15', c4: '#EA580C', accent: '#E2B761' }
   },
   'Dolap Koleksiyonları': {
     kicker: 'Sistematik Depolama Mimarisi',
     titleHtml: 'Dolap <em>Koleksiyonları</em>',
-    desc: 'Zeminden tavana milimetrik uyum sağlayan gövde birleşimleri, sessiz frenli donanımlar ve mekânın oranlarına göre şekillenen modüler dolap serilerimizi inceleyin.'
+    desc: 'Zeminden tavana milimetrik uyum sağlayan gövde birleşimleri, sessiz donanımlar ve mekânın oranlarına göre şekillenen modüler dolap serilerimizi keşfedin.',
+    aurora: { base: '#0A1924', c1: '#38BDF8', c2: '#EAB308', c3: '#10B981', c4: '#6366F1', accent: '#7DD3FC' }
   },
   'Yatak Odası Koleksiyonları': {
     kicker: 'Özel Uyku &amp; Giyinme Kurguları',
     titleHtml: 'Yatak Odası <em>Koleksiyonları</em>',
-    desc: 'Yatak odanızın ölçülerine ve doğal doku tercihlerinize özel tasarlanan gardırop, karyola ve komodin serilerimiz yakında bu kategoride vitrine çıkıyor.'
+    desc: 'Yatak odanızın ölçülerine ve doğal doku tercihlerinize özel tasarlanan gardırop, karyola ve komodin serilerimiz yakında bu kategoride vitrine çıkıyor.',
+    aurora: { base: '#1A1120', c1: '#A855F7', c2: '#F59E0B', c3: '#EC4899', c4: '#14B8A6', accent: '#F0ABFC' }
   }
 };
 
-const COLLECTION_ATMOSPHERES = {
+// Her şehir koleksiyonuna özgü canlı Aurora renk dansı & dünya koordinatı
+const COLLECTION_WORLDS = {
   bergamo: {
-    bg: [29, 21, 15], orb1: [204, 156, 60], orb2: [122, 82, 54],
-    accent: '#E2B761', swatches: ['#543C24', '#8E765E', '#CC9C3C', '#E4DAD0']
+    place: 'Bergamo, İtalya · 45°41′K 09°40′D',
+    vec: { x: -10, y: 8, rotY: -7 },
+    base: '#231309',
+    c1: '#F59E0B',
+    c2: '#EA580C',
+    c3: '#FBBF24',
+    c4: '#B45309',
+    accent: '#F6C86E',
+    swatches: ['#543C24', '#8E765E', '#CC9C3C', '#E4DAD0']
   },
   lahey: {
-    bg: [19, 27, 22], orb1: [109, 126, 94], orb2: [199, 174, 130],
-    accent: '#C4D4A7', swatches: ['#6C6C54', '#84846C', '#CCB484', '#EFE9DF']
+    place: 'Lahey, Hollanda · 52°04′K 04°18′D',
+    vec: { x: 14, y: -6, rotY: 8 },
+    base: '#0B241D',
+    c1: '#10B981',
+    c2: '#FACC15',
+    c3: '#06B6D4',
+    c4: '#84CC16',
+    accent: '#9AE6B4',
+    swatches: ['#6C6C54', '#84846C', '#CCB484', '#EFE9DF']
   },
   marsilya: {
-    bg: [24, 23, 25], orb1: [130, 135, 116], orb2: [154, 96, 71],
-    accent: '#DDBAA0', swatches: ['#6C543C', '#9C9C84', '#9C6C54', '#D6D3CE']
+    place: 'Marsilya, Fransa · 43°17′K 05°22′D',
+    vec: { x: -16, y: -5, rotY: -9 },
+    base: '#081F37',
+    c1: '#0EA5E9',
+    c2: '#FACC15',
+    c3: '#2563EB',
+    c4: '#FBBF24',
+    accent: '#FDE047',
+    swatches: ['#1E88E5', '#FACC15', '#6C543C', '#F3EFEA']
   },
   palermo: {
-    bg: [31, 24, 19], orb1: [204, 132, 60], orb2: [196, 170, 146],
-    accent: '#E7BE8A', swatches: ['#6C543C', '#B49C84', '#CC843C', '#E9DFD7']
+    place: 'Palermo, Sicilya · 38°06′K 13°21′D',
+    vec: { x: 16, y: 10, rotY: 9 },
+    base: '#281014',
+    c1: '#F97316',
+    c2: '#FBBF24',
+    c3: '#14B8A6',
+    c4: '#F43F5E',
+    accent: '#FDBA74',
+    swatches: ['#6C543C', '#B49C84', '#CC843C', '#E9DFD7']
   },
   toronto: {
-    bg: [19, 22, 24], orb1: [111, 120, 126], orb2: [180, 132, 36],
-    accent: '#D5BE8B', swatches: ['#543C3C', '#848484', '#B4B4B4', '#B48424']
+    place: 'Toronto, Kanada · 43°39′K 79°23′B',
+    vec: { x: -14, y: 12, rotY: -8 },
+    base: '#0A162B',
+    c1: '#3B82F6',
+    c2: '#06B6D4',
+    c3: '#EAB308',
+    c4: '#8B5CF6',
+    accent: '#93C5FD',
+    swatches: ['#543C3C', '#848484', '#B4B4B4', '#B48424']
   },
   troyes: {
-    bg: [25, 18, 13], orb1: [156, 84, 36], orb2: [142, 106, 76],
-    accent: '#E4A972', swatches: ['#3C2424', '#6C543C', '#9C5424', '#B48454']
+    place: 'Troyes, Fransa · 48°17′K 04°04′D',
+    vec: { x: 12, y: -10, rotY: 7 },
+    base: '#270D19',
+    c1: '#E11D48',
+    c2: '#F59E0B',
+    c3: '#D946EF',
+    c4: '#EA580C',
+    accent: '#FDA4AF',
+    swatches: ['#3C2424', '#6C543C', '#9C5424', '#B48454']
   },
   bohem: {
-    bg: [22, 19, 21], orb1: [108, 84, 84], orb2: [180, 156, 156],
-    accent: '#D8C0B0', swatches: ['#242424', '#543C3C', '#6C5454', '#B49C9C']
+    place: 'Atölye Akdeniz · Ege Esintisi',
+    vec: { x: -12, y: 6, rotY: -6 },
+    base: '#231024',
+    c1: '#EC4899',
+    c2: '#14B8A6',
+    c3: '#F59E0B',
+    c4: '#A855F7',
+    accent: '#F9A8D4',
+    swatches: ['#242424', '#543C3C', '#6C5454', '#B49C9C']
   },
   fallback: {
-    bg: [20, 17, 14], orb1: [94, 116, 98], orb2: [180, 140, 88],
-    accent: '#DFC793', swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
+    place: 'İstanbul Atölye · Mimari Tasarım',
+    vec: { x: 8, y: 8, rotY: 6 },
+    base: '#0E1C26',
+    c1: '#0EA5E9',
+    c2: '#F59E0B',
+    c3: '#10B981',
+    c4: '#8B5CF6',
+    accent: '#DFC793',
+    swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
   }
 };
 
 let _allCollections = [];
 let _visibleList = [];
 let _activeCategory = 'Kahve Köşesi Koleksiyonları';
-let _activeSlideIdx = 0;
+let _activeSlideIdx = -1;
 let _sceneTriggerTimer = 0;
+let _flightAnims = [];
 
 function escHtml(s) {
   return String(s || '').replace(/[&<>"']/g, m => ({
@@ -1121,10 +1311,10 @@ function escHtml(s) {
   }[m]));
 }
 
-function getAtmosphere(slug) {
+function getWorldTheme(slug) {
   const s = String(slug || '').toLowerCase();
-  const key = Object.keys(COLLECTION_ATMOSPHERES).find(k => k !== 'fallback' && s.includes(k));
-  return COLLECTION_ATMOSPHERES[key || 'fallback'];
+  const key = Object.keys(COLLECTION_WORLDS).find(k => k !== 'fallback' && s.includes(k));
+  return COLLECTION_WORLDS[key || 'fallback'];
 }
 
 function formatPieceTitle(p, collectionName) {
@@ -1154,40 +1344,140 @@ function closeColLightbox() {
   document.getElementById('colLightbox').classList.remove('open');
 }
 
-function rgbStr(rgb) { return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`; }
-
-function applySlideAtmosphere(slideIdx) {
-  const canvas = document.getElementById('collectionCanvas');
-  const orbA = document.getElementById('chromaOrbA');
-  const orbB = document.getElementById('chromaOrbB');
-  const slug = slideIdx === 0
-    ? (_visibleList[0]?.slug || 'fallback')
-    : (_visibleList[slideIdx - 1]?.slug || 'fallback');
-  const atmo = getAtmosphere(slug);
-  if (canvas) canvas.style.backgroundColor = rgbStr(atmo.bg);
-  if (orbA) orbA.style.backgroundColor = rgbStr(atmo.orb1);
-  if (orbB) orbB.style.backgroundColor = rgbStr(atmo.orb2);
-  document.documentElement.style.setProperty('--stage-accent', atmo.accent);
+function applyAuroraPalette(theme) {
+  const rootStyle = document.documentElement.style;
+  rootStyle.setProperty('--aurora-base', theme.base);
+  rootStyle.setProperty('--orb-c1', theme.c1);
+  rootStyle.setProperty('--orb-c2', theme.c2);
+  rootStyle.setProperty('--orb-c3', theme.c3);
+  rootStyle.setProperty('--orb-c4', theme.c4);
+  rootStyle.setProperty('--stage-accent', theme.accent);
 }
 
-function glideToSlide(targetIdx) {
+function applySlideAurora(slideIdx) {
+  if (slideIdx <= 0) {
+    const meta = CATEGORY_COPY[_activeCategory] || CATEGORY_COPY[CATEGORIES[0]];
+    applyAuroraPalette(meta.aurora);
+    return;
+  }
+  const col = _visibleList[slideIdx - 1];
+  applyAuroraPalette(getWorldTheme(col?.slug));
+}
+
+/**
+ * Dünyanın farklı noktaları arasında 3B kamera uçuşu (pull-back -> lateral world flight -> dolly-zoom in)
+ */
+function flyCameraToSlide(targetIdx, instant = false) {
   const maxSlide = _visibleList.length;
   const clamped = Math.max(0, Math.min(maxSlide, targetIdx));
+  const slides = Array.from(document.querySelectorAll('#cameraDeck .cam-slide'));
+  if (!slides.length) return;
+
+  const prevIdx = _activeSlideIdx;
+  const nextEl = slides[clamped];
+  const prevEl = prevIdx >= 0 && prevIdx < slides.length && prevIdx !== clamped ? slides[prevIdx] : null;
   _activeSlideIdx = clamped;
 
-  const track = document.getElementById('cameraTrack');
-  if (track) {
-    track.style.transform = `translate3d(0, -${clamped * 100}svh, 0)`;
-  }
+  // Aktif animasyonları iptal et ve temizle
+  _flightAnims.forEach(a => { try { a.cancel(); } catch (_) {} });
+  _flightAnims = [];
+
+  slides.forEach(el => {
+    el.classList.remove('is-current', 'is-transitioning');
+    el.style.transform = '';
+    el.style.opacity = '';
+    el.style.filter = '';
+  });
 
   document.querySelectorAll('#colIndexNav .col-index-dot').forEach((d, i) => {
     d.classList.toggle('active', i === clamped);
   });
 
-  // İlk başlık ekranında üst bar görünür, koleksiyonları incelerken pürüzsüzce gizlenir
   window.GKM_HEADER?.setForceHidden(clamped > 0);
-  applySlideAtmosphere(clamped);
+  applySlideAurora(clamped);
 
+  if (instant || !prevEl) {
+    nextEl.classList.add('is-current');
+  } else {
+    const goingForward = clamped > prevIdx;
+    const world = clamped > 0
+      ? getWorldTheme(_visibleList[clamped - 1]?.slug)
+      : { vec: { x: 0, y: -14, rotY: 0 } };
+    const v = world.vec;
+    const exitX = -v.x * 1.1;
+    const exitY = goingForward ? -8 : 10;
+    const enterX = v.x;
+    const enterY = goingForward ? v.y : -v.y;
+    const rotY = goingForward ? v.rotY : -v.rotY;
+
+    prevEl.classList.add('is-transitioning');
+    nextEl.classList.add('is-current', 'is-transitioning');
+
+    const exitAnim = prevEl.animate([
+      {
+        transform: 'translate3d(0, 0, 0) scale(1) rotateY(0deg)',
+        filter: 'blur(0px)',
+        opacity: 1
+      },
+      {
+        transform: `translate3d(${exitX * 0.45}vw, ${exitY * 0.45}vh, -280px) scale(0.82) rotateY(${rotY * 0.7}deg)`,
+        filter: 'blur(6px)',
+        opacity: 0.45,
+        offset: 0.42
+      },
+      {
+        transform: `translate3d(${exitX}vw, ${exitY}vh, -640px) scale(0.68) rotateY(${rotY}deg)`,
+        filter: 'blur(12px)',
+        opacity: 0
+      }
+    ], {
+      duration: 820,
+      easing: 'cubic-bezier(0.32, 0, 0.24, 1)',
+      fill: 'forwards'
+    });
+
+    const enterAnim = nextEl.animate([
+      {
+        transform: `translate3d(${enterX}vw, ${enterY}vh, -580px) scale(0.72) rotateY(${-rotY}deg) rotateX(5deg)`,
+        filter: 'blur(12px)',
+        opacity: 0
+      },
+      {
+        transform: `translate3d(${enterX * 0.28}vw, ${enterY * 0.28}vh, -160px) scale(0.9) rotateY(${-rotY * 0.3}deg) rotateX(1.5deg)`,
+        filter: 'blur(3px)',
+        opacity: 0.85,
+        offset: 0.55
+      },
+      {
+        transform: 'translate3d(0, 0, 0) scale(1) rotateY(0deg) rotateX(0deg)',
+        filter: 'blur(0px)',
+        opacity: 1
+      }
+    ], {
+      duration: 1120,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fill: 'forwards'
+    });
+
+    _flightAnims.push(exitAnim, enterAnim);
+
+    enterAnim.finished.then(() => {
+      if (_activeSlideIdx !== clamped) return;
+      try {
+        exitAnim.cancel();
+        enterAnim.cancel();
+      } catch (_) {}
+      slides.forEach((s, idx) => {
+        s.classList.remove('is-transitioning');
+        s.classList.toggle('is-current', idx === clamped);
+        s.style.transform = '';
+        s.style.opacity = '';
+        s.style.filter = '';
+      });
+    }).catch(() => {});
+  }
+
+  // Aktif koleksiyon sahnesini uçuş konduğunda tetikle
   if (_sceneTriggerTimer) clearTimeout(_sceneTriggerTimer);
   const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
   const activeSlug = activeCol ? String(activeCol.slug || '') : '';
@@ -1198,35 +1488,36 @@ function glideToSlide(targetIdx) {
     return;
   }
 
-  // Kamera slaytı merkeze yaklaşırken (280ms) yavaş sahne girişini başlat
   _sceneTriggerTimer = setTimeout(() => {
     window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
-  }, 280);
+  }, instant ? 120 : 520);
 }
+
+// Geriye uyumluluk takma adı
+window.glideToSlide = flyCameraToSlide;
 
 function selectCategory(cat, initialSlideIdx = 0) {
   _activeCategory = CATEGORIES.includes(cat) ? cat : CATEGORIES[0];
+  _activeSlideIdx = -1;
   renderCategoryDeck(_activeCategory, initialSlideIdx);
 }
 
 function renderCategoryDeck(category, initialSlideIdx = 0) {
-  const track = document.getElementById('cameraTrack');
+  const deck = document.getElementById('cameraDeck');
   const nav = document.getElementById('colIndexNav');
   _visibleList = _allCollections.filter(c => c.category === category);
 
   const meta = CATEGORY_COPY[category] || CATEGORY_COPY[CATEGORIES[0]];
 
-  // Sağ nokta rayı: Giriş + her koleksiyon noktası
   const dotNames = ['Kategori Özeti', ..._visibleList.map(c => c.name)];
   nav.innerHTML = dotNames.map((nm, idx) => `
     <button type="button" class="col-index-dot ${idx === 0 ? 'active' : ''}"
       data-name="${escHtml(nm)}"
       aria-label="${escHtml(nm)}"
-      onclick="glideToSlide(${idx})">
+      onclick="flyCameraToSlide(${idx})">
     </button>
   `).join('');
 
-  // Slide 0: Kategori Tanıtım & Başlangıç Ekranı
   const catSwitchHtml = CATEGORIES.map(catName => {
     const cnt = _allCollections.filter(c => c.category === catName).length;
     const isSel = catName === category;
@@ -1241,7 +1532,7 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
   const seriesPreviewHtml = _visibleList.length ? `
     <div class="cam-intro-series-list">
       ${_visibleList.map((c, idx) => `
-        <button type="button" class="cam-series-chip" onclick="glideToSlide(${idx + 1})">
+        <button type="button" class="cam-series-chip" onclick="flyCameraToSlide(${idx + 1})">
           <span>${String(idx + 1).padStart(2, '0')}</span> ${escHtml(c.name)}
         </button>
       `).join('')}
@@ -1249,7 +1540,7 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
   ` : '';
 
   const introCtaHtml = _visibleList.length
-    ? `<button type="button" class="cam-start-btn" onclick="glideToSlide(1)">
+    ? `<button type="button" class="cam-start-btn" onclick="flyCameraToSlide(1)">
          <span>Gezmeye Başla</span>
          <span class="cam-start-arrow">↓</span>
        </button>`
@@ -1275,13 +1566,12 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
     </section>
   `;
 
-  // Slides 1..N: Her Koleksiyon Tek Ekranda (%100 Ölçekte Scroll Olmadan Sığar)
   const colSlidesHtml = _visibleList.map((c, idx) => {
     const slideNum = idx + 1;
     const hasNext = slideNum < _visibleList.length;
     const nextCol = hasNext ? _visibleList[idx + 1] : null;
-    const atmo = getAtmosphere(c.slug);
-    const dbPalettes = Array.isArray(c.color_palette) && c.color_palette.length ? c.color_palette : atmo.swatches;
+    const world = getWorldTheme(c.slug);
+    const dbPalettes = Array.isArray(c.color_palette) && c.color_palette.length ? c.color_palette : world.swatches;
     const pieces = Array.isArray(c.pieces) ? c.pieces : [];
     const heroUrl = c.hero_image_url || 'resim/showroom/warm_atelier.jpg';
 
@@ -1336,13 +1626,19 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
 
     return `
       <section class="cam-slide cam-col-slide" id="stage-${escHtml(c.slug)}" data-slug="${escHtml(c.slug)}">
-        <div class="cam-slide-shell">
+        <div class="cam-stage-column">
           <div class="cam-top-nav">
-            <button type="button" class="cam-nav-pill" onclick="glideToSlide(0)">↑ Başa Dön</button>
+            <div class="cam-top-nav-group">
+              <button type="button" class="cam-nav-pill" onclick="flyCameraToSlide(0)">↑ Başa Dön</button>
+              ${slideNum > 1
+                ? `<button type="button" class="cam-nav-pill" onclick="flyCameraToSlide(${slideNum - 1})">← Önceki</button>`
+                : ''}
+            </div>
+            <div class="cam-geo-badge">
+              <span class="cam-geo-dot"></span>
+              <span>${escHtml(world.place)}</span>
+            </div>
             <span class="cam-slide-counter">SERİ ${String(slideNum).padStart(2, '0')} / ${String(_visibleList.length).padStart(2, '0')}</span>
-            ${slideNum > 1
-              ? `<button type="button" class="cam-nav-pill" onclick="glideToSlide(${slideNum - 1})">← Önceki</button>`
-              : ''}
           </div>
 
           <div class="cam-slide-core">
@@ -1375,24 +1671,24 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
             </div>
           </div>
 
-          <div class="cam-top-nav">
+          <div class="cam-bottom-nav">
             ${hasNext
-              ? `<button type="button" class="cam-nav-pill primary" onclick="glideToSlide(${slideNum + 1})">Diğer Koleksiyon: ${escHtml(nextCol.name)} ↓</button>`
-              : `<button type="button" class="cam-nav-pill primary" onclick="glideToSlide(0)">↑ Kategori Başlangıcına Dön</button>`}
+              ? `<button type="button" class="cam-nav-pill primary" onclick="flyCameraToSlide(${slideNum + 1})">Diğer Koleksiyon: ${escHtml(nextCol.name)} ↗</button>`
+              : `<button type="button" class="cam-nav-pill primary" onclick="flyCameraToSlide(0)">↑ Kategori Başlangıcına Dön</button>`}
           </div>
         </div>
       </section>
     `;
   }).join('');
 
-  track.innerHTML = slide0Html + colSlidesHtml;
+  deck.innerHTML = slide0Html + colSlidesHtml;
 
   window.__GKM_COLLECTIONS_CACHE = _visibleList;
   const activeCol = initialSlideIdx > 0 ? _visibleList[initialSlideIdx - 1] : null;
   window.__GKM_ACTIVE_SCENE_SLUG = activeCol ? String(activeCol.slug || '') : '';
   window.GKM_COLLECTION_STAGE?.mountAll(_visibleList, window.__GKM_ACTIVE_SCENE_SLUG);
 
-  glideToSlide(initialSlideIdx);
+  flyCameraToSlide(initialSlideIdx, true);
 }
 
 document.addEventListener('keydown', (e) => {
