@@ -1,14 +1,13 @@
 /**
- * Global Mobilya — Kusursuz Geçişli Tam Ekran Koleksiyon Sahnesi (Framer Motion + React 18)
+ * Global Mobilya — Kamera Odaklı Çok Katmanlı Koleksiyon Sahnesi (Framer Motion + React 18)
  * -----------------------------------------------------------------------------------------
- * 1) Katman 1 (z-10): Temiz arka plan mekân görseli (1.03 -> 1.0 yerleşme).
- * 2) Katman 2 (z-20): Tüm dolap modülleri AYNI ANDA (stagger olmadan) yukarıdan aşağıya iner;
- *    referans kompozitle 1:1 piksel koordinatlarına sabitlenir.
- * 3) Katman 3 (z-30): Sol ve sağ ön plan dekorları eşzamanlı sahneye yerleşir.
- * 4) Katman 4 (z-36): Yerleşim tamamlanırken tam kompozit master fotoğraf (`finalMaster`)
- *    sıfır sıçrama ve sıfır kopuklukla (`opacity: 0 -> 1`) pürüzsüzce sabitlenir.
- * 5) Katman 5 (z-42): Görünmez etkileşimli hotspot bölgeleri üzerinden her modüle ait
- *    vurgulama ve ürün detay kartı (`Detayları Gör →`) çalışır.
+ * Aktif kamera slaytı sahneye ulaştığında animasyonu tetikler:
+ *   1) Katman 1 (z-10): Temiz mekân arka planı (1.05 -> 1.0 yavaş yerleşme).
+ *   2) Katman 2 (z-20): Dolap modülleri AYNI ANDA yukarıdan aşağıya yavaşça ve belirgin iner.
+ *   3) Katman 3 (z-30): Sol ve sağ ön plan dekorları eşzamanlı sahneye yerleşir.
+ *   4) Katman 4 (z-36): Yerleşim tamamlandıktan sonra master fotoğraf (finalMaster)
+ *      sıfır sıçrama ile pürüzsüz çözünerek sabitlenir.
+ *   5) Katman 5 (z-42): Görünmez hotspot bölgeleri ile modül etkileşimi & detay bağlantıları.
  */
 
 import React, { useState } from 'https://esm.sh/react@18.3.1';
@@ -21,9 +20,13 @@ import {
 import { resolveCollectionSceneConfig } from './heroConfig.js';
 
 const h = React.createElement;
-const ACTIVE_ROOTS = new Map();
+const STAGE_ENTRIES = new Map();
+let _collectionsList = [];
+let _activeSlug = '';
 
-function DroppingModuleVisual({ item }) {
+const SILK_EASE = [0.16, 1, 0.3, 1];
+
+function DroppingModuleVisual({ item, isActive }) {
   return h(
     motion.div,
     {
@@ -35,12 +38,21 @@ function DroppingModuleVisual({ item }) {
         height: `${item.heightPct}%`,
         zIndex: item.zIndex,
       },
-      initial: { y: item.entranceY ?? -90, opacity: 0 },
-      whileInView: { y: 0, opacity: 1 },
-      viewport: { once: true, amount: 0.15 },
+      initial: { y: item.entranceY ?? -145, opacity: 0 },
+      animate: isActive
+        ? { y: 0, opacity: 1 }
+        : { y: item.entranceY ?? -145, opacity: 0 },
       transition: {
-        y: { type: 'spring', stiffness: 74, damping: 16, delay: item.entranceDelaySec ?? 0 },
-        opacity: { duration: 0.36, delay: item.entranceDelaySec ?? 0 },
+        y: {
+          duration: item.entranceDurationSec ?? 1.42,
+          delay: item.entranceDelaySec ?? 0.22,
+          ease: SILK_EASE,
+        },
+        opacity: {
+          duration: 0.65,
+          delay: item.entranceDelaySec ?? 0.22,
+          ease: [0.22, 1, 0.36, 1],
+        },
       },
     },
     h('span', { className: 'scase-contact-shadow scase-contact-module', 'aria-hidden': 'true' }),
@@ -89,7 +101,7 @@ function InteractiveHotspotZone({ item, isActive, isDimmed, onActivate, onDeacti
               initial: { opacity: 0, y: 8, scale: 0.94 },
               animate: { opacity: 1, y: 0, scale: 1 },
               exit: { opacity: 0, y: 6, scale: 0.94 },
-              transition: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
+              transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
               onClick: (e) => e.stopPropagation(),
             },
             h('span', { className: 'scase-tooltip-eyebrow' }, item.eyebrow),
@@ -111,7 +123,7 @@ function InteractiveHotspotZone({ item, isActive, isDimmed, onActivate, onDeacti
   );
 }
 
-function StaticAnchoredDecorLayer({ decor }) {
+function StaticAnchoredDecorLayer({ decor, isActive }) {
   const posStyle = {
     bottom: `${decor.bottomPct}%`,
     width: `${decor.widthPct}%`,
@@ -121,15 +133,26 @@ function StaticAnchoredDecorLayer({ decor }) {
   if (decor.side === 'left') posStyle.left = `${decor.leftPct ?? 0}%`;
   else posStyle.right = `${decor.rightPct ?? 0}%`;
 
+  const initX = decor.entranceX ?? (decor.side === 'left' ? -85 : 85);
+
   return h(
     motion.div,
     {
       className: `scase-decor-slot scase-decor-${decor.side}`,
       style: posStyle,
-      initial: { x: decor.entranceX ?? (decor.side === 'left' ? -56 : 56), opacity: 0 },
-      whileInView: { x: 0, opacity: 1 },
-      viewport: { once: true, amount: 0.15 },
-      transition: { duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
+      initial: { x: initX, opacity: 0 },
+      animate: isActive ? { x: 0, opacity: 1 } : { x: initX, opacity: 0 },
+      transition: {
+        x: {
+          duration: decor.entranceDurationSec ?? 1.3,
+          delay: decor.entranceDelaySec ?? 0.28,
+          ease: SILK_EASE,
+        },
+        opacity: {
+          duration: 0.65,
+          delay: decor.entranceDelaySec ?? 0.28,
+        },
+      },
     },
     h('span', { className: 'scase-contact-shadow scase-contact-decor', 'aria-hidden': 'true' }),
     h('img', {
@@ -141,7 +164,7 @@ function StaticAnchoredDecorLayer({ decor }) {
   );
 }
 
-function CollectionShowcaseStage({ scene }) {
+function CollectionShowcaseStage({ scene, isActive, activationKey }) {
   const [hoveredId, setHoveredId] = useState(null);
   const modules = scene.modules || [];
   const decors = scene.decors || [];
@@ -156,6 +179,7 @@ function CollectionShowcaseStage({ scene }) {
       h(
         'div',
         {
+          key: isActive ? `active-${activationKey}` : 'idle-reset',
           className: 'scase-stage',
           style: { aspectRatio: scene.stageAspectRatio || '1024 / 571' },
           onMouseLeave: () => setHoveredId(null),
@@ -169,53 +193,57 @@ function CollectionShowcaseStage({ scene }) {
             src: scene.background.src,
             alt: scene.background.alt,
             className: 'scase-bg-img',
-            initial: { scale: scene.background.initialScale ?? 1.03 },
-            whileInView: { scale: scene.background.targetScale ?? 1.0 },
-            viewport: { once: true, amount: 0.15 },
+            initial: { scale: scene.background.initialScale ?? 1.05 },
+            animate: isActive
+              ? { scale: scene.background.targetScale ?? 1.0 }
+              : { scale: scene.background.initialScale ?? 1.05 },
             transition: {
-              duration: scene.background.entranceDurationSec ?? 0.78,
+              duration: scene.background.entranceDurationSec ?? 1.5,
               ease: [0.22, 1, 0.36, 1],
             },
             draggable: false,
           })
         ),
 
-        // Katman 2 (z-20): Tüm Modül Dolapları Yukarıdan AYNI ANDA İner
+        // Katman 2 (z-20): Tüm Dolap Modülleri Yukarıdan AYNI ANDA Yavaşça İner
         h(
           'div',
           { className: 'scase-layer-modules', 'aria-hidden': 'true' },
-          modules.map((mod, idx) => h(DroppingModuleVisual, { key: mod.id || idx, item: mod }))
+          modules.map((mod, idx) =>
+            h(DroppingModuleVisual, { key: mod.id || idx, item: mod, isActive })
+          )
         ),
 
-        // Katman 3 (z-30): Sol ve Sağ Ön Plan Dekorları
+        // Katman 3 (z-30): Ön Plan Dekorları Yavaşça Yerleşir
         h(
           'div',
           { className: 'scase-layer-decors', 'aria-hidden': 'true' },
-          decors.map((d) => h(StaticAnchoredDecorLayer, { key: d.id, decor: d }))
+          decors.map((d) =>
+            h(StaticAnchoredDecorLayer, { key: d.id, decor: d, isActive })
+          )
         ),
 
         // Katman 3.5 (z-34): Sıcak Ortam Işığı Ton Bütünleştirici
         h('div', { className: 'scase-warm-blend', 'aria-hidden': 'true' }),
 
-        // Katman 4 (z-36): Yerleşim biterken sıçramasız tam kompozit final görseline çözünme
+        // Katman 4 (z-36): Yerleşim tamamlanınca master fotoğraf kesintisiz sabitlenir
         finalMaster
           ? h(motion.img, {
               src: finalMaster.src,
               alt: finalMaster.alt,
               className: 'scase-master-overlay',
               initial: { opacity: 0 },
-              whileInView: { opacity: 1 },
-              viewport: { once: true, amount: 0.15 },
+              animate: isActive ? { opacity: 1 } : { opacity: 0 },
               transition: {
-                duration: finalMaster.fadeDurationSec ?? 0.58,
-                delay: finalMaster.revealDelaySec ?? 0.68,
+                duration: finalMaster.fadeDurationSec ?? 0.85,
+                delay: finalMaster.revealDelaySec ?? 1.68,
                 ease: [0.22, 1, 0.36, 1],
               },
               draggable: false,
             })
           : null,
 
-        // Katman 5 (z-42): Final Fotoğraf Üstünde Görünmez İnteraktif Modül Hotspotları
+        // Katman 5 (z-42): Görünmez Etkileşimli Modül Hotspot Katmanı
         h(
           'div',
           { className: 'scase-layer-hotspots', 'aria-label': 'Koleksiyon Modülleri Etkileşim Katmanı' },
@@ -233,7 +261,7 @@ function CollectionShowcaseStage({ scene }) {
         )
       ),
 
-      // Sahne altı tam genişlikli modül etkileşim şeridi
+      // Sahne altı modül seçici barı
       modules.length
         ? h(
             'div',
@@ -268,37 +296,68 @@ function CollectionShowcaseStage({ scene }) {
   );
 }
 
-export function mountAllCollectionScenes(collections = []) {
-  for (const [el, root] of ACTIVE_ROOTS.entries()) {
+function renderEntry(node, entry) {
+  const isActive = _activeSlug === entry.slug;
+  entry.root.render(
+    h(CollectionShowcaseStage, {
+      scene: entry.scene,
+      isActive,
+      activationKey: entry.playCount,
+    })
+  );
+}
+
+export function mountAllCollectionScenes(collections = [], activeSlug = _activeSlug) {
+  _collectionsList = Array.isArray(collections) ? collections : [];
+  if (activeSlug !== undefined) _activeSlug = activeSlug;
+
+  for (const [el, entry] of STAGE_ENTRIES.entries()) {
     if (!document.body.contains(el)) {
-      root.unmount();
-      ACTIVE_ROOTS.delete(el);
+      entry.root.unmount();
+      STAGE_ENTRIES.delete(el);
     }
   }
 
   const mountNodes = document.querySelectorAll('[data-collection-scene]');
   mountNodes.forEach((node) => {
     const slug = node.getAttribute('data-collection-scene') || '';
-    const matchedCol = collections.find((c) => String(c.slug || '') === slug) || { slug };
+    const matchedCol = _collectionsList.find((c) => String(c.slug || '') === slug) || { slug };
     const scene = resolveCollectionSceneConfig(matchedCol);
     if (!scene) return;
 
-    let root = ACTIVE_ROOTS.get(node);
-    if (!root) {
-      root = createRoot(node);
-      ACTIVE_ROOTS.set(node, root);
+    let entry = STAGE_ENTRIES.get(node);
+    if (!entry) {
+      entry = { root: createRoot(node), scene, slug, playCount: 0 };
+      STAGE_ENTRIES.set(node, entry);
+    } else {
+      entry.scene = scene;
     }
-    root.render(h(CollectionShowcaseStage, { scene }));
+
+    if (_activeSlug === slug) {
+      entry.playCount += 1;
+    }
+    renderEntry(node, entry);
   });
+}
+
+export function activateSceneSlide(slug = '') {
+  _activeSlug = slug;
+  for (const [node, entry] of STAGE_ENTRIES.entries()) {
+    if (entry.slug === slug) {
+      entry.playCount += 1;
+    }
+    renderEntry(node, entry);
+  }
 }
 
 if (typeof window !== 'undefined') {
   window.GKM_COLLECTION_STAGE = {
     mountAll: mountAllCollectionScenes,
+    activateSlide: activateSceneSlide,
     resolveScene: resolveCollectionSceneConfig,
   };
 
   if (Array.isArray(window.__GKM_COLLECTIONS_CACHE)) {
-    mountAllCollectionScenes(window.__GKM_COLLECTIONS_CACHE);
+    mountAllCollectionScenes(window.__GKM_COLLECTIONS_CACHE, window.__GKM_ACTIVE_SCENE_SLUG || '');
   }
 }

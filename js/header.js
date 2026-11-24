@@ -50,7 +50,25 @@
 
           <nav class="hg-nav-center" aria-label="Ana Menü">
             <a href="index.html" ${navClass('home')}>Ana Sayfa</a>
-            <a href="koleksiyon.html" ${navClass('koleksiyon')}>Koleksiyonlar</a>
+            <div class="hg-nav-dropdown-wrap">
+              <a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1" ${navClass('koleksiyon')} aria-haspopup="true">Koleksiyonlar <span class="hg-caret" aria-hidden="true">▾</span></a>
+              <div class="hg-nav-dropdown" role="menu" aria-label="Koleksiyon Kategorileri">
+                <div class="hg-nav-dropdown-panel">
+                  <a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1" class="hg-nav-drop-item" role="menuitem">
+                    <span>Kahve Köşesi Koleksiyonları</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                  <a href="koleksiyon.html?kategori=Dolap%20Koleksiyonlar%C4%B1" class="hg-nav-drop-item" role="menuitem">
+                    <span>Dolap Koleksiyonları</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                  <a href="koleksiyon.html?kategori=Yatak%20Odas%C4%B1%20Koleksiyonlar%C4%B1" class="hg-nav-drop-item" role="menuitem">
+                    <span>Yatak Odası Koleksiyonları</span>
+                    <span class="hg-nav-drop-arrow">→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href="galeri.html" ${navClass('galeri')}>Galeri</a>
             <a href="iletisim.html" ${navClass('iletisim')}>İletişim</a>
             <a href="/kvkk-ve-gizlilik" ${navClass('kvkk-ve-gizlilik')} style="font-size:12px;opacity:0.82;">KVKK</a>
@@ -63,7 +81,7 @@
             <a href="https://wa.me/905050151035?text=Merhaba%20Global%20Mobilya%2C%20mobilya%20koleksiyonlar%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener" class="hg-icon-circle primary-dark" aria-label="WhatsApp Mimari Danışma" title="WhatsApp Hattı">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             </a>
-            <a href="koleksiyon.html" class="btn-hg-wipe">
+            <a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1" class="btn-hg-wipe">
               <span class="btn-hg-wipe-inner">
                 <span class="btn-hg-wipe-row main">✦ Koleksiyonlar <span>→</span></span>
                 <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Koleksiyonlar <span>→</span></span>
@@ -76,7 +94,9 @@
           <div class="hg-mobile-drawer-inner">
             <ul class="hg-mobile-list">
               <li><a href="index.html">Ana Sayfa <span class="arrow">→</span></a></li>
-              <li><a href="koleksiyon.html">Koleksiyonlar <span class="arrow">→</span></a></li>
+              <li><a href="koleksiyon.html?kategori=Kahve%20K%C3%B6%C5%9Fesi%20Koleksiyonlar%C4%B1">Kahve Köşesi Koleksiyonları <span class="arrow">→</span></a></li>
+              <li><a href="koleksiyon.html?kategori=Dolap%20Koleksiyonlar%C4%B1">Dolap Koleksiyonları <span class="arrow">→</span></a></li>
+              <li><a href="koleksiyon.html?kategori=Yatak%20Odas%C4%B1%20Koleksiyonlar%C4%B1">Yatak Odası Koleksiyonları <span class="arrow">→</span></a></li>
               <li><a href="galeri.html">Galeri &amp; Bağımsız Ürünler <span class="arrow">→</span></a></li>
               <li><a href="iletisim.html">İletişim &amp; Teklif <span class="arrow">→</span></a></li>
               <li><a href="/kvkk-ve-gizlilik">KVKK &amp; Gizlilik <span class="arrow">→</span></a></li>
@@ -100,6 +120,7 @@
     let targetProg = 0;
     let rafId = 0;
     let lastTs = 0;
+    let forceHidden = false;
 
     function applyHeaderFrame(p) {
       const clamped = Math.max(0, Math.min(1, p));
@@ -134,15 +155,27 @@
 
     const updateScroll = () => {
       const y = window.scrollY;
-      wrapper.classList.toggle('scrolled', y > 10);
+      wrapper.classList.toggle('scrolled', y > 10 || forceHidden);
       if (drawer?.classList.contains('open')) {
         targetProg = 0;
+      } else if (forceHidden) {
+        targetProg = 1;
       } else {
         targetProg = Math.max(0, Math.min(1, (y - 24) / 166));
       }
       if (!rafId) {
         lastTs = 0;
         rafId = requestAnimationFrame(stepHeaderAnim);
+      }
+    };
+
+    window.GKM_HEADER = {
+      setForceHidden(val) {
+        forceHidden = Boolean(val);
+        updateScroll();
+      },
+      isForceHidden() {
+        return forceHidden;
       }
     };
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Koleksiyonlar | Global Mobilya — Mimari Mobilya Serileri</title>
-<meta name="description" content="Global Mobilya koleksiyonları: Kahve Köşesi Koleksiyonları, Dolap Koleksiyonları ve Yatak Odası Koleksiyonları için mimari seriler ve üretici teklifleri.">
+<meta name="description" content="Global Mobilya koleksiyonları: Kahve Köşesi Koleksiyonları, Dolap Koleksiyonları ve Yatak Odası Koleksiyonları için kamera geçişli mimari sunum.">
 <link rel="canonical" href="https://globalkapakmobilya.com/koleksiyon.html">
 <link rel="icon" type="image/png" href="resim/logo.png">
 
@@ -14,19 +14,24 @@
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
 <link rel="stylesheet" href="css/showroom-motion.css">
+<link rel="preload" as="image" href="/hero/bg.jpg">
+<link rel="preload" as="image" href="/hero/bergamo-final.jpg">
 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
 <style>
-  html { scroll-behavior: smooth; }
-  body {
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     background: #14110E;
     color: #F7F5F0;
     font-family: var(--font-hg-sans);
-    overflow-x: hidden;
   }
 
-  /* Continuous Chromatic Ambient Canvas + Dual Drifting Aura Orbs */
+  /* Sürekli Kromatik Ortam Arka Planı */
   :root {
     --stage-accent: #E2B761;
   }
@@ -38,6 +43,7 @@
     background-color: #1D150F;
     overflow: hidden;
     pointer-events: none;
+    transition: background-color 1.05s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .chroma-orb {
@@ -45,6 +51,7 @@
     border-radius: 50%;
     filter: blur(120px);
     opacity: 0.42;
+    transition: background-color 1.05s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, background-color;
   }
   .chroma-orb-a {
@@ -67,8 +74,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(10, 8, 6, 0.56) 100%),
-      linear-gradient(180deg, rgba(10, 8, 6, 0.25) 0%, rgba(10, 8, 6, 0.48) 100%);
+      radial-gradient(ellipse at 50% 45%, transparent 28%, rgba(10, 8, 6, 0.58) 100%),
+      linear-gradient(180deg, rgba(10, 8, 6, 0.25) 0%, rgba(10, 8, 6, 0.5) 100%);
   }
 
   @keyframes chromaDriftA {
@@ -80,380 +87,379 @@
     100% { transform: translate3d(7vw, -7vh, 0) scale(1.15); }
   }
 
-  /* Intro Banner & Subcategory Sticky Filter Bar */
-  .col-top-intro {
-    padding: 138px 36px 42px;
-    max-width: 1380px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 30px;
-    flex-wrap: wrap;
+  /* Kamera Sahne Taşıyıcı (%100 Viewport Tek Ekran Geçişleri) */
+  .cam-deck {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 5;
   }
-  .col-top-kicker {
-    display: inline-block;
+  .cam-track {
+    width: 100%;
+    will-change: transform;
+    transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cam-slide {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ── SLIDE 0: KATEGORİ AÇILIŞ EKRANI ── */
+  .cam-intro-slide {
+    padding: clamp(92px, 12vh, 130px) clamp(20px, 5vw, 64px) clamp(28px, 4.5vh, 48px);
+    text-align: center;
+  }
+  .cam-intro-center {
+    max-width: 860px;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(14px, 2.2vh, 22px);
+  }
+  .cam-intro-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(223, 199, 147, 0.34);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #DFC793;
-    margin-bottom: 12px;
+    animation: introRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .col-top-title {
+  .cam-intro-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(42px, 5.2vw, 72px);
+    font-size: clamp(44px, 6.2vw, 88px);
     font-weight: 400;
-    line-height: 1.02;
-    color: #fff;
+    line-height: 1.0;
+    color: #FFFFFF;
+    margin: 0;
+    animation: introRise 0.95s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .col-top-title em { font-style: italic; color: #DFC793; }
-  .col-top-sub {
-    max-width: 470px;
-    font-size: 14.5px;
+  .cam-intro-title em {
+    font-style: italic;
+    color: #DFC793;
+  }
+  .cam-intro-desc {
+    max-width: 660px;
+    font-size: clamp(14px, 1.35vw, 17px);
     line-height: 1.65;
-    color: rgba(247, 245, 240, 0.72);
+    color: rgba(247, 245, 240, 0.8);
+    margin: 0;
+    animation: introRise 1.05s 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-
-  .col-filter-sticky {
-    position: relative;
-    top: auto;
-    z-index: 20;
-    padding: 16px 36px;
-    background: rgba(20, 17, 14, 0.52);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .col-filter-inner {
-    max-width: 1308px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .col-cat-tabs {
+  .cam-intro-series-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
+    margin-top: 4px;
+    animation: introRise 1.1s 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  .col-cat-tab {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(247, 245, 240, 0.85);
-    font-family: var(--font-hg-sans);
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 9px 18px;
-    border-radius: 999px;
-    cursor: pointer;
+  .cam-series-chip {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.25s var(--ease-hg);
-  }
-  .col-cat-tab:hover {
-    border-color: rgba(223, 199, 147, 0.65);
-    color: #fff;
-  }
-  .col-cat-tab.active {
-    background: #F7F5F0;
-    color: #2A2925;
-    border-color: #F7F5F0;
-  }
-  .col-cat-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 7px;
+    gap: 7px;
+    padding: 6px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    color: rgba(247, 245, 240, 0.86);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
   }
-  .col-cat-tab.active .col-cat-badge {
-    background: rgba(42, 41, 37, 0.12);
+  .cam-series-chip:hover {
+    background: rgba(223, 199, 147, 0.16);
+    border-color: #DFC793;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+  }
+  .cam-series-chip span {
+    font-size: 10px;
+    color: #DFC793;
+    font-weight: 700;
+  }
+  .cam-cat-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    animation: introRise 1.1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .cam-cat-btn {
+    padding: 7px 15px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(247, 245, 240, 0.72);
+    font-family: var(--font-hg-sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .cam-cat-btn:hover {
+    border-color: rgba(223, 199, 147, 0.55);
+    color: #FFFFFF;
+  }
+  .cam-cat-btn.active {
+    background: rgba(223, 199, 147, 0.16);
+    border-color: #DFC793;
+    color: #DFC793;
+  }
+  .cam-intro-bottom {
+    animation: introRise 1.15s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .cam-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    height: 52px;
+    padding: 0 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(223, 199, 147, 0.65);
+    background: linear-gradient(135deg, rgba(223, 199, 147, 0.24) 0%, rgba(223, 199, 147, 0.1) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: #FFFFFF;
+    font-family: var(--font-hg-sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 18px 42px -12px rgba(0, 0, 0, 0.7), 0 0 28px rgba(223, 199, 147, 0.16);
+    transition: transform 0.32s var(--ease-hg), background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cam-start-btn:hover {
+    transform: translateY(-3px);
+    background: #DFC793;
+    color: #16110D;
+    box-shadow: 0 22px 48px -12px rgba(223, 199, 147, 0.45);
+  }
+  .cam-start-arrow {
+    display: inline-block;
+    animation: gentleBob 2s ease-in-out infinite;
   }
 
-  /* Right Index Navigation Dots */
-  .col-index-nav {
-    position: fixed;
-    right: 26px;
-    top: 52%;
-    transform: translateY(-50%);
-    z-index: 800;
+  @keyframes introRise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gentleBob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+  }
+
+  /* ── SLIDES 1..N: TEK EKRANDA KOLEKSİYON SUNUMU ── */
+  .cam-col-slide {
+    padding: clamp(12px, 1.8vh, 22px) clamp(18px, 3.2vw, 56px) clamp(12px, 1.8vh, 22px);
+  }
+  .cam-slide-shell {
+    width: min(1240px, 100%);
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 13px;
-    padding: 14px 9px;
-    background: rgba(20, 17, 14, 0.62);
-    backdrop-filter: blur(12px);
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .col-index-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.28);
-    cursor: pointer;
-    position: relative;
-    transition: all 0.28s var(--ease-hg);
-    border: none;
-  }
-  .col-index-dot.active {
-    background: #DFC793;
-    transform: scale(1.45);
-    box-shadow: 0 0 12px rgba(223, 199, 147, 0.7);
-  }
-  .col-index-dot::before {
-    content: attr(data-name);
-    position: absolute;
-    right: 22px;
-    top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    background: rgba(20, 17, 14, 0.94);
-    color: #fff;
-    padding: 5px 12px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.22s ease;
-    border: 1px solid rgba(223, 199, 147, 0.28);
-  }
-  .col-index-dot:hover::before {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
+    justify-content: space-between;
+    align-items: center;
+    gap: clamp(8px, 1.2vh, 14px);
   }
 
-  /* Individual Collection Stage */
-  .collection-stage {
-    padding: 74px 0 88px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    position: relative;
-  }
-  .stage-inner {
-    max-width: 1380px;
-    margin: 0 auto;
-    padding: 0 36px;
-  }
-  .stage-hero-grid {
-    display: grid;
-    grid-template-columns: 0.92fr 1.28fr;
-    gap: 50px;
+  /* Üst Kamera Butonu (Başa Dön) */
+  .cam-top-nav {
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-shrink: 0;
   }
-  .stage-hero-grid.has-interactive-stage {
-    grid-template-columns: 0.78fr 1.42fr;
-    gap: 40px;
-  }
-  .stage-chapter {
+  .cam-nav-pill {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    height: 36px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(18, 14, 11, 0.68);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #F7F5F0;
+    font-family: var(--font-hg-sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.26s var(--ease-hg);
+  }
+  .cam-nav-pill:hover {
+    border-color: #DFC793;
+    background: rgba(223, 199, 147, 0.16);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+  }
+  .cam-nav-pill.primary {
+    border-color: rgba(223, 199, 147, 0.55);
+    background: rgba(223, 199, 147, 0.15);
+    color: #DFC793;
+  }
+  .cam-nav-pill.primary:hover {
+    background: #DFC793;
+    color: #16110D;
+  }
+  .cam-slide-counter {
     font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: rgba(247, 245, 240, 0.58);
+  }
+
+  /* Orta Alan: Başlık + Tanıtım + Sahne Birlikte %100 Ekrana Sığar */
+  .cam-slide-core {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 1.3vh, 16px);
+  }
+  .cam-col-head {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px 28px;
+    flex-shrink: 0;
+  }
+  .cam-col-head-left {
+    min-width: 0;
+    flex: 1;
+  }
+  .stage-chapter {
+    display: inline-block;
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--stage-accent);
-    transition: color 0.45s ease;
-    margin-bottom: 14px;
+    margin-bottom: 4px;
   }
   .stage-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(38px, 4.4vw, 62px);
+    font-size: clamp(26px, 3vw, 42px);
     font-weight: 400;
     line-height: 1.04;
     color: #fff;
-    margin-bottom: 12px;
-  }
-  .stage-style {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(247, 245, 240, 0.72);
-    margin-bottom: 18px;
+    margin: 0 0 6px;
   }
   .stage-story {
-    font-size: 15.5px;
-    line-height: 1.72;
-    max-width: 560px;
-    color: rgba(247, 245, 240, 0.86);
-    margin-bottom: 24px;
+    font-size: clamp(12.5px, 1.08vw, 14px);
+    line-height: 1.5;
+    max-width: 620px;
+    color: rgba(247, 245, 240, 0.82);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cam-col-head-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
   }
   .stage-palettes {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
+    gap: 6px;
+    justify-content: flex-end;
   }
   .palette-chip {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 6px 14px;
+    padding: 4px 10px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    cursor: default;
-    transition: transform 0.3s var(--ease-hg), border-color 0.3s ease, background-color 0.3s ease;
-  }
-  .palette-chip:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.14);
-    border-color: var(--stage-accent);
+    gap: 6px;
   }
   .palette-dot {
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.45);
   }
   .stage-actions {
     display: flex;
-    gap: 14px;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
+  }
+  .stage-actions .btn-hg-wipe {
+    height: 38px;
+    padding: 0 18px;
+    font-size: 12px;
   }
   .btn-stage-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    height: 44px;
-    padding: 0 20px;
+    gap: 7px;
+    height: 38px;
+    padding: 0 16px;
     border-radius: 9999px;
     border: 1px solid rgba(255, 255, 255, 0.24);
     background: rgba(255, 255, 255, 0.06);
     color: #F7F5F0;
     font-family: var(--font-hg-sans);
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.28s var(--ease-hg);
+    transition: all 0.25s var(--ease-hg);
   }
   .btn-stage-secondary:hover {
     background: rgba(255, 255, 255, 0.16);
     border-color: var(--stage-accent);
   }
 
-  /* Uncropped 16:9 adaptive architectural presentation frame */
-  .stage-img-frame {
-    position: relative;
-    border-radius: 24px;
-    aspect-ratio: 16 / 9;
-    max-height: 76vh;
-    width: 100%;
-    box-shadow: 0 34px 80px -22px rgba(0, 0, 0, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(12, 10, 8, 0.45);
-    cursor: zoom-in;
-    transition: transform 0.65s var(--ease-hg), box-shadow 0.55s ease, border-color 0.4s ease;
-  }
-  .stage-img-frame:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 42px 92px -20px rgba(0, 0, 0, 0.82);
-  }
-  .stage-img-frame .miles-wave-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.9s var(--ease-hg);
-  }
-  .stage-img-frame:hover .miles-wave-inner img {
-    transform: scale(1.02);
-  }
-  .stage-badge-float {
-    position: absolute;
-    bottom: 18px;
-    left: 18px;
-    z-index: 3;
-    background: rgba(16, 13, 10, 0.78);
-    backdrop-filter: blur(12px);
-    padding: 8px 15px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--stage-accent);
-    pointer-events: none;
-  }
-  .stage-zoom-hint {
-    position: absolute;
-    bottom: 18px;
-    right: 18px;
-    z-index: 3;
-    background: rgba(16, 13, 10, 0.78);
-    backdrop-filter: blur(12px);
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    font-size: 11px;
-    font-weight: 600;
-    color: #F7F5F0;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.3s ease, transform 0.35s var(--ease-hg);
-    pointer-events: none;
-  }
-  .stage-img-frame:hover .stage-zoom-hint {
-    opacity: 1;
-    transform: none;
+  /* Çerçeveli Sahne Kutusu — Viewport Yükseklik Matematiği (%100 Ölçekte Tam Sığma) */
+  .cam-visual-frame-wrap {
+    width: min(1160px, 100%, calc((100svh - 290px) * 1.7933));
+    margin: 0 auto;
+    flex-shrink: 0;
   }
 
-  /* Automated Multi-Layer Interactive Scene Stage (True Full-Bleed Edge-to-Edge) */
-  .collection-stage.has-full-scene {
-    padding: 0;
-    width: 100%;
-    overflow: hidden;
-    background: linear-gradient(180deg, rgba(16, 12, 9, 0.94) 0%, rgba(19, 14, 10, 0.88) 100%);
-  }
-  .stage-full-header-band {
-    position: relative;
-    overflow: hidden;
-    background:
-      linear-gradient(180deg, rgba(16, 12, 9, 0.82) 0%, rgba(16, 12, 9, 0.94) 100%),
-      url('/hero/bergamo-final.jpg') center top / cover no-repeat;
-  }
-  .stage-full-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    gap: 32px;
-    align-items: end;
-    padding: 52px 0 34px;
-  }
-  .stage-full-header-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 14px;
-  }
-  .stage-full-header-actions .stage-palettes {
-    margin-bottom: 0;
-    justify-content: flex-end;
-  }
-  .stage-full-bleed-wrap {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
+  /* Etkileşimli Çok Katmanlı Showroom Çerçevesi */
   .scase-stage-shell {
     width: 100%;
-    border-radius: 0;
+    border-radius: 18px;
     overflow: hidden;
-    border-top: 1px solid rgba(223, 199, 147, 0.16);
-    border-bottom: 1px solid rgba(223, 199, 147, 0.16);
-    border-left: none;
-    border-right: none;
+    border: 1px solid rgba(223, 199, 147, 0.26);
+    box-shadow: 0 28px 72px -20px rgba(0, 0, 0, 0.84);
     background: #140F0B;
   }
   .scase-stage {
@@ -499,9 +505,8 @@
     object-fit: fill;
     display: block;
     user-select: none;
-    filter: drop-shadow(0 8px 16px rgba(12, 8, 4, 0.42));
+    filter: drop-shadow(0 8px 16px rgba(12, 8, 4, 0.44));
   }
-  /* Tam Kompozit Final Sahne Üst Katmanı (Sıçramasız çözünme) */
   .scase-master-overlay {
     position: absolute;
     inset: 0;
@@ -513,7 +518,6 @@
     pointer-events: none;
     user-select: none;
   }
-  /* Final Fotoğraf Üzerindeki Görünmez Modül Hotspotları */
   .scase-layer-hotspots {
     position: absolute;
     inset: 0;
@@ -532,20 +536,17 @@
     inset: -3px;
     border-radius: 10px;
     border: 1.5px solid transparent;
-    background: transparent;
-    box-shadow: none;
     pointer-events: none;
     transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .scase-hotspot-zone.is-hovered .scase-hotspot-halo {
-    border-color: rgba(223, 199, 147, 0.85);
-    background: radial-gradient(circle at center, rgba(255, 224, 152, 0.12) 0%, rgba(223, 199, 147, 0.04) 72%, transparent 100%);
-    box-shadow: 0 0 28px rgba(223, 199, 147, 0.38), inset 0 0 22px rgba(255, 224, 160, 0.16);
+    border-color: rgba(223, 199, 147, 0.88);
+    background: radial-gradient(circle at center, rgba(255, 224, 152, 0.13) 0%, rgba(223, 199, 147, 0.04) 72%, transparent 100%);
+    box-shadow: 0 0 26px rgba(223, 199, 147, 0.4), inset 0 0 20px rgba(255, 224, 160, 0.16);
   }
   .scase-hotspot-zone.is-dimmed {
-    background: rgba(12, 9, 6, 0.16);
+    background: rgba(12, 9, 6, 0.15);
   }
-  /* Zemin temas gölgesi (blur-md koyu taban teması) */
   .scase-contact-shadow {
     position: absolute;
     z-index: 1;
@@ -572,15 +573,15 @@
     top: 6%;
     left: 50%;
     transform: translateX(-50%);
-    min-width: 176px;
-    max-width: 228px;
-    padding: 11px 14px;
-    border-radius: 14px;
+    min-width: 168px;
+    max-width: 220px;
+    padding: 10px 13px;
+    border-radius: 13px;
     background: rgba(18, 14, 10, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(223, 199, 147, 0.52);
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(223, 199, 147, 0.54);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.72);
     color: #F7F5F0;
     text-align: center;
     z-index: 60;
@@ -588,7 +589,7 @@
   }
   .scase-tooltip-eyebrow {
     display: block;
-    font-size: 9px;
+    font-size: 8.5px;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -598,23 +599,23 @@
   .scase-tooltip-title {
     display: block;
     font-family: var(--font-hg-serif);
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 400;
-    line-height: 1.12;
-    margin-bottom: 4px;
+    line-height: 1.1;
+    margin-bottom: 3px;
     color: #FFFFFF;
   }
   .scase-tooltip-dim {
     display: block;
-    font-size: 10.5px;
+    font-size: 10px;
     color: rgba(247, 245, 240, 0.72);
-    margin-bottom: 8px;
+    margin-bottom: 7px;
   }
   .scase-tooltip-link {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 5px 12px;
+    padding: 4px 11px;
     border-radius: 999px;
     background: #DFC793;
     color: #1A1510;
@@ -648,11 +649,8 @@
     object-position: center bottom;
     display: block;
     user-select: none;
-    filter:
-      drop-shadow(0 14px 24px rgba(10, 7, 3, 0.56))
-      drop-shadow(0 3px 6px rgba(8, 5, 2, 0.42));
+    filter: drop-shadow(0 14px 24px rgba(10, 7, 3, 0.56));
   }
-  /* Mekânın sıcak ışığıyla PNG kenarlarını eriten pointer-events-none multiply tonu */
   .scase-warm-blend {
     position: absolute;
     inset: 0;
@@ -666,52 +664,51 @@
     );
     mix-blend-mode: multiply;
   }
-  /* Alt Etkileşimli Modül Kontrol Şeridi */
   .scase-dock-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px 18px;
-    padding: 16px clamp(16px, 4vw, 48px);
+    gap: 8px 14px;
+    padding: 10px 18px;
     background: rgba(18, 14, 10, 0.96);
     border-top: 1px solid rgba(223, 199, 147, 0.14);
   }
   .scase-dock-label {
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
-    color: rgba(247, 245, 240, 0.68);
+    color: rgba(247, 245, 240, 0.65);
   }
   .scase-dock-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
   }
   .scase-dock-pill {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
+    gap: 8px;
+    padding: 5px 12px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: #F7F5F0;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 11.5px;
     transition: all 0.25s ease;
   }
   .scase-dock-pill strong {
     font-family: var(--font-hg-serif);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
   }
   .scase-dock-pill span {
-    font-size: 11px;
+    font-size: 10.5px;
     color: rgba(247, 245, 240, 0.65);
   }
   .scase-dock-pill em {
     font-style: normal;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -719,163 +716,88 @@
   }
   .scase-dock-pill:hover,
   .scase-dock-pill.is-active {
-    background: rgba(223, 199, 147, 0.14);
+    background: rgba(223, 199, 147, 0.15);
     border-color: #DFC793;
-    transform: translateY(-2px);
-  }
-  @media (max-width: 1100px) {
-    .stage-full-header {
-      grid-template-columns: 1fr;
-      align-items: start;
-      gap: 20px;
-    }
-    .stage-full-header-actions {
-      align-items: flex-start;
-    }
-    .stage-full-header-actions .stage-palettes {
-      justify-content: flex-start;
-    }
-  }
-  @media (max-width: 640px) {
-    .stage-full-bleed-wrap {
-      padding: 0;
-    }
-    .stage-full-header {
-      padding: 36px 0 24px;
-    }
-    .scase-dock-bar {
-      padding: 12px 14px;
-    }
-    .scase-dock-pill {
-      width: 100%;
-      justify-content: space-between;
-    }
-    .scase-tooltip {
-      min-width: 132px;
-      max-width: 170px;
-      padding: 7px 9px;
-      border-radius: 10px;
-    }
-    .scase-tooltip-eyebrow { font-size: 7.5px; }
-    .scase-tooltip-title { font-size: 13.5px; margin-bottom: 3px; }
-    .scase-tooltip-dim { display: none; }
-    .scase-tooltip-link { font-size: 9.5px; padding: 3px 9px; }
+    transform: translateY(-1px);
   }
 
-  /* Pieces Drawer */
-  .stage-pieces-tray {
-    margin-top: 48px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .pieces-tray-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .pieces-tray-title {
-    font-family: var(--font-hg-serif);
-    font-size: 28px;
-    font-weight: 400;
-  }
-  .pieces-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  .piece-card {
-    background: rgba(255, 255, 255, 0.045);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.45s var(--ease-hg), border-color 0.35s ease, background 0.35s ease, box-shadow 0.4s ease;
-  }
-  .piece-card:hover {
-    background: rgba(255, 255, 255, 0.085);
-    border-color: var(--stage-accent);
-    transform: translateY(-5px);
-    box-shadow: 0 24px 48px -22px rgba(0, 0, 0, 0.6);
-  }
-  /* Tall 4:5 uncropped gallery mat matching module photo proportions */
-  .piece-thumb {
-    aspect-ratio: 4 / 5;
-    border-radius: 14px;
+  /* Standart Koleksiyon Görseli için Tek Ekranlı Çerçeve */
+  .cam-static-img-wrap {
+    position: relative;
+    aspect-ratio: 1024 / 571;
+    width: 100%;
     overflow: hidden;
-    background: rgba(12, 10, 8, 0.42);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 8px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: zoom-in;
+    background: #120F0C;
   }
-  .piece-thumb img {
+  .cam-static-img-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-    transition: transform 0.65s var(--ease-hg);
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s var(--ease-hg);
   }
-  .piece-card:hover .piece-thumb img {
-    transform: scale(1.03);
+  .cam-static-img-wrap:hover img {
+    transform: scale(1.02);
   }
-  .piece-name {
-    font-family: var(--font-hg-serif);
-    font-size: 23px;
-    margin-bottom: 4px;
-    color: #fff;
-  }
-  .piece-dim {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--stage-accent);
-    margin-bottom: 4px;
-  }
-  .piece-mat {
-    font-size: 11.5px;
-    color: rgba(247, 245, 240, 0.68);
-    line-height: 1.45;
-    margin-bottom: 14px;
-  }
-  .piece-actions-row {
-    margin-top: auto;
+
+  /* Sağ Nokta Navigasyon Rayı */
+  .col-index-nav {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 800;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column;
+    gap: 13px;
+    padding: 14px 9px;
+    background: rgba(20, 17, 14, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
-  .piece-action {
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--stage-accent);
-    text-decoration: none;
+  .col-index-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s var(--ease-hg);
+    border: none;
+    padding: 0;
   }
-  .piece-zoom-btn {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(247, 245, 240, 0.85);
+  .col-index-dot.active {
+    background: #DFC793;
+    transform: scale(1.45);
+    box-shadow: 0 0 12px rgba(223, 199, 147, 0.75);
+  }
+  .col-index-dot::before {
+    content: attr(data-name);
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    background: rgba(20, 17, 14, 0.94);
+    color: #fff;
+    padding: 5px 12px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: 600;
-    padding: 5px 11px;
-    cursor: pointer;
-    transition: all 0.25s ease;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.22s ease;
+    border: 1px solid rgba(223, 199, 147, 0.28);
   }
-  .piece-zoom-btn:hover {
-    border-color: var(--stage-accent);
-    color: #fff;
+  .col-index-dot:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
   }
 
-  /* Lightbox Full-View Inspector */
+  /* Lightbox & Quote & 3D Modals */
   .col-lightbox {
     position: fixed;
     inset: 0;
@@ -888,10 +810,7 @@
     padding: 28px;
   }
   .col-lightbox.open { display: flex; }
-  .col-lightbox-box {
-    max-width: min(1240px, 94vw);
-    text-align: center;
-  }
+  .col-lightbox-box { max-width: min(1240px, 94vw); text-align: center; }
   .col-lightbox-box img {
     max-width: 100%;
     max-height: 82vh;
@@ -907,31 +826,6 @@
     color: #F7F5F0;
   }
 
-  /* Empty Subcategory Card */
-  .col-empty-stage {
-    max-width: 920px;
-    margin: 72px auto;
-    padding: 54px 36px;
-    border-radius: 26px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px dashed rgba(223, 199, 147, 0.32);
-    text-align: center;
-  }
-  .col-empty-stage h2 {
-    font-family: var(--font-hg-serif);
-    font-size: clamp(32px, 3.8vw, 48px);
-    font-weight: 400;
-    margin-bottom: 14px;
-  }
-  .col-empty-stage p {
-    max-width: 560px;
-    margin: 0 auto 28px;
-    font-size: 15px;
-    line-height: 1.7;
-    color: rgba(247, 245, 240, 0.74);
-  }
-
-  /* Quote Modal & 3D Modal */
   .quote-modal-wrap {
     position: fixed;
     inset: 0;
@@ -988,14 +882,74 @@
   }
   .form-group input:focus, .form-group textarea:focus { border-color: #DFC793; }
 
-  @media (max-width: 1100px) {
-    .col-index-nav { display: none; }
-    .stage-hero-grid,
-    .stage-hero-grid.has-interactive-stage { grid-template-columns: 1fr; gap: 32px; }
+  @media (max-width: 900px) {
+    .cam-col-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .cam-col-head-right {
+      align-items: flex-start;
+    }
+    .stage-palettes {
+      justify-content: flex-start;
+    }
+    .cam-visual-frame-wrap {
+      width: min(100%, calc((100svh - 335px) * 1.7933));
+    }
   }
+
   @media (max-width: 640px) {
-    .col-top-intro, .col-filter-sticky, .stage-inner { padding-left: 20px; padding-right: 20px; }
-    .col-top-intro { padding-top: 112px; }
+    .col-index-nav {
+      right: 8px;
+      padding: 10px 6px;
+      gap: 9px;
+    }
+    .col-index-dot {
+      width: 7px;
+      height: 7px;
+    }
+    .cam-col-slide {
+      padding: 10px 36px 12px 12px;
+    }
+    .cam-intro-slide {
+      padding: 84px 18px 24px;
+    }
+    .stage-title {
+      font-size: 25px;
+      margin-bottom: 3px;
+    }
+    .stage-story {
+      font-size: 12px;
+      -webkit-line-clamp: 2;
+    }
+    .stage-palettes {
+      display: none;
+    }
+    .cam-visual-frame-wrap {
+      width: 100%;
+    }
+    .scase-dock-bar {
+      padding: 8px 10px;
+    }
+    .scase-dock-label {
+      display: none;
+    }
+    .scase-dock-pill {
+      width: 100%;
+      justify-content: space-between;
+      padding: 5px 10px;
+    }
+    .scase-tooltip {
+      min-width: 132px;
+      max-width: 168px;
+      padding: 7px 9px;
+      border-radius: 10px;
+    }
+    .scase-tooltip-eyebrow { font-size: 7.5px; }
+    .scase-tooltip-title { font-size: 13.5px; }
+    .scase-tooltip-dim { display: none; }
+    .scase-tooltip-link { font-size: 9.5px; padding: 3px 9px; }
   }
 </style>
 </head>
@@ -1006,37 +960,16 @@
   <div class="chroma-orb chroma-orb-b" id="chromaOrbB"></div>
   <div class="chroma-vignette"></div>
 </div>
+
 <header id="hgSiteHeader" class="site-header"></header>
 
-<section class="col-top-intro">
-  <div class="hg-reveal">
-    <span class="col-top-kicker">Alt Kategorilere Ayrılmış Vitrin</span>
-    <h1 class="col-top-title">Mobilya <em>Koleksiyonları</em></h1>
-  </div>
-  <p class="col-top-sub hg-reveal" data-delay="100">
-    Tüm serilerimizi kullanım alanına göre <strong>Kahve Köşesi</strong>, <strong>Dolap</strong> ve <strong>Yatak Odası</strong> koleksiyonları olarak ayırdık. Tekil ürünler için <a href="galeri.html#sectionBagimsiz" style="color:#DFC793;text-decoration:underline;">Galeri Sunum Merkezi</a>’ni ziyaret edebilirsiniz.
-  </p>
-</section>
+<nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Kamera Geçişi"></nav>
 
-<div class="col-filter-sticky">
-  <div class="col-filter-inner">
-    <div class="col-cat-tabs" id="colCatTabs" role="tablist" aria-label="Koleksiyon Kategorisi">
-      <button type="button" class="col-cat-tab active" data-cat="ALL">Tümü <span class="col-cat-badge" id="colCountAll">0</span></button>
-      <button type="button" class="col-cat-tab" data-cat="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları <span class="col-cat-badge" id="colCountKahve">0</span></button>
-      <button type="button" class="col-cat-tab" data-cat="Dolap Koleksiyonları">Dolap Koleksiyonları <span class="col-cat-badge" id="colCountDolap">0</span></button>
-      <button type="button" class="col-cat-tab" data-cat="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları <span class="col-cat-badge" id="colCountYatak">0</span></button>
-    </div>
-    <a href="galeri.html#sectionBagimsiz" style="font-size:12.5px;font-weight:700;color:#DFC793;text-decoration:none;letter-spacing:0.04em;">
-      Bağımsız Ürünler Sunum Merkezi →
-    </a>
-  </div>
-</div>
-
-<nav class="col-index-nav" id="colIndexNav" aria-label="Koleksiyon Hızlı Geçiş"></nav>
-
-<main id="stagesContainer">
-  <div style="text-align:center;padding:120px 24px;color:rgba(247,245,240,0.6);">
-    Canlı koleksiyonlar yükleniyor...
+<main class="cam-deck" id="cameraDeck">
+  <div class="cam-track" id="cameraTrack">
+    <section class="cam-slide cam-intro-slide" style="justify-content:center;">
+      <div style="color:rgba(247,245,240,0.65);font-size:15px;">Canlı koleksiyonlar yükleniyor...</div>
+    </section>
   </div>
 </main>
 
@@ -1114,73 +1047,73 @@
 <script src="js/supabase-config.js"></script>
 <script src="js/header.js"></script>
 <script src="js/genel.js"></script>
-<script src="js/footer.js"></script>
 <script src="js/showroom-motion.js"></script>
 
 <script>
-// Exact photographic color atmospheres sampled from each collection hero visual
+const CATEGORIES = [
+  'Kahve Köşesi Koleksiyonları',
+  'Dolap Koleksiyonları',
+  'Yatak Odası Koleksiyonları'
+];
+
+const CATEGORY_COPY = {
+  'Kahve Köşesi Koleksiyonları': {
+    kicker: 'Mimari Kahve Köşesi Vitrini',
+    titleHtml: 'Kahve Köşesi <em>Koleksiyonları</em>',
+    desc: 'Sıcak iç aydınlatmalı cam vitrinleri, barista ekipmanlarına özel geniş tezgâh açıklıkları ve 80 cm’den 160 cm’ye kadar uyarlanan modüler kahve köşesi serilerimizi sabit kamera geçişleriyle adım adım keşfedin.'
+  },
+  'Dolap Koleksiyonları': {
+    kicker: 'Sistematik Depolama Mimarisi',
+    titleHtml: 'Dolap <em>Koleksiyonları</em>',
+    desc: 'Zeminden tavana milimetrik uyum sağlayan gövde birleşimleri, sessiz frenli donanımlar ve mekânın oranlarına göre şekillenen modüler dolap serilerimizi inceleyin.'
+  },
+  'Yatak Odası Koleksiyonları': {
+    kicker: 'Özel Uyku &amp; Giyinme Kurguları',
+    titleHtml: 'Yatak Odası <em>Koleksiyonları</em>',
+    desc: 'Yatak odanızın ölçülerine ve doğal doku tercihlerinize özel tasarlanan gardırop, karyola ve komodin serilerimiz yakında bu kategoride vitrine çıkıyor.'
+  }
+};
+
 const COLLECTION_ATMOSPHERES = {
   bergamo: {
-    bg: [29, 21, 15],
-    orb1: [204, 156, 60],
-    orb2: [122, 82, 54],
-    accent: '#E2B761',
-    swatches: ['#543C24', '#8E765E', '#CC9C3C', '#E4DAD0']
+    bg: [29, 21, 15], orb1: [204, 156, 60], orb2: [122, 82, 54],
+    accent: '#E2B761', swatches: ['#543C24', '#8E765E', '#CC9C3C', '#E4DAD0']
   },
   lahey: {
-    bg: [19, 27, 22],
-    orb1: [109, 126, 94],
-    orb2: [199, 174, 130],
-    accent: '#C4D4A7',
-    swatches: ['#6C6C54', '#84846C', '#CCB484', '#EFE9DF']
+    bg: [19, 27, 22], orb1: [109, 126, 94], orb2: [199, 174, 130],
+    accent: '#C4D4A7', swatches: ['#6C6C54', '#84846C', '#CCB484', '#EFE9DF']
   },
   marsilya: {
-    bg: [24, 23, 25],
-    orb1: [130, 135, 116],
-    orb2: [154, 96, 71],
-    accent: '#DDBAA0',
-    swatches: ['#6C543C', '#9C9C84', '#9C6C54', '#D6D3CE']
+    bg: [24, 23, 25], orb1: [130, 135, 116], orb2: [154, 96, 71],
+    accent: '#DDBAA0', swatches: ['#6C543C', '#9C9C84', '#9C6C54', '#D6D3CE']
   },
   palermo: {
-    bg: [31, 24, 19],
-    orb1: [204, 132, 60],
-    orb2: [196, 170, 146],
-    accent: '#E7BE8A',
-    swatches: ['#6C543C', '#B49C84', '#CC843C', '#E9DFD7']
+    bg: [31, 24, 19], orb1: [204, 132, 60], orb2: [196, 170, 146],
+    accent: '#E7BE8A', swatches: ['#6C543C', '#B49C84', '#CC843C', '#E9DFD7']
   },
   toronto: {
-    bg: [19, 22, 24],
-    orb1: [111, 120, 126],
-    orb2: [180, 132, 36],
-    accent: '#D5BE8B',
-    swatches: ['#543C3C', '#848484', '#B4B4B4', '#B48424']
+    bg: [19, 22, 24], orb1: [111, 120, 126], orb2: [180, 132, 36],
+    accent: '#D5BE8B', swatches: ['#543C3C', '#848484', '#B4B4B4', '#B48424']
   },
   troyes: {
-    bg: [25, 18, 13],
-    orb1: [156, 84, 36],
-    orb2: [142, 106, 76],
-    accent: '#E4A972',
-    swatches: ['#3C2424', '#6C543C', '#9C5424', '#B48454']
+    bg: [25, 18, 13], orb1: [156, 84, 36], orb2: [142, 106, 76],
+    accent: '#E4A972', swatches: ['#3C2424', '#6C543C', '#9C5424', '#B48454']
   },
   bohem: {
-    bg: [22, 19, 21],
-    orb1: [108, 84, 84],
-    orb2: [180, 156, 156],
-    accent: '#D8C0B0',
-    swatches: ['#242424', '#543C3C', '#6C5454', '#B49C9C']
+    bg: [22, 19, 21], orb1: [108, 84, 84], orb2: [180, 156, 156],
+    accent: '#D8C0B0', swatches: ['#242424', '#543C3C', '#6C5454', '#B49C9C']
   },
   fallback: {
-    bg: [20, 17, 14],
-    orb1: [94, 116, 98],
-    orb2: [180, 140, 88],
-    accent: '#DFC793',
-    swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
+    bg: [20, 17, 14], orb1: [94, 116, 98], orb2: [180, 140, 88],
+    accent: '#DFC793', swatches: ['#3D352E', '#5E7462', '#C5A059', '#F0ECE4']
   }
 };
 
 let _allCollections = [];
-let _activeCategory = 'ALL';
-let _chromaRaf = 0;
+let _visibleList = [];
+let _activeCategory = 'Kahve Köşesi Koleksiyonları';
+let _activeSlideIdx = 0;
+let _sceneTriggerTimer = 0;
 
 function escHtml(s) {
   return String(s || '').replace(/[&<>"']/g, m => ({
@@ -1192,15 +1125,6 @@ function getAtmosphere(slug) {
   const s = String(slug || '').toLowerCase();
   const key = Object.keys(COLLECTION_ATMOSPHERES).find(k => k !== 'fallback' && s.includes(k));
   return COLLECTION_ATMOSPHERES[key || 'fallback'];
-}
-
-function cleanStyleLabel(rawStyle, category) {
-  const clean = String(rawStyle || '').trim();
-  if (!clean) return '';
-  if (clean.toLowerCase() === String(category || '').toLowerCase() || /koleksiyonları koleksiyonu/i.test(clean)) {
-    return '';
-  }
-  return clean;
 }
 
 function formatPieceTitle(p, collectionName) {
@@ -1219,14 +1143,6 @@ function formatPieceTitle(p, collectionName) {
   return rawName || colName || 'Koleksiyon Parçası';
 }
 
-function adaptHeroAspect(img) {
-  const frame = img.closest('.stage-img-frame');
-  if (frame && img.naturalWidth && img.naturalHeight) {
-    const ratio = Math.min(1.9, Math.max(0.75, img.naturalWidth / img.naturalHeight));
-    frame.style.aspectRatio = ratio.toFixed(3);
-  }
-}
-
 function openColLightbox(src, caption) {
   const modal = document.getElementById('colLightbox');
   document.getElementById('colLightboxImg').src = src;
@@ -1238,64 +1154,137 @@ function closeColLightbox() {
   document.getElementById('colLightbox').classList.remove('open');
 }
 
-function updateCategoryCounts(cols) {
-  const counts = {
-    'Kahve Köşesi Koleksiyonları': 0,
-    'Dolap Koleksiyonları': 0,
-    'Yatak Odası Koleksiyonları': 0
-  };
-  cols.forEach(c => {
-    if (Object.prototype.hasOwnProperty.call(counts, c.category)) counts[c.category] += 1;
-  });
-  document.getElementById('colCountAll').textContent = String(cols.length);
-  document.getElementById('colCountKahve').textContent = String(counts['Kahve Köşesi Koleksiyonları']);
-  document.getElementById('colCountDolap').textContent = String(counts['Dolap Koleksiyonları']);
-  document.getElementById('colCountYatak').textContent = String(counts['Yatak Odası Koleksiyonları']);
+function rgbStr(rgb) { return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`; }
+
+function applySlideAtmosphere(slideIdx) {
+  const canvas = document.getElementById('collectionCanvas');
+  const orbA = document.getElementById('chromaOrbA');
+  const orbB = document.getElementById('chromaOrbB');
+  const slug = slideIdx === 0
+    ? (_visibleList[0]?.slug || 'fallback')
+    : (_visibleList[slideIdx - 1]?.slug || 'fallback');
+  const atmo = getAtmosphere(slug);
+  if (canvas) canvas.style.backgroundColor = rgbStr(atmo.bg);
+  if (orbA) orbA.style.backgroundColor = rgbStr(atmo.orb1);
+  if (orbB) orbB.style.backgroundColor = rgbStr(atmo.orb2);
+  document.documentElement.style.setProperty('--stage-accent', atmo.accent);
 }
 
-function renderStages(category) {
-  const container = document.getElementById('stagesContainer');
-  const nav = document.getElementById('colIndexNav');
-  const list = category === 'ALL'
-    ? _allCollections
-    : _allCollections.filter(c => c.category === category);
+function glideToSlide(targetIdx) {
+  const maxSlide = _visibleList.length;
+  const clamped = Math.max(0, Math.min(maxSlide, targetIdx));
+  _activeSlideIdx = clamped;
 
-  if (!list.length) {
-    nav.innerHTML = '';
-    const isBedroom = category === 'Yatak Odası Koleksiyonları';
-    container.innerHTML = `
-      <div class="col-empty-stage hg-reveal">
-        <span class="col-top-kicker">${escHtml(category)}</span>
-        <h2>${isBedroom ? 'Yeni Sezon Yatak Odası Serileri Hazırlanıyor' : 'Bu Kategoride Seri Bulunmuyor'}</h2>
-        <p>${isBedroom
-          ? 'Yatak Odası Koleksiyonları alt kategorisi için ilk seri modellerimiz hazırlanmaktadır. Mekânınıza özel karyola, komodin ve dolap kurgusu için doğrudan atölye teklifi talep edebilirsiniz.'
-          : 'Seçili kategoride henüz seri yayınlanmadı.'}</p>
-        <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(category)} Özel Tasarım')">
-          <span class="btn-hg-wipe-inner">
-            <span class="btn-hg-wipe-row main">✦ Özel Ölçü Teklifi İste →</span>
-            <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Özel Ölçü Teklifi İste →</span>
-          </span>
-        </button>
-      </div>
-    `;
-    window.GKM_MOTION?.refreshReveals();
+  const track = document.getElementById('cameraTrack');
+  if (track) {
+    track.style.transform = `translate3d(0, -${clamped * 100}svh, 0)`;
+  }
+
+  document.querySelectorAll('#colIndexNav .col-index-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === clamped);
+  });
+
+  // İlk başlık ekranında üst bar görünür, koleksiyonları incelerken pürüzsüzce gizlenir
+  window.GKM_HEADER?.setForceHidden(clamped > 0);
+  applySlideAtmosphere(clamped);
+
+  if (_sceneTriggerTimer) clearTimeout(_sceneTriggerTimer);
+  const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
+  const activeSlug = activeCol ? String(activeCol.slug || '') : '';
+  window.__GKM_ACTIVE_SCENE_SLUG = activeSlug;
+
+  if (!activeSlug) {
+    window.GKM_COLLECTION_STAGE?.activateSlide('');
     return;
   }
 
-  nav.innerHTML = list.map((c, idx) => `
+  // Kamera slaytı merkeze yaklaşırken (280ms) yavaş sahne girişini başlat
+  _sceneTriggerTimer = setTimeout(() => {
+    window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);
+  }, 280);
+}
+
+function selectCategory(cat, initialSlideIdx = 0) {
+  _activeCategory = CATEGORIES.includes(cat) ? cat : CATEGORIES[0];
+  renderCategoryDeck(_activeCategory, initialSlideIdx);
+}
+
+function renderCategoryDeck(category, initialSlideIdx = 0) {
+  const track = document.getElementById('cameraTrack');
+  const nav = document.getElementById('colIndexNav');
+  _visibleList = _allCollections.filter(c => c.category === category);
+
+  const meta = CATEGORY_COPY[category] || CATEGORY_COPY[CATEGORIES[0]];
+
+  // Sağ nokta rayı: Giriş + her koleksiyon noktası
+  const dotNames = ['Kategori Özeti', ..._visibleList.map(c => c.name)];
+  nav.innerHTML = dotNames.map((nm, idx) => `
     <button type="button" class="col-index-dot ${idx === 0 ? 'active' : ''}"
-      data-name="${escHtml(c.name)}"
-      aria-label="${escHtml(c.name)}"
-      onclick="document.getElementById('stage-${escHtml(c.slug)}').scrollIntoView({behavior:'smooth'})">
+      data-name="${escHtml(nm)}"
+      aria-label="${escHtml(nm)}"
+      onclick="glideToSlide(${idx})">
     </button>
   `).join('');
 
-  container.innerHTML = list.map((c, idx) => {
+  // Slide 0: Kategori Tanıtım & Başlangıç Ekranı
+  const catSwitchHtml = CATEGORIES.map(catName => {
+    const cnt = _allCollections.filter(c => c.category === catName).length;
+    const isSel = catName === category;
+    return `
+      <button type="button" class="cam-cat-btn${isSel ? ' active' : ''}"
+        onclick="selectCategory('${escHtml(catName)}', 0)">
+        ${escHtml(catName)} (${cnt})
+      </button>
+    `;
+  }).join('');
+
+  const seriesPreviewHtml = _visibleList.length ? `
+    <div class="cam-intro-series-list">
+      ${_visibleList.map((c, idx) => `
+        <button type="button" class="cam-series-chip" onclick="glideToSlide(${idx + 1})">
+          <span>${String(idx + 1).padStart(2, '0')}</span> ${escHtml(c.name)}
+        </button>
+      `).join('')}
+    </div>
+  ` : '';
+
+  const introCtaHtml = _visibleList.length
+    ? `<button type="button" class="cam-start-btn" onclick="glideToSlide(1)">
+         <span>Gezmeye Başla</span>
+         <span class="cam-start-arrow">↓</span>
+       </button>`
+    : `<button type="button" class="cam-start-btn" onclick="openQuoteForCollection('${escHtml(category)} Özel Tasarım')">
+         <span>✦ Özel Ölçü Teklifi İste</span>
+         <span>→</span>
+       </button>`;
+
+  const slide0Html = `
+    <section class="cam-slide cam-intro-slide" id="slide-intro">
+      <div class="cam-intro-center">
+        <span class="cam-intro-kicker">${meta.kicker}</span>
+        <h1 class="cam-intro-title">${meta.titleHtml}</h1>
+        <p class="cam-intro-desc">${escHtml(meta.desc)}</p>
+        ${seriesPreviewHtml}
+        <div class="cam-cat-switcher" role="tablist" aria-label="Koleksiyon Kategorisi Seçimi">
+          ${catSwitchHtml}
+        </div>
+      </div>
+      <div class="cam-intro-bottom">
+        ${introCtaHtml}
+      </div>
+    </section>
+  `;
+
+  // Slides 1..N: Her Koleksiyon Tek Ekranda (%100 Ölçekte Scroll Olmadan Sığar)
+  const colSlidesHtml = _visibleList.map((c, idx) => {
+    const slideNum = idx + 1;
+    const hasNext = slideNum < _visibleList.length;
+    const nextCol = hasNext ? _visibleList[idx + 1] : null;
     const atmo = getAtmosphere(c.slug);
     const dbPalettes = Array.isArray(c.color_palette) && c.color_palette.length ? c.color_palette : atmo.swatches;
     const pieces = Array.isArray(c.pieces) ? c.pieces : [];
-    const subtitle = cleanStyleLabel(c.architecture_style, c.category);
     const heroUrl = c.hero_image_url || 'resim/showroom/warm_atelier.jpg';
+
     const hasInteractiveScene = Boolean(
       window.GKM_COLLECTION_STAGE?.resolveScene?.(c) ||
       window.GKM_HERO_CONFIG?.resolveCollectionSceneConfig?.(c) ||
@@ -1303,243 +1292,116 @@ function renderStages(category) {
       /bergamo/i.test(String(c.slug || c.name || ''))
     );
 
-    const paletteHtml = dbPalettes.map(hex => `
+    const paletteHtml = dbPalettes.slice(0, 4).map(hex => `
       <span class="palette-chip" title="Seri Renk Tonu: ${escHtml(hex)}">
         <span class="palette-dot" style="background:${escHtml(hex)}"></span>${escHtml(hex)}
       </span>
     `).join('');
 
-    const piecesHtml = pieces.length ? `
-      <div class="stage-pieces-tray">
-        <div class="pieces-tray-header hg-reveal" data-delay="40">
-          <h3 class="pieces-tray-title">Seri Modülleri (${pieces.length} Parça)</h3>
-          <span style="font-size:12px;color:rgba(247,245,240,0.65);">Tüm görselleri tam boy incelemek için fotoğrafın üzerine tıklayın</span>
-        </div>
-        <div class="pieces-grid">
-          ${pieces.map((p, pIdx) => {
-            const pImg = p.image_url || p.ana_resim || heroUrl;
-            const pTitle = formatPieceTitle(p, c.name);
-            const pDim = p.dimensions || p.olcu || '';
-            const pMat = p.material || p.malzeme || '';
-            return `
-              <div class="piece-card hg-reveal" data-delay="${Math.min(pIdx * 85, 320)}">
-                <div class="piece-thumb" onclick="openColLightbox('${escHtml(pImg)}', '${escHtml(c.name + ' — ' + pTitle)}')">
-                  <img src="${escHtml(pImg)}" alt="${escHtml(pTitle)}" loading="lazy" onerror="this.src='${escHtml(heroUrl)}'">
-                </div>
-                <div class="piece-name">${escHtml(pTitle)}</div>
-                ${pDim ? `<div class="piece-dim">${escHtml(pDim)}</div>` : ''}
-                ${pMat ? `<div class="piece-mat">${escHtml(pMat)}</div>` : ''}
-                <div class="piece-actions-row">
-                  <a href="urun.html?id=${encodeURIComponent(p.slug)}" class="piece-action miles-underline-link">Detayı İncele →</a>
-                  <button type="button" class="piece-zoom-btn" onclick="openColLightbox('${escHtml(pImg)}', '${escHtml(c.name + ' — ' + pTitle)}')">Büyüt ↗</button>
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    ` : '';
-
-    if (hasInteractiveScene) {
-      return `
-        <section class="collection-stage has-full-scene" id="stage-${escHtml(c.slug)}" data-slug="${escHtml(c.slug)}">
-          <div class="stage-full-header-band">
-            <div class="stage-inner">
-              <div class="stage-full-header">
-                <div>
-                  <span class="stage-chapter hg-reveal" data-delay="20">SERİ ${String(idx + 1).padStart(2, '0')} · ${escHtml(c.category)}</span>
-                  <h2 class="stage-title hg-reveal" data-delay="75">${escHtml(c.name)}</h2>
-                  ${subtitle ? `<div class="stage-style hg-reveal" data-delay="120">${escHtml(subtitle)}</div>` : ''}
-                  <p class="stage-story hg-reveal" style="margin-bottom:0;" data-delay="165">${escHtml(c.design_story || '')}</p>
-                </div>
-                <div class="stage-full-header-actions hg-reveal" data-delay="210">
-                  ${paletteHtml ? `<div class="stage-palettes">${paletteHtml}</div>` : ''}
-                  <div class="stage-actions">
-                    <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(c.name)}')">
-                      <span class="btn-hg-wipe-inner">
-                        <span class="btn-hg-wipe-row main">✦ Bu Koleksiyon İçin Teklif İste</span>
-                        <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Bu Koleksiyon İçin Teklif İste</span>
-                      </span>
-                    </button>
-                    ${c.model_3d_url ? `
-                      <button type="button" class="btn-stage-secondary" onclick="openCollection3DModal('${escHtml(c.name)}', '${escHtml(c.model_3d_url)}')">
-                        3D / AR İncele
-                      </button>` : ''}
-                    <a href="galeri.html" class="btn-stage-secondary">Galeri Vitrini</a>
-                  </div>
-                </div>
-              </div>
+    const visualBlockHtml = hasInteractiveScene
+      ? `
+        <div data-collection-scene="${escHtml(c.slug)}">
+          <div class="scase-stage-shell">
+            <div class="scase-stage" style="aspect-ratio:1024/571;">
+              <img src="${escHtml(heroUrl)}" alt="${escHtml(c.name)}" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
           </div>
-
-          <div class="stage-full-bleed-wrap hg-reveal" data-delay="180">
-            <div data-collection-scene="${escHtml(c.slug)}">
-              <div class="scase-stage-shell">
-                <div class="scase-stage" style="aspect-ratio:1024/571;">
-                  <img src="${escHtml(heroUrl)}" alt="${escHtml(c.name)}" style="width:100%;height:100%;object-fit:cover;display:block;">
-                </div>
+        </div>
+      `
+      : `
+        <div class="scase-stage-shell">
+          <div class="cam-static-img-wrap" onclick="openColLightbox('${escHtml(heroUrl)}', '${escHtml(c.name)}')">
+            <img src="${escHtml(heroUrl)}" alt="${escHtml(c.name)}" loading="lazy" onerror="this.src='resim/showroom/warm_atelier.jpg'">
+          </div>
+          ${pieces.length ? `
+            <div class="scase-dock-bar">
+              <span class="scase-dock-label">Seri Modülleri (${pieces.length} Parça):</span>
+              <div class="scase-dock-pills">
+                ${pieces.map(p => {
+                  const pTitle = formatPieceTitle(p, c.name);
+                  const pDim = p.dimensions || p.olcu || '';
+                  return `
+                    <a href="urun.html?id=${encodeURIComponent(p.slug)}" class="scase-dock-pill">
+                      <strong>${escHtml(pTitle)}</strong>
+                      ${pDim ? `<span>${escHtml(pDim)}</span>` : ''}
+                      <em>Detaya Git →</em>
+                    </a>
+                  `;
+                }).join('')}
               </div>
             </div>
-          </div>
-        </section>
+          ` : ''}
+        </div>
       `;
-    }
 
     return `
-      <section class="collection-stage" id="stage-${escHtml(c.slug)}" data-slug="${escHtml(c.slug)}">
-        <div class="stage-inner">
-          <div class="stage-hero-grid">
-            <div>
-              <span class="stage-chapter hg-reveal" data-delay="20">SERİ ${String(idx + 1).padStart(2, '0')} · ${escHtml(c.category)}</span>
-              <h2 class="stage-title hg-reveal" data-delay="75">${escHtml(c.name)}</h2>
-              ${subtitle ? `<div class="stage-style hg-reveal" data-delay="120">${escHtml(subtitle)}</div>` : ''}
-              <p class="stage-story hg-reveal" data-delay="165">${escHtml(c.design_story || '')}</p>
-              ${paletteHtml ? `<div class="stage-palettes hg-reveal" data-delay="210">${paletteHtml}</div>` : ''}
-              <div class="stage-actions hg-reveal" data-delay="255">
-                <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(c.name)}')">
-                  <span class="btn-hg-wipe-inner">
-                    <span class="btn-hg-wipe-row main">✦ Bu Koleksiyon İçin Teklif İste</span>
-                    <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Bu Koleksiyon İçin Teklif İste</span>
-                  </span>
-                </button>
-                ${c.model_3d_url ? `
-                  <button type="button" class="btn-stage-secondary" onclick="openCollection3DModal('${escHtml(c.name)}', '${escHtml(c.model_3d_url)}')">
-                    3D / AR İncele
-                  </button>` : ''}
-                <a href="galeri.html" class="btn-stage-secondary">Galeri Vitrini</a>
+      <section class="cam-slide cam-col-slide" id="stage-${escHtml(c.slug)}" data-slug="${escHtml(c.slug)}">
+        <div class="cam-slide-shell">
+          <div class="cam-top-nav">
+            <button type="button" class="cam-nav-pill" onclick="glideToSlide(0)">↑ Başa Dön</button>
+            <span class="cam-slide-counter">SERİ ${String(slideNum).padStart(2, '0')} / ${String(_visibleList.length).padStart(2, '0')}</span>
+            ${slideNum > 1
+              ? `<button type="button" class="cam-nav-pill" onclick="glideToSlide(${slideNum - 1})">← Önceki</button>`
+              : ''}
+          </div>
+
+          <div class="cam-slide-core">
+            <div class="cam-col-head">
+              <div class="cam-col-head-left">
+                <span class="stage-chapter">${escHtml(c.category)}</span>
+                <h2 class="stage-title">${escHtml(c.name)}</h2>
+                <p class="stage-story">${escHtml(c.design_story || '')}</p>
+              </div>
+              <div class="cam-col-head-right">
+                ${paletteHtml ? `<div class="stage-palettes">${paletteHtml}</div>` : ''}
+                <div class="stage-actions">
+                  <button type="button" class="btn-hg-wipe" onclick="openQuoteForCollection('${escHtml(c.name)}')">
+                    <span class="btn-hg-wipe-inner">
+                      <span class="btn-hg-wipe-row main">✦ Teklif İste</span>
+                      <span class="btn-hg-wipe-row clone" aria-hidden="true">✦ Teklif İste</span>
+                    </span>
+                  </button>
+                  ${c.model_3d_url ? `
+                    <button type="button" class="btn-stage-secondary" onclick="openCollection3DModal('${escHtml(c.name)}', '${escHtml(c.model_3d_url)}')">
+                      3D / AR
+                    </button>` : ''}
+                  <a href="galeri.html" class="btn-stage-secondary">Galeri Vitrini</a>
+                </div>
               </div>
             </div>
 
-            <div class="stage-img-frame miles-wave-frame hg-reveal" data-wave-delay="${(idx % 2) * 100}" onclick="openColLightbox('${escHtml(heroUrl)}', '${escHtml(c.name)}')">
-              <div class="miles-wave-inner">
-                <img src="${escHtml(heroUrl)}" alt="${escHtml(c.name)}" loading="lazy" onload="adaptHeroAspect(this)" onerror="this.src='resim/showroom/warm_atelier.jpg'">
-              </div>
-              <div class="stage-badge-float">${escHtml(c.category)}</div>
-              <div class="stage-zoom-hint">↗ Tam Görsel</div>
+            <div class="cam-visual-frame-wrap">
+              ${visualBlockHtml}
             </div>
           </div>
-          ${piecesHtml}
+
+          <div class="cam-top-nav">
+            ${hasNext
+              ? `<button type="button" class="cam-nav-pill primary" onclick="glideToSlide(${slideNum + 1})">Diğer Koleksiyon: ${escHtml(nextCol.name)} ↓</button>`
+              : `<button type="button" class="cam-nav-pill primary" onclick="glideToSlide(0)">↑ Kategori Başlangıcına Dön</button>`}
+          </div>
         </div>
       </section>
     `;
   }).join('');
 
-  window.__GKM_COLLECTIONS_CACHE = list;
-  window.GKM_COLLECTION_STAGE?.mountAll(list);
-  setupAtmosphereObserver();
-  window.GKM_MOTION?.initAll();
-}
+  track.innerHTML = slide0Html + colSlidesHtml;
 
-function lerpChannel(a, b, t) { return a + (b - a) * t; }
-function lerpRgb(c1, c2, t) {
-  return [
-    Math.round(lerpChannel(c1[0], c2[0], t)),
-    Math.round(lerpChannel(c1[1], c2[1], t)),
-    Math.round(lerpChannel(c1[2], c2[2], t))
-  ];
-}
-function rgbStr(rgb) { return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`; }
+  window.__GKM_COLLECTIONS_CACHE = _visibleList;
+  const activeCol = initialSlideIdx > 0 ? _visibleList[initialSlideIdx - 1] : null;
+  window.__GKM_ACTIVE_SCENE_SLUG = activeCol ? String(activeCol.slug || '') : '';
+  window.GKM_COLLECTION_STAGE?.mountAll(_visibleList, window.__GKM_ACTIVE_SCENE_SLUG);
 
-function setupAtmosphereObserver() {
-  if (_chromaRaf) cancelAnimationFrame(_chromaRaf);
-  const stages = Array.from(document.querySelectorAll('.collection-stage'));
-  const canvas = document.getElementById('collectionCanvas');
-  const orbA = document.getElementById('chromaOrbA');
-  const orbB = document.getElementById('chromaOrbB');
-  const dots = document.querySelectorAll('.col-index-dot');
-  if (!stages.length || !canvas) return;
-
-  const firstAtmo = getAtmosphere(stages[0].dataset.slug);
-  let curBg = [...firstAtmo.bg];
-  let curO1 = [...firstAtmo.orb1];
-  let curO2 = [...firstAtmo.orb2];
-  let curIdx = 0;
-
-  function computeScrollTargets() {
-    const midY = window.innerHeight * 0.45;
-    const centers = stages.map(s => {
-      const r = s.getBoundingClientRect();
-      return r.top + r.height * 0.42;
-    });
-
-    // Nearest active stage for dot indicator & accent tint
-    let bestIdx = 0;
-    let bestDist = Infinity;
-    centers.forEach((c, i) => {
-      const d = Math.abs(c - midY);
-      if (d < bestDist) { bestDist = d; bestIdx = i; }
-    });
-    if (bestIdx !== curIdx) {
-      curIdx = bestIdx;
-      dots.forEach((d, i) => d.classList.toggle('active', i === curIdx));
-      const a = getAtmosphere(stages[curIdx].dataset.slug);
-      document.documentElement.style.setProperty('--stage-accent', a.accent);
-    }
-
-    // Continuous color mix between adjacent stages around viewport focal line
-    let i1 = 0;
-    let i2 = 0;
-    let mixT = 0;
-
-    if (midY <= centers[0]) {
-      i1 = 0; i2 = 0; mixT = 0;
-    } else if (midY >= centers[centers.length - 1]) {
-      i1 = centers.length - 1; i2 = i1; mixT = 0;
-    } else {
-      for (let i = 0; i < centers.length - 1; i++) {
-        if (midY >= centers[i] && midY <= centers[i + 1]) {
-          i1 = i;
-          i2 = i + 1;
-          const span = Math.max(1, centers[i + 1] - centers[i]);
-          mixT = (midY - centers[i]) / span;
-          break;
-        }
-      }
-    }
-
-    const a1 = getAtmosphere(stages[i1].dataset.slug);
-    const a2 = getAtmosphere(stages[i2].dataset.slug);
-    return {
-      bg: lerpRgb(a1.bg, a2.bg, mixT),
-      orb1: lerpRgb(a1.orb1, a2.orb1, mixT),
-      orb2: lerpRgb(a1.orb2, a2.orb2, mixT)
-    };
-  }
-
-  let lastT = 0;
-  function paintLoop(now) {
-    const dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0.016;
-    lastT = now;
-    const ease = 1 - Math.exp(-dt * 4.5);
-
-    const tgt = computeScrollTargets();
-    curBg = lerpRgb(curBg, tgt.bg, ease);
-    curO1 = lerpRgb(curO1, tgt.orb1, ease);
-    curO2 = lerpRgb(curO2, tgt.orb2, ease);
-
-    canvas.style.backgroundColor = rgbStr(curBg);
-    if (orbA) orbA.style.backgroundColor = rgbStr(curO1);
-    if (orbB) orbB.style.backgroundColor = rgbStr(curO2);
-
-    _chromaRaf = requestAnimationFrame(paintLoop);
-  }
-
-  document.documentElement.style.setProperty('--stage-accent', firstAtmo.accent);
-  dots.forEach((d, i) => d.classList.toggle('active', i === 0));
-  _chromaRaf = requestAnimationFrame(paintLoop);
+  glideToSlide(initialSlideIdx);
 }
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeColLightbox();
+  if (e.key === 'Escape') {
+    closeColLightbox();
+    closeQuoteModal();
+    closeCol3dModal();
+  }
 });
-
-function selectCategoryTab(cat) {
-  _activeCategory = cat;
-  document.querySelectorAll('#colCatTabs .col-cat-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.cat === cat);
-  });
-  renderStages(cat);
-}
 
 function openQuoteForCollection(colName) {
   const modal = document.getElementById('quoteModal');
@@ -1604,36 +1466,33 @@ async function submitCollectionQuote(e) {
 }
 
 async function initCollectionsPage() {
-  document.querySelectorAll('#colCatTabs .col-cat-tab').forEach(btn => {
-    btn.addEventListener('click', () => selectCategoryTab(btn.dataset.cat || 'ALL'));
-  });
-
   try {
     _allCollections = window.GKM_SUPABASE ? await window.GKM_SUPABASE.getCollections() : [];
   } catch (e) {
     _allCollections = [];
   }
-  updateCategoryCounts(_allCollections);
 
   const params = new URLSearchParams(window.location.search);
   const paramCat = params.get('kategori');
   const paramSlug = params.get('id');
 
-  if (paramCat) {
-    const matchedBtn = Array.from(document.querySelectorAll('#colCatTabs .col-cat-tab')).find(
-      b => b.dataset.cat.toLowerCase() === paramCat.toLowerCase()
-    );
-    selectCategoryTab(matchedBtn ? matchedBtn.dataset.cat : 'ALL');
-  } else {
-    renderStages('ALL');
+  if (paramSlug) {
+    const matchedCol = _allCollections.find(c => String(c.slug || '') === paramSlug);
+    if (matchedCol) {
+      const catCols = _allCollections.filter(c => c.category === matchedCol.category);
+      const slideOffset = catCols.findIndex(c => c.slug === matchedCol.slug) + 1;
+      selectCategory(matchedCol.category, Math.max(1, slideOffset));
+      return;
+    }
   }
 
-  if (paramSlug) {
-    setTimeout(() => {
-      const target = document.getElementById(`stage-${paramSlug}`);
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    }, 240);
+  if (paramCat) {
+    const matchedCat = CATEGORIES.find(c => c.toLowerCase() === paramCat.toLowerCase());
+    selectCategory(matchedCat || CATEGORIES[0], 0);
+    return;
   }
+
+  selectCategory(CATEGORIES[0], 0);
 }
 
 document.addEventListener('DOMContentLoaded', initCollectionsPage);

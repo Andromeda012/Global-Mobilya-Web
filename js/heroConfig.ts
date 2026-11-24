@@ -1,9 +1,9 @@
 /**
  * Global Kapak Mobilya — Etkileşimli Koleksiyon Sahnesi Yapılandırma Şeması
  * -------------------------------------------------------------------------
- * Gelecekteki Supabase / ERP entegrasyonu için çok katmanlı giriş animasyonu,
- * tam kompozit master geçişi (`finalMaster`) ve görünmez etkileşimli modül
- * hotspot bölgeleri tek bir veri şemasında tutulur.
+ * Gelecekteki Supabase / ERP entegrasyonu için yavaşlatılmış eşzamanlı giriş
+ * koreografisi, tam kompozit master geçişi (`finalMaster`) ve etkileşimli
+ * modül hotspot verilerini merkezi olarak tanımlar.
  */
 
 export interface SceneBackgroundConfig {
@@ -34,6 +34,7 @@ export interface SceneModuleItem {
   zIndex: number;
   entranceY: number;
   entranceDelaySec: number;
+  entranceDurationSec: number;
   eyebrow: string;
   label: string;
   dimensions?: string;
@@ -52,13 +53,13 @@ export interface SceneDecorItem {
   aspectRatio: string;
   zIndex: number;
   entranceX: number;
+  entranceDelaySec: number;
+  entranceDurationSec: number;
 }
 
 export interface CollectionSceneConfig {
   id: string;
   collectionSlugMatch: string;
-  fullBleedStage: boolean;
-  hideFlatPiecesTray: boolean;
   stageAspectRatio: string;
   background: SceneBackgroundConfig;
   finalMaster?: SceneMasterOverlayConfig;
@@ -67,23 +68,21 @@ export interface CollectionSceneConfig {
 }
 
 export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
-  id: 'bergamo-interactive-scene-v3',
+  id: 'bergamo-interactive-scene-v4',
   collectionSlugMatch: 'bergamo',
-  fullBleedStage: true,
-  hideFlatPiecesTray: true,
   stageAspectRatio: '1024 / 571',
   background: {
     src: '/hero/bg.jpg',
     alt: 'Bergamo Kahve Köşesi Tuğla ve Sıva Duvarlı Showroom Mekânı',
-    initialScale: 1.03,
+    initialScale: 1.05,
     targetScale: 1.0,
-    entranceDurationSec: 0.78,
+    entranceDurationSec: 1.5,
   },
   finalMaster: {
     src: '/hero/bergamo-final.jpg',
     alt: 'Bergamo Kahve Köşesi Tam Kompozit Stüdyo Sahnesi',
-    revealDelaySec: 0.68,
-    fadeDurationSec: 0.58,
+    revealDelaySec: 1.68,
+    fadeDurationSec: 0.85,
   },
   modules: [
     {
@@ -97,8 +96,9 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       heightPct: 70.23,
       aspectRatio: '220 / 401',
       zIndex: 21,
-      entranceY: -90,
-      entranceDelaySec: 0,
+      entranceY: -145,
+      entranceDelaySec: 0.22,
+      entranceDurationSec: 1.42,
       eyebrow: 'Tek Vitrinli Modül',
       label: 'Orta Boy Modül',
       dimensions: '120 / 200 / 45',
@@ -115,8 +115,9 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       heightPct: 70.23,
       aspectRatio: '182 / 401',
       zIndex: 22,
-      entranceY: -90,
-      entranceDelaySec: 0,
+      entranceY: -145,
+      entranceDelaySec: 0.22,
+      entranceDurationSec: 1.42,
       eyebrow: 'Kompakt İstasyon',
       label: 'Küçük Boy Modül',
       dimensions: '80 / 200 / 45',
@@ -133,8 +134,9 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       heightPct: 70.23,
       aspectRatio: '314 / 401',
       zIndex: 23,
-      entranceY: -90,
-      entranceDelaySec: 0,
+      entranceY: -145,
+      entranceDelaySec: 0.22,
+      entranceDurationSec: 1.42,
       eyebrow: 'Çift Vitrinli Amiral',
       label: 'Büyük Boy Modül',
       dimensions: '160 / 200 / 45',
@@ -152,7 +154,9 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       widthPct: 22.13,
       aspectRatio: '609 / 613',
       zIndex: 31,
-      entranceX: -56,
+      entranceX: -85,
+      entranceDelaySec: 0.28,
+      entranceDurationSec: 1.3,
     },
     {
       id: 'bergamo-dekor-sag',
@@ -164,7 +168,9 @@ export const BERGAMO_SCENE_CONFIG: CollectionSceneConfig = {
       widthPct: 17.22,
       aspectRatio: '474 / 569',
       zIndex: 32,
-      entranceX: 56,
+      entranceX: 85,
+      entranceDelaySec: 0.28,
+      entranceDurationSec: 1.3,
     },
   ],
 };
