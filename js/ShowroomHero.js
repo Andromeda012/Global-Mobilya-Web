@@ -1,13 +1,12 @@
 /**
- * Global Mobilya — Kamera Odaklı Çok Katmanlı Koleksiyon Sahnesi (Framer Motion + React 18)
+ * Global Mobilya — Kamera Hızına Senkronize Koleksiyon Sahnesi (Framer Motion + React 18)
  * -----------------------------------------------------------------------------------------
- * Aktif kamera slaytı sahneye ulaştığında animasyonu tetikler:
- *   1) Katman 1 (z-10): Temiz mekân arka planı (1.05 -> 1.0 yavaş yerleşme).
- *   2) Katman 2 (z-20): Dolap modülleri AYNI ANDA yukarıdan aşağıya yavaşça ve belirgin iner.
- *   3) Katman 3 (z-30): Sol ve sağ ön plan dekorları eşzamanlı sahneye yerleşir.
- *   4) Katman 4 (z-36): Yerleşim tamamlandıktan sonra master fotoğraf (finalMaster)
- *      sıfır sıçrama ile pürüzsüz çözünerek sabitlenir.
- *   5) Katman 5 (z-42): Görünmez hotspot bölgeleri ile modül etkileşimi & detay bağlantıları.
+ * GİRİŞ ('entering'):
+ *   1) Kamera aşağı inerken dolap modülleri aynı hızda yay fiziğiyle yukarıdan iner (~0.88s).
+ *   2) Modüller yerleşir yerleşmez çok kısa farkla (0.80s) ön plan dekorları sağdan ve soldan gelir.
+ *   3) En sonda (1.38s -> 1.94s) master stüdyo fotoğrafı sıçramasız oturur ve hotspotlar aktif olur.
+ * ÇIKIŞ ('exiting'):
+ *   Kamera yukarı bulutlara çıkarken dolaplar aşağı doğru ('125%'), dekorlar yanlara açılır.
  */
 
 import React, { useState } from 'https://esm.sh/react@18.3.1';
@@ -23,10 +22,38 @@ const h = React.createElement;
 const STAGE_ENTRIES = new Map();
 let _collectionsList = [];
 let _activeSlug = '';
+let _exitingSlug = '';
 
-const SILK_EASE = [0.16, 1, 0.3, 1];
+function DroppingModuleVisual({ item, phase }) {
+  const isEntering = phase === 'entering';
+  const isExiting = phase === 'exiting';
 
-function DroppingModuleVisual({ item, isActive }) {
+  const target = isExiting
+    ? { y: '125%', opacity: 0 }
+    : isEntering
+      ? { y: 0, opacity: 1 }
+      : { y: item.entranceY ?? -135, opacity: 0 };
+
+  const transition = isExiting
+    ? {
+        y: { duration: 0.68, ease: [0.45, 0, 0.85, 0.38] },
+        opacity: { duration: 0.48, delay: 0.14 },
+      }
+    : {
+        y: {
+          type: 'spring',
+          stiffness: 76,
+          damping: 16,
+          mass: 1.0,
+          delay: item.entranceDelaySec ?? 0.08,
+        },
+        opacity: {
+          duration: 0.36,
+          delay: item.entranceDelaySec ?? 0.08,
+          ease: [0.22, 1, 0.36, 1],
+        },
+      };
+
   return h(
     motion.div,
     {
@@ -38,24 +65,9 @@ function DroppingModuleVisual({ item, isActive }) {
         height: `${item.heightPct}%`,
         zIndex: item.zIndex,
       },
-      initial: { y: item.entranceY ?? -145, opacity: 0 },
-      animate: isActive
-        ? { y: 0, opacity: 1 }
-        : { y: item.entranceY ?? -145, opacity: 0 },
-      transition: {
-        y: {
-          type: 'spring',
-          stiffness: 46,
-          damping: 14,
-          mass: 1.15,
-          delay: item.entranceDelaySec ?? 0.15,
-        },
-        opacity: {
-          duration: 0.45,
-          delay: item.entranceDelaySec ?? 0.15,
-          ease: [0.22, 1, 0.36, 1],
-        },
-      },
+      initial: { y: item.entranceY ?? -135, opacity: 0 },
+      animate: target,
+      transition,
     },
     h('span', { className: 'scase-contact-shadow scase-contact-module', 'aria-hidden': 'true' }),
     h('img', {
@@ -125,7 +137,7 @@ function InteractiveHotspotZone({ item, isActive, isDimmed, onActivate, onDeacti
   );
 }
 
-function StaticAnchoredDecorLayer({ decor, isActive }) {
+function StaticAnchoredDecorLayer({ decor, phase }) {
   const posStyle = {
     bottom: `${decor.bottomPct}%`,
     width: `${decor.widthPct}%`,
@@ -136,27 +148,38 @@ function StaticAnchoredDecorLayer({ decor, isActive }) {
   else posStyle.right = `${decor.rightPct ?? 0}%`;
 
   const initX = decor.entranceX ?? (decor.side === 'left' ? -85 : 85);
+  const isEntering = phase === 'entering';
+  const isExiting = phase === 'exiting';
+
+  const target = isExiting
+    ? { x: initX * 1.1, y: 50, opacity: 0 }
+    : isEntering
+      ? { x: 0, y: 0, opacity: 1 }
+      : { x: initX, y: 0, opacity: 0 };
+
+  const transition = isExiting
+    ? { duration: 0.5, ease: [0.45, 0, 0.85, 0.38] }
+    : {
+        x: {
+          type: 'spring',
+          stiffness: 88,
+          damping: 17,
+          delay: decor.entranceDelaySec ?? 0.8,
+        },
+        opacity: {
+          duration: 0.38,
+          delay: decor.entranceDelaySec ?? 0.8,
+        },
+      };
 
   return h(
     motion.div,
     {
       className: `scase-decor-slot scase-decor-${decor.side}`,
       style: posStyle,
-      initial: { x: initX, opacity: 0 },
-      animate: isActive ? { x: 0, opacity: 1 } : { x: initX, opacity: 0 },
-      transition: {
-        x: {
-          type: 'spring',
-          stiffness: 50,
-          damping: 15,
-          mass: 1.1,
-          delay: decor.entranceDelaySec ?? 0.22,
-        },
-        opacity: {
-          duration: 0.48,
-          delay: decor.entranceDelaySec ?? 0.22,
-        },
-      },
+      initial: { x: initX, y: 0, opacity: 0 },
+      animate: target,
+      transition,
     },
     h('span', { className: 'scase-contact-shadow scase-contact-decor', 'aria-hidden': 'true' }),
     h('img', {
@@ -168,11 +191,14 @@ function StaticAnchoredDecorLayer({ decor, isActive }) {
   );
 }
 
-function CollectionShowcaseStage({ scene, isActive, activationKey }) {
+function CollectionShowcaseStage({ scene, phase, activationKey }) {
   const [hoveredId, setHoveredId] = useState(null);
   const modules = scene.modules || [];
   const decors = scene.decors || [];
   const finalMaster = scene.finalMaster;
+
+  const isEntering = phase === 'entering';
+  const isExiting = phase === 'exiting';
 
   return h(
     MotionConfig,
@@ -183,7 +209,7 @@ function CollectionShowcaseStage({ scene, isActive, activationKey }) {
       h(
         'div',
         {
-          key: isActive ? `active-${activationKey}` : 'idle-reset',
+          key: `stage-${activationKey}`,
           className: 'scase-stage',
           style: { aspectRatio: scene.stageAspectRatio || '1024 / 571' },
           onMouseLeave: () => setHoveredId(null),
@@ -197,52 +223,52 @@ function CollectionShowcaseStage({ scene, isActive, activationKey }) {
             src: scene.background.src,
             alt: scene.background.alt,
             className: 'scase-bg-img',
-            initial: { scale: scene.background.initialScale ?? 1.05 },
-            animate: isActive
-              ? { scale: scene.background.targetScale ?? 1.0 }
-              : { scale: scene.background.initialScale ?? 1.05 },
+            initial: { scale: scene.background.initialScale ?? 1.04 },
+            animate: isEntering ? { scale: scene.background.targetScale ?? 1.0 } : { scale: 1.03 },
             transition: {
-              duration: scene.background.entranceDurationSec ?? 1.5,
+              duration: 0.9,
               ease: [0.22, 1, 0.36, 1],
             },
             draggable: false,
           })
         ),
 
-        // Katman 2 (z-20): Tüm Dolap Modülleri Yukarıdan AYNI ANDA Yavaşça İner
+        // Katman 2 (z-20): Dolaplar kamerayla aynı hızda yukarıdan iner; çıkışta aşağı iner
         h(
           'div',
           { className: 'scase-layer-modules', 'aria-hidden': 'true' },
           modules.map((mod, idx) =>
-            h(DroppingModuleVisual, { key: mod.id || idx, item: mod, isActive })
+            h(DroppingModuleVisual, { key: mod.id || idx, item: mod, phase })
           )
         ),
 
-        // Katman 3 (z-30): Ön Plan Dekorları Yavaşça Yerleşir
+        // Katman 3 (z-30): Ürünler yerleşince kısa farkla dekorlar sağdan/soldan gelir
         h(
           'div',
           { className: 'scase-layer-decors', 'aria-hidden': 'true' },
           decors.map((d) =>
-            h(StaticAnchoredDecorLayer, { key: d.id, decor: d, isActive })
+            h(StaticAnchoredDecorLayer, { key: d.id, decor: d, phase })
           )
         ),
 
         // Katman 3.5 (z-34): Sıcak Ortam Işığı Ton Bütünleştirici
         h('div', { className: 'scase-warm-blend', 'aria-hidden': 'true' }),
 
-        // Katman 4 (z-36): Yerleşim tamamlanınca master fotoğraf kesintisiz sabitlenir
+        // Katman 4 (z-36): En sonda nihai stüdyo fotoğrafı oturur; çıkışta kesilmiş parçalara yer açar
         finalMaster
           ? h(motion.img, {
               src: finalMaster.src,
               alt: finalMaster.alt,
               className: 'scase-master-overlay',
               initial: { opacity: 0 },
-              animate: isActive ? { opacity: 1 } : { opacity: 0 },
-              transition: {
-                duration: finalMaster.fadeDurationSec ?? 0.85,
-                delay: finalMaster.revealDelaySec ?? 1.68,
-                ease: [0.22, 1, 0.36, 1],
-              },
+              animate: isExiting ? { opacity: 0 } : isEntering ? { opacity: 1 } : { opacity: 0 },
+              transition: isExiting
+                ? { duration: 0.14 }
+                : {
+                    duration: finalMaster.fadeDurationSec ?? 0.56,
+                    delay: finalMaster.revealDelaySec ?? 1.38,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
               draggable: false,
             })
           : null,
@@ -270,11 +296,7 @@ function CollectionShowcaseStage({ scene, isActive, activationKey }) {
         ? h(
             'div',
             { className: 'scase-dock-bar', 'aria-label': 'Seri Modülleri Hızlı İnceleme' },
-            h(
-              'span',
-              { className: 'scase-dock-label' },
-              'Modüller:'
-            ),
+            h('span', { className: 'scase-dock-label' }, 'Modüller:'),
             h(
               'div',
               { className: 'scase-dock-pills' },
@@ -301,11 +323,16 @@ function CollectionShowcaseStage({ scene, isActive, activationKey }) {
 }
 
 function renderEntry(node, entry) {
-  const isActive = _activeSlug === entry.slug;
+  const phase =
+    _exitingSlug === entry.slug
+      ? 'exiting'
+      : _activeSlug === entry.slug
+        ? 'entering'
+        : 'idle';
   entry.root.render(
     h(CollectionShowcaseStage, {
       scene: entry.scene,
-      isActive,
+      phase,
       activationKey: entry.playCount,
     })
   );
@@ -314,6 +341,7 @@ function renderEntry(node, entry) {
 export function mountAllCollectionScenes(collections = [], activeSlug = _activeSlug) {
   _collectionsList = Array.isArray(collections) ? collections : [];
   if (activeSlug !== undefined) _activeSlug = activeSlug;
+  _exitingSlug = '';
 
   for (const [el, entry] of STAGE_ENTRIES.entries()) {
     if (!document.body.contains(el)) {
@@ -345,6 +373,7 @@ export function mountAllCollectionScenes(collections = [], activeSlug = _activeS
 }
 
 export function activateSceneSlide(slug = '') {
+  _exitingSlug = '';
   _activeSlug = slug;
   for (const [node, entry] of STAGE_ENTRIES.entries()) {
     if (entry.slug === slug) {
@@ -354,10 +383,21 @@ export function activateSceneSlide(slug = '') {
   }
 }
 
+export function exitSceneSlide(slug = '') {
+  if (!slug) return;
+  _exitingSlug = slug;
+  for (const [node, entry] of STAGE_ENTRIES.entries()) {
+    if (entry.slug === slug) {
+      renderEntry(node, entry);
+    }
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.GKM_COLLECTION_STAGE = {
     mountAll: mountAllCollectionScenes,
     activateSlide: activateSceneSlide,
+    exitSlide: exitSceneSlide,
     resolveScene: resolveCollectionSceneConfig,
   };
 

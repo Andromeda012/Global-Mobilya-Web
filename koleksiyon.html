@@ -228,33 +228,30 @@
     pointer-events: none;
     will-change: transform, opacity;
   }
-  .sky-cloud-layer {
+  .sky-cloud-tile {
     position: absolute;
-    left: -14%;
-    width: 128%;
-    height: 165%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 290%;
+    background-repeat: repeat;
     pointer-events: none;
     will-change: transform;
   }
-  .sky-cloud-back {
+  .sky-cloud-tile-back {
     z-index: 2;
-    filter: blur(26px);
+    background-size: 900px 550px;
+    opacity: 0.92;
   }
-  .sky-cloud-mid {
+  .sky-cloud-tile-mid {
     z-index: 4;
-    filter: blur(11px);
+    background-size: 760px 460px;
+    opacity: 0.88;
   }
-  .sky-cloud-front {
+  .sky-cloud-tile-front {
     z-index: 6;
-    filter: blur(4px);
-  }
-  .sky-cloud-svg {
-    width: 100%;
-    height: 58vh;
-    display: block;
+    background-size: 620px 390px;
+    opacity: 0.82;
   }
   .sky-flight-hud-wrap {
     position: absolute;
@@ -1585,44 +1582,51 @@ function flyCameraToSlide(targetIdx, instant = false) {
   _flightAnims = [];
   setTransitionLock(true);
 
+  const prevCol = prevIdx > 0 ? _visibleList[prevIdx - 1] : null;
+  const fromSlug = prevCol ? String(prevCol.slug || '') : '';
+
   const started = window.GKM_SKY_ELEVATOR.startFlight({
     label: clamped === 0 ? 'Başlangıç Ekranına Dönülüyor' : 'Diğer Koleksiyona Geçiliyor',
     onAscendStart() {
       prevEl.classList.add('is-transitioning');
-      // 0.0s - 0.55s: Mevcut koleksiyon dimdik aşağı doğru kayar (y: 100vh, opacity: 0)
+      if (fromSlug) {
+        window.GKM_COLLECTION_STAGE?.exitSlide(fromSlug);
+      }
+      // 0.00s - 0.85s: Mevcut koleksiyon yukarı çıkışla eş hızda dimdik aşağı iner (y: 0 -> 100vh)
       const ascendOut = prevEl.animate(
         [
           { transform: 'translate3d(0, 0, 0)', opacity: 1 },
+          { transform: 'translate3d(0, 50vh, 0)', opacity: 0.86, offset: 0.5 },
           { transform: 'translate3d(0, 100vh, 0)', opacity: 0 },
         ],
         {
-          duration: 540,
-          easing: 'cubic-bezier(0.5, 0, 0.85, 0.38)',
+          duration: 850,
+          easing: 'cubic-bezier(0.32, 0, 0.68, 1)',
           fill: 'forwards',
         }
       );
       _flightAnims.push(ascendOut);
     },
     onSwapContent() {
-      // Uzun yastıklamalı iniş: y: -48vh -> 0vh, yumuşak decelerate ile ani düşüş hissini sıfırlar
+      // Yükselişle birebir aynı hız ve ivme profiliyle (-100vh -> 0vh, 850ms) dimdik iniş
       commitSlideVisuals(clamped, false);
       nextEl.classList.add('is-current', 'is-transitioning');
 
       const descendIn = nextEl.animate(
         [
-          { transform: 'translate3d(0, -48vh, 0) scale(0.96)', opacity: 0 },
-          { transform: 'translate3d(0, -10vh, 0) scale(0.992)', opacity: 0.72, offset: 0.48 },
-          { transform: 'translate3d(0, 0%, 0) scale(1)', opacity: 1 },
+          { transform: 'translate3d(0, -100vh, 0)', opacity: 0 },
+          { transform: 'translate3d(0, -50vh, 0)', opacity: 0.86, offset: 0.5 },
+          { transform: 'translate3d(0, 0, 0)', opacity: 1 },
         ],
         {
-          duration: 1080,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          duration: 850,
+          easing: 'cubic-bezier(0.32, 0, 0.68, 1)',
           fill: 'forwards',
         }
       );
       _flightAnims.push(descendIn);
 
-      // Yeni koleksiyon mobilyalarını yay fiziğiyle sahneye indir
+      // Yeni koleksiyon mobilyalarını kamera inişiyle uyumlu şekilde yukarıdan sahneye indir
       const activeCol = clamped > 0 ? _visibleList[clamped - 1] : null;
       const activeSlug = activeCol ? String(activeCol.slug || '') : '';
       window.GKM_COLLECTION_STAGE?.activateSlide(activeSlug);

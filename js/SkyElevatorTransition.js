@@ -1,13 +1,11 @@
 /**
- * Global Mobilya — Fotogerçekçi Dikey Gökyüzü & Bulut Asansörü (SkyElevatorTransition)
+ * Global Mobilya — Tüm Donanımlarda Birebir Aynı Görünümlü Dikey Bulut Asansörü
  * ------------------------------------------------------------------------------------
- * Harici PNG/MP4 yüklemeden tamamen Framer Motion ve GPU hızlandırmalı SVG Turbulence /
- * Rayleigh gökyüzü katmanlarıyla dimdik dikey eksende çalışır:
- *   1) Yükseliş (0.0s - 0.55s): Mevcut sahne aşağı kayar; gündüz gökyüzü açılır.
- *   2) Bulut Denizi (0.3s - 1.15s): Organik SVG türbülanslı üstü aydınlık/altı gölgeli
- *      3 katmanlı hacimsel bulut kümeleri aşağı akar; güneş & sade geçiş etiketi belirir.
- *   3) Yumuşak İniş (1.05s - 2.25s): Bulutlar yavaşlayarak yukarı açılır; hedef sahne
- *      uzun yastıklamalı inişle (-48vh -> 0) süzülerek oturur ve gökyüzü kadife gibi erir.
+ * SVG <feTurbulence> donanım/tarayıcı farklılıklarını ortadan kaldırmak için periyodik
+ * çok oktavlı FBM bulut dokularını deterministic olarak bellek içi <canvas> üzerinde üretir:
+ *   - Sıfır harici PNG/MP4 isteği, sıfır bulut arası dikey boşluk (kesintisiz bulut örtüsü).
+ *   - Tüm bilgisayarlarda (şirket PC'si / ev PC'si / mobil) piksel düzeyinde özdeş doku.
+ *   - Eşit hızda Yükseliş (850ms) -> Zirve (280ms) -> Eşit hızda İniş (850ms) fiziği.
  */
 
 import React, { useEffect, useState } from 'https://esm.sh/react@18.3.1';
@@ -18,93 +16,98 @@ const h = React.createElement;
 
 let _elevatorRoot = null;
 let _triggerFn = null;
+let _cachedCloudUrls = null;
 
 /**
- * Gerçekçi üstü güneş aydınlıklı, altı gölgeli ve feTurbulence kıvrımlı SVG bulut kümesi
+ * Periyodik 5 oktavlı CPU FBM gürültüsü ile kesintisiz yatay+dikey döşenebilir gerçekçi bulut dokuları üretir
  */
-function VolumetricCloudBank({ idPrefix, variant = 'mid' }) {
-  const filterId = `${idPrefix}-turb-${variant}`;
-  const gradLitId = `${idPrefix}-lit-${variant}`;
-  const gradShadeId = `${idPrefix}-shade-${variant}`;
-  const scaleDisp = variant === 'back' ? 38 : variant === 'mid' ? 52 : 64;
-  const freq = variant === 'back' ? '0.008 0.014' : variant === 'mid' ? '0.012 0.022' : '0.016 0.03';
+function buildProceduralCloudTextures() {
+  if (_cachedCloudUrls) return _cachedCloudUrls;
+  if (typeof document === 'undefined') return null;
 
-  return h(
-    'svg',
-    {
-      viewBox: '0 0 1600 620',
-      preserveAspectRatio: 'none',
-      className: `sky-cloud-svg sky-cloud-svg-${variant}`,
-      'aria-hidden': 'true',
-    },
-    h(
-      'defs',
-      null,
-      // Doğal kabarık bulut kenarları için fraktal türbülans filtresi
-      h(
-        'filter',
-        { id: filterId, x: '-15%', y: '-15%', width: '130%', height: '130%' },
-        h('feTurbulence', {
-          type: 'fractalNoise',
-          baseFrequency: freq,
-          numOctaves: '4',
-          seed: variant === 'back' ? '11' : variant === 'mid' ? '29' : '47',
-          result: 'noise',
-        }),
-        h('feDisplacementMap', {
-          in: 'SourceGraphic',
-          in2: 'noise',
-          scale: scaleDisp,
-          xChannelSelector: 'R',
-          yChannelSelector: 'G',
-        })
-      ),
-      // Üstten güneş alan sıcak beyaz katman
-      h(
-        'linearGradient',
-        { id: gradLitId, x1: '0%', y1: '0%', x2: '0%', y2: '100%' },
-        h('stop', { offset: '0%', stopColor: '#ffffff', stopOpacity: variant === 'front' ? '0.96' : '0.9' }),
-        h('stop', { offset: '55%', stopColor: '#f8fafc', stopOpacity: variant === 'front' ? '0.88' : '0.78' }),
-        h('stop', { offset: '86%', stopColor: '#cbd5e1', stopOpacity: '0.35' }),
-        h('stop', { offset: '100%', stopColor: '#94a3b8', stopOpacity: '0' })
-      ),
-      // Bulut alt gölge hacmi
-      h(
-        'linearGradient',
-        { id: gradShadeId, x1: '0%', y1: '0%', x2: '0%', y2: '100%' },
-        h('stop', { offset: '0%', stopColor: '#e2e8f0', stopOpacity: '0.52' }),
-        h('stop', { offset: '65%', stopColor: '#93c5fd', stopOpacity: '0.36' }),
-        h('stop', { offset: '100%', stopColor: '#64748b', stopOpacity: '0' })
-      )
-    ),
-    h(
-      'g',
-      { filter: `url(#${filterId})` },
-      // Alt gölge tabanı
-      h(
-        'g',
-        { fill: `url(#${gradShadeId})`, transform: 'translate(0, 26)' },
-        h('ellipse', { cx: '220', cy: '330', rx: '310', ry: '140' }),
-        h('ellipse', { cx: '580', cy: '305', rx: '360', ry: '155' }),
-        h('ellipse', { cx: '990', cy: '315', rx: '380', ry: '150' }),
-        h('ellipse', { cx: '1390', cy: '335', rx: '320', ry: '140' })
-      ),
-      // Güneşle yıkanmış kabarık üst kümeler
-      h(
-        'g',
-        { fill: `url(#${gradLitId})` },
-        h('circle', { cx: '140', cy: '300', r: '185' }),
-        h('circle', { cx: '360', cy: '250', r: '220' }),
-        h('circle', { cx: '610', cy: '275', r: '205' }),
-        h('circle', { cx: '855', cy: '225', r: '245' }),
-        h('circle', { cx: '1120', cy: '260', r: '215' }),
-        h('circle', { cx: '1365', cy: '240', r: '220' }),
-        h('circle', { cx: '1540', cy: '295', r: '180' }),
-        h('ellipse', { cx: '800', cy: '355', rx: '890', ry: '150' })
-      )
-    )
-  );
+  const makeLayer = (W, H, seed, baseFreqX, baseFreqY, minDens, maxDens, shadeR, shadeG, shadeB) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    const imgData = ctx.createImageData(W, H);
+    const data = imgData.data;
+
+    const hash2 = (ix, iy, pX, pY, s) => {
+      const wx = ((ix % pX) + pX) % pX;
+      const wy = ((iy % pY) + pY) % pY;
+      const n = Math.sin(wx * 127.1 + wy * 311.7 + s * 74.7) * 43758.5453123;
+      return n - Math.floor(n);
+    };
+
+    const periodicNoise = (x, y, freqX, freqY, s) => {
+      const fx = x * freqX;
+      const fy = y * freqY;
+      const ix = Math.floor(fx);
+      const iy = Math.floor(fy);
+      const tx = fx - ix;
+      const ty = fy - iy;
+      // Quintic Hermite interpolation -> tamamen pürüzsüz kabarık bulut kenarları
+      const ux = tx * tx * tx * (tx * (tx * 6 - 15) + 10);
+      const uy = ty * ty * ty * (ty * (ty * 6 - 15) + 10);
+      const a = hash2(ix, iy, freqX, freqY, s);
+      const b = hash2(ix + 1, iy, freqX, freqY, s);
+      const c = hash2(ix, iy + 1, freqX, freqY, s);
+      const d = hash2(ix + 1, iy + 1, freqX, freqY, s);
+      return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy;
+    };
+
+    for (let y = 0; y < H; y++) {
+      const ny = y / H;
+      for (let x = 0; x < W; x++) {
+        const nx = x / W;
+        let val = 0;
+        let amp = 0.52;
+        let norm = 0;
+        let fx = baseFreqX;
+        let fy = baseFreqY;
+
+        for (let o = 0; o < 5; o++) {
+          val += amp * periodicNoise(nx, ny, fx, fy, seed + o * 19);
+          norm += amp;
+          amp *= 0.5;
+          fx *= 2;
+          fy *= 2;
+        }
+        val /= norm;
+
+        // Dikey güneş aydınlatma gradyanı (yönelim: üst kenar parlak beyaz, alt kenar serin gölge)
+        const upLit = periodicNoise(nx, ((ny - 0.035 + 1) % 1), baseFreqX * 2, baseFreqY * 2, seed + 5);
+        const rimBoost = Math.max(0, Math.min(1, 0.65 + (val - upLit) * 2.2));
+
+        const densityRaw = (val - minDens) / Math.max(0.05, maxDens - minDens);
+        const alpha = Math.max(0, Math.min(1, densityRaw));
+        const smoothAlpha = alpha * alpha * (3 - 2 * alpha);
+
+        const idx = (y * W + x) * 4;
+        data[idx]     = Math.round(shadeR + (255 - shadeR) * rimBoost);
+        data[idx + 1] = Math.round(shadeG + (255 - shadeG) * rimBoost);
+        data[idx + 2] = Math.round(shadeB + (255 - shadeB) * rimBoost);
+        data[idx + 3] = Math.round(smoothAlpha * 238);
+      }
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+    return canvas.toDataURL('image/png');
+  };
+
+  _cachedCloudUrls = {
+    // Arka katman: geniş, yumuşak atmosferik kümülüs örtüsü (yüksek yoğunluk -> sıfır boşluk)
+    back: makeLayer(360, 220, 11, 3, 2, 0.24, 0.68, 198, 224, 250),
+    // Orta katman: detaylı kabarık bulut denizleri
+    mid: makeLayer(360, 220, 37, 4, 3, 0.3, 0.72, 212, 232, 252),
+    // Ön katman: belirgin güneş aydınlatmalı yakın bulut kırpıntıları
+    front: makeLayer(320, 200, 73, 5, 4, 0.36, 0.76, 226, 240, 255),
+  };
+  return _cachedCloudUrls;
 }
+
+const SYMMETRIC_EASE = [0.32, 0, 0.68, 1];
 
 function SkyElevatorOverlay({ activeFlight }) {
   if (!activeFlight) return null;
@@ -112,6 +115,7 @@ function SkyElevatorOverlay({ activeFlight }) {
   const { key, phase, label } = activeFlight;
   const isAscending = phase === 'ascend' || phase === 'peak';
   const isFadeOut = phase === 'fadeout';
+  const textures = buildProceduralCloudTextures();
 
   return h(
     MotionConfig,
@@ -124,89 +128,71 @@ function SkyElevatorOverlay({ activeFlight }) {
         initial: { opacity: 0 },
         animate: { opacity: isFadeOut ? 0 : 1 },
         transition: {
-          duration: isFadeOut ? 0.92 : 0.42,
-          ease: isFadeOut ? [0.33, 1, 0.68, 1] : [0.22, 1, 0.36, 1],
+          duration: isFadeOut ? 0.85 : 0.42,
+          ease: [0.22, 1, 0.36, 1],
         },
         'aria-hidden': 'true',
       },
-      // Fotogerçekçi Rayleigh Gündüz Gökyüzü Gradyanı (#0284c7 -> #38bdf8 -> #bae6fd -> #fffdf7)
+      // Rayleigh Gündüz Gökyüzü Gradyanı (#0284c7 -> #38bdf8 -> #bae6fd -> #fffdf7)
       h('div', {
         className: `sky-elev-gradient${phase === 'peak' ? ' is-peak' : ''}`,
       }),
 
-      // Güneş Diski, Hüzme Işınları ve Zirve Lens Flare
+      // Güneş Hüzmeleri ve Zirve Lens Parlaması
       h(motion.div, {
         className: 'sky-elev-sunbeams',
-        initial: { opacity: 0, scale: 0.9 },
+        initial: { opacity: 0, scale: 0.92 },
         animate:
           phase === 'peak'
-            ? { opacity: 0.85, scale: 1.05 }
+            ? { opacity: 0.88, scale: 1.04 }
             : phase === 'ascend'
-              ? { opacity: 0.45, scale: 0.96 }
-              : { opacity: 0.15, scale: 1.0 },
-        transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+              ? { opacity: 0.45, scale: 0.98 }
+              : { opacity: 0.2, scale: 1.0 },
+        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
       }),
       h(motion.div, {
         className: 'sky-elev-lens-flare',
-        initial: { opacity: 0, scale: 0.72 },
+        initial: { opacity: 0, scale: 0.75 },
         animate:
           phase === 'peak'
-            ? { opacity: 1, scale: 1.15 }
+            ? { opacity: 0.96, scale: 1.12 }
             : phase === 'ascend'
-              ? { opacity: 0.5, scale: 0.9 }
-              : { opacity: 0, scale: 0.85 },
-        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+              ? { opacity: 0.46, scale: 0.9 }
+              : { opacity: 0, scale: 0.88 },
+        transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
       }),
 
-      // Katman 1: Arka Ufuk Bulut Denizi (En yavaş paralaks + geniş atmosferik yumuşatma)
-      h(
-        motion.div,
-        {
-          key: `cloud-back-${key}-${isAscending ? 'down' : 'up'}`,
-          className: 'sky-cloud-layer sky-cloud-back',
-          initial: { y: isAscending ? '-105%' : '45%' },
-          animate: { y: isAscending ? '45%' : '-120%' },
-          transition: isAscending
-            ? { duration: 1.05, delay: 0.08, ease: [0.35, 0.05, 0.65, 0.95] }
-            : { duration: 1.18, delay: 0.0, ease: [0.22, 0.8, 0.36, 1] },
-        },
-        h(VolumetricCloudBank, { idPrefix: `cb1-${key}`, variant: 'back' }),
-        h(VolumetricCloudBank, { idPrefix: `cb2-${key}`, variant: 'back' })
-      ),
+      // Kesintisiz Döşenen 3 Katmanlı Prosedürel Bulut Denizleri (GPU'dan bağımsız özdeş)
+      textures
+        ? [
+            h(motion.div, {
+              key: `cb-${key}-${isAscending ? 'down' : 'up'}`,
+              className: 'sky-cloud-tile sky-cloud-tile-back',
+              style: { backgroundImage: `url("${textures.back}")` },
+              initial: { y: isAscending ? '-52%' : '0%' },
+              animate: { y: isAscending ? '0%' : '-52%' },
+              transition: { duration: 1.05, ease: SYMMETRIC_EASE },
+            }),
+            h(motion.div, {
+              key: `cm-${key}-${isAscending ? 'down' : 'up'}`,
+              className: 'sky-cloud-tile sky-cloud-tile-mid',
+              style: { backgroundImage: `url("${textures.mid}")` },
+              initial: { y: isAscending ? '-56%' : '0%' },
+              animate: { y: isAscending ? '0%' : '-56%' },
+              transition: { duration: 0.92, ease: SYMMETRIC_EASE },
+            }),
+            h(motion.div, {
+              key: `cf-${key}-${isAscending ? 'down' : 'up'}`,
+              className: 'sky-cloud-tile sky-cloud-tile-front',
+              style: { backgroundImage: `url("${textures.front}")` },
+              initial: { y: isAscending ? '-62%' : '0%' },
+              animate: { y: isAscending ? '0%' : '-62%' },
+              transition: { duration: 0.82, ease: SYMMETRIC_EASE },
+            }),
+          ]
+        : null,
 
-      // Katman 2: Orta Hacimli Kümülüs Bulutları (Orta-hızlı paralaks)
-      h(
-        motion.div,
-        {
-          key: `cloud-mid-${key}-${isAscending ? 'down' : 'up'}`,
-          className: 'sky-cloud-layer sky-cloud-mid',
-          initial: { y: isAscending ? '-110%' : '52%' },
-          animate: { y: isAscending ? '52%' : '-125%' },
-          transition: isAscending
-            ? { duration: 0.92, delay: 0.14, ease: [0.35, 0.05, 0.65, 0.95] }
-            : { duration: 1.06, delay: 0.04, ease: [0.22, 0.8, 0.36, 1] },
-        },
-        h(VolumetricCloudBank, { idPrefix: `cm1-${key}`, variant: 'mid' }),
-        h(VolumetricCloudBank, { idPrefix: `cm2-${key}`, variant: 'mid' })
-      ),
-
-      // Katman 3: Yakın Plan Sis ve Bulut Kırpıntıları (En hızlı paralaks)
-      h(
-        motion.div,
-        {
-          key: `cloud-front-${key}-${isAscending ? 'down' : 'up'}`,
-          className: 'sky-cloud-layer sky-cloud-front',
-          initial: { y: isAscending ? '-115%' : '62%' },
-          animate: { y: isAscending ? '62%' : '-132%' },
-          transition: isAscending
-            ? { duration: 0.82, delay: 0.18, ease: [0.35, 0.05, 0.65, 0.95] }
-            : { duration: 0.94, delay: 0.06, ease: [0.22, 0.8, 0.36, 1] },
-        },
-        h(VolumetricCloudBank, { idPrefix: `cf1-${key}`, variant: 'front' }),
-        h(VolumetricCloudBank, { idPrefix: `cf2-${key}`, variant: 'front' })
-      ),
-
-      // Merkez Sade & Zarif Uçuş Göstergesi (Şehir/koordinat yok — yalın mesaj)
+      // Merkez Sade & Zarif Uçuş Göstergesi
       h(
         motion.div,
         {
@@ -215,7 +201,7 @@ function SkyElevatorOverlay({ activeFlight }) {
           animate: isFadeOut
             ? { opacity: 0, y: -12, scale: 0.97 }
             : { opacity: 1, y: 0, scale: 1 },
-          transition: { duration: isFadeOut ? 0.52 : 0.34, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: isFadeOut ? 0.5 : 0.34, ease: [0.22, 1, 0.36, 1] },
         },
         h(
           'div',
@@ -232,6 +218,13 @@ function SkyElevatorController() {
   const [activeFlight, setActiveFlight] = useState(null);
 
   useEffect(() => {
+    // Dokuları arka planda önceden ısıt -> ilk geçiş sıfır takılma ile başlar
+    setTimeout(() => {
+      try {
+        buildProceduralCloudTextures();
+      } catch (_) {}
+    }, 120);
+
     let timers = [];
     const clearAll = () => {
       timers.forEach((id) => clearTimeout(id));
@@ -244,47 +237,47 @@ function SkyElevatorController() {
 
       onAscendStart?.();
 
-      // 0.00s: Yükseliş ve bulutlara çıkış
+      // 0.00s: Yükseliş (850ms) — bulut katmanları aşağı iner
       setActiveFlight({
         key: flightKey,
         phase: 'ascend',
         label: label || 'Diğer Koleksiyona Geçiliyor',
       });
 
-      // 0.62s: Zirve anı — güneş parlaması ve bulut üstü masmavi gökyüzü
+      // 0.72s: Zirve güneş parlaması
       timers.push(
         setTimeout(() => {
           setActiveFlight((prev) =>
             prev && prev.key === flightKey ? { ...prev, phase: 'peak' } : prev
           );
-        }, 620)
+        }, 720)
       );
 
-      // 1.05s: İniş başlar — bulut katmanları alttan yukarıya yumuşayarak çekilir
+      // 1.12s: Eşit hızda İniş (850ms) + hedef sahne içeriği hemen yukarıdan -100vh -> 0 olarak iner
       timers.push(
         setTimeout(() => {
           setActiveFlight((prev) =>
             prev && prev.key === flightKey ? { ...prev, phase: 'descend' } : prev
           );
-        }, 1050)
+          onSwapContent?.();
+        }, 1120)
       );
 
-      // 1.24s: Yeni koleksiyon arka planda uyanır ve 1.1s süren ipeksi inişle sahneye iner
+      // 1.32s: Gökyüzü perdesi alçalırken kadife gibi erir -> inen oda + mobilyalar görünür olur
       timers.push(
         setTimeout(() => {
-          onSwapContent?.();
           setActiveFlight((prev) =>
             prev && prev.key === flightKey ? { ...prev, phase: 'fadeout' } : prev
           );
-        }, 1240)
+        }, 1320)
       );
 
-      // 2.28s: Gökyüzü tamamen erimiş ve yeni koleksiyon oturmuştur; kilit açılır
+      // 2.18s: İniş ve erime tamamlandı -> kilit açılır
       timers.push(
         setTimeout(() => {
           setActiveFlight((prev) => (prev && prev.key === flightKey ? null : prev));
           onComplete?.();
-        }, 2280)
+        }, 2180)
       );
     };
 
