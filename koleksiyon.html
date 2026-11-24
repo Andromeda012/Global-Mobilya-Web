@@ -1411,10 +1411,10 @@ function escHtml(s) {
   }[m]));
 }
 
-// `collectionsConfig` -> `window.GKM_HERO_CONFIG.collectionsConfig` kaynağından beslenir (js/heroConfig.js)
-function getWorldTheme(slug) {
+// `collectionsConfig` -> `window.GKM_HERO_CONFIG.collectionsConfig` kaynağından beslenir (js/heroConfig.js) + Modül 1 override desteği
+function getWorldTheme(colOrSlug) {
   if (window.GKM_HERO_CONFIG?.getCollectionWorldEntry) {
-    const entry = window.GKM_HERO_CONFIG.getCollectionWorldEntry(slug);
+    const entry = window.GKM_HERO_CONFIG.getCollectionWorldEntry(colOrSlug);
     return {
       city: entry.city,
       country: entry.country,
@@ -1515,8 +1515,8 @@ function applySlideAurora(slideIdx) {
     return;
   }
   const col = _visibleList[slideIdx - 1];
-  applyAuroraPalette(getWorldTheme(col?.slug));
-  setAmbientBackdropPhoto(col?.hero_image_url || '/hero/bergamo-final.jpg');
+  applyAuroraPalette(getWorldTheme(col));
+  setAmbientBackdropPhoto(col?.ambient_image_url || col?.hero_image_url || '/hero/bergamo-final.jpg');
 }
 
 function setTransitionLock(locked) {
@@ -1698,9 +1698,10 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
     </div>
   ` : '';
 
+  const introCtaText = escHtml(meta.cta_label || 'Gezmeye Başla');
   const introCtaHtml = _visibleList.length
     ? `<button type="button" class="cam-start-btn" onclick="flyCameraToSlide(1)">
-         <span>Gezmeye Başla</span>
+         <span>${introCtaText}</span>
          <span class="cam-start-arrow">↓</span>
        </button>`
     : `<button type="button" class="cam-start-btn" onclick="openQuoteForCollection('${escHtml(category)} Özel Tasarım')">
@@ -1909,7 +1910,26 @@ async function submitCollectionQuote(e) {
 
 async function initCollectionsPage() {
   try {
-    _allCollections = window.GKM_SUPABASE ? await window.GKM_SUPABASE.getCollections() : [];
+    const [cols, cms] = await Promise.all([
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getCollections() : [],
+      window.GKM_SUPABASE?.getCmsBundle ? window.GKM_SUPABASE.getCmsBundle().catch(() => null) : null
+    ]);
+    _allCollections = cols || [];
+    const intros = cms?.koleksiyon_sayfasi?.category_intros;
+    if (intros && typeof intros === 'object') {
+      for (const [catKey, cfg] of Object.entries(intros)) {
+        if (!CATEGORY_COPY[catKey] || !cfg) continue;
+        if (cfg.kicker) CATEGORY_COPY[catKey].kicker = cfg.kicker;
+        if (cfg.title_prefix || cfg.title_em) {
+          CATEGORY_COPY[catKey].titleHtml = `${escHtml(cfg.title_prefix || '')} <em>${escHtml(cfg.title_em || '')}</em>`;
+        }
+        if (cfg.desc) CATEGORY_COPY[catKey].desc = cfg.desc;
+        if (cfg.cta_label) CATEGORY_COPY[catKey].cta_label = cfg.cta_label;
+        if (cfg.aurora && typeof cfg.aurora === 'object') {
+          CATEGORY_COPY[catKey].aurora = { ...CATEGORY_COPY[catKey].aurora, ...cfg.aurora };
+        }
+      }
+    }
   } catch (e) {
     _allCollections = [];
   }

@@ -314,10 +314,40 @@
     });
   }
 
+  async function hydrateHeaderFromCms() {
+    try {
+      const cms = await window.GKM_SUPABASE?.getCmsBundle?.();
+      const genel = cms?.genel;
+      if (!genel) return;
+      const cleanBrand = String(genel.firma?.ad || '').trim();
+      if (cleanBrand && !/membran|mdf|kapak/i.test(cleanBrand)) {
+        document.querySelectorAll('.hg-brand-wordmark').forEach((el) => { el.textContent = cleanBrand; });
+      }
+      if (genel.nav_cta?.yazi) {
+        document.querySelectorAll('.hg-actions-right .hg-cta').forEach((a) => {
+          a.textContent = genel.nav_cta.yazi;
+          if (genel.nav_cta.link) a.href = genel.nav_cta.link;
+        });
+      }
+      if (genel.firma?.logo && window.GKM_SUPABASE?.normalizeMediaUrl) {
+        const logoUrl = window.GKM_SUPABASE.normalizeMediaUrl(genel.firma.logo, '/resim/logo.png');
+        const safeLogo = logoUrl.startsWith('http') || logoUrl.startsWith('/') || logoUrl.startsWith('data:') ? logoUrl : '/' + logoUrl;
+        document.querySelectorAll('.hg-brand-mark img').forEach((img) => { img.src = safeLogo; });
+      }
+      const waRaw = String(genel.iletisim?.whatsapp || '').replace(/\D/g, '');
+      if (waRaw) {
+        document.querySelectorAll('.hg-actions-right a[href*="wa.me"]').forEach((a) => {
+          a.href = `https://wa.me/${waRaw}`;
+        });
+      }
+    } catch (_) {}
+  }
+
   ensureHeaderCssLoaded();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderPillHeader);
+    document.addEventListener('DOMContentLoaded', () => { renderPillHeader(); hydrateHeaderFromCms(); });
   } else {
     renderPillHeader();
+    hydrateHeaderFromCms();
   }
 })();

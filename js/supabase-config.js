@@ -53,12 +53,14 @@
     'https://insta-deployment-rho.vercel.app/api/b2c-public'
   ];
   let cachedB2CPublicPayload = null;
+  let cachedCmsPromise = null;
+  const CMS_KEYS = ['anasayfa_v2', 'koleksiyon_sayfasi', 'galeri_sayfasi', 'iletisim_sayfasi', 'hakkimizda', 'genel'];
 
   async function fetchUnifiedB2CPublicCatalog() {
     if (cachedB2CPublicPayload) return cachedB2CPublicPayload;
     for (const ep of B2C_API_ENDPOINTS) {
       try {
-        const res = await fetch(ep, { method: 'GET', cache: 'default' });
+        const res = await fetch(ep, { method: 'GET', cache: 'no-cache' });
         if (res.ok) {
           const json = await res.json();
           if (json && json.ok) {
@@ -499,6 +501,30 @@
       const data = await restSelect(`site_settings?select=data&key=eq.${encodeURIComponent(key)}&limit=1`);
       if (!Array.isArray(data) || data.length === 0 || !data[0].data) return null;
       return data[0].data;
+    },
+
+    async getCmsBundle() {
+      if (!cachedCmsPromise) {
+        cachedCmsPromise = (async () => {
+          const out = {};
+          try {
+            const rows = await restSelect(`site_settings?key=in.(${CMS_KEYS.join(',')})&select=key,data`);
+            if (Array.isArray(rows)) {
+              for (const r of rows) {
+                if (r?.key && r.data && typeof r.data === 'object') out[r.key] = r.data;
+              }
+            }
+          } catch (_) {}
+          if (!Object.keys(out).length) {
+            const pub = await fetchUnifiedB2CPublicCatalog().catch(() => null);
+            if (pub?.cms && typeof pub.cms === 'object') {
+              Object.assign(out, pub.cms);
+            }
+          }
+          return out;
+        })();
+      }
+      return cachedCmsPromise;
     }
   };
 

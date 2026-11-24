@@ -800,6 +800,7 @@
 
 <script>
 let _galProducts = [];
+let _galPhotos = [];
 let _galIndepFilter = 'ALL';
 
 const GAL_CATEGORY_SHOWCASES = {
@@ -891,9 +892,17 @@ function matchIndepCategory(productCat, selectedFilter) {
   return false;
 }
 
+let _galHeroCfg = {
+  image_url: 'resim/showroom/hero_portmanto.jpg',
+  kicker: 'Bağımsız Ürünler Sunum Merkezi',
+  titleHtml: 'Tekil Tasarım <em>Modülleri</em>',
+  desc: 'Kahve köşeleri, tekil dolaplar, antre portmantoları ve yatak odası şifonyerlerini mekânınıza özel ölçülerle bağımsız olarak inceler ve sipariş verebilirsiniz.'
+};
+
 function renderIndependentHub() {
   const mount = document.getElementById('indepProductsContainer');
   const heroBg = document.getElementById('galHeroBg');
+  const heroKicker = document.getElementById('galHeroKicker');
   const heroTitle = document.getElementById('galHeroTitle');
   const heroSub = document.getElementById('galHeroSub');
 
@@ -902,9 +911,10 @@ function renderIndependentHub() {
   });
 
   if (_galIndepFilter === 'ALL') {
-    if (heroBg) heroBg.style.backgroundImage = "url('resim/showroom/hero_portmanto.jpg')";
-    if (heroTitle) heroTitle.innerHTML = 'Tekil Tasarım <em>Modülleri</em>';
-    if (heroSub) heroSub.textContent = 'Kahve köşeleri, tekil dolaplar, antre portmantoları ve yatak odası şifonyerlerini mekânınıza özel ölçülerle bağımsız olarak inceler ve sipariş verebilirsiniz.';
+    if (heroBg) heroBg.style.backgroundImage = `url('${_galHeroCfg.image_url}')`;
+    if (heroKicker) heroKicker.textContent = _galHeroCfg.kicker;
+    if (heroTitle) heroTitle.innerHTML = _galHeroCfg.titleHtml;
+    if (heroSub) heroSub.textContent = _galHeroCfg.desc;
 
     const allCardsHtml = Object.entries(GAL_CATEGORY_SHOWCASES).map(([catKey, info], idx) => `
       <article class="all-cat-card hg-reveal" data-delay="${idx * 70}">
@@ -937,7 +947,30 @@ function renderIndependentHub() {
       </div>
     ` : '';
 
-    mount.innerHTML = `<div class="all-cats-grid">${allCardsHtml}</div>${dbGridHtml}`;
+    const photosHtml = _galPhotos.filter(ph => ph && ph.anasayfada_goster !== false).length ? `
+      <div style="margin-top:52px;">
+        <div class="gal-sec-head hg-reveal" style="margin-bottom:24px;">
+          <div>
+            <span class="gal-kicker" style="color:var(--gal-sage-dark);margin-bottom:6px;">Atölye & Uygulama Arşivi</span>
+            <h2 class="gal-sec-title">Vitrin <em>Fotoğrafları</em></h2>
+          </div>
+        </div>
+        <div class="indep-hub-grid">
+          ${_galPhotos.filter(ph => ph && ph.anasayfada_goster !== false).map((ph, idx) => `
+            <article class="indep-item-card hg-reveal" data-delay="${idx * 50}" onclick="openLightbox('${esc(ph.resim || '')}','${esc(ph.baslik || ph.slug || '')}')">
+              <div class="ii-thumb" style="cursor:zoom-in;">
+                <img src="${esc(ph.resim || 'resim/logo.png')}" alt="${esc(ph.baslik || ph.slug || '')}" loading="lazy">
+                <span class="ii-badge">${esc(ph.kategori || 'Vitrin')}</span>
+              </div>
+              <div class="ii-body">
+                <h3 class="ii-title">${esc(ph.baslik || ph.slug || '')}</h3>
+              </div>
+            </article>`).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    mount.innerHTML = `<div class="all-cats-grid">${allCardsHtml}</div>${dbGridHtml}${photosHtml}`;
     window.GKM_MOTION?.refreshReveals();
     return;
   }
@@ -1102,10 +1135,45 @@ async function initGalleryPage() {
   }
 
   try {
-    const prods = window.GKM_SUPABASE ? await window.GKM_SUPABASE.getProducts() : [];
+    const [prods, galPhotos, cms] = await Promise.all([
+      window.GKM_SUPABASE ? window.GKM_SUPABASE.getProducts() : [],
+      window.GKM_SUPABASE?.getGallery ? window.GKM_SUPABASE.getGallery() : [],
+      window.GKM_SUPABASE?.getCmsBundle ? window.GKM_SUPABASE.getCmsBundle().catch(() => null) : null
+    ]);
     _galProducts = prods || [];
+    _galPhotos = Array.isArray(galPhotos) ? galPhotos : [];
+
+    const galCms = cms?.galeri_sayfasi;
+    const norm = (u, fb) => window.GKM_SUPABASE?.normalizeMediaUrl ? window.GKM_SUPABASE.normalizeMediaUrl(u, fb) : (u || fb);
+    if (galCms) {
+      if (galCms.hero) {
+        if (galCms.hero.image_url) _galHeroCfg.image_url = norm(galCms.hero.image_url, _galHeroCfg.image_url);
+        if (galCms.hero.kicker) _galHeroCfg.kicker = galCms.hero.kicker;
+        if (galCms.hero.title_prefix || galCms.hero.title_em) {
+          _galHeroCfg.titleHtml = `${esc(galCms.hero.title_prefix || '')} <em>${esc(galCms.hero.title_em || '')}</em>`;
+        }
+        if (galCms.hero.desc) _galHeroCfg.desc = galCms.hero.desc;
+      }
+      if (galCms.showcases && typeof galCms.showcases === 'object') {
+        for (const [k, sc] of Object.entries(galCms.showcases)) {
+          if (!GAL_CATEGORY_SHOWCASES[k] || !sc) continue;
+          if (sc.kicker) GAL_CATEGORY_SHOWCASES[k].kicker = sc.kicker;
+          if (sc.title_prefix || sc.title_em) {
+            GAL_CATEGORY_SHOWCASES[k].title = [sc.title_prefix, sc.title_em].filter(Boolean).join(' ').trim() || sc.title || GAL_CATEGORY_SHOWCASES[k].title;
+            GAL_CATEGORY_SHOWCASES[k].titleHtml = `${esc(sc.title_prefix || '')} <em>${esc(sc.title_em || sc.title || '')}</em>`;
+          } else if (sc.title) {
+            GAL_CATEGORY_SHOWCASES[k].title = sc.title;
+          }
+          if (sc.desc) GAL_CATEGORY_SHOWCASES[k].desc = sc.desc;
+          if (sc.img) GAL_CATEGORY_SHOWCASES[k].img = norm(sc.img, GAL_CATEGORY_SHOWCASES[k].img);
+          if (Array.isArray(sc.specs) && sc.specs.length) GAL_CATEGORY_SHOWCASES[k].specs = sc.specs;
+          if (Array.isArray(sc.configs) && sc.configs.length) GAL_CATEGORY_SHOWCASES[k].configs = sc.configs;
+        }
+      }
+    }
   } catch (_) {
     _galProducts = [];
+    _galPhotos = [];
   }
 
   renderIndependentHub();

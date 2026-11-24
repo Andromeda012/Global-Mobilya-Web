@@ -243,25 +243,57 @@ export const COLLECTION_SCENES = {
 const isLegacyKapak = (v) =>
   typeof v === 'string' && /membran|vakum\s*pres|mdf|viyana|siena|porto|milano|verona/i.test(v);
 
+function normalizeSceneAsset(src) {
+  if (!src || typeof src !== 'string') return '';
+  const trimmed = src.trim();
+  if (!trimmed) return '';
+  if (trimmed.startsWith('/hero/') || trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {
+    return trimmed;
+  }
+  if (typeof window !== 'undefined' && window.GKM_SUPABASE?.normalizeMediaUrl) {
+    return window.GKM_SUPABASE.normalizeMediaUrl(trimmed, trimmed);
+  }
+  return trimmed;
+}
+
 export function getCollectionWorldEntry(collectionOrSlug) {
-  const s = typeof collectionOrSlug === 'string'
-    ? collectionOrSlug.toLowerCase()
-    : String(collectionOrSlug?.slug || collectionOrSlug?.name || '').toLowerCase();
+  const obj = collectionOrSlug && typeof collectionOrSlug === 'object' ? collectionOrSlug : null;
+  const s = obj
+    ? String(obj.slug || obj.name || obj.title || '').toLowerCase()
+    : String(collectionOrSlug || '').toLowerCase();
   const key = Object.keys(collectionsConfig).find((k) => k !== 'fallback' && s.includes(k));
-  return collectionsConfig[key || 'fallback'];
+  const baseEntry = collectionsConfig[key || 'fallback'];
+
+  if (!obj) return baseEntry;
+
+  const customSwatches = Array.isArray(obj.color_palette) && obj.color_palette.length && String(obj.color_palette[0]).startsWith('#')
+    ? obj.color_palette
+    : baseEntry.aurora.swatches;
+
+  return {
+    ...baseEntry,
+    city: obj.city ? String(obj.city).trim() : baseEntry.city,
+    country: obj.country ? String(obj.country).trim() : baseEntry.country,
+    coords: obj.coords ? String(obj.coords).trim() : baseEntry.coords,
+    aurora: {
+      ...baseEntry.aurora,
+      ...(obj.aurora && typeof obj.aurora === 'object' ? obj.aurora : {}),
+      swatches: customSwatches,
+    },
+  };
 }
 
 function enrichModulesFromPieces(modules, collection) {
   const pieces = Array.isArray(collection?.pieces) ? collection.pieces : [];
-  if (!pieces.length) return modules;
-
-  return modules.map((mod) => {
+  return (modules || []).map((mod) => {
+    const baseMod = { ...mod, src: normalizeSceneAsset(mod.src) };
+    if (!pieces.length) return baseMod;
     const hint = String(mod.pieceSlugHint || '').toLowerCase();
     const matched = hint
       ? pieces.find((p) => String(p.slug || '').toLowerCase().includes(hint))
       : null;
 
-    if (!matched) return mod;
+    if (!matched) return baseMod;
 
     const cleanName = String(matched.name || matched.title || '').trim();
     const validName =
@@ -269,14 +301,14 @@ function enrichModulesFromPieces(modules, collection) {
       !isLegacyKapak(cleanName) &&
       cleanName.toLowerCase() !== String(collection.name || '').toLowerCase()
         ? cleanName
-        : mod.label;
+        : baseMod.label;
     const dims = String(matched.dimensions || matched.olcu || '').trim();
 
     return {
-      ...mod,
+      ...baseMod,
       label: validName,
-      dimensions: dims && !isLegacyKapak(dims) ? dims : mod.dimensions,
-      link: matched.slug ? `urun.html?id=${encodeURIComponent(matched.slug)}` : mod.link,
+      dimensions: dims && !isLegacyKapak(dims) ? dims : baseMod.dimensions,
+      link: matched.slug ? `urun.html?id=${encodeURIComponent(matched.slug)}` : baseMod.link,
     };
   });
 }
@@ -302,7 +334,10 @@ export function resolveCollectionSceneConfig(collection) {
 
   return {
     ...base,
+    background: base.background ? { ...base.background, src: normalizeSceneAsset(base.background.src) } : undefined,
+    finalMaster: base.finalMaster ? { ...base.finalMaster, src: normalizeSceneAsset(base.finalMaster.src) } : undefined,
     modules: enrichModulesFromPieces(base.modules || [], collection),
+    decors: (base.decors || []).map((d) => ({ ...d, src: normalizeSceneAsset(d.src) })),
   };
 }
 

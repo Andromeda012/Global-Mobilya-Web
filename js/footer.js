@@ -403,4 +403,84 @@ footer {
       link.style.fontWeight = '700';
     }
   });
+
+  (async function hydrateFooterFromCms() {
+    try {
+      const cms = await window.GKM_SUPABASE?.getCmsBundle?.();
+      const g = cms?.genel;
+      if (!g) return;
+
+      const safe = (v) => v && !/(membran|\bmdf\b|kapak\s*üret)/i.test(String(v));
+      if (g.firma?.logo && window.GKM_SUPABASE?.normalizeMediaUrl) {
+        const lu = window.GKM_SUPABASE.normalizeMediaUrl(g.firma.logo, '/resim/logo.png');
+        const finalLogo = lu.startsWith('http') || lu.startsWith('/') || lu.startsWith('data:') ? lu : '/' + lu;
+        document.querySelectorAll('footer .f-logo-wrap img').forEach(im => { im.src = finalLogo; });
+      }
+      if (safe(g.firma?.ad)) {
+        const bn = document.querySelector('footer .f-brand-name');
+        if (bn) bn.textContent = g.firma.ad;
+      }
+      if (safe(g.footer?.tanitim_metni)) {
+        const bp = document.querySelector('footer .footer-brand > p');
+        if (bp) bp.textContent = g.footer.tanitim_metni;
+      }
+      if (g.footer) {
+        const ctaTag = document.querySelector('footer .footer-cta-tag');
+        const ctaH = document.querySelector('footer .footer-cta-text h3');
+        const ctaP = document.querySelector('footer .footer-cta-text p');
+        const ctaBtn = document.querySelector('footer .f-btn-primary');
+        if (ctaTag && safe(g.footer.cta_tag)) ctaTag.textContent = g.footer.cta_tag;
+        if (ctaH && safe(g.footer.cta_title)) ctaH.textContent = g.footer.cta_title;
+        if (ctaP && safe(g.footer.cta_desc)) ctaP.textContent = g.footer.cta_desc;
+        if (ctaBtn && safe(g.footer.cta_btn_text)) ctaBtn.textContent = g.footer.cta_btn_text;
+
+        const badges = document.querySelectorAll('footer .f-badges span');
+        if (badges[0] && safe(g.footer.badge_1)) badges[0].textContent = g.footer.badge_1;
+        if (badges[1] && safe(g.footer.badge_2)) badges[1].textContent = g.footer.badge_2;
+        if (badges[2] && safe(g.footer.badge_3)) badges[2].textContent = g.footer.badge_3;
+
+        const craftNote = document.querySelector('footer .f-craft-note');
+        if (craftNote && safe(g.footer.craft_note)) craftNote.textContent = g.footer.craft_note;
+      }
+      if (g.iletisim) {
+        const tel = g.iletisim.telefon;
+        const wa = String(g.iletisim.whatsapp || '').replace(/\D/g, '');
+        const email = g.iletisim.email;
+        const adres = g.iletisim.adres;
+        const saat = g.iletisim.calisma_saatleri;
+        if (tel) {
+          document.querySelectorAll('footer a[href^="tel:"]').forEach(a => {
+            a.href = 'tel:' + tel.replace(/\s+/g, '');
+            a.textContent = '📞 ' + tel;
+          });
+        }
+        if (email) {
+          document.querySelectorAll('footer a[href^="mailto:"]').forEach(a => {
+            a.href = 'mailto:' + email;
+            a.textContent = '✉️ ' + email;
+          });
+        }
+        if (wa) {
+          document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+            const qIdx = a.href.indexOf('?');
+            a.href = 'https://wa.me/' + wa + (qIdx >= 0 ? a.href.slice(qIdx) : '');
+          });
+        }
+        if (adres) {
+          const adEl = document.querySelector('footer .footer-col a[href*="iletisim.html"]');
+          if (adEl) adEl.textContent = '📍 ' + adres;
+        }
+        if (saat) {
+          const hrEl = document.querySelector('footer .f-hours');
+          if (hrEl) hrEl.textContent = '🕒 ' + saat;
+        }
+      }
+      if (g.sosyal_medya) {
+        const ig = document.querySelector('footer .f-socials a[aria-label="Instagram"]');
+        const fb = document.querySelector('footer .f-socials a[aria-label="Facebook"]');
+        if (ig && g.sosyal_medya.instagram) ig.href = g.sosyal_medya.instagram;
+        if (fb && g.sosyal_medya.facebook) fb.href = g.sosyal_medya.facebook;
+      }
+    } catch (_) {}
+  })();
 })();

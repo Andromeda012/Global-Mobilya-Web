@@ -949,41 +949,199 @@ async function submitMainContact(e) {
   }
 }
 
-// SYNC FIRM CONTACT WITH SUPABASE (site_settings: 'genel')
+// SYNC CONTACT PAGE & MAP & FAQ WITH CMS (site_settings: 'iletisim_sayfasi' + 'genel')
 async function syncContactInfo() {
   if (!window.GKM_SUPABASE) return;
   try {
-    const genel = await window.GKM_SUPABASE.getSiteSetting('genel');
-    if (!genel) return;
+    const bundle = window.GKM_SUPABASE.getCmsBundle
+      ? await window.GKM_SUPABASE.getCmsBundle()
+      : { genel: await window.GKM_SUPABASE.getSiteSetting('genel') };
+    const genel = bundle?.genel || {};
+    const il = bundle?.iletisim_sayfasi || {};
+    const norm = (u, fb) => window.GKM_SUPABASE.normalizeMediaUrl ? window.GKM_SUPABASE.normalizeMediaUrl(u, fb) : (u || fb);
+    const escTxt = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
 
+    // 1. Hero Alanı
+    if (il.hero) {
+      const bg = document.querySelector('.contact-hero-bg');
+      const ey = document.querySelector('.contact-hero .hero-eyebrow');
+      const h1 = document.querySelector('.contact-hero-title');
+      const ds = document.querySelector('.contact-hero-desc');
+      const fPill = document.querySelector('.contact-hero a[href="#iletisimForm"]');
+      const mPill = document.querySelector('.contact-hero a[href="#fabrikaKonum"]');
+      if (bg && il.hero.image_url) bg.style.backgroundImage = `url('${norm(il.hero.image_url, 'resim/showroom/hero_atolye.jpg')}')`;
+      if (ey && il.hero.eyebrow) ey.textContent = il.hero.eyebrow;
+      if (h1 && (il.hero.title_prefix || il.hero.title_em)) {
+        h1.innerHTML = `${escTxt(il.hero.title_prefix || '')}<br><em>${escTxt(il.hero.title_em || '')}</em> ${escTxt(il.hero.title_suffix || '')}`;
+      }
+      if (ds && il.hero.desc) ds.textContent = il.hero.desc;
+      if (fPill && il.hero.form_pill_text) fPill.textContent = il.hero.form_pill_text;
+      if (mPill && il.hero.map_pill_text) mPill.textContent = il.hero.map_pill_text;
+    }
+
+    // 2. İletişim Kartları & Telefon/WhatsApp/E-posta/Adres
     const iletisim = genel.iletisim || {};
     if (iletisim.telefon) {
       const telEl = document.getElementById('c_telLink');
+      const telCta = telEl?.closest('.qc-tile')?.querySelector('.qc-foot-cta');
       if (telEl) {
         telEl.textContent = iletisim.telefon;
         telEl.href = 'tel:' + iletisim.telefon.replace(/\s/g, '');
       }
+      if (telCta) telCta.href = 'tel:' + iletisim.telefon.replace(/\s/g, '');
     }
     if (iletisim.whatsapp) {
       const cleanWa = iletisim.whatsapp.replace(/\D/g, '');
       const cWa = document.getElementById('c_waLink');
+      const waCta = cWa?.closest('.qc-tile')?.querySelector('.qc-foot-cta');
       if (cWa) {
         cWa.textContent = '+' + cleanWa;
         cWa.href = 'https://wa.me/' + cleanWa;
       }
+      if (waCta) waCta.href = 'https://wa.me/' + cleanWa;
     }
     if (iletisim.email) {
       const emEl = document.getElementById('c_emailLink');
+      const emCta = emEl?.closest('.qc-tile')?.querySelector('.qc-foot-cta');
       if (emEl) {
         emEl.textContent = iletisim.email;
         emEl.href = 'mailto:' + iletisim.email;
       }
+      if (emCta) emCta.href = 'mailto:' + iletisim.email;
+    }
+    if (il.tiles) {
+      const applyTileMeta = (anchorId, tag, title, note) => {
+        const tile = document.getElementById(anchorId)?.closest('.qc-tile');
+        if (!tile) return;
+        const tEl = tile.querySelector('.qc-tag');
+        const hEl = tile.querySelector('h3');
+        const sEl = tile.querySelector('small');
+        if (tEl && tag) tEl.textContent = tag;
+        if (hEl && title) hEl.textContent = title;
+        if (sEl && note) sEl.textContent = note;
+      };
+      applyTileMeta('c_telLink', il.tiles.tel_tag, il.tiles.tel_title, il.tiles.tel_note);
+      applyTileMeta('c_waLink', il.tiles.wa_tag, il.tiles.wa_title, il.tiles.wa_note);
+      applyTileMeta('c_emailLink', il.tiles.email_tag, il.tiles.email_title, il.tiles.email_note);
     }
     if (iletisim.adres) {
       const adEl = document.getElementById('c_addressVal');
       const mapLabel = document.getElementById('mapAddressLabel');
       if (adEl) adEl.textContent = iletisim.adres;
-      if (mapLabel) mapLabel.textContent = iletisim.adres;
+      if (mapLabel) mapLabel.textContent = il.map?.address_label || iletisim.adres;
+    }
+
+    // 3. Fabrika Dossier & Çalışma Saatleri
+    if (il.dossier) {
+      const dTag = document.querySelector('.factory-dossier-card .section-tag');
+      const dh = document.querySelector('.dossier-heading');
+      const dl = document.querySelector('.dossier-lead');
+      if (dTag && il.dossier.tag) dTag.textContent = il.dossier.tag;
+      if (dh && il.dossier.title_em) {
+        dh.innerHTML = `${escTxt(il.dossier.title_prefix || '')} <em>${escTxt(il.dossier.title_em)}</em>`;
+      }
+      if (dl && il.dossier.lead) dl.textContent = il.dossier.lead;
+      const rows = document.querySelectorAll('.factory-dossier-card .info-detail-row');
+      if (rows[1]) {
+        const t = rows[1].querySelector('strong');
+        const v = rows[1].querySelector('.val');
+        if (t && il.dossier.capacity_title) t.textContent = il.dossier.capacity_title;
+        if (v && il.dossier.capacity_val) v.textContent = il.dossier.capacity_val;
+      }
+      if (rows[2]) {
+        const t = rows[2].querySelector('strong');
+        const v = rows[2].querySelector('.val');
+        if (t && il.dossier.speed_title) t.textContent = il.dossier.speed_title;
+        if (v && il.dossier.speed_val) v.textContent = il.dossier.speed_val;
+      }
+      if (Array.isArray(il.dossier.hours) && il.dossier.hours.length) {
+        const hrsCard = document.querySelector('.work-hours-card');
+        if (hrsCard) {
+          hrsCard.innerHTML = `<h4>🕒 Fabrika Çalışma Saatleri</h4>` + il.dossier.hours.map(hr => `
+            <div class="hour-line">
+              <span>${escTxt(hr.day)}</span>
+              <span ${hr.closed ? 'style="color:#FCA5A5;"' : ''}>${escTxt(hr.val)}</span>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    // 4. Teklif Formu Başlık, Alt Yazı & Konular
+    if (il.form) {
+      const fTag = document.querySelector('.contact-form-card .section-tag');
+      const ft = document.querySelector('.contact-form-card .form-title');
+      const fs = document.querySelector('.contact-form-card .form-subtitle');
+      const subjSel = document.getElementById('cf_subject');
+      if (fTag && il.form.tag) fTag.textContent = il.form.tag;
+      if (ft && il.form.title) ft.textContent = il.form.title;
+      if (fs && il.form.subtitle) fs.textContent = il.form.subtitle;
+      if (subjSel && Array.isArray(il.form.subjects) && il.form.subjects.length) {
+        const existingGroup = subjSel.querySelector('optgroup');
+        subjSel.innerHTML = '';
+        if (existingGroup) subjSel.appendChild(existingGroup);
+        il.form.subjects.forEach(item => {
+          const val = typeof item === 'string' ? item : (item.value || item.label);
+          const lbl = typeof item === 'string' ? item : (item.label || item.value);
+          if (!val) return;
+          const opt = document.createElement('option');
+          opt.value = val;
+          opt.textContent = lbl;
+          subjSel.appendChild(opt);
+        });
+      }
+    }
+
+    // 5. SSS Akordeon Maddeleri
+    if (il.faq) {
+      const fqSec = document.querySelector('.faq-section');
+      const fqTag = fqSec?.querySelector('.section-tag');
+      const fqH = fqSec?.querySelector('h2');
+      if (fqTag && il.faq.tag) fqTag.textContent = il.faq.tag;
+      if (fqH && il.faq.title_em) fqH.innerHTML = `${escTxt(il.faq.title_prefix || '')} <em>${escTxt(il.faq.title_em)}</em>`;
+      if (Array.isArray(il.faq.items) && il.faq.items.length) {
+        const acc = document.querySelector('.faq-accordion');
+        if (acc) {
+          acc.innerHTML = il.faq.items.map((fq, idx) => `
+            <div class="faq-item ${idx === 0 ? 'is-open' : ''}">
+              <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)" aria-expanded="${idx === 0 ? 'true' : 'false'}">
+                <span>${escTxt(fq.q)}</span>
+                <span class="faq-plus">+</span>
+              </button>
+              <div class="faq-panel">${escTxt(fq.a)}</div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    // 6. Google Maps Fabrika Konumu
+    if (il.map) {
+      const mapSec = document.getElementById('fabrikaKonum');
+      const mapKick = mapSec?.querySelector('.section-tag');
+      const mapH2 = mapSec?.querySelector('h2');
+      const q = il.map.query || iletisim.adres || '';
+      const mapFrame = document.getElementById('factoryGoogleMap');
+      const mapLbl = document.getElementById('mapAddressLabel');
+      const mapHrs = document.querySelector('.factory-map-topbar > span');
+      const mapLink = document.querySelector('#fabrikaKonum a[href*="google.com/maps"]');
+      if (mapKick && il.map.kicker) mapKick.textContent = il.map.kicker;
+      if (mapH2 && il.map.title_em) mapH2.innerHTML = `${escTxt(il.map.title_prefix || '')} <em>${escTxt(il.map.title_em)}</em>`;
+      if (mapFrame) {
+        mapFrame.src = il.map.custom_embed_url
+          ? il.map.custom_embed_url
+          : `https://maps.google.com/maps?q=${encodeURIComponent(q)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+      }
+      if (mapLbl && (il.map.address_label || iletisim.adres)) {
+        mapLbl.textContent = il.map.address_label || iletisim.adres;
+      }
+      if (mapHrs && il.map.hours_summary) mapHrs.textContent = il.map.hours_summary;
+      if (mapLink) {
+        mapLink.href = il.map.custom_directions_url
+          ? il.map.custom_directions_url
+          : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+        if (il.map.cta_text) mapLink.textContent = il.map.cta_text;
+      }
     }
   } catch (e) {
     console.warn('İletişim bilgisi senkronizasyon uyarısı:', e);

@@ -1672,11 +1672,13 @@ function goHeroSlide(idx) {
   dots.forEach((d, i) => d.classList.toggle('active', i === _heroIdx));
 }
 
+let _heroIntervalMs = 5200;
+
 function startHeroAutoCarousel() {
   if (_heroTimer) clearInterval(_heroTimer);
   const bgs = document.querySelectorAll('#heroStage .hg-hero-bg');
   if (bgs.length < 2) return;
-  _heroTimer = setInterval(() => goHeroSlide(_heroIdx + 1), 5200);
+  _heroTimer = setInterval(() => goHeroSlide(_heroIdx + 1), Math.max(2000, Number(_heroIntervalMs) || 5200));
 }
 
 function initNatureIvyScrollScene() {
@@ -2056,32 +2058,324 @@ function renderIndepPreview(products) {
 }
 
 async function syncHomeWithDatabaseSafe() {
-  if (!window.GKM_SUPABASE || !window.GKM_SUPABASE.client) return;
+  if (!window.GKM_SUPABASE?.getCmsBundle) return;
   try {
-    const { data, error } = await window.GKM_SUPABASE.client
-      .from('site_settings')
-      .select('data')
-      .eq('id', 'anasayfa')
-      .single();
-    if (error || !data || !data.data) return;
+    const bundle = await window.GKM_SUPABASE.getCmsBundle();
+    const a = bundle?.anasayfa_v2;
+    if (!a || typeof a !== 'object') return;
+    const norm = (u, fb) => window.GKM_SUPABASE.normalizeMediaUrl ? window.GKM_SUPABASE.normalizeMediaUrl(u, fb) : (u || fb);
 
-    const h = data.data;
-    const isLegacyKapak = (txt) => /(membran|\bmdf\b|vakum\s*pres|kapak\s*üretim)/i.test(String(txt || ''));
+    // 1. Hero & 5 Sahne Görseli
+    if (a.hero) {
+      const heroStage = document.getElementById('heroStage');
+      if (heroStage && Array.isArray(a.hero.slides) && a.hero.slides.length) {
+        heroStage.querySelectorAll('.hg-hero-bg').forEach(el => el.remove());
+        const scrim = heroStage.querySelector('.hg-hero-scrim');
+        a.hero.slides.forEach((sl, idx) => {
+          const div = document.createElement('div');
+          div.className = 'hg-hero-bg' + (idx === 0 ? ' active' : '');
+          div.style.backgroundImage = `url('${norm(sl.image_url, 'resim/showroom/hero_marsilya.jpg')}')`;
+          heroStage.insertBefore(div, scrim || heroStage.firstChild);
+        });
+        const dotsWrap = document.getElementById('heroCarouselDots');
+        if (dotsWrap) {
+          dotsWrap.innerHTML = a.hero.slides.map((sl, idx) =>
+            `<button type="button" class="hg-hero-dot${idx === 0 ? ' active' : ''}" onclick="goHeroSlide(${idx})" aria-label="${esc(sl.caption || ('Sahne ' + (idx + 1)))}"></button>`
+          ).join('');
+        }
+        _heroIdx = 0;
+        if (a.hero.carousel_interval_ms) _heroIntervalMs = Number(a.hero.carousel_interval_ms) || 5200;
+        startHeroAutoCarousel();
+      }
+      const eye = document.querySelector('#heroStage .hg-hero-eyebrow');
+      if (eye && a.hero.eyebrow) eye.textContent = a.hero.eyebrow;
+      const h1 = document.getElementById('domHeroBaslik');
+      if (h1 && (a.hero.baslik_1 || a.hero.baslik_highlight || a.hero.baslik_2)) {
+        h1.innerHTML = `${esc(a.hero.baslik_1 || '')}<br><em>${esc(a.hero.baslik_highlight || '')}</em> ${esc(a.hero.baslik_2 || '')}`;
+      }
+      const pDesc = document.getElementById('domHeroAciklama');
+      if (pDesc && a.hero.alt_yazi) pDesc.textContent = a.hero.alt_yazi;
+      const cta1Main = document.querySelector('#heroStage .btn-hg-wipe .btn-hg-wipe-row.main');
+      const cta1Clone = document.querySelector('#heroStage .btn-hg-wipe .btn-hg-wipe-row.clone');
+      const cta1A = document.querySelector('#heroStage .btn-hg-wipe');
+      const cta2A = document.querySelector('#heroStage .btn-hg-ghost');
+      if (a.hero.cta1_text) {
+        if (cta1Main) cta1Main.textContent = a.hero.cta1_text;
+        if (cta1Clone) cta1Clone.textContent = a.hero.cta1_text;
+      }
+      if (cta1A && a.hero.cta1_link) cta1A.href = a.hero.cta1_link;
+      if (cta2A) {
+        if (a.hero.cta2_text) cta2A.textContent = a.hero.cta2_text;
+        if (a.hero.cta2_link) cta2A.href = a.hero.cta2_link;
+      }
+    }
 
-    if (h.hero_baslik && !isLegacyKapak(h.hero_baslik)) {
-      const el = document.getElementById('domHeroBaslik');
-      if (el) el.innerHTML = h.hero_baslik;
+    // 2. Kayan Şerit (Marquee)
+    if (a.marquee && Array.isArray(a.marquee.items) && a.marquee.items.length) {
+      const track = document.querySelector('.hg-marquee-track');
+      if (track) {
+        const inner = a.marquee.items.map(t => `<span>${esc(t)}</span><span class="hg-marquee-dot">✦</span>`).join('');
+        track.innerHTML = `<div class="hg-marquee-item">${inner}</div><div class="hg-marquee-item" aria-hidden="true">${inner}</div>`;
+        if (a.marquee.duration_ms) track.dataset.duration = String(a.marquee.duration_ms);
+        track.dataset.marqueeBound = '0';
+      }
     }
-    if (h.hero_aciklama && !isLegacyKapak(h.hero_aciklama)) {
-      const el = document.getElementById('domHeroAciklama');
-      if (el) el.textContent = h.hero_aciklama;
+
+    // 3. 3 Ana Koleksiyon Kategorisi Kartları
+    if (a.categories_section) {
+      const deckSec = document.getElementById('homeCategoryDeck')?.closest('section');
+      if (deckSec) {
+        const sk = deckSec.querySelector('.section-kicker');
+        const sh = deckSec.querySelector('.section-heading');
+        const sl = deckSec.querySelector('.section-lead');
+        if (sk && a.categories_section.kicker) sk.textContent = a.categories_section.kicker;
+        if (sh && a.categories_section.title_highlight) {
+          sh.innerHTML = `${esc(a.categories_section.title_prefix || '')} <em>${esc(a.categories_section.title_highlight)}</em> ${esc(a.categories_section.title_suffix || '')}`;
+        }
+        if (sl && a.categories_section.lead) sl.textContent = a.categories_section.lead;
+      }
+      const panelIds = ['catPanelKahve', 'catPanelDolap', 'catPanelYatak'];
+      (a.categories_section.panels || []).forEach((pn, idx) => {
+        const el = document.getElementById(panelIds[idx]);
+        if (!el) return;
+        const nm = el.querySelector('.hg-cat-name');
+        const ds = el.querySelector('.hg-cat-desc');
+        const im = el.querySelector('img');
+        if (nm && pn.title) nm.textContent = pn.title;
+        if (ds && pn.desc) ds.textContent = pn.desc;
+        if (im && pn.image_url) im.src = norm(pn.image_url, im.src);
+      });
     }
-    if (h.hakkimizda_ozet && !isLegacyKapak(h.hakkimizda_ozet)) {
-      const el = document.getElementById('domAtelierStory');
-      if (el) el.textContent = h.hakkimizda_ozet;
+
+    // 4. Atölye & Hakkımızda Özeti
+    if (a.atelier_about) {
+      const sec = document.getElementById('hakkimizda');
+      if (sec) {
+        const im = sec.querySelector('.miles-wave-inner img');
+        const bt = document.getElementById('domStatTeslimat');
+        const bs = sec.querySelector('.atelier-badge-overlay span');
+        const sk = sec.querySelector('.section-kicker');
+        const sh = sec.querySelector('.section-heading');
+        const st = document.getElementById('domAtelierStory');
+        if (im && a.atelier_about.image_url) im.src = norm(a.atelier_about.image_url, im.src);
+        if (bt && a.atelier_about.badge_title) bt.textContent = a.atelier_about.badge_title;
+        if (bs && a.atelier_about.badge_sub) bs.textContent = a.atelier_about.badge_sub;
+        if (sk && a.atelier_about.kicker) sk.textContent = a.atelier_about.kicker;
+        if (sh && a.atelier_about.title_highlight) {
+          sh.innerHTML = `${esc(a.atelier_about.title_prefix || '')}<br><em>${esc(a.atelier_about.title_highlight)}</em> ${esc(a.atelier_about.title_suffix || '')}`;
+        }
+        if (st && a.atelier_about.story) st.textContent = a.atelier_about.story;
+        const pls = sec.querySelectorAll('.craft-pillar');
+        (a.atelier_about.pillars || []).forEach((pl, idx) => {
+          if (!pls[idx]) return;
+          const h4 = pls[idx].querySelector('h4');
+          const p = pls[idx].querySelector('p');
+          if (h4 && pl.title) h4.textContent = pl.title;
+          if (p && pl.desc) p.textContent = pl.desc;
+        });
+      }
     }
+
+    // 5. Rakamlar Bandı
+    if (Array.isArray(a.stats_band) && a.stats_band.length) {
+      const cards = document.querySelectorAll('.stats-band .stat-arch-card');
+      a.stats_band.forEach((st, idx) => {
+        if (!cards[idx]) return;
+        const num = cards[idx].querySelector('.stat-arch-num');
+        const lbl = cards[idx].querySelector('.stat-arch-label');
+        if (num && st.display) {
+          num.textContent = st.display;
+          delete num.dataset.countTarget;
+        }
+        if (lbl && st.label) lbl.textContent = st.label;
+      });
+    }
+
+    // 6. İlkelerimiz (6 Orbit Kart)
+    if (a.principles) {
+      const sec = document.getElementById('ilkelerimiz');
+      if (sec) {
+        const ey = sec.querySelector('.miles-eyebrow-dots');
+        const sh = sec.querySelector('.section-heading');
+        const p = sec.querySelector('.miles-orbit-center p');
+        if (ey && a.principles.eyebrow) ey.textContent = a.principles.eyebrow;
+        if (sh && a.principles.title_highlight) {
+          sh.innerHTML = `${esc(a.principles.title_prefix || '')}<br><em>${esc(a.principles.title_highlight)}</em>`;
+        }
+        if (p && a.principles.lead) p.textContent = a.principles.lead;
+        const orbs = sec.querySelectorAll('.miles-orbit-card');
+        (a.principles.cards || []).forEach((c, idx) => {
+          if (!orbs[idx]) return;
+          const h4 = orbs[idx].querySelector('h4');
+          const cp = orbs[idx].querySelector('p');
+          if (h4 && c.title) h4.textContent = c.title;
+          if (cp && c.desc) cp.textContent = c.desc;
+        });
+      }
+    }
+
+    // 7. Misyon & Vizyon
+    if (a.mission_vision) {
+      const sec = document.getElementById('misyonVizyon');
+      if (sec) {
+        const sk = sec.querySelector('.section-kicker');
+        const sh = sec.querySelector('.section-heading');
+        const sl = sec.querySelector('.section-lead');
+        const cards = sec.querySelectorAll('.mv-card');
+        if (sk && a.mission_vision.kicker) sk.textContent = a.mission_vision.kicker;
+        if (sh && a.mission_vision.title_highlight) {
+          sh.innerHTML = `${esc(a.mission_vision.title_prefix || '')} <em>${esc(a.mission_vision.title_highlight)}</em>`;
+        }
+        if (sl && a.mission_vision.lead) sl.textContent = a.mission_vision.lead;
+        if (cards[0]) {
+          const h3 = cards[0].querySelector('h3');
+          const p = document.getElementById('homeMisyonText');
+          if (h3 && a.mission_vision.mission_title) h3.textContent = a.mission_vision.mission_title;
+          if (p && a.mission_vision.mission_text) p.textContent = a.mission_vision.mission_text;
+        }
+        if (cards[1]) {
+          const h3 = cards[1].querySelector('h3');
+          const p = document.getElementById('homeVizyonText');
+          if (h3 && a.mission_vision.vision_title) h3.textContent = a.mission_vision.vision_title;
+          if (p && a.mission_vision.vision_text) p.textContent = a.mission_vision.vision_text;
+        }
+      }
+    }
+
+    // 8. Doğayı Seviyoruz
+    if (a.nature_section) {
+      const sec = document.getElementById('dogayiSeviyoruz');
+      if (sec) {
+        const nk = sec.querySelector('.nature-kicker');
+        const nh = sec.querySelector('.nature-heading');
+        const nl = sec.querySelector('.nature-lead');
+        const pls = sec.querySelectorAll('.nature-pillar');
+        if (nk && a.nature_section.kicker) nk.textContent = a.nature_section.kicker;
+        if (nh && a.nature_section.title_highlight) {
+          nh.innerHTML = `${esc(a.nature_section.title_prefix || '')}<br><em>${esc(a.nature_section.title_highlight)}</em> ${esc(a.nature_section.title_suffix || '')}`;
+        }
+        if (nl && a.nature_section.lead) nl.textContent = a.nature_section.lead;
+        (a.nature_section.pillars || []).forEach((p, idx) => {
+          if (!pls[idx]) return;
+          const st = pls[idx].querySelector('strong');
+          const pr = pls[idx].querySelector('p');
+          if (st && p.title) st.textContent = p.title;
+          if (pr && p.desc) pr.textContent = p.desc;
+        });
+      }
+    }
+
+    // 9. Tedarikçiler, Bloglar, Galeri Tanıtım & Hızlı Teklif
+    if (a.partners_section) {
+      const sec = document.getElementById('tedarikcilerimiz');
+      if (sec) {
+        const ey = sec.querySelector('.miles-eyebrow-dots');
+        const sh = sec.querySelector('.section-heading');
+        const sl = sec.querySelector('.section-lead');
+        if (ey && a.partners_section.eyebrow) ey.textContent = a.partners_section.eyebrow;
+        if (sh && a.partners_section.title_highlight) {
+          sh.innerHTML = `${esc(a.partners_section.title_prefix || '')}<br><em>${esc(a.partners_section.title_highlight)}</em>`;
+        }
+        if (sl && a.partners_section.lead) sl.textContent = a.partners_section.lead;
+      }
+    }
+    if (a.blogs_section) {
+      const sec = document.getElementById('bloglar');
+      if (sec) {
+        const ey = sec.querySelector('.miles-eyebrow-dots');
+        const sh = sec.querySelector('.section-heading');
+        const sl = sec.querySelector('.section-lead');
+        const bMain = sec.querySelector('.btn-hg-wipe .main');
+        const bClone = sec.querySelector('.btn-hg-wipe .clone');
+        if (ey && a.blogs_section.eyebrow) ey.textContent = a.blogs_section.eyebrow;
+        if (sh && a.blogs_section.title_highlight) {
+          sh.innerHTML = `${esc(a.blogs_section.title_prefix || '')}<br><em>${esc(a.blogs_section.title_highlight)}</em> ${esc(a.blogs_section.title_suffix || '')}`;
+        }
+        if (sl && a.blogs_section.lead) sl.textContent = a.blogs_section.lead;
+        if (a.blogs_section.cta_text) {
+          if (bMain) bMain.textContent = a.blogs_section.cta_text;
+          if (bClone) bClone.textContent = a.blogs_section.cta_text;
+        }
+      }
+    }
+    if (a.gallery_promo) {
+      const sec = document.querySelector('section.band-dark');
+      if (sec) {
+        const sk = sec.querySelector('.section-head-split .section-kicker');
+        const sh = sec.querySelector('.section-head-split .section-heading');
+        const sl = sec.querySelector('.section-head-split .section-lead');
+        if (sk && a.gallery_promo.kicker) sk.textContent = a.gallery_promo.kicker;
+        if (sh && a.gallery_promo.title_highlight) {
+          sh.innerHTML = `${esc(a.gallery_promo.title_prefix || '')} <em>${esc(a.gallery_promo.title_highlight)}</em> ${esc(a.gallery_promo.title_suffix || '')}`;
+        }
+        if (sl && a.gallery_promo.lead) sl.textContent = a.gallery_promo.lead;
+        const panels = sec.querySelectorAll('.pres-panel');
+        if (panels[0]) {
+          const pk = panels[0].querySelector('.section-kicker');
+          const ph = panels[0].querySelector('h3');
+          const pp = panels[0].querySelector('p');
+          const bm = panels[0].querySelector('.btn-hg-wipe .main');
+          const bc = panels[0].querySelector('.btn-hg-wipe .clone');
+          if (pk && a.gallery_promo.left_kicker) pk.textContent = a.gallery_promo.left_kicker;
+          if (ph && a.gallery_promo.left_title) ph.textContent = a.gallery_promo.left_title;
+          if (pp && a.gallery_promo.left_desc) pp.textContent = a.gallery_promo.left_desc;
+          if (a.gallery_promo.left_btn) {
+            if (bm) bm.textContent = a.gallery_promo.left_btn;
+            if (bc) bc.textContent = a.gallery_promo.left_btn;
+          }
+        }
+        if (panels[1]) {
+          const im = panels[1].querySelector('.miles-wave-inner img');
+          const ph = panels[1].querySelector('h3');
+          const pp = panels[1].querySelector('p');
+          const gb = panels[1].querySelector('.btn-hg-ghost');
+          if (im && a.gallery_promo.right_image) im.src = norm(a.gallery_promo.right_image, im.src);
+          if (ph && a.gallery_promo.right_title) ph.textContent = a.gallery_promo.right_title;
+          if (pp && a.gallery_promo.right_desc) pp.textContent = a.gallery_promo.right_desc;
+          if (gb && a.gallery_promo.right_btn) gb.textContent = a.gallery_promo.right_btn;
+        }
+      }
+    }
+    if (a.quick_quote) {
+      const sec = document.getElementById('hizliTeklif');
+      if (sec) {
+        const sk = sec.querySelector('.section-kicker');
+        const sh = sec.querySelector('.section-heading');
+        const p = sec.querySelector('.concierge-card > div:first-child > p');
+        const wm = sec.querySelector('.concierge-card .btn-hg-wipe .main');
+        const wc = sec.querySelector('.concierge-card .btn-hg-wipe .clone');
+        const ct = sec.querySelector('a[href="iletisim.html"]');
+        if (sk && a.quick_quote.kicker) sk.textContent = a.quick_quote.kicker;
+        if (sh && a.quick_quote.title_highlight) {
+          sh.innerHTML = `${esc(a.quick_quote.title_prefix || '')} <em>${esc(a.quick_quote.title_highlight)}</em> ${esc(a.quick_quote.title_suffix || '')}`;
+        }
+        if (p && a.quick_quote.lead) p.textContent = a.quick_quote.lead;
+        if (a.quick_quote.wa_btn_text) {
+          if (wm) wm.textContent = a.quick_quote.wa_btn_text;
+          if (wc) wc.textContent = a.quick_quote.wa_btn_text;
+        }
+        if (ct && a.quick_quote.contact_btn_text) ct.textContent = a.quick_quote.contact_btn_text;
+      }
+    }
+
+    const vidSrc = norm(a.video?.video_url || a.video?.harici_url || '');
+    const existingVidBand = document.getElementById('homeCmsVideoBand');
+    if (a.video?.aktif && vidSrc) {
+      const anchorSec = document.getElementById('atolye') || document.querySelector('main > section');
+      const vidBand = existingVidBand || document.createElement('section');
+      vidBand.id = 'homeCmsVideoBand';
+      vidBand.className = 'band band-cream';
+      vidBand.innerHTML = `<div class="hg-container" style="max-width:1100px;margin:0 auto;"><div class="section-kicker" style="text-align:center;">Atölye Tanıtım Filmi</div><h2 class="section-heading" style="text-align:center;margin:8px 0 12px;">${esc(a.video.baslik || 'Üretim & Atölye Hikayemiz')}</h2><p class="section-lead" style="text-align:center;margin:0 auto 28px;max-width:680px;">${esc(a.video.aciklama || '')}</p><div style="border-radius:18px;overflow:hidden;border:1px solid var(--border);background:#120E0B;box-shadow:0 24px 60px rgba(0,0,0,0.16);"><video src="${esc(vidSrc)}" controls playsinline ${a.video.otomatik_oynat ? 'autoplay muted loop' : ''} style="width:100%;max-height:540px;display:block;object-fit:cover;"></video></div></div>`;
+      if (!existingVidBand && anchorSec && anchorSec.parentNode) {
+        anchorSec.parentNode.insertBefore(vidBand, anchorSec.nextSibling);
+      }
+    } else if (existingVidBand) {
+      existingVidBand.remove();
+    }
+
+    window.GKM_MOTION?.initAll();
   } catch (err) {
-    console.warn('Ana sayfa ayarı okunamadı:', err);
+    console.warn('Ana sayfa CMS yükleme uyarısı:', err);
   }
 }
 
