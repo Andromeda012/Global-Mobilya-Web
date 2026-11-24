@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İletişim & Fabrika Showroom — Fiyat Teklifi Alın | Global Mobilya</title>
+<title>İletişim &amp; Fabrika Showroom — Fiyat Teklifi Alın | Global Mobilya</title>
 <meta name="description" content="Global Mobilya mimari koleksiyonları ve özel ölçü projeleriniz için doğrudan üretim fabrikamızdan fiyat teklifi alın. İstanbul Bağcılar fabrika adresi, telefon ve WhatsApp danışma hattı.">
 <meta name="keywords" content="global mobilya iletişim, mobilya atölyesi istanbul, bağcılar mobilya üreticisi, kahve köşesi fiyat teklifi, dolap koleksiyonu teklif">
 <meta name="author" content="Global Mobilya">
@@ -18,7 +18,7 @@
 
 <!-- OPEN GRAPH & TWITTER -->
 <meta property="og:site_name" content="Global Mobilya">
-<meta property="og:title" content="İletişim & Fabrika Adresi — Global Mobilya">
+<meta property="og:title" content="İletişim &amp; Fabrika Adresi — Global Mobilya">
 <meta property="og:description" content="Mimari projeleriniz ve koleksiyon talepleriniz için bize ulaşın. Hızlı fiyat teklifi ve doğrudan üretici desteği.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://globalkapakmobilya.com/iletisim.html">
@@ -69,516 +69,533 @@
 }
 </script>
 
-<!-- FONTS: Cormorant Garamond & Plus Jakarta Sans -->
+<!-- FONTS: Instrument Serif & Manrope (consistent architectural editorial pair) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/luxury-atelier.css">
 <link rel="stylesheet" href="css/showroom-motion.css">
 
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-stone-light);
-  color: var(--text-charcoal);
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* ── STICKY EDITORIAL HEADER ── */
-header.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 22px 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.35s ease;
-  background: transparent;
-}
-header.site-header.scrolled {
-  background: rgba(250, 248, 245, 0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 14px 60px;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 24px rgba(39, 37, 34, 0.04);
-}
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.header-logo img {
-  height: 46px;
-  width: auto;
-  transition: transform 0.25s ease;
-}
-.header-brand-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-}
-header.site-header:not(.scrolled) .header-brand-title {
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
-}
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 34px;
-}
-.header-nav a {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  transition: color 0.2s ease;
-  position: relative;
-  padding: 4px 0;
-}
-header.site-header:not(.scrolled) .header-nav a {
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-.header-nav a:hover, .header-nav a.active { color: var(--walnut); }
-header.site-header:not(.scrolled) .header-nav a:hover,
-header.site-header:not(.scrolled) .header-nav a.active { color: var(--white); }
-.header-nav a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--walnut);
-}
-header.site-header:not(.scrolled) .header-nav a.active::after {
-  background: var(--white);
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.btn-wa-pill {
-  background: rgba(37, 211, 102, 0.12);
-  color: #128C7E;
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  padding: 9px 18px;
-  border-radius: 40px;
-  font-size: 12px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.25s ease;
-}
-header.site-header:not(.scrolled) .btn-wa-pill {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  border-color: rgba(255,255,255,0.4);
-}
-.btn-wa-pill:hover {
-  background: #25D366;
-  color: #fff;
-  transform: translateY(-1px);
-}
-.btn-editorial-cta {
-  background: var(--walnut);
-  color: var(--white);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 10px 22px;
-  border-radius: 40px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.btn-editorial-cta:hover { background: var(--walnut-dark); }
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 26px;
-  color: var(--charcoal);
-  cursor: pointer;
-}
-header.site-header:not(.scrolled) .hamburger { color: var(--white); }
-
-/* ── CINEMATIC HERO ── */
-.contact-hero {
-  position: relative;
-  height: 48vh;
-  min-height: 380px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--white);
-  padding: 0 40px;
-  background: url('resim/yonetilen/atelier-craft.jpg') center/cover no-repeat;
-}
-.contact-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(39, 37, 34, 0.72) 0%, rgba(39, 37, 34, 0.88) 100%);
-  z-index: 1;
-}
-.contact-hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 820px;
-  padding-top: 40px;
-}
-.hero-eyebrow {
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 3.5px;
-  text-transform: uppercase;
-  color: var(--beige);
-  margin-bottom: 12px;
-  display: block;
-}
-.contact-hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(36px, 5vw, 58px);
-  font-weight: 600;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-.contact-hero-title span {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--beige-light);
-}
-.contact-hero-desc {
-  font-size: 15.5px;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.8;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-/* ── BREADCRUMB ── */
-.editorial-breadcrumb {
-  background: var(--ivory);
-  border-bottom: 1px solid var(--border-light);
-  padding: 14px 60px;
-  font-size: 12.5px;
-  color: var(--text-muted);
-}
-.editorial-breadcrumb a { color: var(--walnut); font-weight: 600; }
-.editorial-breadcrumb span { margin: 0 8px; color: var(--taupe); }
-
-/* ── QUICK CONTACT CARDS ── */
-.quick-cards-wrap {
-  max-width: 1280px;
-  margin: -40px auto 0;
-  padding: 0 40px;
-  position: relative;
-  z-index: 10;
-}
-.quick-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.qc-tile {
-  background: var(--white);
-  padding: 32px 28px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 30px rgba(39, 37, 34, 0.08);
-  text-align: center;
-  transition: all 0.3s ease;
-}
-.qc-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(96, 74, 61, 0.12);
-  border-color: var(--walnut);
-}
-.qc-icon-box {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--ivory);
-  color: var(--walnut);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  margin: 0 auto 16px;
-}
-.qc-tile h3 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  margin-bottom: 10px;
-}
-.qc-tile a, .qc-tile p {
-  font-size: 15px;
-  color: var(--walnut-dark);
-  font-weight: 600;
-  line-height: 1.6;
-}
-.qc-tile small {
-  display: block;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 6px;
-  font-weight: 400;
-}
-
-/* ── CONTACT MAIN (INFO & FORM) ── */
-.contact-main-section {
-  max-width: 1280px;
-  margin: 80px auto;
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: 1.05fr 1.15fr;
-  gap: 60px;
-}
-.section-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  margin-bottom: 12px;
-  display: inline-block;
-}
-.section-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(30px, 3.5vw, 42px);
-  font-weight: 600;
-  color: var(--charcoal);
-  line-height: 1.25;
-  margin-bottom: 20px;
-}
-.section-heading span {
-  font-style: italic;
-  color: var(--walnut);
-}
-.info-detail-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-light);
-}
-.info-detail-row:last-of-type { border-bottom: none; }
-.info-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: var(--ivory);
-  color: var(--walnut);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.info-text strong {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--walnut);
-  margin-bottom: 4px;
-}
-.info-text .val {
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.6;
-}
-
-/* WORK HOURS BOX */
-.work-hours-card {
-  background: var(--ivory);
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  margin-top: 30px;
-}
-.work-hours-card h4 {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hour-line {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px dashed var(--border);
-  font-size: 13.5px;
-}
-.hour-line:last-child { border-bottom: none; }
-.hour-line span:first-child { font-weight: 600; color: var(--charcoal); }
-.hour-line span:last-child { color: var(--text-muted); }
-
-/* FORM CARD */
-.contact-form-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 44px 38px;
-  border: 1px solid var(--border);
-  box-shadow: 0 12px 36px rgba(39, 37, 34, 0.06);
-}
-.form-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 6px;
-}
-.form-subtitle {
-  font-size: 13.5px;
-  color: var(--text-muted);
-  margin-bottom: 26px;
-}
-.form-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.form-field {
-  margin-bottom: 18px;
-}
-.form-field label {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  margin-bottom: 6px;
-}
-.form-field input, .form-field textarea, .form-field select {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  background: var(--ivory-light);
-  outline: none;
-  transition: all 0.2s ease;
-}
-.form-field input:focus, .form-field textarea:focus, .form-field select:focus {
-  border-color: var(--walnut);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(96, 74, 61, 0.08);
-}
-.btn-form-submit {
-  width: 100%;
-  padding: 15px;
-  background: var(--walnut);
-  color: var(--white);
-  border: none;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  margin-top: 10px;
-}
-.btn-form-submit:hover {
-  background: var(--walnut-dark);
-  box-shadow: 0 4px 16px rgba(67, 51, 42, 0.2);
-}
-
-/* ── FAQ SECTION ── */
-.faq-section {
-  background: var(--ivory);
-  padding: 90px 40px;
-  border-top: 1px solid var(--border-light);
-}
-.faq-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-.faq-item {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  margin-bottom: 14px;
-  padding: 22px 26px;
-  transition: all 0.2s ease;
-}
-.faq-item:hover { border-color: var(--walnut); }
-.faq-item h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--charcoal);
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.faq-item p {
-  font-size: 13.5px;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  header.site-header { padding: 18px 30px; }
-  .quick-cards-grid { grid-template-columns: 1fr; }
-  .contact-main-section { grid-template-columns: 1fr; gap: 40px; }
-}
-@media (max-width: 768px) {
-  .header-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--ivory-light);
-    flex-direction: column;
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
+  :root {
+    --cnt-ivory: #F7F5F0;
+    --cnt-linen: #EEEAE2;
+    --cnt-sand: #E4DED3;
+    --cnt-espresso: #15120F;
+    --cnt-espresso-card: #1E1915;
+    --cnt-ink: #2A2925;
+    --cnt-muted: #656058;
+    --cnt-sage: #5E7462;
+    --cnt-sage-dark: #4A6450;
+    --cnt-gold: #F3DC9E;
   }
-  .header-nav.open { display: flex; }
-  .header-nav a { color: var(--charcoal) !important; text-shadow: none !important; }
-  .hamburger { display: block; }
-  .header-actions { display: none; }
-  .contact-hero { height: 40vh; padding: 0 20px; }
-  .editorial-breadcrumb { padding: 12px 20px; }
-  .form-grid-2 { grid-template-columns: 1fr; }
-  .contact-form-card { padding: 30px 20px; }
-}
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--cnt-ivory);
+    color: var(--cnt-ink);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; height: auto; display: block; }
+
+  /* ── HIGH-CONTRAST ARCHITECTURAL HERO ── */
+  .contact-hero {
+    position: relative;
+    min-height: 62vh;
+    padding: 150px 36px 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cnt-espresso);
+    overflow: hidden;
+  }
+  .contact-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('resim/showroom/hero_atolye.jpg') center/cover no-repeat;
+    opacity: 0.72;
+    transform: scale(1.02);
+  }
+  .contact-hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 50% 48%, rgba(16, 13, 10, 0.56) 0%, rgba(16, 13, 10, 0.78) 100%),
+      linear-gradient(180deg, rgba(16, 13, 10, 0.58) 0%, rgba(16, 13, 10, 0.34) 45%, rgba(16, 13, 10, 0.88) 100%);
+  }
+  .contact-hero-glass {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    width: 100%;
+    padding: clamp(28px, 4vw, 46px) clamp(24px, 4vw, 52px);
+    border-radius: 26px;
+    background: rgba(16, 13, 10, 0.74);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 32px 76px -22px rgba(0, 0, 0, 0.65);
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 15px;
+    border-radius: 999px;
+    background: rgba(243, 220, 158, 0.14);
+    border: 1px solid rgba(243, 220, 158, 0.34);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cnt-gold);
+    margin-bottom: 18px;
+  }
+  .contact-hero-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(42px, 5.4vw, 70px);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  }
+  .contact-hero-title em {
+    font-style: italic;
+    color: var(--cnt-gold);
+  }
+  .contact-hero-desc {
+    font-size: 15.5px;
+    font-weight: 500;
+    color: rgba(247, 245, 240, 0.94);
+    line-height: 1.72;
+    max-width: 640px;
+    margin: 0 auto 24px;
+  }
+  .contact-hero-pills {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-jump-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+  .hero-jump-pill:hover {
+    background: #FFFFFF;
+    color: var(--cnt-ink);
+    border-color: #FFFFFF;
+  }
+
+  /* ── FLOATING CONTACT CHANNEL TILES ── */
+  .quick-cards-wrap {
+    max-width: 1320px;
+    margin: -46px auto 0;
+    padding: 0 36px;
+    position: relative;
+    z-index: 10;
+  }
+  .quick-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .qc-tile {
+    background: #FFFFFF;
+    padding: 28px 28px 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(42, 41, 37, 0.08);
+    box-shadow: 0 22px 48px -24px rgba(42, 41, 37, 0.26);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.38s var(--ease-hg), border-color 0.3s ease, box-shadow 0.38s ease;
+  }
+  .qc-tile:hover {
+    transform: translateY(-5px);
+    border-color: var(--cnt-sage-dark);
+    box-shadow: 0 30px 60px -24px rgba(42, 41, 37, 0.34);
+  }
+  .qc-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .qc-icon-box {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--cnt-linen);
+    color: var(--cnt-sage-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .qc-tile:hover .qc-icon-box {
+    background: var(--cnt-sage-dark);
+    color: #FFFFFF;
+  }
+  .qc-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cnt-muted);
+  }
+  .qc-tile h3 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 27px;
+    font-weight: 400;
+    color: var(--cnt-ink);
+    margin-bottom: 6px;
+  }
+  .qc-main-link {
+    display: inline-block;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--cnt-sage-dark);
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+  .qc-tile small {
+    display: block;
+    font-size: 12.5px;
+    color: var(--cnt-muted);
+    margin-bottom: 16px;
+  }
+  .qc-foot-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid rgba(42, 41, 37, 0.08);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cnt-ink);
+  }
+  .qc-tile:hover .qc-foot-cta { color: var(--cnt-sage-dark); }
+
+  /* ── MAIN ARCHITECTURAL CONTACT SPLIT (ESPRESSO DOSSIER + IVORY FORM) ── */
+  .contact-main-section {
+    max-width: 1320px;
+    margin: 72px auto 86px;
+    padding: 0 36px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+  .factory-dossier-card {
+    background: linear-gradient(155deg, var(--cnt-espresso) 0%, #201A15 100%);
+    color: #F7F5F0;
+    border-radius: 26px;
+    padding: clamp(30px, 3.6vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 28px 64px -26px rgba(18, 14, 10, 0.55);
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cnt-gold);
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  .dossier-heading {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(32px, 3.4vw, 46px);
+    font-weight: 400;
+    line-height: 1.06;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+  }
+  .dossier-heading em { font-style: italic; color: var(--cnt-gold); }
+  .dossier-lead {
+    color: rgba(247, 245, 240, 0.78);
+    font-size: 14.5px;
+    line-height: 1.72;
+    margin-bottom: 26px;
+  }
+  .info-detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 15px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .info-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: rgba(243, 220, 158, 0.12);
+    border: 1px solid rgba(243, 220, 158, 0.24);
+    color: var(--cnt-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .info-text strong {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cnt-gold);
+    margin-bottom: 3px;
+  }
+  .info-text .val {
+    font-size: 14.5px;
+    color: #FFFFFF;
+    line-height: 1.55;
+  }
+  .work-hours-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin-top: 22px;
+  }
+  .work-hours-card h4 {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cnt-gold);
+    margin-bottom: 12px;
+  }
+  .hour-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    font-size: 13.5px;
+  }
+  .hour-line:last-child { border-bottom: none; padding-bottom: 0; }
+  .hour-line span:first-child { color: rgba(247, 245, 240, 0.88); font-weight: 600; }
+  .hour-line span:last-child { color: var(--cnt-gold); font-weight: 600; }
+
+  /* FORM CARD */
+  .contact-form-card {
+    background: #FFFFFF;
+    border-radius: 26px;
+    padding: clamp(30px, 3.6vw, 44px);
+    border: 1px solid rgba(42, 41, 37, 0.1);
+    box-shadow: 0 24px 56px -28px rgba(42, 41, 37, 0.22);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .form-title {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(32px, 3.2vw, 42px);
+    font-weight: 400;
+    color: var(--cnt-ink);
+    line-height: 1.08;
+    margin-bottom: 8px;
+  }
+  .form-subtitle {
+    font-size: 14px;
+    color: var(--cnt-muted);
+    margin-bottom: 24px;
+  }
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-field { margin-bottom: 16px; }
+  .form-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cnt-muted);
+    margin-bottom: 6px;
+  }
+  .form-field input, .form-field textarea, .form-field select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(42, 41, 37, 0.16);
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--cnt-ivory);
+    color: var(--cnt-ink);
+    outline: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+    border-color: var(--cnt-sage-dark);
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(74, 100, 80, 0.12);
+  }
+
+  /* ── INTERACTIVE FAQ ACCORDION ── */
+  .faq-section {
+    background: var(--cnt-linen);
+    padding: 84px 36px;
+    border-top: 1px solid rgba(42, 41, 37, 0.08);
+  }
+  .faq-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .faq-heading {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 400;
+    color: var(--cnt-ink);
+    line-height: 1.06;
+  }
+  .faq-heading em { font-style: italic; color: var(--cnt-sage-dark); }
+  .faq-accordion {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #FFFFFF;
+    border: 1px solid rgba(42, 41, 37, 0.1);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.3s ease;
+  }
+  .faq-item.is-open {
+    border-color: var(--cnt-sage-dark);
+    box-shadow: 0 18px 40px -26px rgba(42, 41, 37, 0.28);
+  }
+  .faq-trigger {
+    width: 100%;
+    padding: 20px 24px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--cnt-ink);
+  }
+  .faq-plus {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--cnt-linen);
+    color: var(--cnt-sage-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+  .faq-item.is-open .faq-plus {
+    transform: rotate(45deg);
+    background: var(--cnt-sage-dark);
+    color: #FFFFFF;
+  }
+  .faq-panel {
+    display: none;
+    padding: 0 24px 22px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--cnt-muted);
+  }
+  .faq-item.is-open .faq-panel { display: block; }
+
+  /* ── GOOGLE MAPS FACTORY LOCATION BAND ── */
+  .factory-map-section {
+    background: var(--cnt-ivory);
+    padding: 86px 36px;
+    border-top: 1px solid rgba(42, 41, 37, 0.08);
+  }
+  .factory-map-wrap {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .factory-map-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .factory-map-card {
+    border-radius: 26px;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid rgba(42, 41, 37, 0.12);
+    box-shadow: 0 28px 64px -26px rgba(42, 41, 37, 0.28);
+  }
+  .factory-map-topbar {
+    padding: 18px 26px;
+    background: var(--cnt-espresso);
+    color: #F7F5F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .factory-map-frame {
+    width: 100%;
+    height: 440px;
+    border: 0;
+    display: block;
+    background: var(--cnt-sand);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .quick-cards-grid,
+    .contact-main-section { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .contact-hero,
+    .quick-cards-wrap,
+    .contact-main-section,
+    .faq-section,
+    .factory-map-section {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .factory-map-frame { height: 340px; }
+  }
 </style>
 </head>
 <body>
@@ -586,84 +603,119 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 <!-- FLOATING PILL HEADER -->
 <header id="hgSiteHeader" class="site-header"></header>
 
-<!-- CINEMATIC HERO -->
-<section class="contact-hero" style="padding-top:86px;">
-  <div class="contact-hero-content">
-    <span class="hero-eyebrow">✦ DİREKT ÜRETİCİ İLE İLETİŞİM</span>
+<!-- HIGH-CONTRAST ARCHITECTURAL HERO -->
+<section class="contact-hero">
+  <div class="contact-hero-bg" aria-hidden="true"></div>
+  <div class="contact-hero-scrim" aria-hidden="true"></div>
+  <div class="contact-hero-glass hg-reveal">
+    <span class="hero-eyebrow">✦ Direkt Üretici ile İletişim</span>
     <h1 class="contact-hero-title">
-      Doğrudan Atölyemizden <span>Fiyat Teklifi Alın</span>
+      Doğrudan Atölyemizden<br><em>Fiyat Teklifi</em> Alın
     </h1>
     <p class="contact-hero-desc">
-      İstanbul Bağcılar atölyemizde doğal kaplama gövde kalitesi ve özel ölçü mimarisiyle kahve köşesi, dolap ve yatak odası çözümleri sunuyoruz.
+      İstanbul Bağcılar atölyemizde doğal kaplama gövde kalitesi ve özel ölçü mimarisiyle kahve köşesi, dolap, portmanto ve yatak odası çözümleri sunuyoruz.
     </p>
+    <div class="contact-hero-pills">
+      <a href="#iletisimForm" class="hero-jump-pill">Hızlı Teklif Formu ↓</a>
+      <a href="#fabrikaKonum" class="hero-jump-pill">Fabrika Harita Konumu ↓</a>
+    </div>
   </div>
 </section>
 
-<!-- BREADCRUMB -->
-<div class="editorial-breadcrumb">
-  <a href="index.html">Ana Sayfa</a><span>›</span><strong>İletişim</strong>
-</div>
-
-<!-- QUICK CONTACT TILES -->
+<!-- FLOATING QUICK CONTACT TILES -->
 <section class="quick-cards-wrap">
   <div class="quick-cards-grid">
-    <div class="qc-tile">
-      <div class="qc-icon-box">📞</div>
-      <h3>Telefon Hattı</h3>
-      <a href="tel:05050151035" id="c_telLink">0 (505) 015 1035</a>
-      <small>Hafta içi 08:30 – 19:00</small>
-    </div>
-    <div class="qc-tile">
-      <div class="qc-icon-box">💬</div>
-      <h3>WhatsApp Danışma</h3>
-      <a href="https://wa.me/905050151035" target="_blank" id="c_waLink">+90 505 015 1035</a>
-      <small>Anlık model & ölçü danışmanlığı</small>
-    </div>
-    <div class="qc-tile">
-      <div class="qc-icon-box">✉️</div>
-      <h3>Kurumsal E-posta</h3>
-      <a href="mailto:info@globalkapakmobilya.com" id="c_emailLink">info@globalkapakmobilya.com</a>
-      <small>Mimari proje & teklif dosyaları</small>
-    </div>
+    <article class="qc-tile hg-reveal" data-delay="40">
+      <div>
+        <div class="qc-top">
+          <div class="qc-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="qc-tag">Doğrudan Hat</span>
+        </div>
+        <h3>Telefon Hattı</h3>
+        <a href="tel:05050151035" id="c_telLink" class="qc-main-link">0 (505) 015 1035</a>
+        <small>Hafta içi 08:30 – 19:00 arası atölye danışmanlığı</small>
+      </div>
+      <a href="tel:05050151035" class="qc-foot-cta">
+        <span>Hemen Ara</span><span>→</span>
+      </a>
+    </article>
+
+    <article class="qc-tile hg-reveal" data-delay="120">
+      <div>
+        <div class="qc-top">
+          <div class="qc-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <span class="qc-tag">Hızlı Yanıt</span>
+        </div>
+        <h3>WhatsApp Danışma</h3>
+        <a href="https://wa.me/905050151035" target="_blank" rel="noopener" id="c_waLink" class="qc-main-link">+90 505 015 1035</a>
+        <small>Anlık ölçü paylaşımı ve görsel model önizlemesi</small>
+      </div>
+      <a href="https://wa.me/905050151035" target="_blank" rel="noopener" class="qc-foot-cta">
+        <span>WhatsApp’tan Yaz</span><span>→</span>
+      </a>
+    </article>
+
+    <article class="qc-tile hg-reveal" data-delay="200">
+      <div>
+        <div class="qc-top">
+          <div class="qc-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <span class="qc-tag">Proje Dosyası</span>
+        </div>
+        <h3>Kurumsal E-posta</h3>
+        <a href="mailto:info@globalkapakmobilya.com" id="c_emailLink" class="qc-main-link">info@globalkapakmobilya.com</a>
+        <small>Mimari proje, CAD ölçüsü ve toplu teklif talepleri</small>
+      </div>
+      <a href="mailto:info@globalkapakmobilya.com" class="qc-foot-cta">
+        <span>E-posta Gönder</span><span>→</span>
+      </a>
+    </article>
   </div>
 </section>
 
-<!-- MAIN SECTION: INFO & FORM -->
+<!-- MAIN ARCHITECTURAL SECTION: ESPRESSO FACTORY DOSSIER & QUOTE FORM -->
 <section class="contact-main-section">
-  <!-- LEFT: FACTORY DETAILS -->
-  <div class="contact-info-col">
-    <span class="section-tag">FABRİKA & ATÖLYE</span>
-    <h2 class="section-heading">Bizi Ziyaret Edin veya <span>Bilgi Alın</span></h2>
-    <p style="color:var(--text-muted); font-size:15px; margin-bottom:30px; line-height:1.8;">
-      İstanbul Bağcılar'daki 2.000 m² modern üretim atölyemize gelerek kahve köşesi koleksiyonlarımızı, dolap kurgularımızı, yüzey kartelalarımızı ve yaşam alanı showroom parçalarımızı yerinde inceleyebilirsiniz.
-    </p>
+  <!-- LEFT: ESPRESSO FACTORY DETAILS -->
+  <div class="factory-dossier-card hg-reveal">
+    <div>
+      <span class="section-tag">FABRİKA &amp; ATÖLYE SHOWROOM</span>
+      <h2 class="dossier-heading">Bizi Ziyaret Edin veya <em>Bilgi Alın</em></h2>
+      <p class="dossier-lead">
+        İstanbul Bağcılar'daki 2.000 m² modern üretim atölyemize gelerek kahve köşesi koleksiyonlarımızı, dolap kurgularımızı, yüzey kartelalarımızı ve bağımsız tasarım parçalarımızı yerinde inceleyebilirsiniz.
+      </p>
 
-    <div class="info-detail-row">
-      <div class="info-icon">📍</div>
-      <div class="info-text">
-        <strong>Fabrika Showroom Adresi</strong>
-        <div class="val" id="c_addressVal">Yalçın Koreş Cad. Bağlar Mah. No:6B Bağcılar / İSTANBUL</div>
+      <div class="info-detail-row">
+        <div class="info-icon" aria-hidden="true">📍</div>
+        <div class="info-text">
+          <strong>Fabrika Showroom Adresi</strong>
+          <div class="val" id="c_addressVal">Yalçın Koreş Cad. Bağlar Mah. No:6B Bağcılar / İSTANBUL</div>
+        </div>
       </div>
-    </div>
 
-    <div class="info-detail-row">
-      <div class="info-icon">🏭</div>
-      <div class="info-text">
-        <strong>Üretim Kapasitesi & Garanti</strong>
-        <div class="val">2.000 m² CNC Hatları | 5 Yıl Kapsamlı Üretici Garantisi</div>
+      <div class="info-detail-row">
+        <div class="info-icon" aria-hidden="true">🏭</div>
+        <div class="info-text">
+          <strong>Üretim Kapasitesi &amp; Garanti</strong>
+          <div class="val">2.000 m² CNC Hatları · 5 Yıl Kapsamlı Üretici Garantisi</div>
+        </div>
       </div>
-    </div>
 
-    <div class="info-detail-row">
-      <div class="info-icon">⚡</div>
-      <div class="info-text">
-        <strong>Teslimat Hızı</strong>
-        <div class="val">5 İş Gününde İmalat | Türkiye Geneli Korumalı Sevkiyat</div>
+      <div class="info-detail-row">
+        <div class="info-icon" aria-hidden="true">⚡</div>
+        <div class="info-text">
+          <strong>Üretim &amp; Teslimat Hızı</strong>
+          <div class="val">Planlı Atölye Takvimi · Türkiye Geneli Korumalı Sevkiyat</div>
+        </div>
       </div>
     </div>
 
     <div class="work-hours-card">
-      <h4><span>🕒</span> Fabrika Çalışma Saatleri</h4>
+      <h4>🕒 Fabrika Çalışma Saatleri</h4>
       <div class="hour-line">
         <span>Pazartesi – Cuma</span>
         <span>08:30 – 19:00</span>
@@ -674,87 +726,146 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
       </div>
       <div class="hour-line">
         <span>Pazar</span>
-        <span style="color:#B91C1C; font-weight:600;">Kapalı</span>
+        <span style="color:#FCA5A5;">Kapalı</span>
       </div>
     </div>
   </div>
 
-  <!-- RIGHT: INQUIRY / QUOTE FORM -->
-  <div class="contact-form-col" id="iletisimForm">
-    <div class="contact-form-card">
-      <h3 class="form-title">Mimari Fiyat & Teklif Formu</h3>
-      <p class="form-subtitle">Formu doldurarak projeniz veya beğendiğiniz koleksiyon için 2 saat içinde üretici fiyatı alın.</p>
+  <!-- RIGHT: QUOTE REQUEST FORM -->
+  <div class="contact-form-card hg-reveal" id="iletisimForm" data-delay="120">
+    <span class="section-tag" style="color:var(--cnt-sage-dark);">ÜRETİCİ FİYAT TEKLİFİ</span>
+    <h3 class="form-title">Mimari Fiyat &amp; Teklif Formu</h3>
+    <p class="form-subtitle">Formu doldurarak projeniz veya beğendiğiniz koleksiyon için 2 saat içinde doğrudan üretici fiyatı alın.</p>
 
-      <div id="contactSuccessMsg" style="display:none; padding:18px; background:#ECFDF5; border:1px solid #10B981; border-radius:8px; color:#047857; text-align:center; font-weight:600; margin-bottom:18px;">
-        🎉 Mesajınız ve teklif talebiniz başarıyla fabrikamıza ulaştı! En kısa sürede sizinle iletişime geçeceğiz.
+    <div id="contactSuccessMsg" style="display:none; padding:18px; background:#ECFDF5; border:1px solid #10B981; border-radius:12px; color:#047857; text-align:center; font-weight:600; margin-bottom:18px;">
+      🎉 Mesajınız ve teklif talebiniz başarıyla fabrikamıza ulaştı! En kısa sürede sizinle iletişime geçeceğiz.
+    </div>
+
+    <form id="mainContactForm" onsubmit="submitMainContact(event)">
+      <div class="form-grid-2">
+        <div class="form-field">
+          <label for="cf_name">Adınız Soyadınız *</label>
+          <input type="text" id="cf_name" placeholder="Örn: Mehmet Öz" required>
+        </div>
+        <div class="form-field">
+          <label for="cf_phone">Telefon Numaranız *</label>
+          <input type="tel" id="cf_phone" placeholder="Örn: 0542 000 00 00" required>
+        </div>
       </div>
 
-      <form id="mainContactForm" onsubmit="submitMainContact(event)">
-        <div class="form-grid-2">
-          <div class="form-field">
-            <label>Adınız Soyadınız *</label>
-            <input type="text" id="cf_name" placeholder="Örn: Mehmet Öz" required>
-          </div>
-          <div class="form-field">
-            <label>Telefon Numaranız *</label>
-            <input type="tel" id="cf_phone" placeholder="Örn: 0542 000 00 00" required>
-          </div>
-        </div>
-
-        <div class="form-grid-2">
-          <div class="form-field">
-            <label>E-posta Adresiniz</label>
-            <input type="email" id="cf_email" placeholder="Örn: mehmet@gmail.com">
-          </div>
-          <div class="form-field">
-            <label>İl / İlçe</label>
-            <input type="text" id="cf_city" placeholder="Örn: İstanbul / Kadıköy">
-          </div>
-        </div>
-
+      <div class="form-grid-2">
         <div class="form-field">
-          <label>İlgilendiğiniz Koleksiyon / Ürün</label>
-          <select id="cf_subject">
-            <option value="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları — Özel Ölçü</option>
-            <option value="Dolap Koleksiyonları">Dolap Koleksiyonları — Özel Ölçü</option>
-            <option value="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları — Özel Tasarım</option>
-            <option value="Bağımsız Ürün Talebi">Bağımsız Ürün Sunum Merkezi (Dresuar / Konsol / Sehpa)</option>
-            <option value="Diğer Genel Danışma">Diğer / Genel Soru</option>
-          </select>
+          <label for="cf_email">E-posta Adresiniz</label>
+          <input type="email" id="cf_email" placeholder="Örn: mehmet@gmail.com">
         </div>
-
         <div class="form-field">
-          <label>Mesajınız veya Proje Ölçüleriniz *</label>
-          <textarea id="cf_notes" rows="4" placeholder="İstediğiniz renk, ölçü veya sormak istediğiniz detayları belirtin..." required></textarea>
+          <label for="cf_city">İl / İlçe</label>
+          <input type="text" id="cf_city" placeholder="Örn: İstanbul / Kadıköy">
         </div>
+      </div>
 
-        <button type="submit" class="btn-form-submit" id="btnContactSubmit">✦ Fiyat Teklifi Talebini Gönder</button>
-      </form>
+      <div class="form-field">
+        <label for="cf_subject">İlgilendiğiniz Koleksiyon / Ürün</label>
+        <select id="cf_subject">
+          <option value="Kahve Köşesi Koleksiyonları">Kahve Köşesi Koleksiyonları — Özel Ölçü</option>
+          <option value="Dolap Koleksiyonları">Dolap Koleksiyonları — Özel Ölçü</option>
+          <option value="Yatak Odası Koleksiyonları">Yatak Odası Koleksiyonları — Özel Tasarım</option>
+          <option value="Bağımsız Ürün Talebi">Bağımsız Ürünler (Portmanto / Şifonyer / Tekil Dolap)</option>
+          <option value="Diğer Genel Danışma">Diğer / Genel Soru</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="cf_notes">Mesajınız veya Proje Ölçüleriniz *</label>
+        <textarea id="cf_notes" rows="4" placeholder="İstediğiniz renk, genişlik/yükseklik ölçüsü veya sormak istediğiniz detayları belirtin..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-hg-wipe" id="btnContactSubmit" style="width:100%;height:50px;">
+        <span class="btn-hg-wipe-inner" style="width:100%;">
+          <span class="btn-hg-wipe-row main" style="width:100%;">✦ Fiyat Teklifi Talebini Gönder →</span>
+          <span class="btn-hg-wipe-row clone" style="width:100%;" aria-hidden="true">✦ Fiyat Teklifi Talebini Gönder →</span>
+        </span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- INTERACTIVE FAQ ACCORDION -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div style="text-align:center;">
+      <span class="section-tag" style="color:var(--cnt-sage-dark);">SIKÇA SORULAN SORULAR</span>
+      <h2 class="faq-heading">Merak Edilen <em>Detaylar</em></h2>
+    </div>
+
+    <div class="faq-accordion">
+      <div class="faq-item is-open hg-reveal">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)" aria-expanded="true">
+          <span>✦ Teslimat süreniz kaç gündür?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-panel">
+          Sipariş ve ölçü onayınızın ardından tüm mobilya modülleri Bağcılar atölyemizde planlı üretim takvimine alınır ve çok katmanlı korumalı ambalajlarla Türkiye geneli sevkiyata hazır hale getirilir.
+        </div>
+      </div>
+
+      <div class="faq-item hg-reveal" data-delay="70">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)" aria-expanded="false">
+          <span>✦ Üretici garantiniz neleri kapsar?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-panel">
+          1. sınıf E1 ahşap gövde sağlamlığı, doğal yüzey bütünlüğü ve kullanılan yüksek taşıma kapasiteli sessiz frenli ray/menteşe mekanizmaları 5 yıl birebir üretici garantimiz altındadır.
+        </div>
+      </div>
+
+      <div class="faq-item hg-reveal" data-delay="140">
+        <button type="button" class="faq-trigger" onclick="toggleFaqItem(this)" aria-expanded="false">
+          <span>✦ Özel ölçüye göre kahve köşesi, dolap veya portmanto üretimi yapıyor musunuz?</span>
+          <span class="faq-plus">+</span>
+        </button>
+        <div class="faq-panel">
+          Evet. Kendi 2.000 m² CNC işleme ve üretim atölyemize sahip olduğumuz için oda ölçülerinize, tavan yüksekliğinize ve duvar nişlerinize göre milimetrik özel ölçü imalatı yapıyoruz.
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SIKÇA SORULAN SORULAR -->
-<section class="faq-section">
-  <div class="faq-inner">
-    <div style="text-align:center; margin-bottom:40px;">
-      <span class="section-tag">SIKÇA SORULAN SORULAR</span>
-      <h2 class="section-heading">Merak Edilen <span>Detaylar</span></h2>
+<!-- GOOGLE MAPS FACTORY LOCATION BAND -->
+<section class="factory-map-section" id="fabrikaKonum">
+  <div class="factory-map-wrap">
+    <div class="factory-map-head hg-reveal">
+      <div>
+        <span class="section-tag" style="color:var(--cnt-sage-dark);">İSTANBUL BAĞCILAR ÜRETİM MERKEZİ</span>
+        <h2 class="faq-heading">Fabrika &amp; Atölye <em>Konumumuz</em></h2>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Yal%C3%A7%C4%B1n%20Kore%C5%9F%20Cad.%20Ba%C4%9Flar%20Mah.%20No%3A6B%20Ba%C4%9Fc%C4%B1lar%20%C4%B0stanbul"
+         target="_blank" rel="noopener" class="btn-hg-wipe">
+        <span class="btn-hg-wipe-inner">
+          <span class="btn-hg-wipe-row main">Google Haritalar'da Yol Tarifi Al →</span>
+          <span class="btn-hg-wipe-row clone" aria-hidden="true">Google Haritalar'da Yol Tarifi Al →</span>
+        </span>
+      </a>
     </div>
 
-    <div class="faq-item">
-      <h4><span>✦</span> Teslimat süreniz kaç gündür?</h4>
-      <p>Sipariş ve ölçü onayınızın ardından tüm mobilya modülleri atölyemizde planlı üretim takvimine alınır ve korumalı ambalajlarla sevkiyata hazır hale getirilir.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4><span>✦</span> Üretici garantiniz neleri kapsar?</h4>
-      <p>Gövde sağlamlığı, doğal yüzey bütünlüğü ve kullanılan sessiz frenli mekanizmalar birebir üretici garantimiz altındadır.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4><span>✦</span> Özel ölçüye göre kahve köşesi veya dolap üretimi yapıyor musunuz?</h4>
-      <p>Evet. Kendi modern üretim atölyemiz olduğu için oda ölçülerinize ve niş genişliğinize göre milimetrik özel mobilya üretimi yapabiliyoruz.</p>
+    <div class="factory-map-card hg-reveal" data-delay="90">
+      <div class="factory-map-topbar">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--cnt-gold);box-shadow:0 0 10px var(--cnt-gold);"></span>
+          <strong style="font-size:13.5px;letter-spacing:0.04em;" id="mapAddressLabel">Yalçın Koreş Cad. Bağlar Mah. No:6B Bağcılar / İSTANBUL</strong>
+        </div>
+        <span style="font-size:12px;color:rgba(247,245,240,0.72);">Hafta İçi 08:30 – 19:00 · Cumartesi 09:00 – 16:00</span>
+      </div>
+      <iframe
+        id="factoryGoogleMap"
+        class="factory-map-frame"
+        title="Global Mobilya Fabrika Konumu — Yalçın Koreş Cad. Bağlar Mah. No:6B Bağcılar / İstanbul"
+        src="https://maps.google.com/maps?q=Yal%C3%A7%C4%B1n%20Kore%C5%9F%20Cad.%20Ba%C4%9Flar%20Mah.%20No%3A6B%20Ba%C4%9Fc%C4%B1lar%20%C4%B0stanbul&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </section>
@@ -767,6 +878,20 @@ header.site-header:not(.scrolled) .hamburger { color: var(--white); }
 <script src="js/footer.js"></script>
 <script src="js/showroom-motion.js"></script>
 <script>
+function toggleFaqItem(btnEl) {
+  const item = btnEl?.closest('.faq-item');
+  if (!item) return;
+  const willOpen = !item.classList.contains('is-open');
+  document.querySelectorAll('.faq-accordion .faq-item').forEach(el => {
+    el.classList.remove('is-open');
+    el.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
+  });
+  if (willOpen) {
+    item.classList.add('is-open');
+    btnEl.setAttribute('aria-expanded', 'true');
+  }
+}
+
 // Sync select options dynamically with live user collections
 async function hydrateContactCollections() {
   const sel = document.getElementById('cf_subject');
@@ -791,8 +916,8 @@ async function hydrateContactCollections() {
 async function submitMainContact(e) {
   e.preventDefault();
   const btn = document.getElementById('btnContactSubmit');
+  const originalHtml = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = 'İletiliyor...';
 
   const payload = {
     name: document.getElementById('cf_name').value.trim(),
@@ -809,11 +934,11 @@ async function submitMainContact(e) {
     }
     document.getElementById('mainContactForm').style.display = 'none';
     document.getElementById('contactSuccessMsg').style.display = 'block';
-  } catch(err) {
+  } catch (err) {
     alert('Mesajınız kaydedilirken bir hata oluştu: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.textContent = '✦ Fiyat Teklifi Talebini Gönder';
+    btn.innerHTML = originalHtml;
   }
 }
 
@@ -824,13 +949,7 @@ async function syncContactInfo() {
     const genel = await window.GKM_SUPABASE.getSiteSetting('genel');
     if (!genel) return;
 
-    const firma = genel.firma || {};
     const iletisim = genel.iletisim || {};
-
-    const hdrBrandEl = document.getElementById('hdrBrandTitle');
-    if (hdrBrandEl && firma.ad && !/(membran|kapak)/i.test(firma.ad)) {
-      hdrBrandEl.textContent = firma.ad;
-    }
     if (iletisim.telefon) {
       const telEl = document.getElementById('c_telLink');
       if (telEl) {
@@ -840,8 +959,6 @@ async function syncContactInfo() {
     }
     if (iletisim.whatsapp) {
       const cleanWa = iletisim.whatsapp.replace(/\D/g, '');
-      const waLink = document.getElementById('hdrWaLink');
-      if (waLink) waLink.href = 'https://wa.me/' + cleanWa;
       const cWa = document.getElementById('c_waLink');
       if (cWa) {
         cWa.textContent = '+' + cleanWa;
@@ -857,7 +974,9 @@ async function syncContactInfo() {
     }
     if (iletisim.adres) {
       const adEl = document.getElementById('c_addressVal');
+      const mapLabel = document.getElementById('mapAddressLabel');
       if (adEl) adEl.textContent = iletisim.adres;
+      if (mapLabel) mapLabel.textContent = iletisim.adres;
     }
   } catch (e) {
     console.warn('İletişim bilgisi senkronizasyon uyarısı:', e);
@@ -867,6 +986,7 @@ async function syncContactInfo() {
 document.addEventListener('DOMContentLoaded', () => {
   syncContactInfo();
   hydrateContactCollections();
+  window.GKM_MOTION?.initAll();
 });
 </script>
 </body>
