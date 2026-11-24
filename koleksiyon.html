@@ -517,19 +517,20 @@
     50%      { transform: translateY(4px); }
   }
 
-  /* ── SLIDES 1..N: DAHA BÜYÜK & FERAH SUNUM KOLONU (SOL & SAĞ KENARLAR BİREBİR HİZALI) ── */
+  /* ── SLIDES 1..N: TEK KUTUDA BİREBİR HİZALI FERAH SUNUM KOLONU (SIFIR ÇAKIŞMA) ── */
   .cam-col-slide {
-    padding: clamp(8px, 1.3vh, 14px) clamp(16px, 2.8vw, 48px) clamp(10px, 1.4vh, 16px);
+    padding: clamp(10px, 1.3vh, 14px) clamp(16px, 2.8vw, 48px) clamp(10px, 1.4vh, 16px);
   }
+  /* Hem üst başlık satırı hem sahne görseli AYNI genişlik kutusunu paylaşır -> Sol & sağ kenarlar birebir hizalı */
   .cam-stage-column {
-    width: min(1320px, 92vw, calc((100svh - 224px) * 1.7933));
+    width: min(1240px, 92vw, calc((100svh - 316px) * 1.7933));
     height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    gap: clamp(6px, 0.9vh, 11px);
+    gap: clamp(8px, 1vh, 12px);
   }
 
   .cam-top-nav {
@@ -643,18 +644,18 @@
   }
   .stage-title {
     font-family: var(--font-hg-serif);
-    font-size: clamp(26px, 2.75vw, 40px);
+    font-size: clamp(24px, 2.55vw, 38px);
     font-weight: 400;
     line-height: 1.03;
     color: #fff;
-    margin: 0 0 6px;
+    margin: 0 0 4px;
     text-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
   }
-  /* Tam metin okunur — kesilme (...) YOK */
+  /* Tam metin okunur — kesilme (...) YOK, geniş satırla 2 satırda kompakt sığar */
   .stage-story {
-    font-size: clamp(12px, 1.02vw, 13.5px);
-    line-height: 1.48;
-    max-width: 640px;
+    font-size: clamp(12px, 0.98vw, 13.5px);
+    line-height: 1.44;
+    max-width: 720px;
     color: rgba(255, 255, 255, 0.88);
     margin: 0;
   }
@@ -1169,7 +1170,7 @@
 
   @media (max-width: 960px) {
     .cam-stage-column {
-      width: min(92vw, calc((100svh - 285px) * 1.7933));
+      width: min(92vw, calc((100svh - 335px) * 1.7933));
     }
     .cam-col-head {
       flex-direction: column;
@@ -1733,7 +1734,7 @@ function renderCategoryDeck(category, initialSlideIdx = 0) {
           </div>
           ${pieces.length ? `
             <div class="scase-dock-bar">
-              <span class="scase-dock-label">Seri Modülleri (${pieces.length} Parça):</span>
+              <span class="scase-dock-label">Modüller (${pieces.length} Parça):</span>
               <div class="scase-dock-pills">
                 ${pieces.map(p => {
                   const pTitle = formatPieceTitle(p, c.name);

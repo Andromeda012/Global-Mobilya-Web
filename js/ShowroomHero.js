@@ -273,7 +273,7 @@ function CollectionShowcaseStage({ scene, isActive, activationKey }) {
             h(
               'span',
               { className: 'scase-dock-label' },
-              'Modülü sahnede vurgulamak için üzerine gelin veya dokunun:'
+              'Modüller:'
             ),
             h(
               'div',

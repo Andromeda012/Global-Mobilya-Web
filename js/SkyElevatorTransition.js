@@ -202,7 +202,8 @@ function SkyElevatorOverlay({ activeFlight }) {
             ? { duration: 0.72, delay: 0.24, ease: [0.35, 0.05, 0.65, 0.95] }
             : { duration: 0.9, delay: 0.07, ease: [0.22, 0.8, 0.36, 1] },
         },
-        h(VolumetricCloudBank, { idPrefix: `cf1-${key}`, variant: 'front' })
+        h(VolumetricCloudBank, { idPrefix: `cf1-${key}`, variant: 'front' }),
+        h(VolumetricCloudBank, { idPrefix: `cf2-${key}`, variant: 'front' })
       ),
 
       // Merkez Sade & Zarif Uçuş Göstergesi (Şehir/koordinat yok — yalın mesaj)
