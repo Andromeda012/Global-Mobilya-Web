@@ -164,10 +164,10 @@ function SkyElevatorOverlay({ activeFlight }) {
         {
           key: `cloud-back-${key}-${isAscending ? 'down' : 'up'}`,
           className: 'sky-cloud-layer sky-cloud-back',
-          initial: { y: isAscending ? '-118%' : '115%' },
-          animate: { y: isAscending ? '115%' : '-125%' },
+          initial: { y: isAscending ? '-105%' : '45%' },
+          animate: { y: isAscending ? '45%' : '-120%' },
           transition: isAscending
-            ? { duration: 1.0, delay: 0.12, ease: [0.35, 0.05, 0.65, 0.95] }
+            ? { duration: 1.05, delay: 0.08, ease: [0.35, 0.05, 0.65, 0.95] }
             : { duration: 1.18, delay: 0.0, ease: [0.22, 0.8, 0.36, 1] },
         },
         h(VolumetricCloudBank, { idPrefix: `cb1-${key}`, variant: 'back' }),
@@ -180,11 +180,11 @@ function SkyElevatorOverlay({ activeFlight }) {
         {
           key: `cloud-mid-${key}-${isAscending ? 'down' : 'up'}`,
           className: 'sky-cloud-layer sky-cloud-mid',
-          initial: { y: isAscending ? '-120%' : '120%' },
-          animate: { y: isAscending ? '120%' : '-128%' },
+          initial: { y: isAscending ? '-110%' : '52%' },
+          animate: { y: isAscending ? '52%' : '-125%' },
           transition: isAscending
-            ? { duration: 0.86, delay: 0.18, ease: [0.35, 0.05, 0.65, 0.95] }
-            : { duration: 1.04, delay: 0.04, ease: [0.22, 0.8, 0.36, 1] },
+            ? { duration: 0.92, delay: 0.14, ease: [0.35, 0.05, 0.65, 0.95] }
+            : { duration: 1.06, delay: 0.04, ease: [0.22, 0.8, 0.36, 1] },
         },
         h(VolumetricCloudBank, { idPrefix: `cm1-${key}`, variant: 'mid' }),
         h(VolumetricCloudBank, { idPrefix: `cm2-${key}`, variant: 'mid' })
@@ -196,11 +196,11 @@ function SkyElevatorOverlay({ activeFlight }) {
         {
           key: `cloud-front-${key}-${isAscending ? 'down' : 'up'}`,
           className: 'sky-cloud-layer sky-cloud-front',
-          initial: { y: isAscending ? '-122%' : '122%' },
-          animate: { y: isAscending ? '122%' : '-132%' },
+          initial: { y: isAscending ? '-115%' : '62%' },
+          animate: { y: isAscending ? '62%' : '-132%' },
           transition: isAscending
-            ? { duration: 0.72, delay: 0.24, ease: [0.35, 0.05, 0.65, 0.95] }
-            : { duration: 0.9, delay: 0.07, ease: [0.22, 0.8, 0.36, 1] },
+            ? { duration: 0.82, delay: 0.18, ease: [0.35, 0.05, 0.65, 0.95] }
+            : { duration: 0.94, delay: 0.06, ease: [0.22, 0.8, 0.36, 1] },
         },
         h(VolumetricCloudBank, { idPrefix: `cf1-${key}`, variant: 'front' }),
         h(VolumetricCloudBank, { idPrefix: `cf2-${key}`, variant: 'front' })
