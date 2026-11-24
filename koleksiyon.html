@@ -169,7 +169,7 @@
       linear-gradient(180deg, rgba(8, 6, 10, 0.28) 0%, transparent 25%, transparent 75%, rgba(8, 6, 10, 0.36) 100%);
   }
 
-  /* ── DİKEY GÖKYÜZÜ & BULUT ASANSÖRÜ (ROTASYONSUZ TAM DİKEY EKSEN) ── */
+  /* ── FOTOGERÇEKÇİ DİKEY GÖKYÜZÜ & BULUT ASANSÖRÜ (ROTASYONSUZ DİKEY EKSEN) ── */
   .sky-elev-curtain {
     position: fixed;
     inset: 0;
@@ -180,26 +180,49 @@
   .sky-elev-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, #38bdf8 0%, #bae6fd 54%, #ffffff 100%);
-    transition: filter 0.55s ease;
+    background:
+      radial-gradient(ellipse at 72% 16%, rgba(255, 253, 240, 0.62) 0%, rgba(186, 230, 253, 0.25) 36%, transparent 68%),
+      linear-gradient(180deg, #0284c7 0%, #38bdf8 34%, #bae6fd 72%, #fffdf7 100%);
+    transition: filter 0.7s ease;
   }
   .sky-elev-gradient.is-peak {
-    filter: saturate(1.18) brightness(1.04);
+    filter: saturate(1.14) brightness(1.04);
+  }
+  .sky-elev-sunbeams {
+    position: absolute;
+    left: 20%;
+    top: -30%;
+    width: 110vw;
+    height: 130vh;
+    background: conic-gradient(
+      from 205deg at 60% 25%,
+      transparent 0deg,
+      rgba(255, 252, 230, 0.22) 12deg,
+      transparent 24deg,
+      rgba(255, 255, 255, 0.16) 36deg,
+      transparent 52deg,
+      rgba(254, 249, 195, 0.18) 68deg,
+      transparent 88deg
+    );
+    filter: blur(22px);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    will-change: transform, opacity;
   }
   .sky-elev-lens-flare {
     position: absolute;
-    left: 50%;
-    top: 30%;
-    width: min(86vw, 880px);
-    height: min(86vw, 880px);
+    left: 62%;
+    top: 24%;
+    width: min(76vw, 760px);
+    height: min(76vw, 760px);
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 0.98) 0%,
-      rgba(254, 249, 195, 0.72) 22%,
-      rgba(186, 230, 253, 0.34) 48%,
-      transparent 74%
+      rgba(254, 249, 195, 0.74) 18%,
+      rgba(186, 230, 253, 0.3) 44%,
+      transparent 72%
     );
     mix-blend-mode: screen;
     pointer-events: none;
@@ -207,30 +230,30 @@
   }
   .sky-cloud-layer {
     position: absolute;
-    left: -12%;
-    width: 124%;
-    height: 115%;
+    left: -14%;
+    width: 128%;
+    height: 125%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     pointer-events: none;
     will-change: transform;
   }
   .sky-cloud-back {
     z-index: 2;
-    filter: blur(36px);
+    filter: blur(26px);
   }
   .sky-cloud-mid {
     z-index: 4;
-    filter: blur(18px);
+    filter: blur(11px);
   }
   .sky-cloud-front {
     z-index: 6;
-    filter: blur(8px);
+    filter: blur(4px);
   }
   .sky-cloud-svg {
     width: 100%;
-    height: 52vh;
+    height: 58vh;
     display: block;
   }
   .sky-flight-hud-wrap {
@@ -244,54 +267,33 @@
     pointer-events: none;
   }
   .sky-flight-hud-card {
-    min-width: min(400px, 88vw);
-    padding: 22px 30px;
-    border-radius: 22px;
-    background: rgba(10, 22, 38, 0.42);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.46);
-    box-shadow: 0 28px 64px rgba(14, 42, 74, 0.28);
-    text-align: center;
-    color: #ffffff;
-  }
-  .sky-flight-kicker-row {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 14px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    background: rgba(12, 28, 48, 0.34);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 22px 54px rgba(14, 42, 74, 0.24);
+    color: #ffffff;
   }
   .sky-flight-pulse {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #fef08a;
     box-shadow: 0 0 12px #fef08a;
+    flex-shrink: 0;
   }
-  .sky-flight-kicker {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
-  }
-  .sky-flight-country {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #bae6fd;
-    margin-bottom: 4px;
-  }
-  .sky-flight-main {
-    display: block;
+  .sky-flight-simple-text {
     font-family: var(--font-hg-serif);
-    font-size: clamp(24px, 2.8vw, 34px);
+    font-size: clamp(20px, 2.2vw, 28px);
     font-weight: 400;
-    letter-spacing: 0.03em;
-    line-height: 1.15;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
     color: #ffffff;
   }
 
@@ -1548,18 +1550,17 @@ function flyCameraToSlide(targetIdx, instant = false) {
   setTransitionLock(true);
 
   const started = window.GKM_SKY_ELEVATOR.startFlight({
-    fromCollection: fromCol,
-    toCollection: toCol,
+    label: clamped === 0 ? 'Başlangıç Ekranına Dönülüyor' : 'Diğer Koleksiyona Geçiliyor',
     onAscendStart() {
       prevEl.classList.add('is-transitioning');
-      // 0.0s - 0.5s: Mevcut koleksiyon dimdik aşağı doğru kayar (y: 100vh, opacity: 0)
+      // 0.0s - 0.55s: Mevcut koleksiyon dimdik aşağı doğru kayar (y: 100vh, opacity: 0)
       const ascendOut = prevEl.animate(
         [
           { transform: 'translate3d(0, 0, 0)', opacity: 1 },
           { transform: 'translate3d(0, 100vh, 0)', opacity: 0 },
         ],
         {
-          duration: 500,
+          duration: 540,
           easing: 'cubic-bezier(0.5, 0, 0.85, 0.38)',
           fill: 'forwards',
         }
@@ -1567,17 +1568,18 @@ function flyCameraToSlide(targetIdx, instant = false) {
       _flightAnims.push(ascendOut);
     },
     onSwapContent() {
-      // İnişin son 0.4 saniyesi: hedef koleksiyon aktif olur ve y: -30% -> 0% oturur
+      // Uzun yastıklamalı iniş: y: -48vh -> 0vh, yumuşak decelerate ile ani düşüş hissini sıfırlar
       commitSlideVisuals(clamped, false);
       nextEl.classList.add('is-current', 'is-transitioning');
 
       const descendIn = nextEl.animate(
         [
-          { transform: 'translate3d(0, -30%, 0)', opacity: 0 },
-          { transform: 'translate3d(0, 0%, 0)', opacity: 1 },
+          { transform: 'translate3d(0, -48vh, 0) scale(0.96)', opacity: 0 },
+          { transform: 'translate3d(0, -10vh, 0) scale(0.992)', opacity: 0.72, offset: 0.48 },
+          { transform: 'translate3d(0, 0%, 0) scale(1)', opacity: 1 },
         ],
         {
-          duration: 560,
+          duration: 1080,
           easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
           fill: 'forwards',
         }
